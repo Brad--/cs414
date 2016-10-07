@@ -1,4 +1,4 @@
-package com.fourfourteen.monopoly.client;
+package com.cs414.monopoly.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;

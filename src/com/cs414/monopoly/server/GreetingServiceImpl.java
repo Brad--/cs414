@@ -1,6 +1,6 @@
-package com.fourfourteen.monopoly.server;
+package com.cs414.monopoly.server;
 
-import com.fourfourteen.monopoly.client.GreetingService;
+import com.cs414.monopoly.client.GreetingService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class GreetingServiceImpl extends RemoteServiceServlet implements GreetingService {
