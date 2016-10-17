@@ -1,0 +1,10 @@
+Some git commands (Ask Garrett or Brad if you're confused by the PR process)
+
+(IntelliJ has a lot of these built into their VCS, but I'm unsure about Eclipse)
+git pull
+git checkout -b myBranch
+git branch --set-upstream my_branch origin/my_branch
+git push origin myBranch (Pushes branch to GitHub)
+
+After your branch has been pushed to GitHub, select 'New Pull Request', request to merge your branch with master.
+In your PR (Pull Request) message, tag someone else (@Brad--) so that they can review your code and merge it with master.
