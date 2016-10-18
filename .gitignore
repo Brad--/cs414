@@ -1,3 +1,5 @@
 /.settings/
 /gwt-unitCache/
+/.classpath/
+/.project/
 /test-classes/

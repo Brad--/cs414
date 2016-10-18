@@ -8,7 +8,7 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.fourfourteen.monopoly.server.GreetingServiceImpl</servlet-class>
+    <servlet-class>com.cs414.monopoly.server.GreetingServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
