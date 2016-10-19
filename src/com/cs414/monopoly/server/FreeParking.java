@@ -1,8 +1,13 @@
 package com.cs414.monopoly.server;
 
-public class FreeParking extends Deed {
+public class FreeParking extends Space {
+
+    public FreeParking(Board board, int position) {
+        super(board, position);
+    }
+
     @Override
-    public void action() {
+    public void action(String target) {
 
     }
 }

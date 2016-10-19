@@ -23,7 +23,7 @@ public class Board {
 
     }
 
-    public Deed getPosition(String token) {
-        return new Deed();
-    }
+//    public Space getPosition(String token) {
+//        return new Space();
+//    }
 }
