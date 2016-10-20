@@ -10,8 +10,7 @@ public class Deed extends Space{
     protected int houseRent;
     private int numHouses;
     private boolean hasHotel;
-
-    private String owner; // Change this to Token when that exists
+    private Token owner; // Change this to Token when that exists
     private PropertyGroup propertyGroup;
 
     public Deed(Board board, int position) {
@@ -20,10 +19,11 @@ public class Deed extends Space{
         calcRent();
         hasHotel  = false;
         numHouses = 0;
+        owner = null;
     }
 
     public String getOwner() {
-        return owner;
+        return owner.getName();
     }
 
     public void addHouse() throws HouseException {
@@ -46,7 +46,7 @@ public class Deed extends Space{
         calcRent();
     }
 
-    public void changeOwnership(String newOwner) {
+    public void changeOwnership(Token newOwner) {
         owner = newOwner;
         calcRent();
     }
@@ -58,7 +58,7 @@ public class Deed extends Space{
 
     // Returns the mortgage value of the property
     public int mortgageProperty() {
-        owner = "Bank";
+        owner = null;
         return price / 2;
     }
 
