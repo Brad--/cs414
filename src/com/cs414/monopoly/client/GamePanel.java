@@ -1,33 +1,25 @@
 package com.cs414.monopoly.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
 public class GamePanel extends BasePanel {
-
-	public void init() {
-		getGreetingService().testAsyncCall(new AsyncCallback<Boolean>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				drawUI("Callback failed");
-				caught.printStackTrace();
-			}
-
-			@Override
-			public void onSuccess(Boolean result) {
-				String message;
-				if(result) {
-					message = "Server returned true";
-				} else {
-					message = "Server returned false";
-				}
-				drawUI(message);
-			}});
+	
+	Board board = new Board();
+	
+	public GamePanel() {
+		loadData();
 	}
 	
-	private void drawUI(String message) {
-		Label label = new Label(message);
-		getMainVerticalPanel().add(label);
+	public void loadData() {
+		init();
 	}
+
+	public void init() {
+		Token P1 = new Token(new Image("https://screenshots.en.sftcdn.net/en/scrn/76000/76818/microsoft-small-basic-22.jpg"), 25);
+		board.drawBoard(P1, null, null, null);
+		getMainVerticalPanel().add(board);
+	}
+	
 }

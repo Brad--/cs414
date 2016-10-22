@@ -6,6 +6,5 @@ public class CS414Monopoly implements EntryPoint {
 
 	public void onModuleLoad() {
 		GamePanel gamePanel = new GamePanel();
-		gamePanel.init();
 	}
 }
