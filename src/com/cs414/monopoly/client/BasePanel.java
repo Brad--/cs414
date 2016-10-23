@@ -3,6 +3,7 @@ package com.cs414.monopoly.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class BasePanel {
 
@@ -20,5 +21,13 @@ public class BasePanel {
 	
 	protected VerticalPanel getMainVerticalPanel() {
 		return mainVerticalPanel;
+	}
+	
+	protected void add(Widget widget) {
+		getMainVerticalPanel().add(widget);
+	}
+	
+	protected void clear() {
+		getMainVerticalPanel().clear();
 	}
 }

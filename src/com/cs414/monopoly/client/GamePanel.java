@@ -8,17 +8,12 @@ public class GamePanel extends BasePanel {
 	
 	Board board = new Board();
 	
-	public GamePanel() {
-		loadData();
-	}
-	
-	public void loadData() {
-		init();
+	public GamePanel(Token p1, Token p2, Token p3, Token p4) {
+		init(p1, p2, p3, p4);
 	}
 
-	public void init() {
-		Token P1 = new Token(new Image("https://screenshots.en.sftcdn.net/en/scrn/76000/76818/microsoft-small-basic-22.jpg"), 25);
-		board.drawBoard(P1, null, null, null);
+	public void init(Token p1, Token p2, Token p3, Token p4) {
+		board.drawBoard(p1, p2, p3, p4);
 		getMainVerticalPanel().add(board);
 	}
 	
