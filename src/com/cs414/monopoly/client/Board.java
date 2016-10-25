@@ -3,6 +3,7 @@ package com.cs414.monopoly.client;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.cs414.monopoly.shared.Token;
 import com.google.gwt.user.client.ui.FlexTable;
 
 public class Board extends FlexTable {

@@ -1,5 +1,6 @@
 package com.cs414.monopoly.client;
 
+import com.cs414.monopoly.shared.Token;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;

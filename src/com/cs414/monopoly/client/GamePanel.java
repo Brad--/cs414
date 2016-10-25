@@ -1,5 +1,6 @@
 package com.cs414.monopoly.client;
 
+import com.cs414.monopoly.shared.Token;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;

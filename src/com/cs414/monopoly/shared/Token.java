@@ -1,4 +1,4 @@
-package com.cs414.monopoly.client;
+package com.cs414.monopoly.shared;
 
 import com.google.gwt.user.client.ui.Image;
 
