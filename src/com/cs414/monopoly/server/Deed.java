@@ -2,6 +2,7 @@ package com.cs414.monopoly.server;
 
 import com.cs414.monopoly.Exceptions.HotelException;
 import com.cs414.monopoly.Exceptions.HouseException;
+import com.cs414.monopoly.shared.Token;
 
 import static com.cs414.monopoly.server.PropertyGroup.*;
 
@@ -46,8 +47,8 @@ public class Deed extends Space{
         calcRent();
     }
 
-    public void changeOwnership(Token newOwner) {
-        owner = newOwner.getName();
+    public void changeOwnership(String newOwner) {
+        owner = newOwner;
         calcRent();
     }
 

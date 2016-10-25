@@ -6,7 +6,7 @@ import java.util.Map;
 import com.cs414.monopoly.shared.Token;
 import com.google.gwt.user.client.ui.FlexTable;
 
-public class Board extends FlexTable {
+public class ViewBoard extends FlexTable {
 	
 	public static final String STYLE_CORNER = "corner";
 	public static final String STYLE_WE = "leftRight";
@@ -56,7 +56,7 @@ public class Board extends FlexTable {
 		
 	}};
 	
-	public Board() {
+	public ViewBoard() {
 		addStyleName("board");
 		setBorderWidth(0);
 		setCellPadding(0);
@@ -68,16 +68,16 @@ public class Board extends FlexTable {
 		    Integer key = entry.getKey();
 		    ViewSpace space = entry.getValue();
 		    space.clear();
-		    if(P1 != null && P1.getLocation() == key) {
+		    if(P1 != null && P1.getCurrentPosition() == key) {
 		    	space.add(P1);
 		    }
-		    if(P2 != null && P2.getLocation() == key) {
+		    if(P2 != null && P2.getCurrentPosition() == key) {
 		    	space.add(P2);
 		    }
-		    if(P3 != null && P3.getLocation() == key) {
+		    if(P3 != null && P3.getCurrentPosition() == key) {
 		    	space.add(P3);
 		    }
-		    if(P4 != null && P4.getLocation() == key) {
+		    if(P4 != null && P4.getCurrentPosition() == key) {
 		    	space.add(P4);
 		    }
 		    setWidget(space.getY(), space.getX(), space);

@@ -3,6 +3,8 @@ package com.cs414.monopoly.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.cs414.monopoly.shared.Token;
+
 public class Board {
     private Token currToken; // Change this to Token when that exists
     private Die die;
@@ -59,13 +61,13 @@ public class Board {
     }
 
     public void delegateDeed(Token player) {
-        deeds.get(player.getCurrentPosition()).changeOwnership(player);
+        deeds.get(player.getCurrentPosition()).changeOwnership(player.getName());
     }
 
     // @param: playerA is the player receiving the property
     // @param: position the position of the property being traded
     public void trade(Token playerA, int position){
-        deeds.get(position).changeOwnership(playerA);
+        deeds.get(position).changeOwnership(playerA.getName());
     }
 
     public ArrayList<Integer> getOwnedDeeds(Token player) {
@@ -82,7 +84,4 @@ public class Board {
         users.get(player.getName()).updatePosition(move);
     }
 
-    public void setToken(Token user, PickToken token){
-        users.get(user.getName()).setToken(token);
-    }
 }

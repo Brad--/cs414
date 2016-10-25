@@ -18,7 +18,7 @@ public class ViewSpace extends FlowPanel {
 	}
 	
 	public void add(Token token) {
-		add(token.getImage());
+		add(token.getGamePiece());
 	}
 
 	public int getY() {
