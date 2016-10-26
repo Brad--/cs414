@@ -1,6 +1,6 @@
 package com.cs414.monopoly.server;
 
-import com.cs414.monopoly.shared.Token;
+import com.cs414.monopoly.server.Token;
 
 public class FreeParking extends Space {
 

@@ -1,19 +1,16 @@
 package com.cs414.monopoly.client;
 
-import com.cs414.monopoly.shared.Token;
+import java.util.HashMap;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 
 public class PickNumPlayersPanel extends BasePanel {
-	
-	Token p1;
-	Token p2;
-	Token p3;
-	Token p4;
 	
 	public PickNumPlayersPanel() {
 		init();
@@ -71,22 +68,24 @@ public class PickNumPlayersPanel extends BasePanel {
 		startGameButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				if((p1Picker.isActive() && !p1Picker.isValidToken()) ||
-						(p2Picker.isActive() && !p2Picker.isValidToken()) ||
-						(p3Picker.isActive() && !p3Picker.isValidToken()) ||
-						(p4Picker.isActive() && !p4Picker.isValidToken())) {
+				if((p1Picker.isActive() && !p1Picker.isValidPlayer()) ||
+						(p2Picker.isActive() && !p2Picker.isValidPlayer()) ||
+						(p3Picker.isActive() && !p3Picker.isValidPlayer()) ||
+						(p4Picker.isActive() && !p4Picker.isValidPlayer())) {
 					AlertPopup alertPopup = new AlertPopup("Please make sure every user has a name and game piece");
 					alertPopup.show();
 				} else {
-					p1 = p1Picker.getPlayerToken();
-					p2 = p2Picker.getPlayerToken();
+					HashMap<String, Image> playerTokens = new HashMap<String, Image>();
+					
+					playerTokens.put(p1Picker.getName(), p1Picker.getSelectedImage());
+					playerTokens.put(p2Picker.getName(), p2Picker.getSelectedImage());
 					if(numOfPlayers >= 3) {
-						p3 = p3Picker.getPlayerToken();
+						playerTokens.put(p3Picker.getName(), p3Picker.getSelectedImage());
 						if(numOfPlayers == 4) {
-							p4 = p4Picker.getPlayerToken();
+							playerTokens.put(p4Picker.getName(), p4Picker.getSelectedImage());
 						}
 					}
-					startGame();
+					startGame(playerTokens);
 				}
 			}
 		});
@@ -103,9 +102,9 @@ public class PickNumPlayersPanel extends BasePanel {
 
 	}
 	
-	private void startGame() {
+	private void startGame(HashMap<String, Image> playerTokens) {
 		clear();
-		GamePanel gamePanel = new GamePanel(p1, p2, p3, p4);
+		GamePanel gamePanel = new GamePanel(playerTokens);
 	}
 	
 	

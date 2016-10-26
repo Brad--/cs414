@@ -2,7 +2,6 @@ package com.cs414.monopoly.server;
 
 import com.cs414.monopoly.Exceptions.HotelException;
 import com.cs414.monopoly.Exceptions.HouseException;
-import com.cs414.monopoly.shared.Token;
 
 import static com.cs414.monopoly.server.PropertyGroup.*;
 
