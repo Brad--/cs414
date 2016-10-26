@@ -22,7 +22,10 @@ public class Token {
 
     public void payRent(int rent){
         this.cashMoney -=rent;
+    }
 
+    public void earnRent(int rent) {
+        this.cashMoney += rent;
     }
 
     public void passGo(){
