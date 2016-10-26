@@ -62,8 +62,44 @@ h1 {
 	background-image: url("img/board/communityChestEast.png");
 }
 
+.chanceNorthSouth {
+	background-image: url("img/board/chanceNorthSouth.png");
+}
+
+.chanceEast {
+	background-image: url("img/board/chanceEast.png");
+}
+
 .electric {
 	background-image: url("img/board/electric.png");
+}
+
+.utility {
+	background-image: url("img/board/utility.png");
+}
+
+.luxuryTax {
+	background-image: url("img/board/luxuryTax.png");
+}
+
+.csuTax {
+	background-image: url("img/board/csuTax.png");
+}
+
+.laurelStation {
+	background-image: url("img/board/laurelStation.png");
+}
+
+.mulberryStation {
+	background-image: url("img/board/mulberryStation.png");
+}
+
+.oliveStation {
+	background-image: url("img/board/oliveStation.png");
+}
+
+.mountainStation {
+	background-image: url("img/board/mountainStation.png");
 }
 
 .mugs {
