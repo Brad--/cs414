@@ -1,5 +1,7 @@
 package com.cs414.monopoly.server;
 
+import com.cs414.monopoly.shared.Token;
+
 public class TaxSpace extends Space {
 
     public TaxSpace(Board board, int position) {
@@ -7,7 +9,7 @@ public class TaxSpace extends Space {
     }
 
     @Override
-    public void action(String target) {
+    public void action(Token target) {
 
     }
 }
