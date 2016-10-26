@@ -25,7 +25,7 @@ public class Board {
     }
 
     public void handleRoll(Token currentPlayer) {
-        int move = die.roll();
+        int move = die.roll(currentPlayer);
         //@TODO: check for doubles
         if (!currentPlayer.inJail()){
             updatePostion(currentPlayer, move);
