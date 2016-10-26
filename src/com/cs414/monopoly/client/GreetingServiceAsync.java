@@ -16,5 +16,5 @@ public interface GreetingServiceAsync {
 	
 	void initializeTokens(Set<String> names, AsyncCallback<Void> callback);
 	
-	void roll(Token token, AsyncCallback<Boolean> callback);
+	void roll(Token token, AsyncCallback<Token> callback);
 }
