@@ -86,7 +86,7 @@ public class PickNumPlayersPanel extends BasePanel {
 							p4 = p4Picker.getPlayerToken();
 						}
 					}
-					startGame();
+					startGame(numOfPlayers);
 				}
 			}
 		});
@@ -103,9 +103,9 @@ public class PickNumPlayersPanel extends BasePanel {
 
 	}
 	
-	private void startGame() {
+	private void startGame(int numOfPlayers) {
 		clear();
-		GamePanel gamePanel = new GamePanel(p1, p2, p3, p4);
+		GamePanel gamePanel = new GamePanel(numOfPlayers, p1, p2, p3, p4);
 	}
 	
 	
