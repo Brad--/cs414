@@ -7,28 +7,149 @@ h1 {
 }
 
 .viewSpace {
-	background-color: yellow;
+	background-color: red;
 	border-collapse: collapse;
-	border: 1px solid black;
 	padding: 0;
 	margin: 0;
 }
 
 .corner {
-	width: 120px;
-	height: 120px;	
+	width: 100px;
+	height: 100px;	
 }
 
 .leftRight {
 	height: 80px;
-	width: 120px;
+	width: 100px;
+	background-image: url("img/board/leftRight.png");
 }
 
 .topBottom {
-	height: 120px;
+	height: 100px;
 	width: 80px;
+	background-image: url("img/board/topBottom.png");
 }
 
 .board {
 	border-collapse: collapse;
+}
+
+.go {
+	background-image: url("img/board/go.png");
+}
+
+.jail {
+	background-image: url("img/board/jail.png");
+}
+
+.goToJail {
+	background-image: url("img/board/goToJail.png");
+}
+
+.freeParking {
+	background-image: url("img/board/freeParking.png");
+}
+
+.communityChestSouth {
+	background-image: url("img/board/communityChestSouth.png");
+}
+
+.communityChestWest {
+	background-image: url("img/board/communityChestWest.png");
+}
+
+.communityChestEast {
+	background-image: url("img/board/communityChestEast.png");
+}
+
+.electric {
+	background-image: url("img/board/electric.png");
+}
+
+.mugs {
+	background-image: url("img/board/coffeeShops/mugs.png");
+}
+
+.alleyCat {
+	background-image: url("img/board/coffeeShops/alleyCat.png");
+}
+
+.humanBean {
+	background-image: url("img/board/coffeeShops/humanBean.png");
+}
+
+.starbucks {
+	background-image: url("img/board/coffeeShops/starbucks.png");
+}
+
+.starryNight {
+	background-image: url("img/board/coffeeShops/starryNight.png");
+}
+
+.crookedCup {
+	background-image: url("img/board/coffeeShops/crookedCup.png");
+}
+
+.everydayJoes {
+	background-image: url("img/board/coffeeShops/everydayJoes.png");
+}
+
+.dazBog {
+	background-image: url("img/board/coffeeShops/dazBog.png");
+}
+
+.momoLolos {
+	background-image: url("img/board/coffeeShops/momoLolos.png");
+}
+
+.beanCycle {
+	background-image: url("img/board/coffeeShops/beanCycle.png");
+}
+
+.wildBoar {
+	background-image: url("img/board/coffeeShops/wildBoar.png");
+}
+
+.littleBirdBakeshop {
+	background-image: url("img/board/coffeeShops/littleBirdBakeshop.png");
+}
+
+.bindleCoffee {
+	background-image: url("img/board/coffeeShops/bindleCoffee.png");
+}
+
+.blackbirdCoffeeHouse {
+	background-image: url("img/board/coffeeShops/blackbirdCoffeeHouse.png");
+}
+
+.fortCollinsCoffeeHouse {
+	background-image: url("img/board/coffeeShops/fortCollinsCoffeeHouse.png");
+}
+
+.cuppys {
+	background-image: url("img/board/coffeeShops/cuppys.png");
+}
+
+.sweetSinsations {
+	background-image: url("img/board/coffeeShops/sweetSinsations.png");
+}
+
+.morgansGrind {
+	background-image: url("img/board/coffeeShops/morgansGrind.png");
+}
+
+.cupsCoffee {
+	background-image: url("img/board/coffeeShops/cupsCoffee.png");
+}
+
+.beantrees {
+	background-image: url("img/board/coffeeShops/beantrees.png");
+}
+
+.harbingerCoffee {
+	background-image: url("img/board/coffeeShops/harbingerCoffee.png");
+}
+
+.dunkinDonuts {
+	background-image: url("img/board/coffeeShops/dunkinDonuts.png");
 }

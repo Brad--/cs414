@@ -2,19 +2,18 @@ package com.cs414.monopoly.client;
 
 import com.cs414.monopoly.shared.Token;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Label;
 
 public class ViewSpace extends FlowPanel {
 	
 	private int y;
 	private int x;
 	
-	public ViewSpace(int y, int x, String backgroundImageUrl, String styleName) {
+	public ViewSpace(int y, int x, String backgroundImage, String styleName) {
 		setY(y);
 		setX(x);
 		addStyleName("viewSpace");
 		addStyleName(styleName);
-		add(new Label(backgroundImageUrl));
+		addStyleName(backgroundImage);
 	}
 	
 	public void add(Token token) {

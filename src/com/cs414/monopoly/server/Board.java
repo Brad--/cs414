@@ -61,13 +61,13 @@ public class Board {
     }
 
     public void delegateDeed(Token player) {
-        deeds.get(player.getCurrentPosition()).changeOwnership(player.getName());
+        deeds.get(player.getCurrentPosition()).changeOwnership(player);
     }
 
     // @param: playerA is the player receiving the property
     // @param: position the position of the property being traded
     public void trade(Token playerA, int position){
-        deeds.get(position).changeOwnership(playerA.getName());
+        deeds.get(position).changeOwnership(playerA);
     }
 
     public ArrayList<Integer> getOwnedDeeds(Token player) {
