@@ -6,6 +6,8 @@ public class Die {
 
     public int roll() {
         // handle speeding and stuff in here
-        return -1;
+        int rollOne = (int)(6.0*Math.random())+1;
+        int rollTwo = (int)(6.0*Math.random())+1;
+        return (rollOne+rollTwo);
     }
 }

@@ -79,11 +79,11 @@ public class Board {
         deeds.get(position).changeOwnership(playerA);
     }
 
-    public ArrayList<Integer> getOwnedDeeds(Token player) {
-        ArrayList<Integer > ownedDeeds = new ArrayList<>();
+    public ArrayList<Deed> getOwnedDeeds(Token player) {
+        ArrayList<Deed > ownedDeeds = new ArrayList<>();
         for (Deed deed : deeds) {
             if (deed.getOwner().equals(player.getName())){
-                ownedDeeds.add(deed.position);
+                ownedDeeds.add(deed);
             }
         }
         return ownedDeeds;
