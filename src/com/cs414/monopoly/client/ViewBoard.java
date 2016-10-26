@@ -1,16 +1,12 @@
 package com.cs414.monopoly.client;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
+import com.cs414.monopoly.shared.Token;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Image;
 
 public class ViewBoard extends FlexTable {
-	
-	private HashMap<String, Image> players;
 	
 	public static final String STYLE_CORNER = "corner";
 	public static final String STYLE_WE = "leftRight";
@@ -60,35 +56,32 @@ public class ViewBoard extends FlexTable {
 		
 	}};
 	
-	public ViewBoard(HashMap<String, Image> players) {
+	public ViewBoard() {
 		addStyleName("board");
 		setBorderWidth(0);
 		setCellPadding(0);
 		setCellSpacing(0);
 	}
 	
-	public void drawBoard(HashMap<String, Integer> playerPositions) {
-		
-		for (Entry<Integer, ViewSpace> entry : mappings.entrySet()) {
+	public void drawBoard(Token P1, Token P2, Token P3, Token P4) {
+		for (Map.Entry<Integer, ViewSpace> entry : mappings.entrySet()) {
 		    Integer key = entry.getKey();
 		    ViewSpace space = entry.getValue();
 		    space.clear();
-		    for (Entry<String, Integer> positions : playerPositions.entrySet()) {
-		    	String playerName = positions.getKey();
-		    	Integer playerPosition = positions.getValue();
-		    	if (playerPosition == key) {
-		    		space.addTokenImage(players.get(playerName));
-		    	}
+		    if(P1 != null && P1.getCurrentPosition() == key) {
+		    	space.add(P1);
+		    }
+		    if(P2 != null && P2.getCurrentPosition() == key) {
+		    	space.add(P2);
+		    }
+		    if(P3 != null && P3.getCurrentPosition() == key) {
+		    	space.add(P3);
+		    }
+		    if(P4 != null && P4.getCurrentPosition() == key) {
+		    	space.add(P4);
 		    }
 		    setWidget(space.getY(), space.getX(), space);
 		}
 	}
 	
-	public void setPlayers(HashMap<String, Image> players) {
-		this.players = players;
-	}
-	
-	public HashMap<String, Image> getPlayers() {
-		return this.players;
-	}
 }
