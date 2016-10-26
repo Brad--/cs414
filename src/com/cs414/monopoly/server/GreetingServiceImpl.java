@@ -30,12 +30,12 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 	}
 	
 	@Override
-	public Boolean roll(Token token) {
+	public Token roll(Token token) {
 		boolean value = true;
 		Die die = new Die();
 		int distance = die.roll(token);
 		token.updatePosition(distance);
-		return true;
+		return token;
 	}
 
 }

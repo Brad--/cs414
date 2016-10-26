@@ -1,6 +1,6 @@
 package com.cs414.monopoly.client;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import com.cs414.monopoly.shared.Token;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -10,10 +10,9 @@ public class GamePanel extends BasePanel {
 	
 	ViewBoard viewBoard = new ViewBoard();
 	TurnPanel turnPanel;
-	ArrayList<Token> tokens = new ArrayList<Token>();
-	int playersTurn = 0; // Start at 0, will get incremented to player 1 first thing
+	LinkedHashMap<Integer, Token> tokens = new LinkedHashMap<Integer, Token>();
+	int playersTurn = 0; // Start at 0, will get incremented to 1 index first thing
 	int numOfPlayers;
-	Token turnToken;
 	
 	public GamePanel() {
 		
@@ -21,10 +20,10 @@ public class GamePanel extends BasePanel {
 	
 	public GamePanel(int numOfPlayers, Token p1, Token p2, Token p3, Token p4) {
 		this.numOfPlayers = numOfPlayers;
-		tokens.add(p1);
-		tokens.add(p2);
-		tokens.add(p3);
-		tokens.add(p4);
+		tokens.put(1,p1);
+		tokens.put(2,p2);
+		tokens.put(3,p3);
+		tokens.put(4,p4);
 		init(p1, p2, p3, p4);
 	}
 
@@ -54,12 +53,20 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void doTurn() {
-		// TODO getGreetingService().roll();
-		turnToken.updatePosition(1);
-		viewBoard.drawBoard(tokens.get(0), tokens.get(1), tokens.get(2), tokens.get(3));
-		turnPanel.setRollButtonActive(false);
-		turnPanel.setEndTurnButtonActive(true);
-		// TODO asnyc server call to roll, and then get back newly modified tokens and redraw
+		getGreetingService().roll(getTurnToken(), new AsyncCallback<Token>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// no good
+			}
+
+			@Override
+			public void onSuccess(Token result) {
+				tokens.put(playersTurn, result);
+				viewBoard.drawBoard(tokens.get(0), tokens.get(1), tokens.get(2), tokens.get(3));
+				turnPanel.setRollButtonActive(false);
+				turnPanel.setEndTurnButtonActive(true);
+			}});
 	}
 	
 	private void endTurn() {
@@ -75,11 +82,14 @@ public class GamePanel extends BasePanel {
 		} else {
 			playersTurn++;
 		}
-		turnToken = tokens.get(playersTurn - 1);
 	}
 	
 	private void setTurnPanelLabelByPlayerTurnNumber() {
-		turnPanel.setTurnLabelText(turnToken.getName() + "'s turn!");
+		turnPanel.setTurnLabelText(getTurnToken().getName() + "'s turn!");
+	}
+	
+	private Token getTurnToken() {
+		return tokens.get(playersTurn);
 	}
 	
 }

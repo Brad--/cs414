@@ -18,5 +18,5 @@ public interface GreetingService extends RemoteService {
 	
 	void initializeTokens(Set<String> names);
 
-	Boolean roll(Token token);
+	Token roll(Token token);
 }
