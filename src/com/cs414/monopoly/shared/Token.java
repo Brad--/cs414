@@ -1,23 +1,33 @@
 package com.cs414.monopoly.shared;
 
-import com.google.gwt.user.client.ui.Image;
+import java.io.Serializable;
 
 /**
  * Created by Garrett on 10/19/2016.
  */
-public class Token {
-    private String name;
+public class Token implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 349032251412258158L;
+	private String name;
     private int cashMoney;
     private int currentPosition;
     private boolean isInjail;
-    private Image gamePiece;
+    private String gamePiece;
+    private int speeding;
     
-    public Token(String name, Image gamePiece){
+    public Token() {
+    	
+    }
+
+    public Token(String name, String imageUrl){
         this.name = name;
         this.cashMoney = 1500;
-        this.currentPosition = 1; // this is GO
+        this.setCurrentPosition(1); // this is GO
         this.isInjail = false;
-        this.setGamePiece(gamePiece);
+        this.gamePiece = imageUrl;
+        this.speeding =0;
     }
 
     public void payRent(int rent){
@@ -39,6 +49,10 @@ public class Token {
     public void passGo(){
         this.cashMoney +=200;
     }
+    
+    public void setName(String name) {
+    	this.name = name;
+    }
 
     public String getName(){
         return this.name;
@@ -49,18 +63,42 @@ public class Token {
     }
 
     public void updatePosition(int move){
-        this.currentPosition += move%40;
+        this.setCurrentPosition((this.getCurrentPosition() + move) % 40);
     }
 
     public int getCurrentPosition(){
         return this.currentPosition;
     }
 
-	public Image getGamePiece() {
+	public String getGamePiece() {
 		return gamePiece;
 	}
 
-	public void setGamePiece(Image gamePiece) {
+	public void setGamePiece(String gamePiece) {
 		this.gamePiece = gamePiece;
 	}
+
+	public void goToJail(){
+	    this.isInjail = true;
+    }
+
+    public void getOutofJail(){
+        this.isInjail = false;
+    }
+
+	public void setCurrentPosition(int currentPosition) {
+		this.currentPosition = currentPosition;
+	}
+
+	public int getSpeeding(){
+	    return this.speeding;
+    }
+
+    public void incrementSpeed(int speed){
+        this.speeding +=speed;
+    }
+
+    public void resetSpeed(){
+        this.speeding = 0;
+    }
 }

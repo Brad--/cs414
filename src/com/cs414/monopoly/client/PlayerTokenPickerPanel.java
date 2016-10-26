@@ -21,10 +21,10 @@ public class PlayerTokenPickerPanel extends VerticalPanel {
 	private final RadioButton coffeePotRB = new RadioButton("pot");
 	private final RadioButton thermoRB = new RadioButton("thermo");
 	
-	private final Image coffeeCupImage = new Image("img/token/coffee-cup.png");
-	private final Image coffeeMugImage = new Image("img/token/coffee-mug.png");
-	private final Image coffeePotImage = new Image("img/token/coffee-pot.png");
-	private final Image thermoImage = new Image("img/token/thermo.png");
+	private final String coffeeCupImage = "img/token/coffee-cup.png";
+	private final String coffeeMugImage = "img/token/coffee-mug.png";
+	private final String coffeePotImage = "img/token/coffee-pot.png";
+	private final String thermoImage = "img/token/thermo.png";
 	
 	public PlayerTokenPickerPanel(int playerNumber) {
 		init(playerNumber);
@@ -70,13 +70,13 @@ public class PlayerTokenPickerPanel extends VerticalPanel {
 		});
 		
 		flexTable.setWidget(0,0, coffeeCupRB);
-		flexTable.setWidget(0,1, coffeeCupImage);
+		flexTable.setWidget(0,1, new Image(coffeeCupImage));
 		flexTable.setWidget(1,0, coffeeMugRB);
-		flexTable.setWidget(1,1, coffeeMugImage);
+		flexTable.setWidget(1,1, new Image(coffeeMugImage));
 		flexTable.setWidget(2,0, coffeePotRB);
-		flexTable.setWidget(2,1, coffeePotImage);
+		flexTable.setWidget(2,1, new Image(coffeePotImage));
 		flexTable.setWidget(3,0, thermoRB);
-		flexTable.setWidget(3,1, thermoImage);
+		flexTable.setWidget(3,1, new Image(thermoImage));
 		
 		add(lblPlayer);
 		add(nameField);
@@ -85,8 +85,8 @@ public class PlayerTokenPickerPanel extends VerticalPanel {
 
 	}
 
-	public Image getSelectedImage() {
-		Image returnImage = null;
+	public String getSelectedImage() {
+		String returnImage = null;
 		if(coffeeCupRB.getValue()) {
 			returnImage = coffeeCupImage;
 		} else if(coffeeMugRB.getValue()) {

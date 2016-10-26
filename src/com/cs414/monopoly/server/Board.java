@@ -16,17 +16,16 @@ public class Board {
 
     public void init(){
         users = new HashMap<>();
-        Board B = new Board();
         die = new Die();
         deeds = new ArrayList<>();
-        for (int i=0; i<40; i++){
-            deeds.add(i,new Deed(B,i));
+        for (int i = 0; i < 40; i++){
+            deeds.add(i, new Deed(this,i));
         }
         //@TODO: start GUI
     }
 
     public void handleRoll(Token currentPlayer) {
-        int move = die.roll();
+        int move = die.roll(currentPlayer);
         //@TODO: check for doubles
         if (!currentPlayer.inJail()){
             updatePostion(currentPlayer, move);
@@ -57,10 +56,15 @@ public class Board {
     }
 
     public void payRent(Token player){
-        Token owner = deeds.get(player.getCurrentPosition()).getOwner();
         int rent = deeds.get(player.getCurrentPosition()).houseRent;
-        users.get(player.getName()).payRent(rent);
-        users.get(owner.getName()).earnRent(rent);
+        if (player.getCashMoney()-rent > 0){
+            deeds.get(player.getCurrentPosition()).action(player);
+        }
+        else {
+            System.err.println("You do not have enough money to pay the rent #getEvicted!");
+            //@TODO: if a player runs out of money they lose stop them from playing
+        }
+
 
     }
 
@@ -80,11 +84,11 @@ public class Board {
         deeds.get(position).changeOwnership(playerA);
     }
 
-    public ArrayList<Integer> getOwnedDeeds(Token player) {
-        ArrayList<Integer > ownedDeeds = new ArrayList<>();
+    public ArrayList<Deed> getOwnedDeeds(Token player) {
+        ArrayList<Deed > ownedDeeds = new ArrayList<>();
         for (Deed deed : deeds) {
             if (deed.getOwner().equals(player.getName())){
-                ownedDeeds.add(deed.position);
+                ownedDeeds.add(deed);
             }
         }
         return ownedDeeds;

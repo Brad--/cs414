@@ -7,7 +7,7 @@ h1 {
 }
 
 .viewSpace {
-	background-color: red;
+	background-color: white;
 	border-collapse: collapse;
 	padding: 0;
 	margin: 0;
@@ -28,6 +28,15 @@ h1 {
 	height: 100px;
 	width: 80px;
 	background-image: url("img/board/topBottom.png");
+}
+
+.turnLabel {
+	font-size: 16pt;
+}
+
+.rollButton, .endTurnButton {
+	width: 200px;
+	height: 100px;
 }
 
 .board {
