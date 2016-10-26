@@ -1,23 +1,33 @@
 package com.cs414.monopoly.shared;
 
+import java.io.Serializable;
+
 import com.google.gwt.user.client.ui.Image;
 
 /**
  * Created by Garrett on 10/19/2016.
  */
-public class Token {
-    private String name;
+public class Token implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 349032251412258158L;
+	private String name;
     private int cashMoney;
     private int currentPosition;
     private boolean isInjail;
-    private Image gamePiece;
+    private String gamePiece;
+    
+    public Token() {
+    	
+    }
 
-    public Token(String name, Image image){
+    public Token(String name, String imageUrl){
         this.name = name;
         this.cashMoney = 1500;
         this.setCurrentPosition(1); // this is GO
         this.isInjail = false;
-        this.gamePiece = image;
+        this.gamePiece = imageUrl;
     }
 
     public void payRent(int rent){
@@ -60,11 +70,11 @@ public class Token {
         return this.currentPosition;
     }
 
-	public Image getGamePiece() {
+	public String getGamePiece() {
 		return gamePiece;
 	}
 
-	public void setGamePiece(Image gamePiece) {
+	public void setGamePiece(String gamePiece) {
 		this.gamePiece = gamePiece;
 	}
 
