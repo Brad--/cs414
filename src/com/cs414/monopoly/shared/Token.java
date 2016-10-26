@@ -2,8 +2,6 @@ package com.cs414.monopoly.shared;
 
 import java.io.Serializable;
 
-import com.google.gwt.user.client.ui.Image;
-
 /**
  * Created by Garrett on 10/19/2016.
  */

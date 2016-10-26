@@ -56,10 +56,15 @@ public class Board {
     }
 
     public void payRent(Token player){
-        Token owner = deeds.get(player.getCurrentPosition()).getOwner();
         int rent = deeds.get(player.getCurrentPosition()).houseRent;
-        users.get(player.getName()).payRent(rent);
-        users.get(owner.getName()).earnRent(rent);
+        if (player.getCashMoney()-rent > 0){
+            deeds.get(player.getCurrentPosition()).action(player);
+        }
+        else {
+            System.err.println("You do not have enough money to pay the rent #getEvicted!");
+            //@TODO: if a player runs out of money they lose stop them from playing
+        }
+
 
     }
 
