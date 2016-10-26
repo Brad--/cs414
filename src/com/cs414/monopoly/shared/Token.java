@@ -63,4 +63,12 @@ public class Token {
 	public void setGamePiece(Image gamePiece) {
 		this.gamePiece = gamePiece;
 	}
+
+	public void goToJail(){
+	    this.isInjail = true;
+    }
+
+    public void getOutofJail(){
+        this.isInjail = false;
+    }
 }
