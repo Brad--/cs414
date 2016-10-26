@@ -27,6 +27,10 @@ public class Deed extends Space{
         return owner;
     }
 
+    public PropertyGroup getPropertyGroup() {
+        return propertyGroup;
+    }
+
     public void addHouse() throws HouseException {
         if(numHouses == 4)
             throw new HouseException("You can't add another house");
@@ -53,8 +57,24 @@ public class Deed extends Space{
     }
 
     private boolean hasPropertyGroupMonopoly() {
-        // if player owns all of the property group
-        return false;
+        // This will check against itself, so start at 0
+        int numProperties = 0;
+        for(Deed d : board.getOwnedDeeds(owner))
+            if(propertyGroup == d.getPropertyGroup())
+                numProperties++;
+
+        int totalProperties;
+        if(propertyGroup == BROWN || propertyGroup == BLUE)
+            totalProperties = 2;
+        else if(propertyGroup == RAILROAD)
+            totalProperties = 4;
+        else
+            totalProperties = 3;
+
+        if(numProperties == totalProperties)
+            return true;
+        else
+            return false;
     }
 
     // Returns the mortgage value of the property
