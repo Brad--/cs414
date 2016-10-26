@@ -65,7 +65,13 @@ public class Board {
     }
 
     public void delegateDeed(Token player) {
-        deeds.get(player.getCurrentPosition()).changeOwnership(player);
+        int price = deeds.get(player.getCurrentPosition()).houseRent;
+        if (users.get(player.getName()).getCashMoney()-price >0) {
+            deeds.get(player.getCurrentPosition()).changeOwnership(player);
+        }
+        else {
+            System.err.println("You do not have enough money to buy this Deed");
+        }
     }
 
     // @param: playerA is the player receiving the property
