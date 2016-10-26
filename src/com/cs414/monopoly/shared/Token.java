@@ -53,7 +53,7 @@ public class Token {
     }
 
     public void updatePosition(int move){
-        this.setCurrentPosition(this.getCurrentPosition() + move%40);
+        this.setCurrentPosition((this.getCurrentPosition() + move) % 40);
     }
 
     public int getCurrentPosition(){
