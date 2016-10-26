@@ -28,6 +28,14 @@ public class Token {
         this.cashMoney += rent;
     }
 
+    public void buyProperty(int price){
+        this.cashMoney -= price;
+    }
+
+    public int getCashMoney(){
+        return this.cashMoney;
+    }
+
     public void passGo(){
         this.cashMoney +=200;
     }
