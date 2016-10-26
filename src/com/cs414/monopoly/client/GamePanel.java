@@ -3,6 +3,7 @@ package com.cs414.monopoly.client;
 import java.util.ArrayList;
 
 import com.cs414.monopoly.shared.Token;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class GamePanel extends BasePanel {
@@ -14,6 +15,9 @@ public class GamePanel extends BasePanel {
 	int numOfPlayers;
 	Token turnToken;
 	
+	public GamePanel() {
+		
+	}
 	
 	public GamePanel(int numOfPlayers, Token p1, Token p2, Token p3, Token p4) {
 		this.numOfPlayers = numOfPlayers;
@@ -50,6 +54,7 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void doTurn() {
+		// TODO getGreetingService().roll();
 		turnToken.updatePosition(1);
 		viewBoard.drawBoard(tokens.get(0), tokens.get(1), tokens.get(2), tokens.get(3));
 		turnPanel.setRollButtonActive(false);

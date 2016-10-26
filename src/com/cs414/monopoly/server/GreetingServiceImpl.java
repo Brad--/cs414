@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.cs414.monopoly.client.GreetingService;
+import com.cs414.monopoly.shared.Token;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class GreetingServiceImpl extends RemoteServiceServlet implements GreetingService {
@@ -26,6 +27,15 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 	public void initializeTokens(Set<String> names) {
 		// TODO save to database
 		
+	}
+	
+	@Override
+	public Boolean roll(Token token) {
+		boolean value = true;
+		Die die = new Die();
+		int distance = die.roll(token);
+		token.updatePosition(distance);
+		return true;
 	}
 
 }
