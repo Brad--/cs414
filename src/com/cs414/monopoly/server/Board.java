@@ -57,7 +57,11 @@ public class Board {
     }
 
     public void payRent(Token player){
-        users.get(player.getName()).payRent(deeds.get(player.getCurrentPosition()).houseRent);
+        Token owner = deeds.get(player.getCurrentPosition()).getOwner();
+        int rent = deeds.get(player.getCurrentPosition()).houseRent;
+        users.get(player.getName()).payRent(rent);
+        users.get(owner.getName()).earnRent(rent);
+
     }
 
     public void delegateDeed(Token player) {
