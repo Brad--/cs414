@@ -47,5 +47,13 @@ public class TurnPanel extends VerticalPanel {
 		
 	}
 	
+	public void setRollButtonActive(boolean active) {
+		rollButton.setEnabled(active);
+	}
+	
+	public void setEndTurnButtonActive(boolean active) {
+		endTurnButton.setEnabled(active);
+	}
+	
 	
 }

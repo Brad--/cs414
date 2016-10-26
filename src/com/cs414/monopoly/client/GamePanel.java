@@ -52,6 +52,9 @@ public class GamePanel extends BasePanel {
 	private void doTurn() {
 		turnToken.updatePosition(1);
 		viewBoard.drawBoard(tokens.get(0), tokens.get(1), tokens.get(2), tokens.get(3));
+		turnPanel.setRollButtonActive(false);
+		turnPanel.setEndTurnButtonActive(true);
+		// TODO asnyc server call to roll, and then get back newly modified tokens and redraw
 	}
 	
 	private void endTurn() {
@@ -60,6 +63,8 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void setNextTurnToken() {
+		turnPanel.setRollButtonActive(true);
+		turnPanel.setEndTurnButtonActive(false);
 		if(playersTurn + 1 > numOfPlayers) {
 			playersTurn = 1;
 		} else {
@@ -69,7 +74,7 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void setTurnPanelLabelByPlayerTurnNumber() {
-		turnPanel.setTurnLabelText("Player " + playersTurn + "s turn!");
+		turnPanel.setTurnLabelText(turnToken.getName() + "'s turn!");
 	}
 	
 }
