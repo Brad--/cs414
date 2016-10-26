@@ -18,36 +18,33 @@ public class Die {
         int sum = rollOne + rollTwo;
 
         if (player.inJail()){
-            if(getOutofJail(player, sum)) { // they get out of jail
+            if( rollOne == rollTwo) { // they get out of jail
                 player.getOutofJail();
                 return 0; // this will leave them at the jail tile and they can go next round
             }
         }
-        if (!speeding(player,sum)) {
+        if (rollOne == rollTwo && !speeding(player,rollOne, rollTwo)) {
             player.goToJail();
             return 11;
         }
         return sum;
     }
 
-    public boolean getOutofJail(Token player, int sum){
-        int [] rolls = userMap.get(player);
-        int rollOne = rolls[1];
-        int rollTwo = rolls[2];
-        if (rollOne == rollTwo && rollOne == sum)
-            return true;
-        return false;
-    }
-
-    public boolean speeding(Token player, int sum){
+    public boolean speeding(Token player, int rollOne, int rollTwo){
         int [] rolls = userMap.get(player);
         // so we will know where to add
-        int rollOne = rolls[1];
-        int rollTwo = rolls[2];
-        if (rollOne == rollTwo && rollOne == sum && !player.inJail()) {
+        // first roll
+        int fOne = rolls[1];
+        int fTwo = rolls[2];
+        // second roll
+        int sOne = rolls[3];
+        int sTwo = rolls[4];
+        if (rollOne == fOne && rollOne == fTwo && sOne == rollOne && sTwo == rollOne && !player.inJail()) {
             rolls[0] = 0;
             rolls[1] = 0;
             rolls[2] = 0;
+            rolls[3] = 0;
+            rolls[4] = 0;
             userMap.put(player,rolls); // reset their rolls they are going to jail!
             return false;
         }
@@ -55,11 +52,13 @@ public class Die {
         int numRolls = rolls[0];
         if (numRolls ==0){
             rolls[0] = 1;
-            rolls[1] = sum;
+            rolls[1] = rollOne;
+            rolls[2] = rollTwo;
         }
         else if (numRolls ==1){
             rolls[0] =0;
-            rolls[2] = sum;
+            rolls[3] = rollOne;
+            rolls[4] = rollTwo;
         }
         userMap.put(player,rolls);
         return true;
