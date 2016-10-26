@@ -15,7 +15,7 @@ public class Token {
     public Token(String name, Image image){
         this.name = name;
         this.cashMoney = 1500;
-        this.currentPosition = 1; // this is GO
+        this.setCurrentPosition(1); // this is GO
         this.isInjail = false;
         this.gamePiece = image;
     }
@@ -39,6 +39,10 @@ public class Token {
     public void passGo(){
         this.cashMoney +=200;
     }
+    
+    public void setName(String name) {
+    	this.name = name;
+    }
 
     public String getName(){
         return this.name;
@@ -49,7 +53,7 @@ public class Token {
     }
 
     public void updatePosition(int move){
-        this.currentPosition += move%40;
+        this.setCurrentPosition(this.getCurrentPosition() + move%40);
     }
 
     public int getCurrentPosition(){
@@ -71,4 +75,8 @@ public class Token {
     public void getOutofJail(){
         this.isInjail = false;
     }
+
+	public void setCurrentPosition(int currentPosition) {
+		this.currentPosition = currentPosition;
+	}
 }
