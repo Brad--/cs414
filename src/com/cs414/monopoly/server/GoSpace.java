@@ -1,5 +1,7 @@
 package com.cs414.monopoly.server;
 
+import com.cs414.monopoly.shared.Token;
+
 public class GoSpace extends Space {
 
     public GoSpace(Board board, int position) {
@@ -7,7 +9,7 @@ public class GoSpace extends Space {
     }
 
     @Override
-    public void action(String target) {
+    public void action(Token target) {
 
     }
 }
