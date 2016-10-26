@@ -16,11 +16,10 @@ public class Board {
 
     public void init(){
         users = new HashMap<>();
-        Board B = new Board();
         die = new Die();
         deeds = new ArrayList<>();
-        for (int i=0; i<40; i++){
-            deeds.add(i,new Deed(B,i));
+        for (int i = 0; i < 40; i++){
+            deeds.add(i, new Deed(this,i));
         }
         //@TODO: start GUI
     }
