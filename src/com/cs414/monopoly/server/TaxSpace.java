@@ -10,6 +10,6 @@ public class TaxSpace extends Space {
 
     @Override
     public void action(Token target) {
-
+        target.payRent(100);
     }
 }
