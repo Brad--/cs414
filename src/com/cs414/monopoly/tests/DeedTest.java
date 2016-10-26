@@ -1,5 +1,6 @@
 package com.cs414.monopoly.tests;
 
+import com.cs414.monopoly.Exceptions.HotelException;
 import com.cs414.monopoly.Exceptions.HouseException;
 import com.cs414.monopoly.server.Board;
 import com.cs414.monopoly.server.Deed;
@@ -47,12 +48,38 @@ public class DeedTest {
         assertEquals(10, deed.getRent());
     }
 
-    @Test(expected=HouseException.class)
+    @Test(expected = HouseException.class)
     public void addTooManyHouses() throws HouseException {
         init(2);
         for(int i = 0; i < 10; i++) {
             deed.addHouse();
         }
+    }
+
+    @Test(expected = HotelException.class)
+    public void invalidHotelNotEnoughHouses() throws HotelException {
+        init(2);
+        deed.addHotel();
+    }
+
+    @Test(expected = HotelException.class)
+    public void invalidHotelAlreadyExists() throws HotelException, HouseException {
+        init(2);
+        for(int i = 0; i < 4; i++) {
+            deed.addHouse();
+        }
+        deed.addHotel();
+        deed.addHotel();
+    }
+
+    @Test
+    public void addHotel() throws HotelException, HouseException {
+        init(2);
+        for(int i = 0; i < 4; i++) {
+            deed.addHouse();
+        }
+        deed.addHotel();
+        assertEquals(250, deed.getRent());
     }
 
 }

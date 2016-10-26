@@ -28,7 +28,7 @@ public class Deed extends Space{
     }
 
 
-    public double getRent() {
+    public int getRent() {
         return houseRent;
     }
     public PropertyGroup getPropertyGroup() {
