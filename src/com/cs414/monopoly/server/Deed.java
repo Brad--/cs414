@@ -65,9 +65,9 @@ public class Deed extends Space{
 
     //TODO: Actually charge rent
     @Override
-    public void action(String target) {
-        if(target.equals(owner))
-            return;
+    public void action(Token target) {
+        target.payRent(houseRent);
+        owner.earnRent(houseRent);
 
         // board.chargePlayer(player, houseRent);
         // board.rewardPlayer(player, houseRent);

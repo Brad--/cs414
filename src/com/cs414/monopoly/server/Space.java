@@ -1,5 +1,7 @@
 package com.cs414.monopoly.server;
 
+import com.cs414.monopoly.shared.Token;
+
 abstract class Space {
 
     // Not 0 based, Go is 1
@@ -11,5 +13,5 @@ abstract class Space {
         this.board = board;
     }
 
-    abstract void action(String target);
+    abstract void action(Token target);
 }
