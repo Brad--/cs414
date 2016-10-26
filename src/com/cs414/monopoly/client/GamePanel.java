@@ -1,20 +1,52 @@
 package com.cs414.monopoly.client;
 
-import com.cs414.monopoly.shared.Token;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 
 public class GamePanel extends BasePanel {
 	
-	ViewBoard viewBoard = new ViewBoard();
 	
-	public GamePanel(Token p1, Token p2, Token p3, Token p4) {
-		init(p1, p2, p3, p4);
+	
+	public GamePanel(HashMap<String, Image> playerTokens) {
+		init(playerTokens);
 	}
 
-	public void init(Token p1, Token p2, Token p3, Token p4) {
-		viewBoard.drawBoard(p1, p2, p3, p4);
+	public void init(HashMap<String, Image> playerTokens) {
+		getGreetingService().initializeTokens(playerTokens.keySet(), new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				//cry
+			}
+
+			@Override
+			public void onSuccess(Void arg0) {
+				// yay
+				
+			}
+			
+		});
+		ViewBoard viewBoard = new ViewBoard(playerTokens);
+
+		getGreetingService().getTokenPositions(new AsyncCallback<Map<String, Integer>>() {
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Map<String, Integer> arg0) {
+				viewBoard.drawBoard((HashMap<String, Integer>)arg0); //yay!
+				
+			}
+			
+		});
+		
 		getMainVerticalPanel().add(viewBoard);
 	}
 	

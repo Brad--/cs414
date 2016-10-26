@@ -1,6 +1,5 @@
 package com.cs414.monopoly.client;
 
-import com.cs414.monopoly.shared.Token;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -117,7 +116,7 @@ public class PlayerTokenPickerPanel extends VerticalPanel {
 		setVisible(active);
 	}
 	
-	public boolean isValidToken() {
+	public boolean isValidPlayer() {
 		boolean returnValue = false;
 		if(getName() != null && !getName().isEmpty() && getSelectedImage() != null) {
 			returnValue = true;
@@ -129,10 +128,4 @@ public class PlayerTokenPickerPanel extends VerticalPanel {
 	public String getName() {
 		return nameField.getValue();
 	}
-	
-	public Token getPlayerToken() {
-		return new Token(getName(), getSelectedImage());
-	}
-	
-	
 }

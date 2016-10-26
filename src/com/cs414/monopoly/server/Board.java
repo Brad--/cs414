@@ -3,8 +3,6 @@ package com.cs414.monopoly.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.cs414.monopoly.shared.Token;
-
 public class Board {
     private Token currToken; // Change this to Token when that exists
     private Die die;

@@ -1,6 +1,4 @@
-package com.cs414.monopoly.shared;
-
-import com.google.gwt.user.client.ui.Image;
+package com.cs414.monopoly.server;
 
 /**
  * Created by Garrett on 10/19/2016.
@@ -10,14 +8,12 @@ public class Token {
     private int cashMoney;
     private int currentPosition;
     private boolean isInjail;
-    private Image gamePiece;
-    
-    public Token(String name, Image gamePiece){
+
+    public Token(String name){
         this.name = name;
         this.cashMoney = 1500;
         this.currentPosition = 1; // this is GO
         this.isInjail = false;
-        this.setGamePiece(gamePiece);
     }
 
     public void payRent(int rent){
@@ -55,12 +51,4 @@ public class Token {
     public int getCurrentPosition(){
         return this.currentPosition;
     }
-
-	public Image getGamePiece() {
-		return gamePiece;
-	}
-
-	public void setGamePiece(Image gamePiece) {
-		this.gamePiece = gamePiece;
-	}
 }
