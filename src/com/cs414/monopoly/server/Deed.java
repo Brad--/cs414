@@ -27,6 +27,10 @@ public class Deed extends Space{
         return owner;
     }
 
+
+    public int getRent() {
+        return houseRent;
+    }
     public PropertyGroup getPropertyGroup() {
         return propertyGroup;
     }
