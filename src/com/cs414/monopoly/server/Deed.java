@@ -27,6 +27,10 @@ public class Deed extends Space{
         return owner;
     }
 
+    public double getRent() {
+        return houseRent;
+    }
+
     public void addHouse() throws HouseException {
         if(numHouses == 4)
             throw new HouseException("You can't add another house");
