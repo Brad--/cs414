@@ -22,7 +22,7 @@ public class Die {
         if (rollOne == rollTwo && !speeding(player)) {
             player.goToJail();
             player.setCurrentPosition(11);
-            return 0;
+            return -1;
         }
         else if (rollOne != rollTwo)
             player.resetSpeed();
