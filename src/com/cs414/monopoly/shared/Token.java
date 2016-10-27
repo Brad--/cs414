@@ -17,6 +17,7 @@ public class Token implements Serializable {
     private int currentPosition;
     private boolean isInjail;
     private String gamePiece;
+    private int speeding;
     
     public Token() {
     	
@@ -28,6 +29,7 @@ public class Token implements Serializable {
         this.setCurrentPosition(1); // this is GO
         this.isInjail = false;
         this.gamePiece = imageUrl;
+        this.speeding =0;
     }
 
     public void payRent(int rent){
@@ -89,4 +91,16 @@ public class Token implements Serializable {
 	public void setCurrentPosition(int currentPosition) {
 		this.currentPosition = currentPosition;
 	}
+
+	public int getSpeeding(){
+	    return this.speeding;
+    }
+
+    public void incrementSpeed(int speed){
+        this.speeding +=speed;
+    }
+
+    public void resetSpeed(){
+        this.speeding = 0;
+    }
 }
