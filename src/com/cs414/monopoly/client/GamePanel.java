@@ -66,6 +66,16 @@ public class GamePanel extends BasePanel {
 				viewBoard.drawBoard(tokens.get(0), tokens.get(1), tokens.get(2), tokens.get(3));
 				turnPanel.setRollButtonActive(false);
 				turnPanel.setEndTurnButtonActive(true);
+				if (result.getSpeeding() > 0 && result.getSpeeding() < 3) {
+					turnPanel.setRolledDoublesText("You rolled doubles " + result.getSpeeding() + " times");
+					turnPanel.setRollButtonActive(true);
+					turnPanel.setEndTurnButtonActive(false);
+				}
+				else {
+					turnPanel.setRolledDoublesText("");
+					turnPanel.setRollButtonActive(false);
+					turnPanel.setEndTurnButtonActive(true);
+				}
 			}});
 	}
 	
