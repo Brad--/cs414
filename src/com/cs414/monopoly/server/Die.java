@@ -7,7 +7,7 @@ public class Die {
     public Die() {
     }
 
-    public int roll(Token player) {
+    public Token roll(Token player) {
         int rollOne = (int)(6.0*Math.random())+1;
         int rollTwo = (int)(6.0*Math.random())+1;
         // handle speeding and stuff in here
@@ -16,17 +16,27 @@ public class Die {
         if (player.inJail()){
             if( rollOne == rollTwo) { // they get out of jail
                 player.getOutofJail();
-                return 0; // this will leave them at the jail tile and they can go next round
+                player.setCurrentPosition(11);
+                return player; // this will leave them at the jail tile and they can go next round
             }
         }
         if (rollOne == rollTwo && !speeding(player)) {
             player.goToJail();
             player.setCurrentPosition(11);
-            return -1;
+            return player;
         }
-        else if (rollOne != rollTwo)
+        else if (rollOne != rollTwo) {
             player.resetSpeed();
-        return sum;
+            int position = player.getCurrentPosition();
+            if (position+sum == 31){
+                player.goToJail();
+                player.setCurrentPosition(11);
+                return player;
+            }
+            else
+                player.setCurrentPosition(position+sum);
+        }
+        return player;
     }
 
     public boolean speeding(Token player){
