@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.cs414.monopoly.shared.Token;
+import com.cs414.monopoly.shared.TokenActionWrapper;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
@@ -16,5 +17,5 @@ public interface GreetingServiceAsync {
 	
 	void initializeTokens(Set<String> names, AsyncCallback<Void> callback);
 	
-	void roll(Token token, AsyncCallback<Token> callback);
+	void roll(Token token, AsyncCallback<TokenActionWrapper> callback);
 }

@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.cs414.monopoly.shared.Token;
+import com.cs414.monopoly.shared.TokenActionWrapper;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -18,5 +19,5 @@ public interface GreetingService extends RemoteService {
 	
 	void initializeTokens(Set<String> names);
 
-	Token roll(Token token);
+	TokenActionWrapper roll(Token token);
 }
