@@ -5,12 +5,18 @@ import java.util.Map;
 
 import com.cs414.monopoly.shared.Token;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
 
 public class ViewBoard extends FlexTable {
 	
 	public static final String STYLE_CORNER = "corner";
 	public static final String STYLE_WE = "leftRight";
 	public static final String STYLE_NS = "topBottom";
+	
+	TokenStatsPanel p1StatsPanel = new TokenStatsPanel();
+	TokenStatsPanel p2StatsPanel = new TokenStatsPanel();
+	TokenStatsPanel p3StatsPanel = new TokenStatsPanel();
+	TokenStatsPanel p4StatsPanel = new TokenStatsPanel();
 	
 	LinkedHashMap<Integer, ViewSpace> mappings = new LinkedHashMap<Integer, ViewSpace>() {{
 		put(1, new ViewSpace(10,10, "go", STYLE_CORNER));
@@ -61,6 +67,14 @@ public class ViewBoard extends FlexTable {
 		setBorderWidth(0);
 		setCellPadding(0);
 		setCellSpacing(0);
+		init();
+	}
+	
+	public void init() {
+		setWidget(9,5, p1StatsPanel);
+		setWidget(5,1, p2StatsPanel);
+		setWidget(1,5, p3StatsPanel);
+		setWidget(5,9, p4StatsPanel);
 	}
 	
 	public void drawBoard(Token P1, Token P2, Token P3, Token P4) {
@@ -82,6 +96,11 @@ public class ViewBoard extends FlexTable {
 		    }
 		    setWidget(space.getY(), space.getX(), space);
 		}
+
+		p1StatsPanel.setToken(P1);
+		p2StatsPanel.setToken(P2);
+		p3StatsPanel.setToken(P3);
+		p4StatsPanel.setToken(P4);
 	}
 	
 }
