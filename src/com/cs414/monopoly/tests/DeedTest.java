@@ -1,12 +1,14 @@
 package com.cs414.monopoly.tests;
 
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import com.cs414.monopoly.Exceptions.HotelException;
 import com.cs414.monopoly.Exceptions.HouseException;
 import com.cs414.monopoly.server.Board;
 import com.cs414.monopoly.server.Deed;
-import static org.junit.Assert.*;
-
-import org.junit.Test;
 
 /**
  * Created by bradley on 10/25/16.

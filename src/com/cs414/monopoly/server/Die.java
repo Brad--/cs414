@@ -32,7 +32,7 @@ public class Die {
                 player.setCurrentPosition(11);
             }
             else
-                player.setCurrentPosition(player.getCurrentPosition()+sum);
+                player.updatePosition(sum);
         }
         else{
             if (checkGoToJailSpace(player, sum)){
@@ -40,7 +40,7 @@ public class Die {
                 player.setCurrentPosition(11);
             }
             else
-                player.setCurrentPosition(player.getCurrentPosition()+sum);
+                player.updatePosition(sum);
         }
         return player;
     }
