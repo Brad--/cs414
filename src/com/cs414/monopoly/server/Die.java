@@ -21,7 +21,8 @@ public class Die {
         }
         if (rollOne == rollTwo && !speeding(player)) {
             player.goToJail();
-            return 11;
+            player.setCurrentPosition(11);
+            return 0;
         }
         return sum;
     }
