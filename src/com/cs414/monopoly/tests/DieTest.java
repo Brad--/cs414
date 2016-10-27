@@ -26,4 +26,29 @@ public class DieTest {
         //Assert that they moved
         assertTrue(initialPosition < token.getCurrentPosition());
     }
+
+    @Test
+    public void speedingNoRoll() {
+        init();
+        assertFalse(die.speeding(token));
+    }
+
+    @Test
+    public void caughtSpeeding() {
+        init();
+        for(int i = 0; i < 3; i++)
+            die.speeding(token);
+        // 11 is jail
+        assertEquals(11, token.getCurrentPosition());
+    }
+
+    @Test
+    public void getOutOfJailWithDoubles() {
+        init();
+        for(int i = 0; i < 3; i++)
+            die.speeding(token);
+        for(int i = 0; i < 3; i++)
+            die.roll(token);
+        assertNotEquals(11, token.getCurrentPosition());
+    }
 }
