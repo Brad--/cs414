@@ -20,21 +20,27 @@ public class Die {
                 return player; // this will leave them at the jail tile and they can go next round
             }
         }
-        if (rollOne == rollTwo && !speeding(player)) {
+        if (rollOne == rollTwo && speeding(player)) {
             player.goToJail();
             player.setCurrentPosition(11);
             return player;
         }
         else if (rollOne != rollTwo) {
             player.resetSpeed();
-            int position = player.getCurrentPosition();
-            if (position+sum == 31){
+            if (checkGoToJailSpace(player, sum)){
                 player.goToJail();
                 player.setCurrentPosition(11);
-                return player;
             }
             else
-                player.setCurrentPosition(position+sum);
+                player.setCurrentPosition(player.getCurrentPosition()+sum);
+        }
+        else{
+            if (checkGoToJailSpace(player, sum)){
+                player.goToJail();
+                player.setCurrentPosition(11);
+            }
+            else
+                player.setCurrentPosition(player.getCurrentPosition()+sum);
         }
         return player;
     }
@@ -43,9 +49,18 @@ public class Die {
         int numDoubles = player.getSpeeding();
         if (numDoubles++ > 2) {
             player.resetSpeed();
-            return false;
+            return true;
         }
         player.incrementSpeed(1);
-        return true;
+        return false;
+    }
+
+    public boolean checkGoToJailSpace(Token player, int sum){
+        int position = player.getCurrentPosition();
+        if (position+sum == 31){
+            return true;
+        }
+
+        return false;
     }
 }
