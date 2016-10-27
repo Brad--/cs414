@@ -25,11 +25,10 @@ public class Board {
     }
 
     public void handleRoll(Token currentPlayer) {
-        int move = die.roll(currentPlayer);
+        int move = die.roll(currentPlayer).getCurrentPosition();
         //@TODO: check for doubles
         if (!currentPlayer.inJail()){
-            if (move != -1)
-                updatePostion(currentPlayer, move);
+            updatePostion(currentPlayer, move);
             if (deeds.get(currentPlayer.getCurrentPosition()).getOwner() == null) {
                 //TODO: display to player option to buy
                 delegateDeed(currentPlayer);

@@ -7,7 +7,7 @@ public class Die {
     public Die() {
     }
 
-    public int roll(Token player) {
+    public Token roll(Token player) {
         int rollOne = (int)(6.0*Math.random())+1;
         int rollTwo = (int)(6.0*Math.random())+1;
         // handle speeding and stuff in here
@@ -16,26 +16,51 @@ public class Die {
         if (player.inJail()){
             if( rollOne == rollTwo) { // they get out of jail
                 player.getOutofJail();
-                return 0; // this will leave them at the jail tile and they can go next round
+                player.setCurrentPosition(11);
+                return player; // this will leave them at the jail tile and they can go next round
             }
         }
-        if (rollOne == rollTwo && !speeding(player)) {
+        if (rollOne == rollTwo && speeding(player)) {
             player.goToJail();
             player.setCurrentPosition(11);
-            return -1;
+            return player;
         }
-        else if (rollOne != rollTwo)
+        else if (rollOne != rollTwo) {
             player.resetSpeed();
-        return sum;
+            if (checkGoToJailSpace(player, sum)){
+                player.goToJail();
+                player.setCurrentPosition(11);
+            }
+            else
+                player.setCurrentPosition(player.getCurrentPosition()+sum);
+        }
+        else{
+            if (checkGoToJailSpace(player, sum)){
+                player.goToJail();
+                player.setCurrentPosition(11);
+            }
+            else
+                player.setCurrentPosition(player.getCurrentPosition()+sum);
+        }
+        return player;
     }
 
     public boolean speeding(Token player){
         int numDoubles = player.getSpeeding();
-        if (numDoubles++ > 2) {
+        if (numDoubles+1 > 2) {
             player.resetSpeed();
-            return false;
+            return true;
         }
         player.incrementSpeed(1);
-        return true;
+        return false;
+    }
+
+    public boolean checkGoToJailSpace(Token player, int sum){
+        int position = player.getCurrentPosition();
+        if (position+sum == 31){
+            return true;
+        }
+
+        return false;
     }
 }
