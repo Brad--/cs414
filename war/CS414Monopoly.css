@@ -39,6 +39,36 @@ h1 {
 	height: 100px;
 }
 
+.tokenStatsPanel {
+	margin: auto;
+   	overflow: hidden;
+   	white-space: nowrap;
+   	width: 80px;
+}
+
+.statsGamePiece {
+	margin: auto;
+	text-align: center;
+	padding-left: 28px;
+}
+
+.statsNameLabel, .statsMoneyLabel {
+	font-weight: bold;
+	text-align: center;
+	overflow: hidden;
+   	white-space: nowrap;
+   	width: 80px;
+}
+
+.statsNameLabel {
+	font-size: 10pt;
+}
+
+.statsMoneyLabel {
+	font-size: 14pt;
+	color: #339933;
+}
+
 .board {
 	border-collapse: collapse;
 }

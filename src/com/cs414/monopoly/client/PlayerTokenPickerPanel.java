@@ -35,6 +35,7 @@ public class PlayerTokenPickerPanel extends VerticalPanel {
 		
 		Label lblPlayer = new Label("Player " + playerNumber + " options");
 		nameField.getElement().setPropertyString("placeholder", "Player Name");
+		nameField.setMaxLength(10);
 		
 		Label lblToken = new Label("Choose a player token:");
 		

@@ -63,7 +63,7 @@ public class GamePanel extends BasePanel {
 			@Override
 			public void onSuccess(Token result) {
 				tokens.put(playersTurn, result);
-				viewBoard.drawBoard(tokens.get(0), tokens.get(1), tokens.get(2), tokens.get(3));
+				viewBoard.drawBoard(tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4));
 				turnPanel.setRollButtonActive(false);
 				turnPanel.setEndTurnButtonActive(true);
 				if (result.getSpeeding() > 0 && result.getSpeeding() < 3) {
