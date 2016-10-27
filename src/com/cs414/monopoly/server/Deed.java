@@ -87,14 +87,10 @@ public class Deed extends Space{
         return price / 2;
     }
 
-    //TODO: Actually charge rent
     @Override
     public void action(Token target) {
         target.payRent(houseRent);
         owner.earnRent(houseRent);
-
-        // board.chargePlayer(player, houseRent);
-        // board.rewardPlayer(player, houseRent);
     }
 
     // Sets the price based on position
