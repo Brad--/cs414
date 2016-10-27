@@ -23,6 +23,8 @@ public class Die {
             player.goToJail();
             return 11;
         }
+        else if (rollOne != rollTwo)
+            player.resetSpeed();
         return sum;
     }
 
