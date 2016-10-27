@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class TurnPanel extends VerticalPanel {
 
 	Label turnLabel = new Label("");
+	Label rolledDoublesLabel = new Label("");
 	Button rollButton = new Button("Roll");
 	Button endTurnButton = new Button("End Turn");
 	
@@ -31,12 +32,17 @@ public class TurnPanel extends VerticalPanel {
 		endTurnButton.addStyleName("endTurnButton");
 		
 		add(turnLabel);
+		add(rolledDoublesLabel);
 		add(rollButton);
 		add(endTurnButton);
 	}
 	
 	public void setTurnLabelText(String text) {
 		turnLabel.setText(text);
+	}
+	
+	public void setRolledDoublesText(String text) {
+		rolledDoublesLabel.setText(text);
 	}
 	
 	public void handleRollClick() {
