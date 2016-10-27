@@ -47,7 +47,7 @@ public class Die {
 
     public boolean speeding(Token player){
         int numDoubles = player.getSpeeding();
-        if (numDoubles++ > 2) {
+        if (numDoubles+1 > 2) {
             player.resetSpeed();
             return true;
         }
