@@ -38,7 +38,7 @@ public class BoardTest {
         Board b = createBoard();
         Token player = new Token("gabe", "image");
         b.addUser(player);
-        assertTrue(b.containsUser(player));
+        assertTrue(b.containsUser(player.getName()));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class BoardTest {
         Board b = createBoard();
         Token player = new Token("gabe", "image");
         b.handleRoll(player);
-        assertTrue(b.containsUser(player));
+        assertTrue(b.containsUser(player.getName()));
     }
 
     @Test

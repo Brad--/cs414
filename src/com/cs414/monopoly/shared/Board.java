@@ -184,8 +184,8 @@ public class Board {
         return ownedDeeds;
     }
 
-    public boolean containsUser(Token player){
-        return users.containsKey(player);
+    public boolean containsUser(String name){
+        return users.containsKey(name);
     }
 
 }
