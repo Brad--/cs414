@@ -1,5 +1,6 @@
 package com.cs414.monopoly.server;
 
+import com.cs414.monopoly.shared.Board;
 import com.cs414.monopoly.shared.Token;
 
 public class GoSpace extends Space {

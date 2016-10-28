@@ -1,12 +1,12 @@
-package com.cs414.monopoly.server;
+package com.cs414.monopoly.shared;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.cs414.monopoly.shared.Token;
+import com.cs414.monopoly.server.Deed;
+import com.cs414.monopoly.server.Die;
 
 public class Board {
-    private Token currToken; // Change this to Token when that exists
     private Die die;
     private HashMap<String, Token> users;
     private ArrayList<Deed> deeds;
@@ -24,17 +24,17 @@ public class Board {
         //@TODO: start GUI
     }
 
-    public void handleRoll(Token currentPlayer) {
-        int move = die.roll(currentPlayer).getCurrentPosition();
+    public Token handleRoll(Token currentPlayer) { // TODO return TokenActionWrapper?
+    	Token updatedPlayer = die.roll(currentPlayer);
+        int move = updatedPlayer.getCurrentPosition();
         //@TODO: check for doubles
         if (!currentPlayer.inJail()){
-            updatePostion(currentPlayer, move);
             if (deeds.get(currentPlayer.getCurrentPosition()).getOwner() == null) {
                 //TODO: display to player option to buy
                 delegateDeed(currentPlayer);
             }
             else if (currentPlayer.getCurrentPosition()==1){
-                currentPlayer.passGo();
+                currentPlayer.passGo(); // TODO needs to also account for PASSING of go as well
             }
             else if (currentPlayer.getCurrentPosition()==5){
                 //tax spot 200 or 10%
@@ -48,6 +48,7 @@ public class Board {
                 payRent(currentPlayer);
             }
         }
+        return currentPlayer;
     }
 
     public void addUser(Token player){
@@ -56,7 +57,7 @@ public class Board {
     }
 
     public void payRent(Token player){
-        int rent = deeds.get(player.getCurrentPosition()).houseRent;
+        int rent = deeds.get(player.getCurrentPosition()).getRent();
         if (player.getCashMoney()-rent > 0){
             deeds.get(player.getCurrentPosition()).action(player);
         }
@@ -69,7 +70,7 @@ public class Board {
     }
 
     public void delegateDeed(Token player) {
-        int price = deeds.get(player.getCurrentPosition()).houseRent;
+        int price = deeds.get(player.getCurrentPosition()).getRent();
         if (users.get(player.getName()).getCashMoney()-price >0) {
             deeds.get(player.getCurrentPosition()).changeOwnership(player);
         }
@@ -92,10 +93,6 @@ public class Board {
             }
         }
         return ownedDeeds;
-    }
-
-    public void updatePostion(Token player, int move){
-        users.get(player.getName()).updatePosition(move);
     }
 
 }
