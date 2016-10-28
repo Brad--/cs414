@@ -16,7 +16,8 @@ public class Token implements Serializable {
     private boolean isInjail;
     private String gamePiece;
     private int speeding;
-    
+    private int lastRollDieOne;
+    private int lastRollDieTwo;
     public Token() {
     	
     }
@@ -28,6 +29,8 @@ public class Token implements Serializable {
         this.isInjail = false;
         this.gamePiece = imageUrl;
         this.speeding =0;
+        this.lastRollDieOne =0;
+        this.lastRollDieTwo = 0;
     }
 
     public void payRent(int rent){
@@ -100,5 +103,10 @@ public class Token implements Serializable {
 
     public void resetSpeed(){
         this.speeding = 0;
+    }
+
+    public void updateDieRoll(int one, int two){
+        this.lastRollDieOne = one;
+        this.lastRollDieTwo = two;
     }
 }

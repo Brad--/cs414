@@ -12,7 +12,7 @@ public class Die {
         int rollTwo = (int)(6.0*Math.random())+1;
         // handle speeding and stuff in here
         int sum = rollOne + rollTwo;
-
+        player.updateDieRoll(rollOne, rollTwo);
         if (player.inJail()){
             if( rollOne == rollTwo) { // they get out of jail
                 player.getOutofJail();
