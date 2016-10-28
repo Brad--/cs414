@@ -85,9 +85,11 @@ public class Deed extends Space {
     }
 
     // Returns the mortgage value of the property
-    public int mortgageProperty() {
-        owner = null;
-        return price / 2;
+    public void mortgageProperty() {
+        if(owner != null) {
+            owner.earnRent(price / 2);
+            owner = null;
+        }
     }
 
     @Override

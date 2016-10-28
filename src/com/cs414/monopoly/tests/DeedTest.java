@@ -3,6 +3,7 @@ package com.cs414.monopoly.tests;
 
 import static org.junit.Assert.*;
 
+import com.cs414.monopoly.shared.Token;
 import org.junit.Test;
 
 import com.cs414.monopoly.shared.Deed;
@@ -31,15 +32,10 @@ public class DeedTest {
     }
 
     @Test
-    public void mortgagePropertyNoOwner() {
-        init(2);
-        assertEquals(0, deed.mortgageProperty());
-    }
-
-    @Test
     public void mortgageProperty() {
         init(2);
-        assertEquals(1, deed.mortgageProperty());
+        deed.changeOwnership(new Token("name", "image"));
+        deed.mortgageProperty();
         assertNull(deed.getOwner());
     }
 
