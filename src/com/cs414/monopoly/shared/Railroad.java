@@ -28,7 +28,8 @@ public class Railroad extends Deed {
         calcRent();
     }
 
-    private void calcRent() {
+    @Override
+    protected void calcRent() {
         int numRailroads = 1; // board.getNumRailroads(owner)
 
         houseRent = 25 * (int)(Math.pow(2, (numRailroads - 1)));

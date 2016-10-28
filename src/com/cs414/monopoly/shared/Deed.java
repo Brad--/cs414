@@ -11,9 +11,7 @@ public class Deed extends Space {
     protected int houseRent;
     private int numHouses;
     private boolean hasHotel;
-    private Token owner; // Change this to Token when that exists
-    private PropertyGroup propertyGroup;
-    private String name;
+    protected PropertyGroup propertyGroup;
     
     public Deed(Board board, int position) {
         super(board, position);
@@ -61,7 +59,7 @@ public class Deed extends Space {
         calcRent();
     }
 
-    private boolean hasPropertyGroupMonopoly() {
+    protected boolean hasPropertyGroupMonopoly() {
         // This will check against itself, so start at 0
         if(owner == null)
             return false;
@@ -99,7 +97,7 @@ public class Deed extends Space {
     }
 
     // Sets the price based on position
-    private void calcPriceAndPropertyGroup() {
+    protected void calcPriceAndPropertyGroup() {
         if(position == 2 || position == 4) {
             price = 60;
             propertyGroup = BROWN;
@@ -163,7 +161,7 @@ public class Deed extends Space {
     }
 
     // This is messy, but there isn't really a method to the pricing
-    private void calcRent() {
+    protected void calcRent() {
         switch(position) {
             // start brown
             case 2:
