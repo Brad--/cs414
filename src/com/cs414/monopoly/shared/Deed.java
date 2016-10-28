@@ -61,6 +61,8 @@ public class Deed extends Space {
 
     private boolean hasPropertyGroupMonopoly() {
         // This will check against itself, so start at 0
+        if(owner == null)
+            return false;
         int numProperties = 0;
         for(Deed d : board.getOwnedDeeds(owner))
             if(propertyGroup == d.getPropertyGroup())
