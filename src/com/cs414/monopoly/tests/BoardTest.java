@@ -53,8 +53,8 @@ public class BoardTest {
     public void payRent() throws Exception {
         Board b = createBoard();
         Token player = new Token("gabe", "image");
-        player = b.handleRoll(player);
         int credits = player.getCashMoney();
+        player = b.handleRoll(player);
         b.payRent(player);
         assertNotEquals(credits, player.getCashMoney());
     }
