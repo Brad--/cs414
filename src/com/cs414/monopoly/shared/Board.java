@@ -48,6 +48,11 @@ public class Board {
                 payRent(currentPlayer);
             }
         }
+
+        // Pass go
+        if(!updatedPlayer.inJail() && updatedPlayer.getCurrentPosition() < currentPlayer.getCurrentPosition()) {
+            updatedPlayer.earnRent(200);
+        }
         return currentPlayer;
     }
 
