@@ -1,9 +1,7 @@
-package com.cs414.monopoly.server;
+package com.cs414.monopoly.shared;
 
 import com.cs414.monopoly.Exceptions.HotelException;
 import com.cs414.monopoly.Exceptions.HouseException;
-import com.cs414.monopoly.shared.Board;
-import com.cs414.monopoly.shared.Token;
 
 /**
  * Created by bradley on 10/18/16.

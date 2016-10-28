@@ -1,16 +1,17 @@
-package com.cs414.monopoly.server;
+package com.cs414.monopoly.shared;
 
 import com.cs414.monopoly.shared.Board;
+import com.cs414.monopoly.shared.Space;
 import com.cs414.monopoly.shared.Token;
 
-public class TaxSpace extends Space {
+public class FreeParking extends Space {
 
-    public TaxSpace(Board board, int position) {
+    public FreeParking(Board board, int position) {
         super(board, position);
     }
 
     @Override
     public void action(Token target) {
-        target.payRent(100);
+
     }
 }

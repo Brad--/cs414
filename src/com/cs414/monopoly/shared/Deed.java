@@ -1,13 +1,11 @@
-package com.cs414.monopoly.server;
+package com.cs414.monopoly.shared;
 
 import com.cs414.monopoly.Exceptions.HotelException;
 import com.cs414.monopoly.Exceptions.HouseException;
-import com.cs414.monopoly.shared.Board;
-import com.cs414.monopoly.shared.Token;
 
-import static com.cs414.monopoly.server.PropertyGroup.*;
+import static com.cs414.monopoly.shared.PropertyGroup.*;
 
-public class Deed extends Space{
+public class Deed extends Space {
     protected int price;
     protected int houseRent;
     private int numHouses;
