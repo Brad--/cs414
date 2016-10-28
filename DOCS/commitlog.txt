@@ -1,0 +1,1012 @@
+commit e1b5b9c83bd67e760d2300b5e1358b844fdcab52
+Merge: 55cafa3 9784407
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 23:52:17 2016 -0600
+
+    Merge pull request #51 from Brad--/boardTestStuff
+    
+    Board test stuff
+
+commit 55cafa3d7dabd549ac0f6809baaf8ef7c795da11
+Merge: 646fe3a cddefb8
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 23:50:56 2016 -0600
+
+    Merge pull request #50 from Brad--/gmasta
+    
+    Displays rolls that were made, instead of magically moving piece
+
+commit 97844078c91e5c931d80a464ea7b46c8cc5d9531
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 23:48:52 2016 -0600
+
+    Fix a board test, and delegate Deed
+
+commit cddefb866a4bf974a7cb30c017b8ba5d0bfbe56f
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 23:45:04 2016 -0600
+
+    Displays rolls that were made, instead of magically moving piece
+
+commit 7645c8eaca9f630409c639e29b61693fb4ba18dc
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 23:43:42 2016 -0600
+
+    Fix a board test
+
+commit 646fe3a06ecfa0c48bbf7b4bc8ff18edffdf8fe2
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 23:38:18 2016 -0600
+
+    added gets
+
+commit 0fc5b5e6319d46742e4135d8cb3ec9489f0b9ec9
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 23:29:24 2016 -0600
+
+    updated to new spec
+
+commit 7a08f0e43737e4a3e1fd072c0bd5916944cb6b7a
+Merge: c973dfd 0f1d243
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 23:25:58 2016 -0600
+
+    Merge pull request #49 from Brad--/spacesFuckGabe
+    
+    Refactor for spaces. Instanceof checks to make sure what your calling…
+
+commit 0f1d243e122fc1e6ec8979ff1243a80804d94e88
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 23:23:26 2016 -0600
+
+    Refactor for spaces. Instanceof checks to make sure what your calling actually has that method
+
+commit c973dfd7c88c9ffb0b019ff648f0b5409500c906
+Merge: ae8cf41 fc840f5
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Thu Oct 27 23:21:36 2016 -0600
+
+    Merge pull request #48 from Brad--/gmasta
+    
+    Allowed customization of time limit
+
+commit fc840f528bc9e9d91bd209b0ee991530a78e2ed5
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 23:20:10 2016 -0600
+
+    Allowed customization of time limit
+
+commit ae8cf419b121451925d09fb4009aa443ef9fe017
+Merge: c5fc483 d047ef0
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Thu Oct 27 23:11:03 2016 -0600
+
+    Merge pull request #47 from Brad--/topics/displayDie
+    
+    funtionallity to see what you rolled
+
+commit c5fc483ffe06eaa672657c67cf8c29713c57948e
+Merge: a3dd762 e9a4ddc
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 23:05:18 2016 -0600
+
+    Merge pull request #46 from Brad--/gmasta
+    
+    Game can now end
+
+commit d047ef042cfbe8440a58c237139dcd1872ebd169
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 23:04:41 2016 -0600
+
+    funtionallity to see what you rolled
+
+commit a3dd7623af6b5334132e28fdfab7db5a2229b368
+Merge: 03206b5 4e58395
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Thu Oct 27 22:57:22 2016 -0600
+
+    Merge pull request #45 from Brad--/topics/DOCS
+    
+    added DOCS to repo
+
+commit 4e58395ae91fabe714feaf9030e46fe1958be8ba
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 22:55:31 2016 -0600
+
+    added DOCS to repo
+
+commit 03206b5c7a111af1d65f1a81369db3a8cb21c68b
+Merge: b6731a9 b886bbe
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 22:49:32 2016 -0600
+
+    Merge pull request #44 from Brad--/betterMortgage
+    
+    Better mortgage, updated tests
+
+commit e9a4ddca079107ff7063813bbb62b6afc23e8860
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 22:49:21 2016 -0600
+
+    Game can now end
+
+commit b886bbeb156f43be1c161d7cf7a658a14d212438
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 22:49:03 2016 -0600
+
+    Better mortgage, updated tests
+
+commit b6731a9554008b88859c39f90e382be2a73e71e2
+Merge: c5482ba 63a049c
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 22:43:59 2016 -0600
+
+    Merge pull request #43 from Brad--/topics/JunitPlanB
+    
+    added in junits for board
+
+commit 63a049ca3b8bba93d4b2fc7419bd2bcc9acfa5a9
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 22:43:00 2016 -0600
+
+    i wish i could spell
+
+commit c5482ba40adf70cc4b7b1c4b3f5a3610a489b63e
+Merge: cc4d304 f5a4bb1
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 22:40:19 2016 -0600
+
+    Merge pull request #42 from Brad--/gabebranch10
+    
+    Added Trade Button
+
+commit ca8147513d6a88b5147589b08e701cc84ddd83b8
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 22:39:06 2016 -0600
+
+    added in junits for baord
+
+commit f5a4bb175d5f03a7da0a7f544cdc178f9197e03a
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Oct 27 22:37:27 2016 -0600
+
+    Added Trade Button
+
+commit cc4d3045ff7eef29b46991f2d58ecec945a232e3
+Merge: d5cb6b2 1fe1bb6
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 22:34:41 2016 -0600
+
+    Merge remote-tracking branch 'origin/master'
+
+commit d5cb6b20925191461051949e21e5e01852b1c031
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 22:34:29 2016 -0600
+
+    Commenting out a dumb line
+
+commit 1fe1bb6315f677b4e382fcc6d02a17c01e3b084b
+Merge: 3da608e 5ab5bf6
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 22:28:42 2016 -0600
+
+    Merge pull request #41 from Brad--/gabebranch9
+    
+    Gabebranch9
+
+commit 5ab5bf6831cc2e7535add379a2c456c3910d72c2
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Oct 27 22:26:17 2016 -0600
+
+    Made Owned deeds display now working fully if the player owns deeds
+
+commit af68f127ee5d5c238fe030afaca65fd3ebd5b16c
+Merge: 443410f 3da608e
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Oct 27 22:13:28 2016 -0600
+
+    Merge https://github.com/Brad--/cs414 into gabebranch9
+
+commit 3da608eb6bda18e37a0afae579a0cae15e6059fb
+Merge: 1d0bd94 449b775
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 22:11:44 2016 -0600
+
+    Merge pull request #40 from Brad--/addGetter
+    
+    Add position getter
+
+commit 449b77598fc4a8200829c574f2d2ba1399e88e9d
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 22:11:30 2016 -0600
+
+    Add position getter
+
+commit 443410f28d165181672988b710a0b6781aa9d1c9
+Merge: 3570862 1d0bd94
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Oct 27 21:58:29 2016 -0600
+
+    Merge https://github.com/Brad--/cs414 into gabebranch9
+
+commit 3570862e7d87db3c50a2081324b738052e6ed07e
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Oct 27 21:58:25 2016 -0600
+
+    Added deeds display panel
+
+commit 1d0bd947832bf608427a1fa324b4f45905d7f838
+Merge: e2a7a44 300bc11
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 21:55:10 2016 -0600
+
+    Merge pull request #39 from Brad--/deedFix
+    
+    Fix deed
+
+commit 300bc113a8efb3ae1af6a17b2d5809325d46f18f
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 21:54:53 2016 -0600
+
+    Fix deed
+
+commit e2a7a44660cf89268509daa61a7dc3919960f54a
+Merge: 72598b8 aa3f9f1
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 21:51:10 2016 -0600
+
+    Merge pull request #38 from Brad--/TokenTest
+    
+    Token tests looks
+
+commit aa3f9f167f6d0c2f020234f9d41d8a9463114b5d
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 21:49:19 2016 -0600
+
+    Token tests
+
+commit 72598b81f01c747ce35aea36abfa56398e732613
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 21:28:33 2016 -0600
+
+    Free Parking comment
+
+commit 8e51a220fdf94d61dce17d80e44162103992cca0
+Merge: 90a05e5 b1596db
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 21:00:16 2016 -0600
+
+    Merge pull request #37 from Brad--/idkWhatYetButImBranching
+    
+    Objects will now be shared
+
+commit b1596db7a4864708e08dfcc32dc32b3f91356bfa
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 20:58:21 2016 -0600
+
+    Move everything to shared
+
+commit 90a05e55afa97e54532adb1a6babe3f55a102ebb
+Merge: aab8582 5e98fc9
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 20:51:41 2016 -0600
+
+    Merge pull request #36 from Brad--/passGoCollect200DollaBitch
+    
+    Pass Go
+
+commit 5e98fc95bbe67ea3dcde4953df439c1e11045320
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 20:46:00 2016 -0600
+
+    Pass Go
+
+commit aab858220efb5f972db43cd40a1c48e8ec0ab532
+Merge: a0a539d 0b5a443
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 20:41:48 2016 -0600
+
+    Merge pull request #35 from Brad--/geoffFray
+    
+    COMMIT SO OTHERS CAN WORK PLS DONT HURT ME
+
+commit 0b5a4430809dfcb9c0c6d6b9442b60eb9b34b8d2
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 20:38:05 2016 -0600
+
+    COMMIT SO OTHERS CAN WORK PLS DONT HURT ME
+
+commit a0a539dad0b41e34a036b2c2fa163d50bac27541
+Merge: 5c90895 808d619
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Thu Oct 27 19:47:52 2016 -0600
+
+    Merge pull request #34 from Brad--/geoffFray
+    
+    Added simple timer to GamePanel
+
+commit 808d6194ffe5d1415d1ec89a482df65a98be5c58
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 19:45:02 2016 -0600
+
+    Fixed timer "ending game"
+
+commit 6161b8d31273c2f15ac7f2232aae196770d3afa1
+Merge: b1b4f49 5c90895
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 19:16:18 2016 -0600
+
+    Fixing merge issue
+
+commit 5c9089563aa2d53e09756a9de58d79a4d11c1750
+Merge: c9e4de4 9d0ba6f
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 19:10:33 2016 -0600
+
+    Merge pull request #33 from Brad--/gabebranch8
+    
+    Gabebranch8
+
+commit b1b4f491624f053dab47c8f4d292b8c486b5c364
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Oct 27 19:09:48 2016 -0600
+
+    Added simple timer to GamePanel
+
+commit 9d0ba6f36e39efa6a77cddbdefbef3c40be2c043
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Oct 27 14:11:05 2016 -0600
+
+    Added framework for passing back objects that will then be utilized on
+    clientside to create panels to handle actions :santa:
+
+commit 4b5b9b6b500e5f49af561dffd3d4438c14c33282
+Merge: 954ad40 c9e4de4
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Oct 27 13:46:22 2016 -0600
+
+    Merge https://github.com/Brad--/cs414 into gabebranch7
+
+commit c9e4de48f7bd0f0823f2ffb28e9805977665e650
+Merge: 671ce0e 9e3eaef
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 22:44:20 2016 -0600
+
+    Merge pull request #32 from Brad--/gabebranch7
+    
+    Added player indicators and stats to the board :godmode:
+
+commit 954ad4014fd2815040a2609fed9703e89b911c7e
+Merge: 9e3eaef 671ce0e
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 26 22:43:04 2016 -0600
+
+    Merge https://github.com/Brad--/cs414 into gabebranch7
+
+commit 9e3eaef7855c0e9462bd18d03031a3c27587b8d2
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 26 22:42:21 2016 -0600
+
+    Added player indicators and stats to the board :godmode:
+
+commit 671ce0efd87fce96ffd0133d2386bda74acbafb8
+Merge: c9a2dcf e9c4480
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 22:40:59 2016 -0600
+
+    Merge pull request #31 from Brad--/testDie
+    
+    Test die
+
+commit c9a2dcf1af2c44a44ac18543053e287b8d03ab3e
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 22:29:07 2016 -0600
+
+    Got rid of comments
+
+commit e9c4480e80b66b61cb437b238ac38fd594df99c3
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 22:18:17 2016 -0600
+
+    Die tests
+
+commit ea15ee1014a0dd21987982a085c8153e0acdaa69
+Merge: 3bef887 179e645
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 21:52:11 2016 -0600
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into testDie
+    Because the world is a cruel place
+
+commit 179e645c8010269dd3674eb8f3ddb9a697fcdf7d
+Merge: 023b0b2 5a20757
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 21:16:02 2016 -0600
+
+    Merge pull request #30 from Brad--/gabebranch6
+    
+    Fixed tokens wrapping board and breaking bounds for drawable range
+
+commit 5a20757aae6d938254feabd13041f953479c9e15
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 26 21:14:26 2016 -0600
+
+    Fixed tokens wrapping board and breaking bounds for drawable range
+
+commit 023b0b260b7c44873af04f1c1b976e488a7a8ad4
+Merge: a5fa938 79bf127
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 20:55:31 2016 -0600
+
+    Merge pull request #29 from Brad--/gabebranch5
+    
+    Fixed token roll system in greetingServiceImpl
+
+commit 79bf127edde12925cbdb0048cf3a69160fb0c977
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 26 20:53:52 2016 -0600
+
+    Fixed token roll system in greetingServiceImpl
+
+commit 3bef8872b1ffc8cef1fd92e33d49b79656e9d665
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 19:23:09 2016 -0600
+
+    Commit some die test stuff so I can checkout another branch more safely
+
+commit a5fa93862dc287c2a1821a988f96dcaf182623ba
+Merge: 82a4e4e 1ef2c46
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 18:51:35 2016 -0600
+
+    Merge pull request #27 from Brad--/geoffFray
+    
+    Set up extra rolls for speeding, along with label for showing on client
+
+commit 1ef2c46873857d0e61d45b53612e9d1413d241c9
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Wed Oct 26 18:48:06 2016 -0600
+
+    Set up extra rolls for speeding, along with label for showing on client
+
+commit 82a4e4e6687e2fad655d7e6a423c33b7a6697fba
+Merge: 4616673 3b13f78
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 18:06:51 2016 -0600
+
+    Merge pull request #26 from Brad--/topics/dieJailTokenFacePig
+    
+    return a token so client can update the psoition
+
+commit 3b13f78c31991f70bee97a26ab807b057ce341b0
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 00:05:46 2016 -0600
+
+    go brad you rock at code reviews
+
+commit d05044d45cc544b3a2d2d8404b919e6881856018
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 00:02:22 2016 -0600
+
+    updated die this should work now
+
+commit 742ee17c3ca0e4daf24eb16ead9f49fdf13a5eb9
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 23:47:35 2016 -0600
+
+    return a token so client can update the psoition
+
+commit 4616673e9500ae9130777e17d593a2765d65fba9
+Merge: 3c8b6a2 66ad30a
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 17:49:10 2016 -0600
+
+    Merge pull request #25 from Brad--/taxationWithoutRepresentation
+    
+    Taxation Without Representation
+
+commit 66ad30a28c50314b15eaa1ec491299c3b3ab6be6
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 17:37:02 2016 -0600
+
+    See commit title
+
+commit 3c8b6a2acc1049479c9c7b94100fe0fcd4786b3a
+Merge: e8d6d97 8b370fd
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Wed Oct 26 17:13:18 2016 -0600
+
+    Merge pull request #24 from Brad--/topics/dieRoll
+    
+    should move to jail now
+
+commit 8b370fd4121c27cfd5eafa8c6baab0284a8d7da3
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 23:10:27 2016 -0600
+
+    should move to jail now
+
+commit e8d6d97db64e914800486ea3dbb9ae389769e8bf
+Merge: 83498a2 51376ea
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Wed Oct 26 17:02:58 2016 -0600
+
+    Merge pull request #23 from Brad--/topics/DieupgradeUpgrade
+    
+    made it so palyer moves to the jail tile
+
+commit 51376ea43d861c65af2e76b426086fe60d59e62a
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 22:59:54 2016 -0600
+
+    made it so palyer moves to the jail tile
+
+commit 83498a2a978aad897e9884e89a4846e72fcd8494
+Merge: ad0039d 36df604
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Wed Oct 26 16:55:30 2016 -0600
+
+    Merge pull request #22 from Brad--/topics/BoardJunit
+    
+    made it so die resets the speed if it doesn't roll doubles
+
+commit 36df604c7c9a955b78534a8cb1bcbd7d8064e738
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 22:52:56 2016 -0600
+
+    made it so die resets the speed if it doesn't roll doubles
+
+commit ad0039ddee9bbe824e359ff11f07382b8521cd78
+Merge: 0e22e9f 647d153
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 16:52:21 2016 -0600
+
+    Merge pull request #21 from Brad--/testies
+    
+    Deed Test
+
+commit 647d153cf30f1526cb538c75bc0670bf38e7382e
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 16:44:50 2016 -0600
+
+    Hotel tests, fixed weird double return for rent
+
+commit 9eaf6b5064df07fa53e7ab48af0973739c94079b
+Merge: 1dc8ea3 0e22e9f
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Wed Oct 26 16:40:07 2016 -0600
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into testies
+    
+    Conflicts:
+            src/com/cs414/monopoly/server/Deed.java
+
+commit 0e22e9fee347158f8ef847716b7691f5a3ef9367
+Merge: bc45a54 bdf7148
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Wed Oct 26 16:15:20 2016 -0600
+
+    Merge pull request #20 from Brad--/gabebranch4
+    
+    Made server roll call working
+
+commit bdf71481f2c9a08fdbab65dbb9eaf78bd7f0c34f
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 26 16:13:17 2016 -0600
+
+    Made server roll call working
+
+commit bc45a54fe0b275e96aabe9be0846ee77a6a868d5
+Merge: ab90c22 e969c9f
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Wed Oct 26 15:45:54 2016 -0600
+
+    Merge pull request #19 from Brad--/topics/updatedRent
+    
+    updated payRent in Board so that it calls the action function in deed…
+
+commit e969c9f6f01fd252f90d4ad771305f6fba79c410
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 21:40:51 2016 -0600
+
+    updated payRent in Board so that it calls the action function in deed also took out bad import in token
+
+commit ab90c22da8d35ea3897544f5c9ed00b289f9eb15
+Merge: 5c002b9 2c5829e
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Wed Oct 26 15:28:06 2016 -0600
+
+    Merge pull request #18 from Brad--/topics/DieUpgrade
+    
+    updated die to check for speeding but need token to contain the info
+
+commit 2c5829e7289194632ec5315a9e3298e5b6719191
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 21:19:21 2016 -0600
+
+    updated die to check for speeding but need token to contain the info
+
+commit 5c002b95de8ca3f64c931429a528c5ccdbbd9702
+Merge: 995408d f15876c
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Wed Oct 26 14:16:05 2016 -0600
+
+    Merge pull request #17 from Brad--/geoffFray
+    
+    Skeleton classes for rolling in GreetingService, made Token serializable
+
+commit f15876c02f2c163526a7fdb7fb23013abc1f701b
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Wed Oct 26 14:02:05 2016 -0600
+
+    Skeleton classes for rolling in GreetingService, made Token serializable
+    
+    Removed Image from token to make it serializable. Added in skeleton
+    classes (tried testing functionality for a few minutes, needs tweaking)
+
+commit 995408dd11d87c5dd2b53a501ae35753112f7e36
+Merge: 8a515c1 312c1c5
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Wed Oct 26 13:02:47 2016 -0600
+
+    Merge pull request #16 from Brad--/gabebranch4
+    
+    Gabebranch4
+
+commit 312c1c5eb2690ba035cc445fcb3e9e8de95d3a03
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 26 09:31:28 2016 -0600
+
+    Improved turn functionality, only allow 1 roll per turn
+
+commit 33fccdc5b456b653369b45c99236b06e3060e601
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 26 08:41:25 2016 -0600
+
+    Basic turn functionality
+
+commit 8a515c141bc9dc99802f1970e900b8dbeeef54a5
+Merge: 71a4880 8396a85
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Wed Oct 26 01:48:49 2016 -0600
+
+    Merge pull request #15 from Brad--/gabebranch3
+    
+    Began setting up turns
+
+commit 8396a85043bd4d029fd24ba3947fd81c169462b1
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 26 01:46:40 2016 -0600
+
+    Began setting up turns
+
+commit 71a4880ca9a0262341ae6f7235ff5d0dc6cd0f04
+Merge: 40a2b7f 3bfa19f
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Wed Oct 26 01:19:00 2016 -0600
+
+    Merge pull request #14 from Brad--/gabebranch2
+    
+    Added turn control buttons
+
+commit 3bfa19f7327e494a5518901df1e190b32c2219dd
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 26 01:16:34 2016 -0600
+
+    Added turn control buttons
+
+commit 40a2b7fe516c9de3dc0ca177a06ab22c52957b84
+Merge: d2c7c00 e88e677
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Wed Oct 26 00:52:01 2016 -0600
+
+    Merge pull request #11 from Brad--/topics/garrettDumbDumb
+    
+    added stuff to Die class to check for speeding and to token to set go…
+
+commit e88e67770247a4a39a5581d729c0e7d4f357a006
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 06:46:46 2016 -0600
+
+    made this work correctly
+
+commit d90d7d12e6809f323689b2ce4d8acd54e3af04d7
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 05:39:48 2016 -0600
+
+    added stuff to Die class to check for speeding and to token to set going to jail
+
+commit d2c7c003015785ff3383bd31c6b60939ad3821fd
+Merge: a826dcf 362dbbf
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Wed Oct 26 00:34:58 2016 -0600
+
+    Merge pull request #13 from Brad--/gifgeoff
+    
+    Commit of shame
+
+commit 362dbbfb91155a215a3f38645bf86f4f1a31ac4e
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Wed Oct 26 00:31:02 2016 -0600
+
+    Commit of shame
+    
+    Pls don't look @gphoon @gabe4s
+
+commit a826dcf12fb15a99af0d50e8b1e412473a87f32e
+Merge: c82da84 745f346
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Wed Oct 26 00:08:33 2016 -0600
+
+    Merge pull request #12 from Brad--/gifgeoff
+    
+    First effort at moving Token to server only
+
+commit 745f3460e9be4454d3af0e06f2b026a5b6a55971
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Wed Oct 26 00:01:16 2016 -0600
+
+    First effort at moving Token to server only
+    
+    @Brad-- @gphoon @gabe4s
+
+commit c82da84da04a8ff4fdd9f851e5b62e61b25fbcff
+Merge: 2d398f8 cfb68c4
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Tue Oct 25 23:15:02 2016 -0600
+
+    Merge pull request #10 from Brad--/monopolyCheck
+    
+    Implement monopoly check
+
+commit cfb68c4315a68887cdf6576c316e133cc21ee56b
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Tue Oct 25 23:13:15 2016 -0600
+
+    Implement monopoly check
+
+commit 2d398f8b57024e14458709f365d26e6ad1325366
+Merge: 6a3ef94 232f82c
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Tue Oct 25 23:03:42 2016 -0600
+
+    Merge pull request #9 from Brad--/topics/garrett
+    
+    added die class and changed so you get a list of deeds back when you …
+
+commit 232f82cc2b15e8513eeeaeeda50970b1b27c640b
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 05:00:54 2016 -0600
+
+    added die class and changed so you get a list of deeds back when you check for owned deeds
+
+commit 6a3ef94850081763a948cd0bfb07c6e9a4393a28
+Merge: e592abb bfe988d
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Tue Oct 25 22:46:05 2016 -0600
+
+    Merge pull request #8 from Brad--/fixBoard
+    
+    Fixed board infinite loop
+
+commit bfe988d37018b03101f2cd1a5df64a4efb34ec8f
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Tue Oct 25 22:43:20 2016 -0600
+
+    Fixed board infinite loop
+
+commit 1dc8ea368a3cc091fc4fe31326728613be735ae5
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Tue Oct 25 22:41:15 2016 -0600
+
+    Some Deed tests
+
+commit e592abba2828e8c10550a4cd8ad3861b77923c60
+Merge: f3c42be 43269c4
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Tue Oct 25 22:27:41 2016 -0600
+
+    Merge pull request #7 from Brad--/geoff
+    
+    MAKE THE BOARD PRETTY
+
+commit 43269c4f2a77633429b9dbe19ff05a1e6bed6375
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Tue Oct 25 22:22:43 2016 -0600
+
+    MAKE THE BOARD PRETTY
+    
+    BOARD HAS BEEN PRETTIFIED
+
+commit f3c42beecfd203a656b5e433c93c0c9a8d101006
+Merge: 994d8e5 2caa73b
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Tue Oct 25 22:15:29 2016 -0600
+
+    Merge pull request #6 from Brad--/topics/garretts
+    
+    made it so you can buy a deed and you pay for it no more free hand outs
+
+commit 2caa73b54cf6d6292dc2f01534522274116fc071
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 03:58:15 2016 -0600
+
+    made it so you can buy a deed and you pay for it no more free hand outs
+
+commit 3809ffccc6e562bc29fb4a1db87c9db27b89e450
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 26 03:32:09 2016 -0600
+
+    made it so when a palyer pay rent the other player gets paidd :moneybag:
+
+commit 994d8e57b7ebe3c24a882f4e3404dfca796d6aeb
+Merge: 6eb6612 e1fd567
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Tue Oct 25 21:43:58 2016 -0600
+
+    Merge pull request #5 from Brad--/gabebranchybranch
+    
+    changed Space targets to tokens :santa:
+
+commit 6eb6612925c8eba503314d84946a0b9add306381
+Merge: 71dfc30 3809ffc
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Tue Oct 25 21:43:06 2016 -0600
+
+    Merge pull request #4 from Brad--/topics/garretts
+    
+    made it so when a palyer pay rent the other player gets paidd :moneybag:
+
+commit e1fd5674b3cd81d36be07213ff02e646f245e9c6
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Tue Oct 25 21:38:17 2016 -0600
+
+    changed Space targets to tokens :santa:
+
+commit 71dfc307e906115fe60ec3f8fdc181fd4c15db4f
+Merge: 8a8c266 764ec21
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Tue Oct 25 21:07:52 2016 -0600
+
+    Merge pull request #3 from Brad--/brad
+    
+    Use Token instead of String for owner. Added rent handling.
+
+commit 764ec21df269ae145c3f48fe1adb77db38ad941d
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Tue Oct 25 21:05:06 2016 -0600
+
+    Use Token instead of String for owner. Added rent handling.
+
+commit 8a8c266bf743c75d47eb2c557223101de27ee5f0
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Tue Oct 25 20:41:31 2016 -0600
+
+    Code changes
+    
+    Code changes from starting to work on styling the board. Images are a
+    WIP and will be submitted later.
+
+commit cba8d9c7eb70c8da8aa7b7b3964695951dde4a40
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Mon Oct 24 21:13:19 2016 -0600
+
+    Pulled in GPs code, changed his token to clientside, fixed compilation
+    errors
+
+commit e8b6eb59ab5ad2d0feb86fcffd137e97e10cc81b
+Merge: f2133aa d7ff308
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Mon Oct 24 20:53:06 2016 -0600
+
+    Merge branch 'master' of https://github.com/Brad--/cs414
+
+commit f2133aafc81e35221526b68f1e349f82a5e65815
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Mon Oct 24 20:52:22 2016 -0600
+
+    Changed token to shared package
+
+commit 57a98ca0c54cb6f1eee8c355035be13b6be06762
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Oct 22 19:58:14 2016 -0600
+
+    Added startup settings to set tokens up
+
+commit d7ff30887a8ff58b870475871f35922c8d6e8bac
+Merge: a48f17c 39c82e1
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Sat Oct 22 14:00:26 2016 -0600
+
+    Merge pull request #2 from Brad--/topics/garrettsBranch
+    
+    Add server side Token class, Board functionality, and modify Deed.
+
+commit 927c680ad4c8a3b8277f0fb9dae7c398c276a27c
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Oct 22 13:18:54 2016 -0600
+
+    Board drawing off of single token integer value
+
+commit 39c82e18c318602885488c74d04bad1bf3cf27b6
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Sat Oct 22 08:33:00 2016 -0600
+
+    updated code according to review and added a few things :Blowfish:
+
+commit 4d1867dc2a8368b15a51fb8c791293af5db01bc0
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 19 22:19:51 2016 -0600
+
+    added in bored class and most of Token and added in PickToken enum modified deed a little bit
+
+commit a48f17cb9f14f8142b510d363554a5b87bfa60da
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Wed Oct 19 20:41:27 2016 -0600
+
+    get owner
+
+commit 96d71fffa7f91054a83d7e0826428ba1ff35a0fc
+Merge: 604e959 7b3b9e6
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Wed Oct 19 15:12:51 2016 -0600
+
+    Merge pull request #1 from Brad--/brads-branch
+    
+    Mostly finished Deed, added meat to the skeleton classes. :eggplant:
+
+commit 7b3b9e652146565bee0edae2f77b6d4e984aec79
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Tue Oct 18 22:49:23 2016 -0600
+
+    Mostly finished Deed, added more meat to the skeleton inheritance classes. :eggplant:
+
+commit 604e959629afbc7db0f2fe8ef4698bd8dce4fa79
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Mon Oct 17 21:02:12 2016 -0600
+
+    Skeleton classes :skull:
+
+commit f79b3f80a8c2b4c77fcac8a513c985e984a2d0cf
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Mon Oct 17 16:21:55 2016 -0600
+
+    Git cheat sheet :santa:
+
+commit 6c786828a7ed80fa78cbad6f3d8d6020c47f57ae
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Oct 7 15:38:25 2016 -0600
+
+    LETS TRY PUTTING GWT IN AGAIN.
+
+commit 15072e9237514bfa4f19aa539f912b00f313c8da
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Oct 7 15:25:49 2016 -0600
+
+    Changed package name, put GWT jars into project and put them into a
+    custom library for use.
+
+commit 84b74a197fd2bb484e727b00aee29bbd74c5e04e
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 5 21:54:18 2016 -0600
+
+    Added shared package and sample shared file
+
+commit beef0b6e3d19eed240ffbce54d8efb23e5bc419b
+Merge: 8fb6362 20ff5a8
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 5 21:50:51 2016 -0600
+
+    Merge branch 'master' of https://github.com/Brad--/cs414
+
+commit 8fb636223a256f55c70f7c900f8b707590c66a2b
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Oct 5 21:49:15 2016 -0600
+
+    Initial GWT Commit
+
+commit 20ff5a8d8a657600b417e8513abe8bcdc5ea7f88
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Wed Sep 7 08:37:42 2016 -0600
+
+    Initial commit
