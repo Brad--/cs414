@@ -119,12 +119,13 @@ public class GamePanel extends BasePanel {
 					allowEndTurn();
 				}
 				if (resultToken.getSpeeding() > 0 && resultToken.getSpeeding() < 3) {
-					turnPanel.setRolledDoublesText("You rolled doubles " + resultToken.getSpeeding() + " times");
+					turnPanel.setRollLabel(resultToken.getLastRollDieOne() + "+" + resultToken.getLastRollDieTwo() + 
+				" - You rolled doubles " + resultToken.getSpeeding() + " times");
 					turnPanel.setRollButtonActive(true);
 					turnPanel.setEndTurnButtonActive(false);
 				}
 				else {
-					turnPanel.setRolledDoublesText("");
+					turnPanel.setRollLabel(resultToken.getLastRollDieOne() + "+" + resultToken.getLastRollDieTwo());
 					turnPanel.setRollButtonActive(false);
 					turnPanel.setEndTurnButtonActive(true);
 				}
