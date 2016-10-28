@@ -1,11 +1,9 @@
 package com.cs414.monopoly.client;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import com.cs414.monopoly.shared.Board;
-import com.cs414.monopoly.shared.Deed;
 import com.cs414.monopoly.shared.ResponseAction;
 import com.cs414.monopoly.shared.Token;
 import com.cs414.monopoly.shared.TokenActionWrapper;
@@ -21,28 +19,10 @@ public class GamePanel extends BasePanel {
 	Label countdownLabel = new Label();
 	DeedsDisplayPanel deedDisplayPanel = new DeedsDisplayPanel();
 	Board board = new Board();
-
 	TurnPanel turnPanel;
 	LinkedHashMap<Integer, Token> tokens = new LinkedHashMap<Integer, Token>();
 	
-	Timer countdown = new Timer() {
-		int minutesLeft = 30;
-		int secondsLeft = 0;
-		public void run() {
-			String labelText = minutesLeft + "m" + secondsLeft + "s";
-			countdownLabel.setText(labelText);
-			if (secondsLeft == 0) {
-				secondsLeft = 59;
-				minutesLeft--;
-			}
-			else {
-				secondsLeft--;
-			}
-			if (minutesLeft == 0 && secondsLeft == 0) {
-				gameOver();
-			}
-		}
-	};
+	Timer countdown;
 	
 	int playersTurn = 0; // Start at 0, will get incremented to 1 index first thing
 	int numOfPlayers;
@@ -51,8 +31,27 @@ public class GamePanel extends BasePanel {
 		
 	}
 	
-	public GamePanel(int numOfPlayers, Token p1, Token p2, Token p3, Token p4) {
+	public GamePanel(int numOfPlayers, Token p1, Token p2, Token p3, Token p4, int timeSelected) {
+		final int gameTime = timeSelected;
 		this.numOfPlayers = numOfPlayers;
+		countdown = new Timer() {
+			int minutesLeft = gameTime;
+			int secondsLeft = 0;
+			public void run() {
+				if (secondsLeft == 0) {
+					secondsLeft = 59;
+					minutesLeft--;
+				}
+				else {
+					secondsLeft--;
+				}
+				String labelText = minutesLeft + "m" + secondsLeft + "s";
+				countdownLabel.setText(labelText);
+				if (minutesLeft == 0 && secondsLeft == 0) {
+					gameOver();
+				}
+			}
+		};
 		tokens.put(1,p1);
 		tokens.put(2,p2);
 		tokens.put(3,p3);

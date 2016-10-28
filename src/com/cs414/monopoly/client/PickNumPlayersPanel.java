@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.TextBox;
 
 public class PickNumPlayersPanel extends BasePanel {
 	
@@ -14,6 +15,7 @@ public class PickNumPlayersPanel extends BasePanel {
 	Token p2;
 	Token p3;
 	Token p4;
+	int numMinutes;
 	
 	public PickNumPlayersPanel() {
 		init();
@@ -26,22 +28,29 @@ public class PickNumPlayersPanel extends BasePanel {
 		Button players3 = new Button("3 Players");
 		Button players4 = new Button("4 Players");
 		
+		Label lblTime = new Label("How many minutes do we want to play for?");
+		final TextBox timeBox = new TextBox();
+		timeBox.setText("30");
+		
 		players2.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				setupPlayers(2);
+				setTime(Integer.parseInt(timeBox.getText()));
 			}
 		});
 		players3.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				setupPlayers(3);
+				setTime(Integer.parseInt(timeBox.getText()));
 			}
 		});
 		players4.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				setupPlayers(4);
+				setTime(Integer.parseInt(timeBox.getText()));
 			}
 		});
 		
@@ -50,7 +59,13 @@ public class PickNumPlayersPanel extends BasePanel {
 		add(players2);
 		add(players3);
 		add(players4);
+		add(lblTime);
+		add(timeBox);
 		
+	}
+	
+	private void setTime(int mins) {
+		this.numMinutes = mins;
 	}
 	
 	private void setupPlayers(final int numOfPlayers) {
@@ -105,7 +120,7 @@ public class PickNumPlayersPanel extends BasePanel {
 	
 	private void startGame(int numOfPlayers) {
 		clear();
-		GamePanel gamePanel = new GamePanel(numOfPlayers, p1, p2, p3, p4);
+		GamePanel gamePanel = new GamePanel(numOfPlayers, p1, p2, p3, p4, numMinutes);
 	}
 	
 	
