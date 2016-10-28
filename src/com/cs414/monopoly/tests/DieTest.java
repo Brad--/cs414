@@ -1,6 +1,6 @@
 package com.cs414.monopoly.tests;
 
-import com.cs414.monopoly.server.Die;
+import com.cs414.monopoly.shared.Die;
 import com.cs414.monopoly.shared.Token;
 import org.junit.Test;
 import static org.junit.Assert.*;

@@ -1,11 +1,12 @@
-package com.cs414.monopoly.server;
+package com.cs414.monopoly.shared;
 
 import com.cs414.monopoly.shared.Board;
+import com.cs414.monopoly.shared.Space;
 import com.cs414.monopoly.shared.Token;
 
-public class FreeParking extends Space {
+public class GoSpace extends Space {
 
-    public FreeParking(Board board, int position) {
+    public GoSpace(Board board, int position) {
         super(board, position);
     }
 

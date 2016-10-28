@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.cs414.monopoly.Exceptions.HotelException;
 import com.cs414.monopoly.Exceptions.HouseException;
-import com.cs414.monopoly.server.Deed;
+import com.cs414.monopoly.shared.Deed;
 import com.cs414.monopoly.shared.Board;
 
 /**

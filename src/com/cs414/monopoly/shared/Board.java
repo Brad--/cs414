@@ -3,9 +3,6 @@ package com.cs414.monopoly.shared;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.cs414.monopoly.server.Deed;
-import com.cs414.monopoly.server.Die;
-
 public class Board {
     private Die die;
     private HashMap<String, Token> users;

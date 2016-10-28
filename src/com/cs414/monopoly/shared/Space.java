@@ -1,4 +1,4 @@
-package com.cs414.monopoly.server;
+package com.cs414.monopoly.shared;
 
 import com.cs414.monopoly.shared.Board;
 import com.cs414.monopoly.shared.Token;
