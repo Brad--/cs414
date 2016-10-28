@@ -109,4 +109,12 @@ public class Token implements Serializable {
         this.lastRollDieOne = one;
         this.lastRollDieTwo = two;
     }
+
+    public int getLastRollDieOne(){
+        return this.lastRollDieOne;
+    }
+
+    public int getLastRollDieTwo(){
+        return this.lastRollDieTwo;
+    }
 }
