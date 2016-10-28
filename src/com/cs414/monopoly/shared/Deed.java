@@ -478,7 +478,7 @@ public class Deed extends Space {
                     houseRent = 1700;
                 break;
             default:
-                System.err.println("This space shouldn't be generating rent here! Position: " + position );
+//                System.err.println("This space shouldn't be generating rent here! Position: " + position );
                 break;
         }
 
