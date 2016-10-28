@@ -9,7 +9,7 @@ import com.google.gwt.user.client.Window;
 public class Board {
     private Die die;
     private HashMap<String, Token> users;
-    public ArrayList<Deed> deeds = new ArrayList<Deed>();
+    public ArrayList<Space> deeds = new ArrayList<>();
     public Board(){
         init();
     }
@@ -17,8 +17,45 @@ public class Board {
     public void init(){
         users = new HashMap<>();
         die = new Die();
+        int listPos;
         for (int i = 1; i <= 40; i++){
-            deeds.add(new Deed(this,i));
+            listPos = i - 1;
+            if(listPos == 0) {
+                deeds.add(new GoSpace(this, i));
+            }
+            else if(listPos == 4){
+                deeds.add(new TaxSpace(this, i));
+            }
+            else if(listPos == 5) {
+                deeds.add(new Railroad(this, i));
+            }
+            else if(listPos == 10) {
+                deeds.add(new Jail(this, i));
+            }
+            else if(listPos == 12) {
+                deeds.add(new UtilitySpace(this, i));
+            }
+            else if(listPos == 15) {
+                deeds.add(new Railroad(this, i));
+            }
+            else if(listPos == 20) {
+                deeds.add(new FreeParking(this, i));
+            }
+            else if(listPos == 25) {
+                deeds.add(new Railroad(this, i));
+            }
+            else if(listPos == 28) {
+                deeds.add(new UtilitySpace(this, i));
+            }
+            else if(listPos == 35) {
+                deeds.add(new Railroad(this, i));
+            }
+            else if(listPos == 38) {
+                deeds.add(new TaxSpace(this, i));
+            }
+            else {
+                deeds.add(new Deed(this, i));
+            }
         }
 
         deeds.get(0).setName("Go");
@@ -106,39 +143,42 @@ public class Board {
     }
 
     public void payRent(Token player){
-        int rent = deeds.get(player.getCurrentPosition()).getRent();
-        if (player.getCashMoney()-rent > 0){
-            deeds.get(player.getCurrentPosition()).action(player);
+        if(deeds.get(player.getCurrentPosition()) instanceof Deed) {
+            int rent = ((Deed)deeds.get(player.getCurrentPosition())).getRent();
+            if (player.getCashMoney() - rent > 0) {
+                deeds.get(player.getCurrentPosition()).action(player);
+            } else {
+                System.err.println("You do not have enough money to pay the rent #getEvicted!");
+                //@TODO: if a player runs out of money they lose stop them from playing
+            }
         }
-        else {
-            System.err.println("You do not have enough money to pay the rent #getEvicted!");
-            //@TODO: if a player runs out of money they lose stop them from playing
-        }
-
-
     }
 
     public void delegateDeed(Token player) {
-        int price = deeds.get(player.getCurrentPosition()).getRent();
-        if (users.get(player.getName()).getCashMoney()-price >0) {
-            deeds.get(player.getCurrentPosition()).changeOwnership(player);
-        }
-        else {
-            System.err.println("You do not have enough money to buy this Deed");
+        Space currSpace = deeds.get(player.getCurrentPosition());
+        if(currSpace instanceof Deed) {
+            int price = ((Deed)currSpace).getRent();
+            if (users.get(player.getName()).getCashMoney() - price > 0) {
+                ((Deed)currSpace).changeOwnership(player);
+            } else {
+                System.err.println("You do not have enough money to buy this Deed");
+            }
         }
     }
 
     // @param: playerA is the player receiving the property
     // @param: position the position of the property being traded
     public void trade(Token playerA, int position){
-        deeds.get(position).changeOwnership(playerA);
+        if(deeds.get(position) instanceof Deed)
+            ((Deed)deeds.get(position)).changeOwnership(playerA);
     }
 
     public ArrayList<Deed> getOwnedDeeds(Token player) {
-        ArrayList<Deed > ownedDeeds = new ArrayList<>();
-        for (Deed deed : deeds) {
+        ArrayList<Deed> ownedDeeds = new ArrayList<>();
+        for (Space deed : deeds) {
             if (deed.getOwner() != null && deed.getOwner().equals(player.getName())){
-                ownedDeeds.add(deed);
+                if(deed instanceof Deed)
+                    ownedDeeds.add((Deed)deed);
             }
         }
         return ownedDeeds;
