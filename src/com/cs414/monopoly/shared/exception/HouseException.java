@@ -1,4 +1,4 @@
-package com.cs414.monopoly.Exceptions;
+package com.cs414.monopoly.shared.exception;
 
 /**
  * Created by bradley on 10/17/16.

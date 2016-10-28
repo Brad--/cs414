@@ -1,9 +1,10 @@
 package com.cs414.monopoly.shared;
 
-import com.cs414.monopoly.Exceptions.HotelException;
-import com.cs414.monopoly.Exceptions.HouseException;
-
 import static com.cs414.monopoly.shared.PropertyGroup.*;
+
+import com.cs414.monopoly.shared.exception.HotelException;
+import com.cs414.monopoly.shared.exception.HouseException;
+import com.google.gwt.core.shared.GWT;
 
 public class Deed extends Space {
     protected int price;
@@ -12,7 +13,8 @@ public class Deed extends Space {
     private boolean hasHotel;
     private Token owner; // Change this to Token when that exists
     private PropertyGroup propertyGroup;
-
+    private String name;
+    
     public Deed(Board board, int position) {
         super(board, position);
         calcPriceAndPropertyGroup();
@@ -485,4 +487,44 @@ public class Deed extends Space {
         if(hasPropertyGroupMonopoly())
             houseRent *= 2;
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getColorHex() {
+		String hexColor = null;
+		switch(propertyGroup) {
+		case BROWN:
+			hexColor = "#955436";
+			break;
+		case LIGHTBLUE:
+			hexColor = "#a9e1fc";
+			break;
+		case PURPLE:
+			hexColor = "#d93c97";
+			break;
+		case ORANGE:
+			hexColor = "#f7921c";
+			break;
+		case RED:
+			hexColor = "#ed1b24";
+			break;
+		case YELLOW:
+			hexColor = "#fff000";
+			break;
+		case GREEN:
+			hexColor = "#00a650";
+			break;
+		case BLUE:
+			hexColor = "#0071bd";
+			break;
+		}
+		return hexColor;
+	}
+
 }

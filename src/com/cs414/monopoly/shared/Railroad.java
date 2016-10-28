@@ -1,7 +1,7 @@
 package com.cs414.monopoly.shared;
 
-import com.cs414.monopoly.Exceptions.HotelException;
-import com.cs414.monopoly.Exceptions.HouseException;
+import com.cs414.monopoly.shared.exception.HotelException;
+import com.cs414.monopoly.shared.exception.HouseException;
 
 /**
  * Created by bradley on 10/18/16.
