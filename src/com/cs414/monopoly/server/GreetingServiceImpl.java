@@ -5,6 +5,8 @@ import java.util.Set;
 
 import com.cs414.monopoly.client.GreetingService;
 import com.cs414.monopoly.shared.Token;
+import com.cs414.monopoly.shared.TokenActionWrapper;
+import com.cs414.monopoly.shared.UnownedDeedAction;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class GreetingServiceImpl extends RemoteServiceServlet implements GreetingService {
@@ -30,10 +32,10 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 	}
 	
 	@Override
-	public Token roll(Token token) {
+	public TokenActionWrapper roll(Token token) {
 		Die die = new Die();
 		Token returnToken = die.roll(token);
-		return returnToken;
+		return new TokenActionWrapper(token, new UnownedDeedAction());
 	}
 
 }

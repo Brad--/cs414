@@ -2,7 +2,10 @@ package com.cs414.monopoly.client;
 
 import java.util.LinkedHashMap;
 
+import com.cs414.monopoly.shared.ResponseAction;
 import com.cs414.monopoly.shared.Token;
+import com.cs414.monopoly.shared.TokenActionWrapper;
+import com.cs414.monopoly.shared.UnownedDeedAction;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
@@ -53,7 +56,7 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void doTurn() {
-		getGreetingService().roll(getTurnToken(), new AsyncCallback<Token>() {
+		getGreetingService().roll(getTurnToken(), new AsyncCallback<TokenActionWrapper>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -61,13 +64,18 @@ public class GamePanel extends BasePanel {
 			}
 
 			@Override
-			public void onSuccess(Token result) {
-				tokens.put(playersTurn, result);
+			public void onSuccess(TokenActionWrapper result) {
+				Token resultToken = result.getToken();
+				ResponseAction resultResponseAction = result.getResponseAction();
+				tokens.put(playersTurn, resultToken);
 				viewBoard.drawBoard(tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4));
-				turnPanel.setRollButtonActive(false);
-				turnPanel.setEndTurnButtonActive(true);
-				if (result.getSpeeding() > 0 && result.getSpeeding() < 3) {
-					turnPanel.setRolledDoublesText("You rolled doubles " + result.getSpeeding() + " times");
+				if(resultResponseAction != null) {
+					promptResponseAction(resultToken, resultResponseAction);
+				} else {
+					allowEndTurn();
+				}
+				if (resultToken.getSpeeding() > 0 && resultToken.getSpeeding() < 3) {
+					turnPanel.setRolledDoublesText("You rolled doubles " + resultToken.getSpeeding() + " times");
 					turnPanel.setRollButtonActive(true);
 					turnPanel.setEndTurnButtonActive(false);
 				}
@@ -92,6 +100,18 @@ public class GamePanel extends BasePanel {
 		} else {
 			playersTurn++;
 		}
+	}
+	
+	private void allowEndTurn() {
+		turnPanel.setRollButtonActive(false);
+		turnPanel.setEndTurnButtonActive(true);
+	}
+	
+	private void promptResponseAction(Token token, ResponseAction responseAction) {
+		if(responseAction instanceof UnownedDeedAction) {
+			AlertPopup alert = new AlertPopup("// TODO - this is where we would display a panel with the options, and apply to token or call server again if needed");
+		}
+		allowEndTurn();
 	}
 	
 	private void setTurnPanelLabelByPlayerTurnNumber() {
