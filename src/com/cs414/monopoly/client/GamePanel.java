@@ -1,17 +1,23 @@
 package com.cs414.monopoly.client;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.LinkedHashMap;
 
 import com.cs414.monopoly.shared.ResponseAction;
 import com.cs414.monopoly.shared.Token;
 import com.cs414.monopoly.shared.TokenActionWrapper;
 import com.cs414.monopoly.shared.UnownedDeedAction;
+import com.google.gwt.core.shared.GWT;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 
 public class GamePanel extends BasePanel {
-	
 	ViewBoard viewBoard = new ViewBoard();
+	Label countdownLabel = new Label();
+
 	TurnPanel turnPanel;
 	LinkedHashMap<Integer, Token> tokens = new LinkedHashMap<Integer, Token>();
 	int playersTurn = 0; // Start at 0, will get incremented to 1 index first thing
@@ -31,6 +37,7 @@ public class GamePanel extends BasePanel {
 	}
 
 	public void init(Token p1, Token p2, Token p3, Token p4) {
+		initializeTimer();
 		HorizontalPanel boardAndTurnPanel = new HorizontalPanel();
 		turnPanel = new TurnPanel(){
 			@Override
@@ -51,8 +58,31 @@ public class GamePanel extends BasePanel {
 		setTurnPanelLabelByPlayerTurnNumber();
 		
 		viewBoard.drawBoard(p1, p2, p3, p4);
+		getMainVerticalPanel().add(countdownLabel);
 		getMainVerticalPanel().add(boardAndTurnPanel);
 		
+	}
+	
+	private void initializeTimer() {
+		Timer countdown = new Timer() {
+			int minutesLeft = 30;
+			int secondsLeft = 0;
+			public void run() {
+				String labelText = minutesLeft + "m" + secondsLeft + "s";
+				countdownLabel.setText(labelText);
+				if (secondsLeft == 0) {
+					secondsLeft = 59;
+					minutesLeft--;
+				}
+				else {
+					secondsLeft--;
+				}
+				if (minutesLeft == 0 && secondsLeft == 0) {
+					gameOver();
+				}
+			}
+		};
+		countdown.scheduleRepeating(1000);
 	}
 	
 	private void doTurn() {
@@ -120,6 +150,10 @@ public class GamePanel extends BasePanel {
 	
 	private Token getTurnToken() {
 		return tokens.get(playersTurn);
+	}
+	
+	private void gameOver() {
+		// TODO end game
 	}
 	
 }
