@@ -157,7 +157,7 @@ public class Board {
     public void delegateDeed(Token player) {
         Space currSpace = deeds.get(player.getCurrentPosition());
         if(currSpace instanceof Deed) {
-            int price = ((Deed)currSpace).getRent();
+            int price = ((Deed)currSpace).getPrice();
             if (users.get(player.getName()).getCashMoney() - price > 0) {
                 ((Deed)currSpace).changeOwnership(player);
             } else {
@@ -184,8 +184,8 @@ public class Board {
         return ownedDeeds;
     }
 
-    public boolean containsUser(Token player){
-        return users.containsKey(player);
+    public boolean containsUser(String name){
+        return users.containsKey(name);
     }
 
 }
