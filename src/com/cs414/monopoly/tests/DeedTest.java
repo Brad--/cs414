@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.cs414.monopoly.Exceptions.HotelException;
-import com.cs414.monopoly.Exceptions.HouseException;
 import com.cs414.monopoly.shared.Deed;
+import com.cs414.monopoly.shared.exception.HotelException;
+import com.cs414.monopoly.shared.exception.HouseException;
 import com.cs414.monopoly.shared.Board;
 
 /**

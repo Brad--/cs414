@@ -1,22 +1,25 @@
 package com.cs414.monopoly.client;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import com.cs414.monopoly.shared.Board;
+import com.cs414.monopoly.shared.Deed;
 import com.cs414.monopoly.shared.ResponseAction;
 import com.cs414.monopoly.shared.Token;
 import com.cs414.monopoly.shared.TokenActionWrapper;
 import com.cs414.monopoly.shared.UnownedDeedAction;
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class GamePanel extends BasePanel {
 	ViewBoard viewBoard = new ViewBoard();
 	Label countdownLabel = new Label();
+	DeedsDisplayPanel deedDisplayPanel = new DeedsDisplayPanel();
+	Board board = new Board();
 
 	TurnPanel turnPanel;
 	LinkedHashMap<Integer, Token> tokens = new LinkedHashMap<Integer, Token>();
@@ -38,7 +41,7 @@ public class GamePanel extends BasePanel {
 
 	public void init(Token p1, Token p2, Token p3, Token p4) {
 		initializeTimer();
-		HorizontalPanel boardAndTurnPanel = new HorizontalPanel();
+		HorizontalPanel boardTurnDeedsPanel = new HorizontalPanel();
 		turnPanel = new TurnPanel(){
 			@Override
 			public void handleRollClick() {
@@ -50,16 +53,23 @@ public class GamePanel extends BasePanel {
 			}
 		};
 		
+		VerticalPanel deedsPanel = new VerticalPanel();
+		Label ownedDeedsLabel = new Label("Owned Deeds");
+		ownedDeedsLabel.addStyleName("turnLabel");
+		deedsPanel.add(ownedDeedsLabel);
+		deedsPanel.add(deedDisplayPanel);
 		
-		boardAndTurnPanel.add(viewBoard);
-		boardAndTurnPanel.add(turnPanel);
+		boardTurnDeedsPanel.add(viewBoard);
+		boardTurnDeedsPanel.add(turnPanel);
+		boardTurnDeedsPanel.add(deedsPanel);
 		
 		setNextTurnToken();
 		setTurnPanelLabelByPlayerTurnNumber();
+		deedDisplayPanel.displayDeeds(board.getOwnedDeeds(p1));
 		
 		viewBoard.drawBoard(p1, p2, p3, p4);
 		getMainVerticalPanel().add(countdownLabel);
-		getMainVerticalPanel().add(boardAndTurnPanel);
+		getMainVerticalPanel().add(boardTurnDeedsPanel);
 		
 	}
 	
@@ -99,6 +109,7 @@ public class GamePanel extends BasePanel {
 				ResponseAction resultResponseAction = result.getResponseAction();
 				tokens.put(playersTurn, resultToken);
 				viewBoard.drawBoard(tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4));
+				
 				if(resultResponseAction != null) {
 					promptResponseAction(resultToken, resultResponseAction);
 				} else {
@@ -146,6 +157,7 @@ public class GamePanel extends BasePanel {
 	
 	private void setTurnPanelLabelByPlayerTurnNumber() {
 		turnPanel.setTurnLabelText(getTurnToken().getName() + "'s turn!");
+		deedDisplayPanel.displayDeeds(board.getOwnedDeeds(getTurnToken()));
 	}
 	
 	private Token getTurnToken() {
