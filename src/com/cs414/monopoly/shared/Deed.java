@@ -4,6 +4,7 @@ import static com.cs414.monopoly.shared.PropertyGroup.*;
 
 import com.cs414.monopoly.shared.exception.HotelException;
 import com.cs414.monopoly.shared.exception.HouseException;
+import com.google.gwt.core.shared.GWT;
 
 public class Deed extends Space {
     protected int price;

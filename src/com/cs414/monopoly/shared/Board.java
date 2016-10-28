@@ -9,7 +9,7 @@ import com.google.gwt.user.client.Window;
 public class Board {
     private Die die;
     private HashMap<String, Token> users;
-    private ArrayList<Deed> deeds = new ArrayList<Deed>();
+    public ArrayList<Deed> deeds = new ArrayList<Deed>();
     public Board(){
         init();
     }
@@ -18,53 +18,49 @@ public class Board {
         users = new HashMap<>();
         die = new Die();
         for (int i = 1; i <= 40; i++){
-        	try {
-            deeds.add(i, new Deed(this,i));
-        	} catch (Exception e) {
-        		GWT.log(e.getMessage());
-        	}
+            deeds.add(new Deed(this,i));
         }
 
-//        deeds.get(1).setName("Go");
-//        deeds.get(2).setName("Bean Trees");
-//        deeds.get(3).setName("Community Chest");
-//        deeds.get(4).setName("Blackbird");
-//        deeds.get(5).setName("CSU Stadium Tax");
-//        deeds.get(6).setName("Laurel Station");
-//        deeds.get(7).setName("Cuppy's");
-//        deeds.get(8).setName("Chance");
-//        deeds.get(9).setName("Little Bird");
-//        deeds.get(10).setName("Bindle");
-//        deeds.get(11).setName("Jail");
-//        deeds.get(12).setName("Momo Lolo");
-//        deeds.get(13).setName("Electric");
-//        deeds.get(14).setName("Morgan's Grind");
-//        deeds.get(15).setName("Sweet Sinsations");
-//        deeds.get(16).setName("Mulberry Station");
-//        deeds.get(17).setName("Fort Collins Coffee House");
-//        deeds.get(18).setName("Community Chest");
-//        deeds.get(19).setName("Wild Boar");
-//        deeds.get(20).setName("Alley Cat");
-//        deeds.get(21).setName("Free Parking");
-//        deeds.get(22).setName("Bean Cycle");
-//        deeds.get(23).setName("Chance");
-//        deeds.get(24).setName("Human Bean");
-//        deeds.get(25).setName("Daz Bog");
-//        deeds.get(26).setName("Olive Station");
-//        deeds.get(27).setName("Cups Coffee");
-//        deeds.get(28).setName("Everyday Joe's");
-//        deeds.get(29).setName("Utilities");
-//        deeds.get(30).setName("Harbinger Coffee");
-//        deeds.get(31).setName("Goto Jail");
-//        deeds.get(32).setName("Crooked Cup");
-//        deeds.get(33).setName("Starry Night");
-//        deeds.get(34).setName("Community Chest");
-//        deeds.get(35).setName("Mugs");
-//        deeds.get(36).setName("Mountain Station");
-//        deeds.get(37).setName("Chance");
-//        deeds.get(38).setName("Dunkin Donuts");
-//        deeds.get(39).setName("Luxury Tax");
-//        deeds.get(40).setName("Starbucks");
+        deeds.get(0).setName("Go");
+        deeds.get(1).setName("Bean Trees");
+        deeds.get(2).setName("Community Chest");
+        deeds.get(3).setName("Blackbird");
+        deeds.get(4).setName("CSU Stadium Tax");
+        deeds.get(5).setName("Laurel Station");
+        deeds.get(6).setName("Cuppy's");
+        deeds.get(7).setName("Chance");
+        deeds.get(8).setName("Little Bird");
+        deeds.get(9).setName("Bindle");
+        deeds.get(10).setName("Jail");
+        deeds.get(11).setName("Momo Lolo");
+        deeds.get(12).setName("Electric");
+        deeds.get(13).setName("Morgan's Grind");
+        deeds.get(14).setName("Sweet Sinsations");
+        deeds.get(15).setName("Mulberry Station");
+        deeds.get(16).setName("Fort Collins Coffee House");
+        deeds.get(17).setName("Community Chest");
+        deeds.get(18).setName("Wild Boar");
+        deeds.get(19).setName("Alley Cat");
+        deeds.get(20).setName("Free Parking");
+        deeds.get(21).setName("Bean Cycle");
+        deeds.get(22).setName("Chance");
+        deeds.get(23).setName("Human Bean");
+        deeds.get(24).setName("Daz Bog");
+        deeds.get(25).setName("Olive Station");
+        deeds.get(26).setName("Cups Coffee");
+        deeds.get(27).setName("Everyday Joe's");
+        deeds.get(28).setName("Utilities");
+        deeds.get(29).setName("Harbinger Coffee");
+        deeds.get(30).setName("Goto Jail");
+        deeds.get(31).setName("Crooked Cup");
+        deeds.get(32).setName("Starry Night");
+        deeds.get(33).setName("Community Chest");
+        deeds.get(34).setName("Mugs");
+        deeds.get(35).setName("Mountain Station");
+        deeds.get(36).setName("Chance");
+        deeds.get(37).setName("Dunkin Donuts");
+        deeds.get(38).setName("Luxury Tax");
+        deeds.get(39).setName("Starbucks");
 
 
         //@TODO: start GUI
@@ -139,7 +135,7 @@ public class Board {
     public ArrayList<Deed> getOwnedDeeds(Token player) {
         ArrayList<Deed > ownedDeeds = new ArrayList<>();
         for (Deed deed : deeds) {
-            if (deed.getOwner().equals(player.getName())){
+            if (deed.getOwner() != null && deed.getOwner().equals(player.getName())){
                 ownedDeeds.add(deed);
             }
         }

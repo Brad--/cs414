@@ -1,8 +1,10 @@
 package com.cs414.monopoly.client;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import com.cs414.monopoly.shared.Board;
+import com.cs414.monopoly.shared.Deed;
 import com.cs414.monopoly.shared.ResponseAction;
 import com.cs414.monopoly.shared.Token;
 import com.cs414.monopoly.shared.TokenActionWrapper;
@@ -11,11 +13,12 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class GamePanel extends BasePanel {
 	ViewBoard viewBoard = new ViewBoard();
 	Label countdownLabel = new Label();
-//	DeedsDisplayPanel deedDisplayPanel = new DeedsDisplayPanel();
+	DeedsDisplayPanel deedDisplayPanel = new DeedsDisplayPanel();
 	Board board = new Board();
 
 	TurnPanel turnPanel;
@@ -50,14 +53,19 @@ public class GamePanel extends BasePanel {
 			}
 		};
 		
+		VerticalPanel deedsPanel = new VerticalPanel();
+		Label ownedDeedsLabel = new Label("Owned Deeds");
+		ownedDeedsLabel.addStyleName("turnLabel");
+		deedsPanel.add(ownedDeedsLabel);
+		deedsPanel.add(deedDisplayPanel);
 		
 		boardTurnDeedsPanel.add(viewBoard);
 		boardTurnDeedsPanel.add(turnPanel);
-//		boardTurnDeedsPanel.add(deedDisplayPanel);
+		boardTurnDeedsPanel.add(deedsPanel);
 		
 		setNextTurnToken();
 		setTurnPanelLabelByPlayerTurnNumber();
-//		deedDisplayPanel.displayDeeds(board.getOwnedDeeds(p1));
+		deedDisplayPanel.displayDeeds(board.getOwnedDeeds(p1));
 		
 		viewBoard.drawBoard(p1, p2, p3, p4);
 		getMainVerticalPanel().add(countdownLabel);
@@ -149,7 +157,7 @@ public class GamePanel extends BasePanel {
 	
 	private void setTurnPanelLabelByPlayerTurnNumber() {
 		turnPanel.setTurnLabelText(getTurnToken().getName() + "'s turn!");
-//		deedDisplayPanel.displayDeeds(board.getOwnedDeeds(getTurnToken()));
+		deedDisplayPanel.displayDeeds(board.getOwnedDeeds(getTurnToken()));
 	}
 	
 	private Token getTurnToken() {
