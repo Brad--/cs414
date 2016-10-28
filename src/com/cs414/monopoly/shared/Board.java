@@ -22,6 +22,8 @@ public class Board {
     }
 
     public Token handleRoll(Token currentPlayer) { // TODO return TokenActionWrapper?
+        if (!users.containsKey(currentPlayer))
+            addUser(currentPlayer);
     	Token updatedPlayer = die.roll(currentPlayer);
         int move = updatedPlayer.getCurrentPosition();
         //@TODO: check for doubles
@@ -95,6 +97,10 @@ public class Board {
             }
         }
         return ownedDeeds;
+    }
+
+    public boolean conaintsUser(Token player){
+        return users.containsKey(player);
     }
 
 }
