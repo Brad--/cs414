@@ -12,6 +12,6 @@ public class FreeParking extends Space {
 
     @Override
     public void action(Token target) {
-
+        // Nothing happens, but that is intentional
     }
 }
