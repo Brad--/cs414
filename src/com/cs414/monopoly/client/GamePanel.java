@@ -6,7 +6,10 @@ import java.util.LinkedHashMap;
 
 import com.cs414.monopoly.shared.ResponseAction;
 import com.cs414.monopoly.shared.Token;
-
+import com.cs414.monopoly.shared.TokenActionWrapper;
+import com.cs414.monopoly.shared.UnownedDeedAction;
+import com.google.gwt.core.shared.GWT;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -74,7 +77,7 @@ public class GamePanel extends BasePanel {
 				else {
 					secondsLeft--;
 				}
-				if (minutesLeft == 0) {
+				if (minutesLeft == 0 && secondsLeft == 0) {
 					gameOver();
 				}
 			}
