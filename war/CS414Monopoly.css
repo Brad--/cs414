@@ -34,9 +34,10 @@ h1 {
 	font-size: 16pt;
 }
 
-.rollButton, .endTurnButton {
+.turnButton {
 	width: 200px;
 	height: 100px;
+	font-size: 14pt;
 }
 
 .tokenStatsPanel {
