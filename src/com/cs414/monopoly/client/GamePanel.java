@@ -2,6 +2,7 @@ package com.cs414.monopoly.client;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import com.cs414.monopoly.shared.Board;
 import com.cs414.monopoly.shared.Deed;
@@ -23,6 +24,26 @@ public class GamePanel extends BasePanel {
 
 	TurnPanel turnPanel;
 	LinkedHashMap<Integer, Token> tokens = new LinkedHashMap<Integer, Token>();
+	
+	Timer countdown = new Timer() {
+		int minutesLeft = 30;
+		int secondsLeft = 0;
+		public void run() {
+			String labelText = minutesLeft + "m" + secondsLeft + "s";
+			countdownLabel.setText(labelText);
+			if (secondsLeft == 0) {
+				secondsLeft = 59;
+				minutesLeft--;
+			}
+			else {
+				secondsLeft--;
+			}
+			if (minutesLeft == 0 && secondsLeft == 0) {
+				gameOver();
+			}
+		}
+	};
+	
 	int playersTurn = 0; // Start at 0, will get incremented to 1 index first thing
 	int numOfPlayers;
 	
@@ -74,24 +95,7 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void initializeTimer() {
-		Timer countdown = new Timer() {
-			int minutesLeft = 30;
-			int secondsLeft = 0;
-			public void run() {
-				String labelText = minutesLeft + "m" + secondsLeft + "s";
-				countdownLabel.setText(labelText);
-				if (secondsLeft == 0) {
-					secondsLeft = 59;
-					minutesLeft--;
-				}
-				else {
-					secondsLeft--;
-				}
-				if (minutesLeft == 0 && secondsLeft == 0) {
-					gameOver();
-				}
-			}
-		};
+		
 		countdown.scheduleRepeating(1000);
 	}
 	
@@ -165,7 +169,20 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void gameOver() {
-		// TODO end game
+		countdown.cancel();
+		int winner = -1;
+		int highestMoney = 0;
+		for (Entry<Integer, Token> entry : tokens.entrySet()) {
+			Integer playerNumber = entry.getKey();
+			Token player = entry.getValue();
+			if (player != null) {
+				if (player.getCashMoney() > highestMoney) {
+					highestMoney = player.getCashMoney();
+					winner = playerNumber;
+				}
+			}
+		}
+		AlertPopup notify = new AlertPopup(tokens.get(winner).getName() + " wins the game!");
 	}
 	
 }
