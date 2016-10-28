@@ -15,4 +15,8 @@ abstract class Space {
     }
 
     abstract void action(Token target);
+
+    public int getPosition() {
+        return position;
+    }
 }
