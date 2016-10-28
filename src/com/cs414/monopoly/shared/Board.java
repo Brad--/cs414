@@ -99,7 +99,7 @@ public class Board {
         return ownedDeeds;
     }
 
-    public boolean conaintsUser(Token player){
+    public boolean containsUser(Token player){
         return users.containsKey(player);
     }
 
