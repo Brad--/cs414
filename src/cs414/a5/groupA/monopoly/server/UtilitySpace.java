@@ -1,6 +1,6 @@
-package cs414.a5.groupA.monopoly.shared;
+package cs414.a5.groupA.monopoly.server;
 
-import static cs414.a5.groupA.monopoly.shared.PropertyGroup.UTILITY;
+import static cs414.a5.groupA.monopoly.server.PropertyGroup.UTILITY;
 
 /**
  * Created by bradley on 10/27/16.

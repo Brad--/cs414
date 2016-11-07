@@ -2,7 +2,7 @@ package cs414.a5.groupA.monopoly.tests;
 
 import org.junit.Test;
 
-import cs414.a5.groupA.monopoly.shared.Token;
+import cs414.a5.groupA.monopoly.server.Token;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +13,7 @@ public class TokenTest {
     public Token token;
 
     public void init() {
-        token = new Token("Owen", "Filler because images don't matter in this unit test");
+        token = new Token("Owen");
     }
 
     @Test

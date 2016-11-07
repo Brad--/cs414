@@ -8,14 +8,14 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-import cs414.a5.groupA.monopoly.shared.Token;
+import cs414.a5.groupA.monopoly.server.Token;
 
 public class PickNumPlayersPanel extends BasePanel {
 	
-	Token p1;
-	Token p2;
-	Token p3;
-	Token p4;
+	PlayerPiece p1;
+	PlayerPiece p2;
+	PlayerPiece p3;
+	PlayerPiece p4;
 	int numMinutes;
 	
 	public PickNumPlayersPanel() {
@@ -94,12 +94,12 @@ public class PickNumPlayersPanel extends BasePanel {
 					AlertPopup alertPopup = new AlertPopup("Please make sure every user has a name and game piece");
 					alertPopup.show();
 				} else {
-					p1 = p1Picker.getPlayerToken();
-					p2 = p2Picker.getPlayerToken();
+					p1 = p1Picker.getPlayerPiece();
+					p2 = p2Picker.getPlayerPiece();
 					if(numOfPlayers >= 3) {
-						p3 = p3Picker.getPlayerToken();
+						p3 = p3Picker.getPlayerPiece();
 						if(numOfPlayers == 4) {
-							p4 = p4Picker.getPlayerToken();
+							p4 = p4Picker.getPlayerPiece();
 						}
 					}
 					startGame(numOfPlayers);

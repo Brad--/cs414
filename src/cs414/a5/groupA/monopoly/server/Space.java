@@ -1,7 +1,4 @@
-package cs414.a5.groupA.monopoly.shared;
-
-import cs414.a5.groupA.monopoly.shared.Board;
-import cs414.a5.groupA.monopoly.shared.Token;
+package cs414.a5.groupA.monopoly.server;
 
 abstract class Space {
 

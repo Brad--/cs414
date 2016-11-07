@@ -1,11 +1,11 @@
 package cs414.a5.groupA.monopoly.client;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import cs414.a5.groupA.monopoly.shared.Deed;
 
 public class DeedsDisplayPanel extends VerticalPanel {
 	
@@ -14,12 +14,14 @@ public class DeedsDisplayPanel extends VerticalPanel {
 
 	}
 	
-	public void displayDeeds(ArrayList<Deed> ownedDeeds) {
+	public void displayDeeds(HashMap<String, String> ownedDeedNameAndColor) {
 		clear();
-		for(Deed deed : ownedDeeds) {
-			Label nameLabel = new Label(deed.getName());
-			if(deed.getColorHex() != null) {
-				nameLabel.getElement().getStyle().setColor(deed.getColorHex());
+		for(Entry<String, String> entry : ownedDeedNameAndColor.entrySet()) {
+			String name = entry.getKey();
+			String color = entry.getValue();
+			Label nameLabel = new Label(name);
+			if(color != null && !color.isEmpty()) {
+				nameLabel.getElement().getStyle().setColor(color);
 			}
 			add(nameLabel);
 		}

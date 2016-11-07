@@ -2,8 +2,8 @@ package cs414.a5.groupA.monopoly.tests;
 
 import org.junit.Test;
 
-import cs414.a5.groupA.monopoly.shared.Die;
-import cs414.a5.groupA.monopoly.shared.Token;
+import cs414.a5.groupA.monopoly.server.Die;
+import cs414.a5.groupA.monopoly.server.Token;
 
 import static org.junit.Assert.*;
 
@@ -17,7 +17,7 @@ public class DieTest {
 
     public void init() {
         die = new Die();
-        token = new Token("p1", "image.png");
+        token = new Token("p1");
     }
 
     @Test

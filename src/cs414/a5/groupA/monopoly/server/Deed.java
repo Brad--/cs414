@@ -1,6 +1,6 @@
-package cs414.a5.groupA.monopoly.shared;
+package cs414.a5.groupA.monopoly.server;
 
-import static cs414.a5.groupA.monopoly.shared.PropertyGroup.*;
+import static cs414.a5.groupA.monopoly.server.PropertyGroup.*;
 
 import com.google.gwt.core.shared.GWT;
 

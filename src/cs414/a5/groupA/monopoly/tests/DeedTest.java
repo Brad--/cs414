@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import cs414.a5.groupA.monopoly.shared.Board;
-import cs414.a5.groupA.monopoly.shared.Deed;
-import cs414.a5.groupA.monopoly.shared.Token;
+import cs414.a5.groupA.monopoly.server.Board;
+import cs414.a5.groupA.monopoly.server.Deed;
+import cs414.a5.groupA.monopoly.server.Token;
 import cs414.a5.groupA.monopoly.shared.exception.HotelException;
 import cs414.a5.groupA.monopoly.shared.exception.HouseException;
 
@@ -34,7 +34,7 @@ public class DeedTest {
     @Test
     public void mortgageProperty() {
         init(2);
-        deed.changeOwnership(new Token("name", "image"));
+        deed.changeOwnership(new Token("name"));
         deed.mortgageProperty();
         assertNull(deed.getOwner());
     }

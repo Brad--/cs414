@@ -1,4 +1,4 @@
-package cs414.a5.groupA.monopoly.shared;
+package cs414.a5.groupA.monopoly.server;
 
 import cs414.a5.groupA.monopoly.shared.exception.HotelException;
 import cs414.a5.groupA.monopoly.shared.exception.HouseException;

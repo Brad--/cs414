@@ -1,8 +1,6 @@
-package cs414.a5.groupA.monopoly.shared;
+package cs414.a5.groupA.monopoly.server;
 
-import cs414.a5.groupA.monopoly.shared.Board;
-import cs414.a5.groupA.monopoly.shared.Space;
-import cs414.a5.groupA.monopoly.shared.Token;
+import cs414.a5.groupA.monopoly.server.Space;
 
 public class GoSpace extends Space {
 

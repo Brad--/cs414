@@ -1,4 +1,4 @@
-package cs414.a5.groupA.monopoly.shared;
+package cs414.a5.groupA.monopoly.server;
 
 import java.io.Serializable;
 
@@ -14,7 +14,6 @@ public class Token implements Serializable {
     private int cashMoney;
     private int currentPosition;
     private boolean isInjail;
-    private String gamePiece;
     private int speeding;
     private int lastRollDieOne;
     private int lastRollDieTwo;
@@ -22,12 +21,11 @@ public class Token implements Serializable {
     	
     }
 
-    public Token(String name, String imageUrl){
+    public Token(String name){
         this.name = name;
         this.cashMoney = 1500;
         this.setCurrentPosition(1); // this is GO
         this.isInjail = false;
-        this.gamePiece = imageUrl;
         this.speeding =0;
         this.lastRollDieOne =0;
         this.lastRollDieTwo = 0;
@@ -72,14 +70,6 @@ public class Token implements Serializable {
     public int getCurrentPosition(){
         return this.currentPosition;
     }
-
-	public String getGamePiece() {
-		return gamePiece;
-	}
-
-	public void setGamePiece(String gamePiece) {
-		this.gamePiece = gamePiece;
-	}
 
 	public void goToJail(){
 	    this.isInjail = true;

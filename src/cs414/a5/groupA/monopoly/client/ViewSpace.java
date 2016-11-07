@@ -3,8 +3,6 @@ package cs414.a5.groupA.monopoly.client;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 
-import cs414.a5.groupA.monopoly.shared.Token;
-
 public class ViewSpace extends FlowPanel {
 	
 	private int y;
@@ -18,8 +16,8 @@ public class ViewSpace extends FlowPanel {
 		addStyleName(backgroundImage);
 	}
 	
-	public void add(Token token) {
-		add(new Image(token.getGamePiece()));
+	public void add(PlayerPiece player) {
+		add(new Image(player.getGamePiece()));
 	}
 
 	public int getY() {

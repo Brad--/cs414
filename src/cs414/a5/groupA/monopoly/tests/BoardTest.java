@@ -2,9 +2,9 @@ package cs414.a5.groupA.monopoly.tests;
 
 import org.junit.Test;
 
-import cs414.a5.groupA.monopoly.shared.Board;
-import cs414.a5.groupA.monopoly.shared.Deed;
-import cs414.a5.groupA.monopoly.shared.Token;
+import cs414.a5.groupA.monopoly.server.Board;
+import cs414.a5.groupA.monopoly.server.Deed;
+import cs414.a5.groupA.monopoly.server.Token;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class BoardTest {
     @Test
     public void handleRoll() throws Exception {
         Board b = createBoard();
-        Token player = new Token("gabe", "image");
+        Token player = new Token("gabe");
         int current = player.getCurrentPosition();
         player = b.handleRoll(player);
         assertNotEquals(player.getCurrentPosition(), current);
@@ -37,7 +37,7 @@ public class BoardTest {
     @Test
     public void addUser() throws Exception {
         Board b = createBoard();
-        Token player = new Token("gabe", "image");
+        Token player = new Token("gabe");
         b.addUser(player);
         assertTrue(b.containsUser(player.getName()));
     }
@@ -45,7 +45,7 @@ public class BoardTest {
     @Test
     public void addUserByRoll() throws Exception {
         Board b = createBoard();
-        Token player = new Token("gabe", "image");
+        Token player = new Token("gabe");
         b.handleRoll(player);
         assertTrue(b.containsUser(player.getName()));
     }
@@ -53,7 +53,7 @@ public class BoardTest {
     @Test
     public void payRent() throws Exception {
         Board b = createBoard();
-        Token player = new Token("gabe", "image");
+        Token player = new Token("gabe");
         int credits = player.getCashMoney();
         player = b.handleRoll(player);
         b.payRent(player);
@@ -63,7 +63,7 @@ public class BoardTest {
     @Test
     public void delegateDeed() throws Exception {
         Board b = createBoard();
-        Token player = new Token("gabe", "image");
+        Token player = new Token("gabe");
         player = b.handleRoll(player);
         b.delegateDeed(player);
         ArrayList<Deed> deeds = b.getOwnedDeeds(player);
@@ -73,7 +73,7 @@ public class BoardTest {
     @Test
     public void trade() throws Exception {
         Board b = createBoard();
-        Token player = new Token("gabe", "image");
+        Token player = new Token("gabe");
         b.trade(player, 4);
         ArrayList<Deed> deeds = b.getOwnedDeeds(player);
         assertNotNull(deeds);
@@ -83,7 +83,7 @@ public class BoardTest {
     @Test
     public void getOwnedDeeds() throws Exception {
         Board b = createBoard();
-        Token player = new Token("gabe", "image");
+        Token player = new Token("gabe");
         player = b.handleRoll(player);
         b.delegateDeed(player);
         ArrayList<Deed> deeds = b.getOwnedDeeds(player);

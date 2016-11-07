@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class BasePanel {
 
-	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
+	private final GameServiceAsync gameService = GWT.create(GameService.class);
 	private final VerticalPanel mainVerticalPanel = new VerticalPanel();
 	
 	public BasePanel() {
@@ -15,8 +15,8 @@ public class BasePanel {
 		getMainVerticalPanel().addStyleName("mainVerticalPanel");
 	}
 	
-	protected GreetingServiceAsync getGreetingService() {
-		return greetingService;
+	protected GameServiceAsync getGameService() {
+		return gameService;
 	}
 	
 	protected VerticalPanel getMainVerticalPanel() {

@@ -9,8 +9,6 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import cs414.a5.groupA.monopoly.shared.Token;
-
 public class PlayerTokenPickerPanel extends VerticalPanel {
 	
 	private boolean active = true;
@@ -132,8 +130,8 @@ public class PlayerTokenPickerPanel extends VerticalPanel {
 		return nameField.getValue();
 	}
 	
-	public Token getPlayerToken() {
-		return new Token(getName(), getSelectedImage());
+	public PlayerPiece getPlayerPiece() {
+		return new PlayerPiece(getName(), getSelectedImage(), 1500);
 	}
 	
 	

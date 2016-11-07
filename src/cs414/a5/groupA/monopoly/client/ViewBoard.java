@@ -1,12 +1,12 @@
 package cs414.a5.groupA.monopoly.client;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Map.Entry;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Label;
 
-import cs414.a5.groupA.monopoly.shared.Token;
 
 public class ViewBoard extends FlexTable {
 	
@@ -14,11 +14,12 @@ public class ViewBoard extends FlexTable {
 	public static final String STYLE_WE = "leftRight";
 	public static final String STYLE_NS = "topBottom";
 	
-	TokenStatsPanel p1StatsPanel = new TokenStatsPanel();
-	TokenStatsPanel p2StatsPanel = new TokenStatsPanel();
-	TokenStatsPanel p3StatsPanel = new TokenStatsPanel();
-	TokenStatsPanel p4StatsPanel = new TokenStatsPanel();
+	PlayerStatsPanel p1StatsPanel = new PlayerStatsPanel();
+	PlayerStatsPanel p2StatsPanel = new PlayerStatsPanel();
+	PlayerStatsPanel p3StatsPanel = new PlayerStatsPanel();
+	PlayerStatsPanel p4StatsPanel = new PlayerStatsPanel();
 	
+	@SuppressWarnings("serial")
 	LinkedHashMap<Integer, ViewSpace> mappings = new LinkedHashMap<Integer, ViewSpace>() {{
 		put(1, new ViewSpace(10,10, "go", STYLE_CORNER));
 		put(2, new ViewSpace(10,9, "beantrees", STYLE_NS));
@@ -78,30 +79,29 @@ public class ViewBoard extends FlexTable {
 		setWidget(5,9, p4StatsPanel);
 	}
 	
-	public void drawBoard(Token P1, Token P2, Token P3, Token P4) {
-		for (Map.Entry<Integer, ViewSpace> entry : mappings.entrySet()) {
-		    Integer key = entry.getKey();
+	public void drawBoard(HashMap<PlayerPiece, Integer> playerPositions) {
+		for (Entry<Integer, ViewSpace> entry : mappings.entrySet()) {
+			Integer key = entry.getKey();
 		    ViewSpace space = entry.getValue();
 		    space.clear();
-		    if(P1 != null && P1.getCurrentPosition() == key) {
-		    	space.add(P1);
-		    }
-		    if(P2 != null && P2.getCurrentPosition() == key) {
-		    	space.add(P2);
-		    }
-		    if(P3 != null && P3.getCurrentPosition() == key) {
-		    	space.add(P3);
-		    }
-		    if(P4 != null && P4.getCurrentPosition() == key) {
-		    	space.add(P4);
-		    }
-		    setWidget(space.getY(), space.getX(), space);
+			for (Entry<PlayerPiece, Integer> player : playerPositions.entrySet()) {
+				PlayerPiece playerPiece = player.getKey();
+				int playerPosition = player.getValue();
+			    if(playerPosition == key) {
+			    	space.add(playerPiece);
+			    }
+			}
+			setWidget(space.getY(), space.getX(), space);
 		}
 
-		p1StatsPanel.setToken(P1);
-		p2StatsPanel.setToken(P2);
-		p3StatsPanel.setToken(P3);
-		p4StatsPanel.setToken(P4);
+		
+	}
+	
+	public void drawStatsPanel(PlayerPiece P1, PlayerPiece P2, PlayerPiece P3, PlayerPiece P4) {
+		p1StatsPanel.setPlayer(P1);
+		p2StatsPanel.setPlayer(P2);
+		p3StatsPanel.setPlayer(P3);
+		p4StatsPanel.setPlayer(P4);
 	}
 	
 }

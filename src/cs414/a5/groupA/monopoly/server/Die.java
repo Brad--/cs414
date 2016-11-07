@@ -1,6 +1,4 @@
-package cs414.a5.groupA.monopoly.shared;
-
-import cs414.a5.groupA.monopoly.shared.Token;
+package cs414.a5.groupA.monopoly.server;
 
 public class Die {
     // Last 2 rolls data structure is kind of up to interpretation, so I ain't gon' skeleton that

@@ -1,4 +1,4 @@
-package cs414.a5.groupA.monopoly.shared;
+package cs414.a5.groupA.monopoly.server;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -186,6 +186,18 @@ public class Board {
 
     public boolean containsUser(String name){
         return users.containsKey(name);
+    }
+    
+    public Token getUser(String name) {
+    	return users.get(name);
+    }
+    
+    public void updateUser(Token token) {
+    	users.put(token.getName(), token);
+    }
+    
+    public HashMap<String, Token> getUsers() {
+    	return this.users;
     }
 
 }
