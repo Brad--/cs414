@@ -8,8 +8,8 @@ import org.junit.Test;
 import cs414.a5.groupA.monopoly.server.Board;
 import cs414.a5.groupA.monopoly.server.Deed;
 import cs414.a5.groupA.monopoly.server.Token;
-import cs414.a5.groupA.monopoly.shared.exception.HotelException;
-import cs414.a5.groupA.monopoly.shared.exception.HouseException;
+import cs414.a5.groupA.monopoly.server.exception.HotelException;
+import cs414.a5.groupA.monopoly.server.exception.HouseException;
 
 /**
  * Created by bradley on 10/25/16.
