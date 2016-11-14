@@ -29,4 +29,6 @@ public interface GameService extends RemoteService {
 	Integer getSpeedingAmount(String name);
 	
 	HashMap<Integer, String> getAllSpacesAndOwners();
+	
+	HashMap<String, Integer> getPlayerMoneyAmounts();
 }

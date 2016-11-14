@@ -27,4 +27,6 @@ public interface GameServiceAsync {
 	void getSpeedingAmount(String name, AsyncCallback<Integer> callback);
 	
 	void getAllSpacesAndOwners(AsyncCallback<HashMap<Integer, String>> callback);
+	
+	void getPlayerMoneyAmounts(AsyncCallback<HashMap<String, Integer>> callback);
 }
