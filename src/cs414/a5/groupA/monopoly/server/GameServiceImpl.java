@@ -72,5 +72,21 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 		return playerPropertiesList;
 	}
+	
+	@Override
+	public HashMap<Integer, String> getAllSpacesAndOwners() {
+		HashMap<Integer , String> spacesAndOwners = new HashMap<Integer, String>();
+		ArrayList<Space> spaces = gameBoard.deeds;
+		
+		for (int idx=0;idx<spaces.size();idx++) {
+			Space space = spaces.get(idx);
+			Token owner = space.getOwner();
+			String ownerName = owner.getName();
+			Integer uiSpace = idx+1;
+			spacesAndOwners.put(uiSpace, ownerName);
+		}
+		
+		return spacesAndOwners;
+	}
 
 }
