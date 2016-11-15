@@ -18,6 +18,7 @@ public class Deed extends Space {
         super(board, position);
         calcPriceAndPropertyGroup();
         calcRent();
+        setName();
         hasHotel  = false;
         numHouses = 0;
         owner = null;
@@ -26,7 +27,6 @@ public class Deed extends Space {
     public Token getOwner() {
         return owner;
     }
-
 
     public int getRent() {
         return houseRent;
@@ -100,6 +100,134 @@ public class Deed extends Space {
     public void action(Token target) {
         target.payRent(houseRent);
         owner.earnRent(houseRent);
+    }
+
+    protected void setName() {
+        switch(position) {
+            case 0:
+                setName("Go");
+                break;
+            case 1:
+                setName("Bean Trees");
+                break;
+            case 2:
+                setName("Community Chest");
+                break;
+            case 3:
+                setName("Blackbird");
+                break;
+            case 4:
+                setName("CSU Stadium Tax");
+                break;
+            case 5:
+                setName("Laurel Station");
+                break;
+            case 6:
+                setName("Cuppy's");
+                break;
+            case 7:
+                setName("Chance");
+                break;
+            case 8:
+                setName("Little Bird");
+                break;
+            case 9:
+                setName("Bindle");
+                break;
+            case 10:
+                setName("Jail");
+                break;
+            case 11:
+                setName("Momo Lolo");
+                break;
+            case 12:
+                setName("Electric");
+                break;
+            case 13:
+                setName("Morgan's Grind");
+                break;
+            case 14:
+                setName("Sweet Sinsations");
+                break;
+            case 15:
+                setName("Mulberry Station");
+                break;
+            case 16:
+                setName("FoCo Coffee House");
+                break;
+            case 17:
+                setName("Community Chest");
+                break;
+            case 18:
+                setName("Wild Board");
+                break;
+            case 19:
+                setName("Alley Cat");
+                break;
+            case 20:
+                setName("Free Parking");
+                break;
+            case 21:
+                setName("Bean Cycle");
+                break;
+            case 22:
+                setName("Chance");
+                break;
+            case 23:
+                setName("Human Bean");
+                break;
+            case 24:
+                setName("Daz Bog");
+                break;
+            case 25:
+                setName("Olive Station");
+                break;
+            case 26:
+                setName("Cups Coffee");
+                break;
+            case 27:
+                setName("Everyday Joe's");
+                break;
+            case 28:
+                setName("Utilities");
+                break;
+            case 29:
+                setName("Harbinger Coffee");
+                break;
+            case 30:
+                setName("Go to Jail");
+                break;
+            case 31:
+                setName("Crooked Cup");
+                break;
+            case 32:
+                setName("Starry Night");
+                break;
+            case 33:
+                setName("Community Chest");
+                break;
+            case 34:
+                setName("Mugs");
+                break;
+            case 35:
+                setName("Mountain Station");
+                break;
+            case 36:
+                setName("Chance");
+                break;
+            case 37:
+                setName("Dunkin Donuts");
+                break;
+            case 38:
+                setName("Luxury Tax");
+                break;
+            case 39:
+                setName("Starbucks");
+                break;
+            default:
+                System.out.println("You're using the Deed constructor wrong. This is from the name init.");
+
+        }
     }
 
     // Sets the price based on position
