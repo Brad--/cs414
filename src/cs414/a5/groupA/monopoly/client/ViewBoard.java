@@ -51,7 +51,7 @@ public class ViewBoard extends FlexTable {
 		put(28, new ViewSpace(0,7, "everydayJoes", STYLE_NS));
 		put(29, new ViewSpace(0,8, "utility", STYLE_NS));
 		put(30, new ViewSpace(0,9, "harbingerCoffee", STYLE_NS));
-		put(31, new ViewSpace(0,10, "goToJail", STYLE_CORNER));
+		put(31, new ViewSpace(0,10, "setGoToJail", STYLE_CORNER));
 		put(32, new ViewSpace(1,10, "crookedCup", STYLE_WE));
 		put(33, new ViewSpace(2,10, "starryNight", STYLE_WE));
 		put(34, new ViewSpace(3,10, "communityChestEast", STYLE_WE));

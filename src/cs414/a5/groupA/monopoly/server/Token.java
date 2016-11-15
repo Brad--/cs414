@@ -11,7 +11,7 @@ public class Token implements Serializable {
 	 */
 	private static final long serialVersionUID = 349032251412258158L;
 	private String name;
-    private int cashMoney;
+    protected int cashMoney;
     private int currentPosition;
     private boolean isInjail;
     private int speeding;
@@ -31,24 +31,8 @@ public class Token implements Serializable {
         this.lastRollDieTwo = 0;
     }
 
-    public void payRent(int rent){
-        this.cashMoney -=rent;
-    }
-
-    public void earnRent(int rent) {
-        this.cashMoney += rent;
-    }
-
-    public void buyProperty(int price){
-        this.cashMoney -= price;
-    }
-
     public int getCashMoney(){
         return this.cashMoney;
-    }
-
-    public void passGo(){
-        this.cashMoney +=200;
     }
     
     public void setName(String name) {
@@ -59,7 +43,7 @@ public class Token implements Serializable {
         return this.name;
     }
 
-    public boolean inJail(){
+    public boolean getJailStatus(){
         return this.isInjail;
     }
 
@@ -71,11 +55,11 @@ public class Token implements Serializable {
         return this.currentPosition;
     }
 
-	public void goToJail(){
+	public void setGoToJail(){
 	    this.isInjail = true;
     }
 
-    public void getOutofJail(){
+    public void setOutofJail(){
         this.isInjail = false;
     }
 
@@ -87,8 +71,8 @@ public class Token implements Serializable {
 	    return this.speeding;
     }
 
-    public void incrementSpeed(int speed){
-        this.speeding +=speed;
+    public void setSpeed(){
+        this.speeding++;
     }
 
     public void resetSpeed(){
