@@ -21,7 +21,7 @@ public class TokenTest {
         init();
         assertNotNull(token);
         assertEquals(1500, token.getCashMoney());
-        assertFalse(token.inJail());
+        assertFalse(token.getJailStatus());
         assertEquals(1, token.getCashMoney());
         assertEquals(0, token.getSpeeding());
     }
@@ -64,16 +64,16 @@ public class TokenTest {
     @Test
     public void jailed() {
         init();
-        token.goToJail();
-        assertTrue(token.inJail());
+        token.setGoToJail();
+        assertTrue(token.getJailStatus());
     }
 
     @Test
     public void unjailed() {
         init();
-        token.goToJail();
-        token.getOutofJail();
-        assertFalse(token.inJail());
+        token.setGoToJail();
+        token.setOutofJail();
+        assertFalse(token.getJailStatus());
     }
 
 }

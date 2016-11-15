@@ -11,22 +11,22 @@ public class Die {
         // handle speeding and stuff in here
         int sum = rollOne + rollTwo;
         player.updateDieRoll(rollOne, rollTwo);
-        if (player.inJail()){
+        if (player.getJailStatus()){
             if( rollOne == rollTwo) { // they get out of jail
-                player.getOutofJail();
+                player.setOutofJail();
                 player.setCurrentPosition(11);
                 return player; // this will leave them at the jail tile and they can go next round
             }
         }
         if (rollOne == rollTwo && speeding(player)) {
-            player.goToJail();
+            player.setGoToJail();
             player.setCurrentPosition(11);
             return player;
         }
         else if (rollOne != rollTwo) {
             player.resetSpeed();
             if (checkGoToJailSpace(player, sum)){
-                player.goToJail();
+                player.setGoToJail();
                 player.setCurrentPosition(11);
             }
             else
@@ -34,7 +34,7 @@ public class Die {
         }
         else{
             if (checkGoToJailSpace(player, sum)){
-                player.goToJail();
+                player.setGoToJail();
                 player.setCurrentPosition(11);
             }
             else
@@ -49,7 +49,7 @@ public class Die {
             player.resetSpeed();
             return true;
         }
-        player.incrementSpeed(1);
+        player.setSpeed();
         return false;
     }
 
