@@ -72,5 +72,36 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 		return playerPropertiesList;
 	}
+	
+	@Override
+	public HashMap<Integer, String> getAllSpacesAndOwners() {
+		HashMap<Integer , String> spacesAndOwners = new HashMap<Integer, String>();
+		ArrayList<Space> spaces = gameBoard.deeds;
+		
+		for (int idx=0;idx<spaces.size();idx++) {
+			Space space = spaces.get(idx);
+			Token owner = space.getOwner();
+			String ownerName = owner.getName();
+			Integer uiSpace = idx+1; // GF might need to change this if we change it to 0 based system (currently 1 based? client side?)
+			spacesAndOwners.put(uiSpace, ownerName);
+		}
+		
+		return spacesAndOwners;
+	}
+	
+	@Override
+	public HashMap<String, Integer> getPlayerMoneyAmounts() {
+		HashMap<String, Integer> playerMoneyAmounts = new HashMap<String, Integer>();
+		HashMap<String, Token> players = gameBoard.getUsers();
+		
+		for (Entry<String, Token> entry : players.entrySet()) {
+			String playerName = entry.getKey();
+			Token playerToken = entry.getValue();
+			Integer playerMoney = playerToken.getCashMoney();
+			playerMoneyAmounts.put(playerName, playerMoney);
+		}
+		
+		return playerMoneyAmounts;
+	}
 
 }
