@@ -3,9 +3,6 @@ package cs414.a5.groupA.monopoly.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
-
 public class Board {
     private Die die;
     private HashMap<String, Token> users;
@@ -18,7 +15,7 @@ public class Board {
         users = new HashMap<>();
         die = new Die();
         int listPos;
-        for (int i = 1; i <= 40; i++) {
+        for (int i = 0; i <= 39; i++) {
             listPos = i - 1;
             if (listPos == 0) {
                 deeds.add(new GoSpace(this, i));

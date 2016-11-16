@@ -29,4 +29,22 @@ public interface GameServiceAsync {
 	void getAllSpacesAndOwners(AsyncCallback<HashMap<Integer, String>> callback);
 	
 	void getPlayerMoneyAmounts(AsyncCallback<HashMap<String, Integer>> callback);
+	
+	void getPlayerOptionsFromSpace(String playerName, int spaceNumber, AsyncCallback<ArrayList<String>> callback);
+	
+	void requestTrade(String playerRequesting, String playerRequested, AsyncCallback<Void> callback);
+	
+	void respondToTradeRequest(boolean wantsToTrade, AsyncCallback<Boolean> callback);
+	
+	void addItemToTrade(Object item, String playerAdding, AsyncCallback<Void> callback);
+	
+	void removeItemFromTrade(Object item, String playerRemoving, AsyncCallback<Void> callback);
+	
+	void acceptTrade(String playerAccepting, AsyncCallback<Void> callback);
+	
+	void denyTrade(String playerDenying, AsyncCallback<Void> callback);
+	
+	void tradeCloseWithDescription(AsyncCallback<String> callback);
+	
+	void getOpposingTraderItems(String playerRequesting, AsyncCallback<ArrayList<Object>> callback);
 }

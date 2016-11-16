@@ -31,4 +31,22 @@ public interface GameService extends RemoteService {
 	HashMap<Integer, String> getAllSpacesAndOwners();
 	
 	HashMap<String, Integer> getPlayerMoneyAmounts();
+	
+	ArrayList<String> getPlayerOptionsFromSpace(String playerName, int spaceNumber);
+
+	void requestTrade(String playerRequesting, String playerRequested);
+
+	Boolean respondToTradeRequest(boolean wantsToTrade);
+
+	void addItemToTrade(Object item, String playerAdding);
+
+	void removeItemFromTrade(Object item, String playerRemoving);
+
+	void acceptTrade(String playerAccepting);
+
+	void denyTrade(String playerDenying);
+
+	String tradeCloseWithDescription();
+
+	ArrayList<Object> getOpposingTraderItems(String playerRequesting);
 }
