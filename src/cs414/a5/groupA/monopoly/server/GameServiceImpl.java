@@ -103,5 +103,64 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		
 		return playerMoneyAmounts;
 	}
+	
+	@Override
+	public ArrayList<String> getPlayerOptionsFromSpace(String playerName, int spaceNumber) {
+		ArrayList<String> playerOptions = new ArrayList<String>();
+		
+		// TODO how do we retrieve these? Do we pass back a string listing what options they have?
+		// does client side have a list of options, and what we get returned determines what is available?
+		// give more ideas, this one is up in the air -GF
+		
+		return playerOptions;
+	}
+	
+	// TRADING BLOCK FROM HELL
+	// BEWARE ALL YE WHO ENTER HERE (HELP FINISH THESE)
+	
+	@Override
+	public void requestTrade(String playerRequesting, String playerRequested) {
+		// TODO playerRequesting wants to make a trade with playerRequested. 
+		// how do we handle this? have pop-up that both players interact with at same time if accepted?
+		// is this method going to be a simple accept/deny? -GF
+	}
+	
+	@Override
+	public Boolean respondToTradeRequest(boolean wantsToTrade) {
+		// TODO the player who was requested to be traded responds with either 'accept' or 'deny'
+		return false;
+	}
+	
+	@Override
+	public void addItemToTrade(Object item, String playerAdding) {
+		// TODO add the item to the trade object associated with these two players.
+	}
+	
+	@Override
+	public void removeItemFromTrade(Object item, String playerRemoving) {
+		// TODO remove the item from the trade object associated with this player.
+	}
+	
+	@Override
+	public void acceptTrade(String playerAccepting) {
+		// TODO set the acceptance of player to true
+	}
+	
+	@Override
+	public void denyTrade(String playerDenying) {
+		// TODO set the acceptance of player to false
+	}
+	
+	@Override
+	public ArrayList<Object> getOpposingTraderItems(String playerRequesting) {
+		// TODO return the list of items that the other trader has put up from the 
+		return null;
+	}
+	
+	@Override
+	public String tradeCloseWithDescription() {
+		// TODO close the trade, stating whether it was denied, accepted, cancelled, etc.
+		return null;
+	}
 
 }
