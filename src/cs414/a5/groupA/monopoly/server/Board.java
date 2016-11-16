@@ -47,49 +47,50 @@ public class Board {
     }
 
     public Token handleRoll(Token currentPlayer) { // TODO return TokenActionWrapper?
-        if (!users.containsKey(currentPlayer))
-            addUser(currentPlayer);
-    	Token updatedPlayer = die.roll(currentPlayer);
-        int move = updatedPlayer.getCurrentPosition();
-        //@TODO: check for doubles
-        if (!currentPlayer.inJail()){
-            if (deeds.get(currentPlayer.getCurrentPosition()).getOwner() == null) {
-                //TODO: display to player option to buy
-                delegateDeed(currentPlayer);
-            }
-            else if (currentPlayer.getCurrentPosition()==1){
-                currentPlayer.passGo(); // TODO needs to also account for PASSING of go as well
-            }
-            else if (currentPlayer.getCurrentPosition()==5){
-                //tax spot 200 or 10%
-                //@TODO show use choice to pay 200 or 10% of total
-            }
-            else if (currentPlayer.getCurrentPosition()== 39){
-                currentPlayer.payRent(75);
-            }
-            else{
-                // pay rent
-                payRent(currentPlayer);
-            }
-        }
-
-        // Pass go
-        if(!updatedPlayer.inJail() && updatedPlayer.getCurrentPosition() < currentPlayer.getCurrentPosition()) {
-            updatedPlayer.earnRent(200);
-        }
+    	// GD 11.15.16 Needs redone after token refactor
+//        if (!users.containsKey(currentPlayer))
+//            addUser(currentPlayer);
+//    	Token updatedPlayer = die.roll(currentPlayer);
+//        int move = updatedPlayer.getPosition();
+//        //@TODO: check for doubles
+//        if (!currentPlayer.inJail()){
+//            if (deeds.get(currentPlayer.getPosition()).getOwner() == null) {
+//                //TODO: display to player option to buy
+//                delegateDeed(currentPlayer);
+//            }
+//            else if (currentPlayer.getPosition()==1){
+//                currentPlayer.passGo(); // TODO needs to also account for PASSING of go as well
+//            }
+//            else if (currentPlayer.getPosition()==5){
+//                //tax spot 200 or 10%
+//                //@TODO show use choice to pay 200 or 10% of total
+//            }
+//            else if (currentPlayer.getPosition()== 39){
+//                currentPlayer.payRent(75);
+//            }
+//            else{
+//                // pay rent
+//                payRent(currentPlayer);
+//            }
+//        }
+//
+//        // Pass go
+//        if(!updatedPlayer.inJail() && updatedPlayer.getPosition() < currentPlayer.getPosition()) {
+//            updatedPlayer.earnRent(200);
+//        }
         return currentPlayer;
     }
 
     public void addUser(Token player){
-        if (!users.containsKey(player.getName()))
-            users.put(player.getName(), player);
+        if (!users.containsKey(player.getPlayerName()))
+            users.put(player.getPlayerName(), player);
     }
 
     public void payRent(Token player){
-        if(deeds.get(player.getCurrentPosition()) instanceof Deed) {
-            int rent = ((Deed)deeds.get(player.getCurrentPosition())).getRent();
-            if (player.getCashMoney() - rent > 0) {
-                deeds.get(player.getCurrentPosition()).action(player);
+        if(deeds.get(player.getPosition()) instanceof Deed) {
+            int rent = ((Deed)deeds.get(player.getPosition())).getRent();
+            if (player.getMoney() - rent > 0) {
+                deeds.get(player.getPosition()).action(player);
             } else {
                 System.err.println("You do not have enough money to pay the rent #getEvicted!");
                 //@TODO: if a player runs out of money they lose stop them from playing
@@ -98,10 +99,10 @@ public class Board {
     }
 
     public void delegateDeed(Token player) {
-        Space currSpace = deeds.get(player.getCurrentPosition());
+        Space currSpace = deeds.get(player.getPosition());
         if(currSpace instanceof Deed) {
             int price = ((Deed)currSpace).getPrice();
-            if (users.get(player.getName()).getCashMoney() - price > 0) {
+            if (users.get(player.getPlayerName()).getMoney() - price > 0) {
                 ((Deed)currSpace).changeOwnership(player);
             } else {
                 System.err.println("You do not have enough money to buy this Deed");
@@ -119,7 +120,7 @@ public class Board {
     public ArrayList<Deed> getOwnedDeeds(Token player) {
         ArrayList<Deed> ownedDeeds = new ArrayList<>();
         for (Space deed : deeds) {
-            if (deed.getOwner() != null && deed.getOwner().equals(player.getName())){
+            if (deed.getOwner() != null && deed.getOwner().equals(player.getPlayerName())){
                 if(deed instanceof Deed)
                     ownedDeeds.add((Deed)deed);
             }
@@ -136,7 +137,7 @@ public class Board {
     }
     
     public void updateUser(Token token) {
-    	users.put(token.getName(), token);
+    	users.put(token.getPlayerName(), token);
     }
     
     public HashMap<String, Token> getUsers() {

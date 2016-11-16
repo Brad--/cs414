@@ -10,101 +10,55 @@ public class Token implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 349032251412258158L;
-	private String name;
-    private int cashMoney;
-    private int currentPosition;
-    private boolean isInjail;
-    private int speeding;
-    private int lastRollDieOne;
-    private int lastRollDieTwo;
+	
+	private String playerName;
+    private String gamePiece;
+    private int money;
+    private int position;
+    private Boolean ready;
+    
     public Token() {
     	
     }
 
-    public Token(String name){
-        this.name = name;
-        this.cashMoney = 1500;
-        this.setCurrentPosition(1); // this is GO
-        this.isInjail = false;
-        this.speeding =0;
-        this.lastRollDieOne =0;
-        this.lastRollDieTwo = 0;
-    }
-
-    public void payRent(int rent){
-        this.cashMoney -=rent;
-    }
-
-    public void earnRent(int rent) {
-        this.cashMoney += rent;
-    }
-
-    public void buyProperty(int price){
-        this.cashMoney -= price;
-    }
-
-    public int getCashMoney(){
-        return this.cashMoney;
-    }
-
-    public void passGo(){
-        this.cashMoney +=200;
-    }
-    
-    public void setName(String name) {
-    	this.name = name;
-    }
-
-    public String getName(){
-        return this.name;
-    }
-
-    public boolean inJail(){
-        return this.isInjail;
-    }
-
-    public void updatePosition(int move){
-        this.setCurrentPosition((this.getCurrentPosition() + move) % 40);
-    }
-
-    public int getCurrentPosition(){
-        return this.currentPosition;
-    }
-
-	public void goToJail(){
-	    this.isInjail = true;
-    }
-
-    public void getOutofJail(){
-        this.isInjail = false;
-    }
-
-	public void setCurrentPosition(int currentPosition) {
-		this.currentPosition = currentPosition;
+	public String getPlayerName() {
+		return playerName;
 	}
 
-	public int getSpeeding(){
-	    return this.speeding;
-    }
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
 
-    public void incrementSpeed(int speed){
-        this.speeding +=speed;
-    }
+	public String getGamePiece() {
+		return gamePiece;
+	}
 
-    public void resetSpeed(){
-        this.speeding = 0;
-    }
+	public void setGamePiece(String gamePiece) {
+		this.gamePiece = gamePiece;
+	}
 
-    public void updateDieRoll(int one, int two){
-        this.lastRollDieOne = one;
-        this.lastRollDieTwo = two;
-    }
+	public int getMoney() {
+		return money;
+	}
 
-    public int getLastRollDieOne(){
-        return this.lastRollDieOne;
-    }
+	public void setMoney(int money) {
+		this.money = money;
+	}
 
-    public int getLastRollDieTwo(){
-        return this.lastRollDieTwo;
-    }
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
+	public Boolean getReady() {
+		return ready;
+	}
+
+	public void setReady(Boolean ready) {
+		this.ready = ready;
+	}
+
 }
