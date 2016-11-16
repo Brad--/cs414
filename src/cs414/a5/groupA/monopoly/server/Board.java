@@ -23,7 +23,7 @@ public class Board {
                 deeds.add(new TaxSpace(this, i));
             } else if (listPos == 5) {
                 deeds.add(new Railroad(this, i));
-            } else if (listPos == 10) {
+            }  else if (listPos == 10) {
                 deeds.add(new Jail(this, i));
             } else if (listPos == 12) {
                 deeds.add(new UtilitySpace(this, i));
@@ -39,6 +39,10 @@ public class Board {
                 deeds.add(new Railroad(this, i));
             } else if (listPos == 38) {
                 deeds.add(new TaxSpace(this, i));
+            } else if (listPos == 7 || listPos == 22
+                    || listPos == 2 || listPos == 17
+                    || listPos == 33 || listPos ==36) {
+                deeds.add(new Card(this, i));
             } else {
                 deeds.add(new Deed(this, i));
             }
