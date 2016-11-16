@@ -90,18 +90,16 @@ public class Deed extends Space {
 
     // Returns the mortgage value of the property
     public void mortgageProperty() {
-    	// GD 11.15.16 Needs redone after token refactor
-//        if(owner != null) {
-//            owner.earnRent(price / 2);
-//            owner = null;
-//        }
+        if(owner != null) {
+            owner.earnRent(price / 2);
+            owner = null;
+        }
     }
 
     @Override
     public void action(Token target) {
-    	// GD 11.15.16 Needs redone after token refactor
-//        target.payRent(houseRent);
-//        owner.earnRent(houseRent);
+        target.payRent(houseRent);
+        owner.earnRent(houseRent);
     }
 
     protected void setName() {

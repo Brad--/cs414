@@ -16,41 +16,37 @@ import cs414.a5.groupA.monopoly.server.TokenActionWrapper;
  */
 @RemoteServiceRelativePath("game")
 public interface GameService extends RemoteService {
+	Boolean testAsyncCall();
 
-	Boolean checkPlayersReady(String gameId);
-
-	void saveNewTokenToDatabase(String gameId, String playerName, String gamePiece, int money, int position,
-			boolean ready);
+	Map<String, Integer> getPlayerPositions();
 	
-//	Map<String, Integer> getPlayerPositions();
-//	
-//	void initializeGame(ArrayList<String> names);
-//
-//	String roll(String name);
-//
-//	HashMap<String, String> getPlayerPropertyList(String name);
-//
-//	Integer getSpeedingAmount(String name);
-//	
-//	HashMap<Integer, String> getAllSpacesAndOwners();
-//	
-//	HashMap<String, Integer> getPlayerMoneyAmounts();
-//	
-//	ArrayList<String> getPlayerOptionsFromSpace(String playerName, int spaceNumber);
-//
-//	void requestTrade(String playerRequesting, String playerRequested);
-//
-//	Boolean respondToTradeRequest(boolean wantsToTrade);
-//
-//	void addItemToTrade(Object item, String playerAdding);
-//
-//	void removeItemFromTrade(Object item, String playerRemoving);
-//
-//	void acceptTrade(String playerAccepting);
-//
-//	void denyTrade(String playerDenying);
-//
-//	String tradeCloseWithDescription();
-//
-//	ArrayList<Object> getOpposingTraderItems(String playerRequesting);
+	void initializeGame(ArrayList<String> names);
+
+	String roll(String name);
+
+	HashMap<String, String> getPlayerPropertyList(String name);
+
+	Integer getSpeedingAmount(String name);
+	
+	HashMap<Integer, String> getAllSpacesAndOwners();
+	
+	HashMap<String, Integer> getPlayerMoneyAmounts();
+	
+	ArrayList<String> getPlayerOptionsFromSpace(String playerName, int spaceNumber);
+
+	void requestTrade(String playerRequesting, String playerRequested);
+
+	Boolean respondToTradeRequest(boolean wantsToTrade);
+
+	void addItemToTrade(Object item, String playerAdding);
+
+	void removeItemFromTrade(Object item, String playerRemoving);
+
+	void acceptTrade(String playerAccepting);
+
+	void denyTrade(String playerDenying);
+
+	String tradeCloseWithDescription();
+
+	ArrayList<Object> getOpposingTraderItems(String playerRequesting);
 }

@@ -8,7 +8,6 @@ public class TaxSpace extends Space {
 
     @Override
     public void action(Token target) {
-    	// GD 11.15.16 Needs redone after token refactor
-//        target.payRent(100);
+        target.payRent(100);
     }
 }
