@@ -49,35 +49,6 @@ public class Board {
     }
 
 
-    public void addUser(Token player){
-//        if (!users.containsKey(player.getPlayerName()))
-//            users.put(player.getPlayerName(), player);
-    }
-
-    public void payRent(Token player){
-//        if(deeds.get(player.getPosition()) instanceof Deed) {
-//            int rent = ((Deed)deeds.get(player.getPosition())).getRent();
-//            if (player.getMoney() - rent > 0) {
-//                deeds.get(player.getPosition()).action(player);
-//            } else {
-//                System.err.println("You do not have enough money to pay the rent #getEvicted!");
-//                //@TODO: if a player runs out of money they lose stop them from playing
-//            }
-//        }
-    }
-
-    public void delegateDeed(Token player) {
-        Space currSpace = deeds.get(player.getPosition());
-//        if(currSpace instanceof Deed) {
-//            int price = ((Deed)currSpace).getPrice();
-//            if (users.get(player.getPlayerName()).getMoney() - price > 0) {
-//                ((Deed)currSpace).changeOwnership(player);
-//            } else {
-//                System.err.println("You do not have enough money to buy this Deed");
-//            }
-//        }
-    }
-
     // @param: playerA is the player receiving the property
     // @param: position the position of the property being traded
     public void trade(Token playerA, int position){
@@ -96,20 +67,5 @@ public class Board {
         return ownedDeeds;
     }
 
-//    public boolean containsUser(String name){
-//        return users.containsKey(name);
-//    }
-//    
-//    public Token getUser(String name) {
-//    	return users.get(name);
-//    }
-//    
-//    public void updateUser(Token token) {
-//    	users.put(token.getPlayerName(), token);
-//    }
-//    
-//    public HashMap<String, Token> getUsers() {
-//    	return this.users;
-//    }
 
 }

@@ -320,7 +320,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 					currentPlayer.setMoney(currentPlayer.getMoney()+200);
 				}
                 // pay rent
-				Deed current = (Deed) gameBoard.deeds.get(currentPlayer.getPosition());
+				Deed current = new Deed(currentPlayer.getPosition());
 				int rent = current.getRent();
 				if (currentPlayer.getMoney()-rent >= 0)
                 	payRent(currentPlayer, rent);
