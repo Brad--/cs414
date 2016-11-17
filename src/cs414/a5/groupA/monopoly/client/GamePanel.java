@@ -21,6 +21,7 @@ public class GamePanel extends BasePanel {
 	LinkedHashMap<Integer, PlayerPiece> piecesByNumber = new LinkedHashMap<Integer, PlayerPiece>();
 	
 	Timer countdown;
+	Timer refreshBoard;
 	
 	int playersTurn = 0; // Start at 0, will get incremented to 1 index first thing
 	int numOfPlayers;
@@ -54,6 +55,13 @@ public class GamePanel extends BasePanel {
 				}
 			}
 		};
+		
+		refreshBoard = new Timer() {
+			@Override
+			public void run() {
+				viewBoard.renderBoard();
+			}
+		};
 //		piecesByNumber.put(1,p1);
 //		piecesByNumber.put(2,p2);
 //		piecesByNumber.put(3,p3);
@@ -74,7 +82,7 @@ public class GamePanel extends BasePanel {
 
 				GWT.log("Game successfully started!");
 				
-				initializeTimer();
+				initializeTimers();
 				HorizontalPanel boardTurnDeedsPanel = new HorizontalPanel();
 				turnPanel = new TurnPanel(){
 					@Override
@@ -97,19 +105,14 @@ public class GamePanel extends BasePanel {
 				boardTurnDeedsPanel.add(turnPanel);
 				boardTurnDeedsPanel.add(deedsPanel);
 				
-//				setNextTurnToken();
-//				setTurnPanelLabelByPlayerTurnNumber();
-				//deedDisplayPanel.displayDeeds(board.getOwnedDeeds(p1));
-				
-//				updateBoard();
 				viewBoard.renderBoard();
 				getMainVerticalPanel().add(countdownLabel);
 				getMainVerticalPanel().add(boardTurnDeedsPanel);
 			
 	}
 	
-	private void initializeTimer() {
-		
+	private void initializeTimers() {
+		refreshBoard.scheduleRepeating(100);
 		countdown.scheduleRepeating(1000);
 	}
 	
@@ -127,50 +130,6 @@ public class GamePanel extends BasePanel {
 				AlertPopup alert = new AlertPopup(result);
 				viewBoard.renderBoard();
 			}});
-//		getGameService().roll(getCurrentPlayerTurnName(), new AsyncCallback<String>() {
-//
-//			@Override
-//			public void onFailure(Throwable caught) {
-//				// no good
-//			}
-//
-//			@Override
-//			public void onSuccess(String result) {
-//				updateBoard();
-//				// TODO implement speeding as well
-//				final String rollString = result;
-//				//turnPanel.setRollLabel(result);
-//				getGameService().getSpeedingAmount(getCurrentPlayerTurnName(), new AsyncCallback<Integer>() {
-//
-//					@Override
-//					public void onFailure(Throwable arg0) {
-//						GWT.log("Failed to get speeding amount");
-//					}
-//
-//					@Override
-//					public void onSuccess(Integer speedingAmount) {
-//						if (speedingAmount > 0 && speedingAmount < 3) {
-//							turnPanel.setRollLabel(rollString + " - You rolled doubles " + speedingAmount + " times");
-//						}
-//						else {
-//							turnPanel.setRollLabel(rollString);
-//							allowEndTurn();
-//						}
-//						
-//					}
-//				});
-////				if (resultToken.getSpeeding() > 0 && resultToken.getSpeeding() < 3) {
-////					turnPanel.setRollLabel(resultToken.getLastRollDieOne() + "+" + resultToken.getLastRollDieTwo() + 
-////				" - You rolled doubles " + resultToken.getSpeeding() + " times");
-////					turnPanel.setRollButtonActive(true);
-////					turnPanel.setEndTurnButtonActive(false);
-////				}
-////				else {
-////					turnPanel.setRollLabel(resultToken.getLastRollDieOne() + "+" + resultToken.getLastRollDieTwo());
-////					turnPanel.setRollButtonActive(false);
-////					turnPanel.setEndTurnButtonActive(true);
-////				}
-//			}});
 	}
 	
 	private void endTurn() {
@@ -193,16 +152,9 @@ public class GamePanel extends BasePanel {
 		turnPanel.setEndTurnButtonActive(true);
 	}
 	
-//	private void promptResponseAction(Token token, ResponseAction responseAction) {
-//		if(responseAction instanceof UnownedDeedAction) {
-//			//AlertPopup alert = new AlertPopup("// TODO - this is where we would display a panel with the options, and apply to token or call server again if needed");
-//		}
-//		allowEndTurn();
-//	}
 	
 	private void setTurnPanelLabelByPlayerTurnNumber() {
 		turnPanel.setTurnLabelText(getCurrentPlayerTurnName() + "'s turn!");
-		//deedDisplayPanel.displayDeeds(board.getOwnedDeeds(getTurnToken()));
 	}
 	
 	private String getCurrentPlayerTurnName() {
