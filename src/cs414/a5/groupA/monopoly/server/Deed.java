@@ -14,9 +14,6 @@ public class Deed extends Space{
     private int numHouses;
     private boolean hasHotel;
     protected PropertyGroup propertyGroup;
-    int position;
-    String name;
-    Token owner;
     
     public Deed(int position) {
         super(position);
@@ -209,63 +206,63 @@ public class Deed extends Space{
 
     // Sets the price based on position
     protected void calcPriceAndPropertyGroup() {
-        if(position == 2 || position == 4) {
+        if(position == 1 || position == 3) {
             price = 60;
             propertyGroup = BROWN;
         }
-        else if(position == 7 || position == 9) {
+        else if(position == 6 || position == 8) {
             price = 100;
             propertyGroup = LIGHTBLUE;
         }
-        else if(position == 10) {
+        else if(position == 9) {
             price = 120;
             propertyGroup = LIGHTBLUE;
         }
-        else if(position == 12 || position == 14) {
+        else if(position == 11 || position == 13) {
             price = 140;
             propertyGroup = PURPLE;
         }
-        else if(position == 15) {
+        else if(position == 14) {
             price = 160;
             propertyGroup = PURPLE;
         }
-        else if(position == 17 || position == 19) {
+        else if(position == 16 || position == 18) {
             price = 180;
             propertyGroup = ORANGE;
         }
-        else if(position == 20) {
+        else if(position == 19) {
             price = 200;
             propertyGroup = ORANGE;
         }
-        else if(position == 22 || position == 24) {
+        else if(position == 21 || position == 23) {
             price = 220;
             propertyGroup = RED;
         }
-        else if(position == 25) {
+        else if(position == 24) {
             price = 240;
             propertyGroup = RED;
         }
-        else if(position == 27 || position == 28) {
+        else if(position == 26 || position == 27) {
             price = 260;
             propertyGroup = YELLOW;
         }
-        else if(position == 30) {
+        else if(position == 29) {
             price = 280;
             propertyGroup = YELLOW;
         }
-        else if(position == 32 || position == 33) {
+        else if(position == 31 || position == 32) {
             price = 300;
             propertyGroup = GREEN;
         }
-        else if(position == 35) {
+        else if(position == 34) {
             price = 320;
             propertyGroup = GREEN;
         }
-        else if(position == 38) {
+        else if(position == 37) {
             price = 350;
             propertyGroup = BLUE;
         }
-        else if(position == 40){
+        else if(position == 39){
             price = 400;
             propertyGroup = BLUE;
         }
