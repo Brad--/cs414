@@ -201,6 +201,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
 
 	public String getDeedOwner(String gameID, int position){
 		String sql = "SELECT playerName FROM deed WHERE gameId=? AND position=?";
@@ -330,6 +331,24 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 		return player;
+		
+	@Override
+	public void deleteToken(Token token) {
+		String sql = "DELETE FROM token WHERE tokenId=?";
+		
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, token.getTokenId());
+			
+			ps.executeUpdate();
+			
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 //
 //	@Override
