@@ -22,6 +22,8 @@ public interface GameService extends RemoteService {
 	void updateToken(Token token);
 
 	void deleteToken(Token token);
+
+	void initializeDeeds(String gameID);
 	
 //	Map<String, Integer> getPlayerPositions();
 //	
