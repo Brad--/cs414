@@ -58,6 +58,7 @@ public class SetupPlayerPanel extends BasePanel {
 		getToken().setReady(false);
 		getToken().setInJail(false);
 		getToken().setSpeedCount(0);
+		getToken().setPlayerTurn(false);
 		
 		getGameService().saveNewTokenToDatabase(getToken(), new AsyncCallback<Token>() {
 

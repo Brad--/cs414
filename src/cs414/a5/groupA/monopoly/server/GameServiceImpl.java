@@ -61,6 +61,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 				token.setReady(rs.getBoolean("ready"));
 				token.setInJail(rs.getBoolean("inJail"));
 				token.setSpeedCount(rs.getInt("speedCount"));
+				token.setPlayerTurn(rs.getBoolean("playerTurn"));
 				
 				tokens.add(token);
 			}
@@ -76,7 +77,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	@Override
 	public Token saveNewTokenToDatabase(Token token) {
 		Token returnToken = null;
-		String sql = "INSERT INTO `token` (`gameId`, `playerName`, `gamePiece`, `money`, `position`, `ready`, `inJail`, `speedCount`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO `token` (`gameId`, `playerName`, `gamePiece`, `money`, `position`, `ready`, `inJail`, `speedCount`, `playerTurn`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		token.setGamePiece(getNewAssignedGamePiece(token.getGameId()));
 		
@@ -89,9 +90,10 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setString(3, token.getGamePiece());
 			ps.setInt(4, token.getMoney());
 			ps.setInt(5, token.getPosition());
-			ps.setBoolean(6, token.getReady());
-			ps.setBoolean(7, token.getInJail());
+			ps.setBoolean(6, token.isReady());
+			ps.setBoolean(7, token.isInJail());
 			ps.setInt(8, token.getSpeedCount());
+			ps.setBoolean(9, token.isPlayerTurn());
 			
 			
 			ps.executeUpdate();
@@ -154,6 +156,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			token.setReady(rs.getBoolean("ready"));
 			token.setInJail(rs.getBoolean("inJail"));
 			token.setSpeedCount(rs.getInt("speedCount"));
+			token.setPlayerTurn(rs.getBoolean("playerTurn"));
 			
 		}
 		
@@ -172,7 +175,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			int readyCount = 0;
 			
 			for(Token token : tokens) {
-				if(token.getReady() != null && token.getReady()) {
+				if(token.isReady() != null && token.isReady()) {
 					readyCount++;
 				}
 			}
@@ -189,7 +192,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	
 	@Override
 	public void updateToken(Token token) {
-		String sql = "UPDATE `token` SET `playerName`=?, `gamePiece`=?, `money`=?, `position`=?, `ready`=?, `inJail`=?, `speedCount`=? WHERE `tokenId`=?";
+		String sql = "UPDATE `token` SET `playerName`=?, `gamePiece`=?, `money`=?, `position`=?, `ready`=?, `inJail`=?, `speedCount`=?, `playerTurn`=? WHERE `tokenId`=?";
 		
 		try {
 			Connection conn = getNewConnection();
@@ -199,10 +202,11 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setString(2, token.getGamePiece());
 			ps.setInt(3, token.getMoney());
 			ps.setInt(4, token.getPosition());
-			ps.setBoolean(5, token.getReady());
-			ps.setBoolean(6, token.getInJail());
+			ps.setBoolean(5, token.isReady());
+			ps.setBoolean(6, token.isInJail());
 			ps.setInt(7, token.getSpeedCount());
-			ps.setInt(8, token.getTokenId());
+			ps.setBoolean(8, token.isPlayerTurn());
+			ps.setInt(9, token.getTokenId());
 			
 			ps.executeUpdate();
 			
@@ -276,7 +280,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		currentPlayer.setLastRollOne(r1);
 		currentPlayer.setLastRollTwo(r2);
 		if (die.checkForDoubles(r1,r2)){
-			if (currentPlayer.getInJail()) {
+			if (currentPlayer.isInJail()) {
 				currentPlayer.setInJail(false);
 				return  currentPlayer; // you get out of jail but wait a turn tell you can move
 			}
@@ -290,7 +294,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 					currentPlayer.setSpeedCount(currentSpeed + 1);
 			}
 		}
-        if (!currentPlayer.getInJail()){
+        if (!currentPlayer.isInJail()){
 			start = currentPlayer.getPosition();
 			int moveTo = (start + r1 + r2) % 40;
 			if (moveTo == 30) {
@@ -318,7 +322,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
             }
             else{
 				// check if they pass go before paying rent
-				if(!currentPlayer.getInJail() && currentPlayer.getPosition() < start) {
+				if(!currentPlayer.isInJail() && currentPlayer.getPosition() < start) {
 					currentPlayer.setMoney(currentPlayer.getMoney()+200);
 				}
                 // pay rent
@@ -334,7 +338,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
         }
 
         // Pass go
-        if(!currentPlayer.getInJail() && currentPlayer.getPosition() < start) {
+        if(!currentPlayer.isInJail() && currentPlayer.getPosition() < start) {
 			currentPlayer.setMoney(currentPlayer.getMoney()+200);
         }
 		return currentPlayer;
