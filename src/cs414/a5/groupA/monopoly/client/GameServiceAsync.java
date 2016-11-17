@@ -19,6 +19,8 @@ public interface GameServiceAsync {
 	
 	void updateToken(Token token, AsyncCallback<Void> callback);
 	
+	void deleteToken(Token token, AsyncCallback<Void> callback);
+	
 //	void getPlayerPositions(AsyncCallback<Map<String, Integer>> callback);
 //	
 //	void initializeGame(ArrayList<String> names, AsyncCallback<Void> callback);

@@ -200,6 +200,24 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void deleteToken(Token token) {
+		String sql = "DELETE FROM token WHERE tokenId=?";
+		
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, token.getTokenId());
+			
+			ps.executeUpdate();
+			
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 //
 //	@Override
 //	public Map<String, Integer> getPlayerPositions() {

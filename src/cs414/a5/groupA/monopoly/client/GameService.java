@@ -20,6 +20,8 @@ public interface GameService extends RemoteService {
 	Token saveNewTokenToDatabase(Token token);
 
 	void updateToken(Token token);
+
+	void deleteToken(Token token);
 	
 //	Map<String, Integer> getPlayerPositions();
 //	
