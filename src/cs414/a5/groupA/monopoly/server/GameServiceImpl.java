@@ -18,6 +18,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
 import cs414.a5.groupA.monopoly.shared.Token;
+import jdk.internal.util.xml.impl.Pair;
 
 public class GameServiceImpl extends RemoteServiceServlet implements GameService {
 
@@ -200,6 +201,136 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 	}
+
+	public String getDeedOwner(String gameID, int position){
+		String sql = "SELECT playerName FROM deed WHERE gameId=? AND position=?";
+		String owner = "";
+		try{
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, gameID);
+			ps.setInt(2, position);
+			ResultSet rs = ps.executeQuery(sql);
+			if (rs.next()){
+				owner = rs.getString("playerName");
+			}
+
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return owner;
+	}
+
+	public void updateDeed(Token token){
+		String sql = "UPDATE deed SET playerName=? WHERE gameId=? AND position=?";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, token.getPlayerName());
+			ps.setString(2, token.getGameId());
+			ps.setInt(3, token.getPosition());
+
+			ps.executeUpdate();
+			conn.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public String roll(String name, String gameID) {
+			Token player = null;
+		try {
+			player = getTokenByGameIdAndName(gameID, name);
+			player = handleRoll(player);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		int rollOne = player.getLastRollOne();
+		int rollTwo = player.getLastRollTwo();
+		return rollOne + "+" + rollTwo;
+	}
+
+	public Token handleRoll(Token currentPlayer) { // TODO return TokenActionWrapper?
+		// GD 11.15.16 Needs redone after token refactor
+        Die die = new Die();
+		int start = 0;
+		int r1 = die.roll();
+		int r2 = die.roll();
+		currentPlayer.setLastRollOne(r1);
+		currentPlayer.setLastRollTwo(r2);
+		if (die.checkForDoubles(r1,r2)){
+			int currentSpeed = currentPlayer.getSpeedCount();
+			if (currentSpeed+1 == 3) {
+				currentPlayer.setInJail(true);
+				currentPlayer.setSpeedCount(0);
+			}
+			else
+				currentPlayer.setSpeedCount(currentSpeed+1);
+		}
+        if (!currentPlayer.getInJail()){
+			start = currentPlayer.getPosition();
+			int moveTo = start + r1 + r2 % 40;
+			currentPlayer.setPosition(moveTo);
+            if (getDeedOwner(currentPlayer.getGameId(), currentPlayer.getPosition()) == null) {
+                //TODO: display to player option to buy
+                updateDeed(currentPlayer);
+            }
+            else if (currentPlayer.getPosition()==1){
+				currentPlayer.setMoney(currentPlayer.getMoney()+200);
+            }
+            else if (currentPlayer.getPosition()==5){
+                //tax spot pay 200
+				if (currentPlayer.getMoney()-200 >= 0)
+					currentPlayer.setMoney(currentPlayer.getMoney()-200);
+                //@TODO show user they've lost
+            }
+            else if (currentPlayer.getPosition()== 39){
+				if (currentPlayer.getMoney()-75 >= 0)
+                	currentPlayer.setMoney(currentPlayer.getMoney()-75);
+					//TODO add else to tell player they've lost
+            }
+            else{
+				// check if they pass go before paying rent
+				if(!currentPlayer.getInJail() && currentPlayer.getPosition() < start) {
+					currentPlayer.setMoney(currentPlayer.getMoney()+200);
+				}
+                // pay rent
+				Deed current = (Deed) gameBoard.deeds.get(currentPlayer.getPosition());
+				int rent = current.getRent();
+				if (currentPlayer.getMoney()-rent >= 0)
+                	payRent(currentPlayer, current, rent);
+				else
+					payRent(currentPlayer, current, currentPlayer.getMoney()); // give other play rest of money
+
+				return currentPlayer;
+            }
+        }
+
+        // Pass go
+        if(!currentPlayer.getInJail() && currentPlayer.getPosition() < start) {
+			currentPlayer.setMoney(currentPlayer.getMoney()+200);
+        }
+		return currentPlayer;
+	}
+
+	private Token payRent(Token player, Deed current, int rent){
+		String owner = getDeedOwner(player.getGameId(), player.getPosition());
+		Token player2 = null;
+		try {
+			player2 = getTokenByGameIdAndName(player.getGameId(), owner);
+			player2.setMoney(player2.getMoney()+rent);
+			player.setMoney(player.getMoney()-rent);
+			updateToken(player2);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return player;
+	}
 //
 //	@Override
 //	public Map<String, Integer> getPlayerPositions() {
@@ -221,16 +352,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 //			gameBoard.addUser(new Token(name));
 //		}
 //	}
-//	
-//	@Override
-//	public String roll(String name) {
-//		Token player = gameBoard.getUser(name);
-//		player = gameBoard.handleRoll(player);
-//		gameBoard.updateUser(player);
-//		int rollOne = player.getLastRollDieOne();
-//		int rollTwo = player.getLastRollDieTwo();
-//		return rollOne + "+" + rollTwo;
-//	}
+//
 //	
 //	@Override
 //	public Integer getSpeedingAmount(String name) {

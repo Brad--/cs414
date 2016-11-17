@@ -8,7 +8,7 @@ import cs414.a5.groupA.monopoly.shared.Token;
  * Created by bradley on 10/18/16.
  */
 public class Railroad extends Deed {
-    public Railroad(Board board, int position) {
+    public Railroad(int position) {
         super(position);
         this.price = 200;
     }

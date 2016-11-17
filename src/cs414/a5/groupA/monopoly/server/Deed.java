@@ -8,7 +8,7 @@ import cs414.a5.groupA.monopoly.server.exception.HotelException;
 import cs414.a5.groupA.monopoly.server.exception.HouseException;
 import cs414.a5.groupA.monopoly.shared.Token;
 
-public class Deed {
+public class Deed extends Space{
     protected int price;
     protected int houseRent;
     private int numHouses;
@@ -19,6 +19,7 @@ public class Deed {
     Token owner;
     
     public Deed(int position) {
+        super(position);
         this.position = position;
         calcPriceAndPropertyGroup();
         calcRent();
@@ -601,7 +602,12 @@ public class Deed {
 //            houseRent *= 2;
     }
 
-	public String getName() {
+//    @Override
+//    void action(Token target) {
+//
+//    }
+
+    public String getName() {
 		return name;
 	}
 

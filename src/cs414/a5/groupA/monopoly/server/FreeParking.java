@@ -5,8 +5,8 @@ import cs414.a5.groupA.monopoly.shared.Token;
 
 public class FreeParking extends Space {
 
-    public FreeParking(Board board, int position) {
-        super(board, position);
+    public FreeParking(int position) {
+        super(position);
     }
 
     @Override
