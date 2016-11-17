@@ -15,31 +15,31 @@ public class Board {
         int listPos;
         for (int i = 0; i <= 39; i++) {
             listPos = i;
-            if (listPos == 0) {
+            if (listPos == 1) {
                 deeds.add(new GoSpace(i));
-            } else if (listPos == 4) {
-                deeds.add(new TaxSpace(i));
             } else if (listPos == 5) {
-                deeds.add(new Railroad(i));
-            }  else if (listPos == 10) {
-                deeds.add(new Jail(i));
-            } else if (listPos == 12) {
-                deeds.add(new UtilitySpace(i));
-            } else if (listPos == 15) {
-                deeds.add(new Railroad(i));
-            } else if (listPos == 20) {
-                deeds.add(new FreeParking(i));
-            } else if (listPos == 25) {
-                deeds.add(new Railroad(i));
-            } else if (listPos == 28) {
-                deeds.add(new UtilitySpace(i));
-            } else if (listPos == 35) {
-                deeds.add(new Railroad(i));
-            } else if (listPos == 38) {
                 deeds.add(new TaxSpace(i));
-            } else if (listPos == 7 || listPos == 22
-                    || listPos == 2 || listPos == 17
-                    || listPos == 33 || listPos ==36) {
+            } else if (listPos == 6) {
+                deeds.add(new Railroad(i));
+            }  else if (listPos == 11) {
+                deeds.add(new Jail(i));
+            } else if (listPos == 13) {
+                deeds.add(new UtilitySpace(i));
+            } else if (listPos == 14) {
+                deeds.add(new Railroad(i));
+            } else if (listPos == 21) {
+                deeds.add(new FreeParking(i));
+            } else if (listPos == 26) {
+                deeds.add(new Railroad(i));
+            } else if (listPos == 29) {
+                deeds.add(new UtilitySpace(i));
+            } else if (listPos == 36) {
+                deeds.add(new Railroad(i));
+            } else if (listPos == 39) {
+                deeds.add(new TaxSpace(i));
+            } else if (listPos == 8 || listPos == 23
+                    || listPos == 3 || listPos == 18
+                    || listPos == 34 || listPos ==37) {
                 deeds.add(new Card(i));
             } else {
                 deeds.add(new Deed(i));
