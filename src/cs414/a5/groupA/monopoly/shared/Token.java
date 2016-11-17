@@ -1,4 +1,4 @@
-package cs414.a5.groupA.monopoly.server;
+package cs414.a5.groupA.monopoly.shared;
 
 import java.io.Serializable;
 
@@ -11,15 +11,33 @@ public class Token implements Serializable {
 	 */
 	private static final long serialVersionUID = 349032251412258158L;
 	
+	private int tokenId;
+	private String gameId;
 	private String playerName;
     private String gamePiece;
-    private int money;
-    private int position;
+    private Integer money;
+    private Integer position;
     private Boolean ready;
     
     public Token() {
     	
     }
+    
+	public int getTokenId() {
+		return tokenId;
+	}
+
+	public void setTokenId(int tokenId) {
+		this.tokenId = tokenId;
+	}
+    
+	public String getGameId() {
+		return gameId;
+	}
+
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
+	}
 
 	public String getPlayerName() {
 		return playerName;
@@ -37,19 +55,19 @@ public class Token implements Serializable {
 		this.gamePiece = gamePiece;
 	}
 
-	public int getMoney() {
+	public Integer getMoney() {
 		return money;
 	}
 
-	public void setMoney(int money) {
+	public void setMoney(Integer money) {
 		this.money = money;
 	}
 
-	public int getPosition() {
+	public Integer getPosition() {
 		return position;
 	}
 
-	public void setPosition(int position) {
+	public void setPosition(Integer position) {
 		this.position = position;
 	}
 

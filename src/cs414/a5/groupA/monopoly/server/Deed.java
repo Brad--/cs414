@@ -6,6 +6,7 @@ import com.google.gwt.core.shared.GWT;
 
 import cs414.a5.groupA.monopoly.server.exception.HotelException;
 import cs414.a5.groupA.monopoly.server.exception.HouseException;
+import cs414.a5.groupA.monopoly.shared.Token;
 
 public class Deed extends Space {
     protected int price;

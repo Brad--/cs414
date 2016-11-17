@@ -1,6 +1,7 @@
 package cs414.a5.groupA.monopoly.server;
 
 import cs414.a5.groupA.monopoly.server.Space;
+import cs414.a5.groupA.monopoly.shared.Token;
 
 public class FreeParking extends Space {
 

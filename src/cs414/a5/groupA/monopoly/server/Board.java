@@ -3,6 +3,8 @@ package cs414.a5.groupA.monopoly.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cs414.a5.groupA.monopoly.shared.Token;
+
 public class Board {
     private Die die;
     private HashMap<String, Token> users;

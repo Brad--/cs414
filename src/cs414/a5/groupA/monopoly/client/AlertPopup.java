@@ -10,6 +10,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class AlertPopup extends PopupPanel {
 
 	public AlertPopup(String message) {
+		setupPopup(message, true, true);
+	}
+	
+	public AlertPopup(String message, boolean showNow, boolean showCloseButton) {
+		setupPopup(message, showNow, showCloseButton);
+	}
+
+	private void setupPopup(String message, boolean showNow, boolean showCloseButton) {
 		VerticalPanel verticalPanel = new VerticalPanel();
 		Label label = new Label(message);
 		Button closeButton = new Button("Close");
@@ -19,11 +27,21 @@ public class AlertPopup extends PopupPanel {
 				hide();
 			}
 		});
+		
 		verticalPanel.add(label);
-		verticalPanel.add(closeButton);
+		if(showCloseButton) {
+			verticalPanel.add(closeButton);
+		}
 
 		setGlassEnabled(true);
-		center();
+		if(showNow) {
+			showPopup();
+		}
 		setWidget(verticalPanel);
+		
+	}
+	
+	public void showPopup() {
+		center();
 	}
 }

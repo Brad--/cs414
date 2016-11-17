@@ -1,14 +1,24 @@
 package cs414.a5.groupA.monopoly.client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Image;
+
+import cs414.a5.groupA.monopoly.shared.Token;
 
 
 public class ViewBoard extends FlexTable {
+	
+	private final GameServiceAsync gameService = GWT.create(GameService.class);
+	
+	private static String gameId;
 	
 	public static final String STYLE_CORNER = "corner";
 	public static final String STYLE_WE = "leftRight";
@@ -79,29 +89,68 @@ public class ViewBoard extends FlexTable {
 		setWidget(5,9, p4StatsPanel);
 	}
 	
-	public void drawBoard(HashMap<PlayerPiece, Integer> playerPositions) {
-		for (Entry<Integer, ViewSpace> entry : mappings.entrySet()) {
-			Integer key = entry.getKey();
-		    ViewSpace space = entry.getValue();
-		    space.clear();
-			for (Entry<PlayerPiece, Integer> player : playerPositions.entrySet()) {
-				PlayerPiece playerPiece = player.getKey();
-				int playerPosition = player.getValue();
-			    if(playerPosition == key) {
-			    	space.add(playerPiece);
-			    }
+	public void renderBoard() {
+
+		getGameService().getAllGameTokens(getGameId(), new AsyncCallback<ArrayList<Token>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				AlertPopup alert = new AlertPopup(caught.getMessage());
 			}
-			setWidget(space.getY(), space.getX(), space);
-		}
+
+			@Override
+			public void onSuccess(ArrayList<Token> result) {
+				drawBoardAndStatsPanel(result);
+			}});
 
 		
 	}
 	
-	public void drawStatsPanel(PlayerPiece P1, PlayerPiece P2, PlayerPiece P3, PlayerPiece P4) {
-		p1StatsPanel.setPlayer(P1);
-		p2StatsPanel.setPlayer(P2);
-		p3StatsPanel.setPlayer(P3);
-		p4StatsPanel.setPlayer(P4);
+	public void drawBoardAndStatsPanel(ArrayList<Token> tokens) {
+		
+		for (Entry<Integer, ViewSpace> entry : mappings.entrySet()) {
+			Integer key = entry.getKey();
+		    ViewSpace space = entry.getValue();
+		    space.clear();
+			for (Token token : tokens) {
+			    if(token.getPosition() == key) {
+			    	space.add(new Image(token.getGamePiece()));
+			    }
+			}
+			setWidget(space.getY(), space.getX(), space);
+		}
+		
+		Token p1 = tokens.get(0);
+		Token p2 = tokens.get(1);
+		Token p3 = null;
+		Token p4 = null;
+		
+		if(tokens.size() > 2) {
+			p3 = tokens.get(2);
+			if(tokens.size() > 3) {
+				p4 = tokens.get(3);
+			}
+		}
+		
+		p1StatsPanel.setPlayer(p1);
+		p2StatsPanel.setPlayer(p2);
+		p3StatsPanel.setPlayer(p3);
+		p4StatsPanel.setPlayer(p4);
+	}
+	
+	protected GameServiceAsync getGameService() {
+		return gameService;
+	}
+
+	public static String getGameId() {
+		if(gameId == null) {
+			setGameId(Window.Location.getParameter("gameId"));
+		}
+		return gameId;
+	}
+
+	public static void setGameId(String gameId) {
+		ViewBoard.gameId = gameId;
 	}
 	
 }

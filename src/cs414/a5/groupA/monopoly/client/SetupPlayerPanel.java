@@ -9,18 +9,45 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 
+import cs414.a5.groupA.monopoly.shared.Token;
+
 public class SetupPlayerPanel extends BasePanel {
 
 	private String gameId = null;
 	private boolean allPlayersReady = false;
+	private Token token;
+	
+	AlertPopup readyUpAlert = new AlertPopup("Waiting On Other Players To Ready-Up", false, false);
 	
 	public SetupPlayerPanel() {
 		setGameId(Window.Location.getParameter("gameId"));
 		if(getGameId() == null) {
 			AlertPopup alert = new AlertPopup("Please add on '?gameId=<IdHere>' to your URL'");
 		} else {
-			init();
+			insertInitialToken();
 		}
+	}
+	
+	public void insertInitialToken() {
+		setToken(new Token());
+		getToken().setGameId(getGameId());
+		getToken().setPlayerName("" + System.currentTimeMillis());
+		getToken().setMoney(1500);
+		getToken().setPosition(0);
+		getToken().setReady(false);
+		
+		getGameService().saveNewTokenToDatabase(getToken(), new AsyncCallback<Token>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				AlertPopup alert = new AlertPopup(caught.getMessage());
+			}
+
+			@Override
+			public void onSuccess(Token result) {
+				setToken(result);
+				init();
+			}});
 	}
 	
 	public void init() {
@@ -32,8 +59,10 @@ public class SetupPlayerPanel extends BasePanel {
 			@Override
 			public void onClick(ClickEvent event) {
 				if(nameField.getValue() != null && nameField.getValue().length() > 0) {
+					readyUpAlert.showPopup();
 					saveTokenToDatabaseAndReadyUp(nameField.getValue());
-					AlertPopup alert = new AlertPopup("Waiting On Other Players To Ready-Up");
+				} else {
+					AlertPopup alert = new AlertPopup("Please enter a valid name.");
 				}
 			}
 		});
@@ -44,11 +73,14 @@ public class SetupPlayerPanel extends BasePanel {
 	}
 	
 	public void saveTokenToDatabaseAndReadyUp(String playerName) {
-		getGameService().saveNewTokenToDatabase(getGameId(), playerName, null, 1500, 0, true, new AsyncCallback<Void>() {
+		getToken().setPlayerName(playerName);
+		getToken().setReady(true);
+
+		getGameService().updateToken(getToken(), new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				
+				AlertPopup alert = new AlertPopup(caught.getMessage());
 			}
 
 			@Override
@@ -90,7 +122,9 @@ public class SetupPlayerPanel extends BasePanel {
 	}
 	
 	public void startGame() {
-		AlertPopup alert = new AlertPopup("GAME WILL START NOW");
+		readyUpAlert.hide();
+		clear();
+		GamePanel gamePanel = new GamePanel(30);
 	}
 
 	public String getGameId() {
@@ -107,5 +141,13 @@ public class SetupPlayerPanel extends BasePanel {
 
 	public void setAllPlayersReady(boolean allPlayersReady) {
 		this.allPlayersReady = allPlayersReady;
+	}
+
+	public Token getToken() {
+		return token;
+	}
+
+	public void setToken(Token token) {
+		this.token = token;
 	}
 }

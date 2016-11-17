@@ -1,26 +1,25 @@
 package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import cs414.a5.groupA.monopoly.server.Token;
-import cs414.a5.groupA.monopoly.server.TokenActionWrapper;
+import cs414.a5.groupA.monopoly.shared.Token;
 
 /**
  * The client-side stub for the RPC service.
  */
 @RemoteServiceRelativePath("game")
 public interface GameService extends RemoteService {
+	
+	ArrayList<Token> getAllGameTokens(String gameId);
 
 	Boolean checkPlayersReady(String gameId);
 
-	void saveNewTokenToDatabase(String gameId, String playerName, String gamePiece, int money, int position,
-			boolean ready);
+	Token saveNewTokenToDatabase(Token token);
+
+	void updateToken(Token token);
 	
 //	Map<String, Integer> getPlayerPositions();
 //	

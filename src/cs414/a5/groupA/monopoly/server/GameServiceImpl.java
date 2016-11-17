@@ -17,12 +17,20 @@ import java.util.Set;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
+import cs414.a5.groupA.monopoly.shared.Token;
 
 public class GameServiceImpl extends RemoteServiceServlet implements GameService {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Board gameBoard;
+	
+	ArrayList<String> gamePiecesList = new ArrayList<String>() {{
+	    add("img/token/coffee-cup.png");
+	    add("img/token/coffee-mug.png");
+	    add("img/token/coffee-pot.png");
+	    add("img/token/thermo.png");
+	}};
 	
 	private  Connection getNewConnection() throws Exception {
 	    Context ctx = new InitialContext();
@@ -32,52 +40,117 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
         return conn;
 	}
 	
-	private ArrayList<Token> getGameTokens(String gameId) throws Exception {
+	@Override
+	public ArrayList<Token> getAllGameTokens(String gameId) {
 		ArrayList<Token> tokens = new ArrayList<Token>();
 		
-		String sql = "SELECT * FROM token where gameId=?";
-		Connection conn = getNewConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1, gameId);
-		ResultSet rs = ps.executeQuery();
-		while(rs.next()) {
-			Token token = new Token();
+		try {
+			String sql = "SELECT * FROM token where gameId=?";
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, gameId);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Token token = new Token();
+				
+				token.setPlayerName(rs.getString("playerName"));
+				token.setGamePiece(rs.getString("gamePiece"));
+				token.setMoney(rs.getInt("money"));
+				token.setPosition(rs.getInt("position"));
+				token.setReady(rs.getBoolean("ready"));
+				
+				tokens.add(token);
+			}
 			
-			token.setPlayerName(rs.getString("playerName"));
-			token.setGamePiece("gamePiece");
-			token.setMoney(rs.getInt("money"));
-			token.setPosition(rs.getInt("position"));
-			token.setReady(rs.getBoolean("ready"));
-			
-			tokens.add(token);
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		conn.close();
 		
 		return tokens;
 	}
 	
 	@Override
-	public void saveNewTokenToDatabase(String gameId, String playerName, String gamePiece, int money, int position, boolean ready) {
+	public Token saveNewTokenToDatabase(Token token) {
+		Token returnToken = null;
 		String sql = "INSERT INTO token (gameId, playerName, gamePiece, money, position, ready) VALUES (?, ?, ?, ?, ?, ?)";
+		
+		token.setGamePiece(getNewAssignedGamePiece(token.getGameId()));
 		
 		try {
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setString(1, gameId);
-			ps.setString(2, playerName);
-			ps.setString(3, gamePiece);
-			ps.setInt(4, money);
-			ps.setInt(5, position);
-			ps.setBoolean(6, ready);
+			ps.setString(1, token.getGameId());
+			ps.setString(2, token.getPlayerName());
+			ps.setString(3, token.getGamePiece());
+			ps.setInt(4, token.getMoney());
+			ps.setInt(5, token.getPosition());
+			ps.setBoolean(6, token.getReady());
 			
 			ps.executeUpdate();
 			
 			conn.close();
+			
+			returnToken = getTokenByGameIdAndName(token.getGameId(), token.getPlayerName());
+
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return returnToken;
+	}
+	
+	public String getNewAssignedGamePiece(String gameId) {
+		String returnGamePiece = null;
+		
+		for(String gamePiecePath : gamePiecesList) {
+			try {
+				String sql = "SELECT * FROM token WHERE gameId=? AND gamePiece=?";
+				Connection conn = getNewConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setString(1, gameId);
+				ps.setString(2, gamePiecePath);
+				ResultSet rs = ps.executeQuery();
+				if(!rs.next()) {
+					returnGamePiece = gamePiecePath;
+					conn.close();
+					break;
+				} else {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		
+		return returnGamePiece;
+	}
+	
+	public Token getTokenByGameIdAndName(String gameId, String playerName) throws Exception {
+		Token token = new Token();
+		
+		String sql = "SELECT * FROM token WHERE gameId=? AND playerName=?";
+		Connection conn = getNewConnection();
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, gameId);
+		ps.setString(2, playerName);
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()) {
+			
+			token.setTokenId(rs.getInt("tokenId"));
+			token.setPlayerName(rs.getString("playerName"));
+			token.setGamePiece(rs.getString("gamePiece"));
+			token.setMoney(rs.getInt("money"));
+			token.setPosition(rs.getInt("position"));
+			token.setReady(rs.getBoolean("ready"));
 			
 		}
+		
+		conn.close();
+		
+		return token;
 	}
 	
 	@Override
@@ -85,7 +158,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		Boolean playersReady = false;
 		
 		try {
-			ArrayList<Token> tokens = getGameTokens(gameId);
+			ArrayList<Token> tokens = getAllGameTokens(gameId);
 			
 			int readyCount = 0;
 			
@@ -103,6 +176,29 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 
 		return playersReady;
+	}
+	
+	@Override
+	public void updateToken(Token token) {
+		String sql = "UPDATE token SET playerName=?, gamePiece=?, money=?, position=?, ready=? WHERE tokenId=?";
+		
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, token.getPlayerName());
+			ps.setString(2, token.getGamePiece());
+			ps.setInt(3, token.getMoney());
+			ps.setInt(4, token.getPosition());
+			ps.setBoolean(5, token.getReady());
+			ps.setInt(6, token.getTokenId());
+			
+			ps.executeUpdate();
+			
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 //
 //	@Override
