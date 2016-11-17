@@ -290,6 +290,10 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
         if (!currentPlayer.getInJail()){
 			start = currentPlayer.getPosition();
 			int moveTo = (start + r1 + r2) % 40;
+			if (moveTo == 30) {
+				currentPlayer.setInJail(true);
+				return currentPlayer;
+			}
 			currentPlayer.setPosition(moveTo);
             if (getDeedOwner(currentPlayer.getGameId(), currentPlayer.getPosition()) == null) {
                 //TODO: display to player option to buy
