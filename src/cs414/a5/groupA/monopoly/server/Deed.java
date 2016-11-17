@@ -20,13 +20,11 @@ public class Deed extends Space{
     
     public Deed(int position) {
         super(position);
-        this.position = position;
         calcPriceAndPropertyGroup();
         calcRent();
-        setName();
         hasHotel  = false;
         numHouses = 0;
-        owner = null;
+
     }
 
     public boolean hasHotel() {
@@ -277,7 +275,7 @@ public class Deed extends Space{
     protected void calcRent() {
         switch(position) {
             // start brown
-            case 2:
+            case 1:
                 if(hasHotel)
                     houseRent = 250;
                 else if(numHouses == 0)
@@ -291,7 +289,7 @@ public class Deed extends Space{
                 else if(numHouses == 4)
                     houseRent = 160;
                 break;
-            case 4:
+            case 3:
                 if(hasHotel)
                     houseRent = 450;
                 else if(numHouses == 0)
@@ -306,7 +304,21 @@ public class Deed extends Space{
                     houseRent = 320;
                 break;
             // start lightblue
-            case 7:
+            case 6:
+                if(hasHotel)
+                    houseRent = 550;
+                else if(numHouses == 0)
+                    houseRent = 6;
+                else if(numHouses == 1)
+                    houseRent = 30;
+                else if(numHouses == 2)
+                    houseRent = 90;
+                else if(numHouses == 3)
+                    houseRent = 270;
+                else if(numHouses == 4)
+                    houseRent = 400;
+                break;
+            case 8:
                 if(hasHotel)
                     houseRent = 550;
                 else if(numHouses == 0)
@@ -322,20 +334,6 @@ public class Deed extends Space{
                 break;
             case 9:
                 if(hasHotel)
-                    houseRent = 550;
-                else if(numHouses == 0)
-                    houseRent = 6;
-                else if(numHouses == 1)
-                    houseRent = 30;
-                else if(numHouses == 2)
-                    houseRent = 90;
-                else if(numHouses == 3)
-                    houseRent = 270;
-                else if(numHouses == 4)
-                    houseRent = 400;
-                break;
-            case 10:
-                if(hasHotel)
                     houseRent = 600;
                 else if(numHouses == 0)
                     houseRent = 8;
@@ -349,7 +347,21 @@ public class Deed extends Space{
                     houseRent = 450;
                 break;
             // start purple
-            case 12:
+            case 11:
+                if(hasHotel)
+                    houseRent = 750;
+                else if(numHouses == 0)
+                    houseRent = 10;
+                else if(numHouses == 1)
+                    houseRent = 50;
+                else if(numHouses == 2)
+                    houseRent = 150;
+                else if(numHouses == 3)
+                    houseRent = 450;
+                else if(numHouses == 4)
+                    houseRent = 625;
+                break;
+            case 13:
                 if(hasHotel)
                     houseRent = 750;
                 else if(numHouses == 0)
@@ -365,20 +377,6 @@ public class Deed extends Space{
                 break;
             case 14:
                 if(hasHotel)
-                    houseRent = 750;
-                else if(numHouses == 0)
-                    houseRent = 10;
-                else if(numHouses == 1)
-                    houseRent = 50;
-                else if(numHouses == 2)
-                    houseRent = 150;
-                else if(numHouses == 3)
-                    houseRent = 450;
-                else if(numHouses == 4)
-                    houseRent = 625;
-                break;
-            case 15:
-                if(hasHotel)
                     houseRent = 900;
                 else if(numHouses == 0)
                     houseRent = 12;
@@ -392,7 +390,21 @@ public class Deed extends Space{
                     houseRent = 700;
                 break;
             // start orange
-            case 17:
+            case 16:
+                if(hasHotel)
+                    houseRent = 950;
+                else if(numHouses == 0)
+                    houseRent = 14;
+                else if(numHouses == 1)
+                    houseRent = 70;
+                else if(numHouses == 2)
+                    houseRent = 200;
+                else if(numHouses == 3)
+                    houseRent = 550;
+                else if(numHouses == 4)
+                    houseRent = 750;
+                break;
+            case 18:
                 if(hasHotel)
                     houseRent = 950;
                 else if(numHouses == 0)
@@ -408,20 +420,6 @@ public class Deed extends Space{
                 break;
             case 19:
                 if(hasHotel)
-                    houseRent = 950;
-                else if(numHouses == 0)
-                    houseRent = 14;
-                else if(numHouses == 1)
-                    houseRent = 70;
-                else if(numHouses == 2)
-                    houseRent = 200;
-                else if(numHouses == 3)
-                    houseRent = 550;
-                else if(numHouses == 4)
-                    houseRent = 750;
-                break;
-            case 20:
-                if(hasHotel)
                     houseRent = 1000;
                 else if(numHouses == 0)
                     houseRent = 16;
@@ -435,7 +433,21 @@ public class Deed extends Space{
                     houseRent = 800;
                 break;
             // start red
-            case 22:
+            case 21:
+                if(hasHotel)
+                    houseRent = 1050;
+                else if(numHouses == 0)
+                    houseRent = 18;
+                else if(numHouses == 1)
+                    houseRent = 90;
+                else if(numHouses == 2)
+                    houseRent = 250;
+                else if(numHouses == 3)
+                    houseRent = 700;
+                else if(numHouses == 4)
+                    houseRent = 875;
+                break;
+            case 23:
                 if(hasHotel)
                     houseRent = 1050;
                 else if(numHouses == 0)
@@ -451,20 +463,6 @@ public class Deed extends Space{
                 break;
             case 24:
                 if(hasHotel)
-                    houseRent = 1050;
-                else if(numHouses == 0)
-                    houseRent = 18;
-                else if(numHouses == 1)
-                    houseRent = 90;
-                else if(numHouses == 2)
-                    houseRent = 250;
-                else if(numHouses == 3)
-                    houseRent = 700;
-                else if(numHouses == 4)
-                    houseRent = 875;
-                break;
-            case 25:
-                if(hasHotel)
                     houseRent = 1100;
                 else if(numHouses == 0)
                     houseRent = 20;
@@ -478,6 +476,20 @@ public class Deed extends Space{
                     houseRent = 925;
                 break;
             // start yellow
+            case 26:
+                if(hasHotel)
+                    houseRent = 1150;
+                else if(numHouses == 0)
+                    houseRent = 22;
+                else if(numHouses == 1)
+                    houseRent = 110;
+                else if(numHouses == 2)
+                    houseRent = 330;
+                else if(numHouses == 3)
+                    houseRent = 800;
+                else if(numHouses == 4)
+                    houseRent = 975;
+                break;
             case 27:
                 if(hasHotel)
                     houseRent = 1150;
@@ -492,21 +504,7 @@ public class Deed extends Space{
                 else if(numHouses == 4)
                     houseRent = 975;
                 break;
-            case 28:
-                if(hasHotel)
-                    houseRent = 1150;
-                else if(numHouses == 0)
-                    houseRent = 22;
-                else if(numHouses == 1)
-                    houseRent = 110;
-                else if(numHouses == 2)
-                    houseRent = 330;
-                else if(numHouses == 3)
-                    houseRent = 800;
-                else if(numHouses == 4)
-                    houseRent = 975;
-                break;
-            case 30:
+            case 29:
                 if(hasHotel)
                     houseRent = 1200;
                 else if(numHouses == 0)
@@ -521,6 +519,20 @@ public class Deed extends Space{
                     houseRent = 1025;
                 break;
             // start green
+            case 31:
+                if(hasHotel)
+                    houseRent = 1275;
+                else if(numHouses == 0)
+                    houseRent = 26;
+                else if(numHouses == 1)
+                    houseRent = 130;
+                else if(numHouses == 2)
+                    houseRent = 390;
+                else if(numHouses == 3)
+                    houseRent = 900;
+                else if(numHouses == 4)
+                    houseRent = 1100;
+                break;
             case 32:
                 if(hasHotel)
                     houseRent = 1275;
@@ -535,21 +547,7 @@ public class Deed extends Space{
                 else if(numHouses == 4)
                     houseRent = 1100;
                 break;
-            case 33:
-                if(hasHotel)
-                    houseRent = 1275;
-                else if(numHouses == 0)
-                    houseRent = 26;
-                else if(numHouses == 1)
-                    houseRent = 130;
-                else if(numHouses == 2)
-                    houseRent = 390;
-                else if(numHouses == 3)
-                    houseRent = 900;
-                else if(numHouses == 4)
-                    houseRent = 1100;
-                break;
-            case 35:
+            case 34:
                 if(hasHotel)
                     houseRent = 1400;
                 else if(numHouses == 0)
@@ -564,7 +562,7 @@ public class Deed extends Space{
                     houseRent = 1200;
                 break;
             // start blue
-            case 38:
+            case 37:
                 if(hasHotel)
                     houseRent = 1500;
                 else if(numHouses == 0)
@@ -578,7 +576,7 @@ public class Deed extends Space{
                 else if(numHouses == 4)
                     houseRent = 1300;
                 break;
-            case 40:
+            case 39:
                 if(hasHotel)
                     houseRent = 2000;
                 else if(numHouses == 0)
