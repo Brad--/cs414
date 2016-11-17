@@ -274,13 +274,18 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		currentPlayer.setLastRollOne(r1);
 		currentPlayer.setLastRollTwo(r2);
 		if (die.checkForDoubles(r1,r2)){
-			int currentSpeed = currentPlayer.getSpeedCount();
-			if (currentSpeed+1 == 3) {
-				currentPlayer.setInJail(true);
-				currentPlayer.setSpeedCount(0);
+			if (currentPlayer.getInJail()) {
+				currentPlayer.setInJail(false);
+				return  currentPlayer; // you get out of jail but wait a turn tell you can move
 			}
-			else
-				currentPlayer.setSpeedCount(currentSpeed+1);
+			else {
+				int currentSpeed = currentPlayer.getSpeedCount();
+				if (currentSpeed + 1 == 3) {
+					currentPlayer.setInJail(true);
+					currentPlayer.setSpeedCount(0);
+				} else
+					currentPlayer.setSpeedCount(currentSpeed + 1);
+			}
 		}
         if (!currentPlayer.getInJail()){
 			start = currentPlayer.getPosition();
