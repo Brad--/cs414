@@ -303,18 +303,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
                 //TODO: display to player option to buy
                 updateDeed(currentPlayer);
             }
-            else if (currentPlayer.getPosition()==1){
-				currentPlayer.setMoney(currentPlayer.getMoney()+200);
-            }
-            else if (currentPlayer.getPosition()==5){
+            else if (currentPlayer.getPosition()==4){
                 //tax spot pay 200
 				if (currentPlayer.getMoney()-200 >= 0)
 					currentPlayer.setMoney(currentPlayer.getMoney()-200);
                 //@TODO show user they've lost
             }
-            else if (currentPlayer.getPosition()== 39){
-				if (currentPlayer.getMoney()-75 >= 0)
-                	currentPlayer.setMoney(currentPlayer.getMoney()-75);
+            else if (currentPlayer.getPosition()== 38){
+				if (currentPlayer.getMoney()-100 >= 0)
+                	currentPlayer.setMoney(currentPlayer.getMoney()-100);
 					//TODO add else to tell player they've lost
             }
             else{
