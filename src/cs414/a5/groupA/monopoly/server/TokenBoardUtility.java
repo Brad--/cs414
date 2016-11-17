@@ -34,8 +34,8 @@ public class TokenBoardUtility extends Token {
     public Token handleRoll(Token currentPlayer) { // TODO return TokenActionWrapper?
         if (!users.containsKey(currentPlayer))
             addUser(currentPlayer);
-        Token updatedPlayer = die.roll(currentPlayer);
-        int move = updatedPlayer.getPosition();
+//        Token updatedPlayer = die.roll(currentPlayer);
+//        int move = updatedPlayer.getPosition();
         //@TODO: check for doubles
 //        if (!currentPlayer.getJailStatus()){
 //            if (deeds.get(currentPlayer.getPosition()).getOwner() == null) {

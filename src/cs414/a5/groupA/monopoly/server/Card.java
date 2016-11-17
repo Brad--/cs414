@@ -9,8 +9,4 @@ public class Card extends Space {
     public Card(int position){
         super(position);
     }
-    @Override
-    void action(Token target) {
-
-    }
 }

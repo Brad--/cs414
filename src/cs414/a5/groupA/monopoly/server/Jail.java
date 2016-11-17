@@ -7,9 +7,4 @@ public class Jail extends Space {
     public Jail(int position) {
         super(position);
     }
-
-    @Override
-    public void action(Token target) {
-        // Do nothing
-    }
 }

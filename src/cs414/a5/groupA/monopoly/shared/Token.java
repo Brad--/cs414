@@ -83,20 +83,36 @@ public class Token implements Serializable {
 		this.ready = ready;
 	}
 
-	public void setInJail(Boolean jail){ this.inJail = jail;}
+	public Boolean getInJail() {
+		return inJail;
+	}
 
-	public Boolean getInJail(){return inJail;}
+	public void setInJail(Boolean inJail) {
+		this.inJail = inJail;
+	}
 
-	public void setSpeedCount(int speed){ speedCount = speed;}
+	public int getSpeedCount() {
+		return speedCount;
+	}
 
-	public int getSpeedCount(){return speedCount;}
+	public void setSpeedCount(int speedCount) {
+		this.speedCount = speedCount;
+	}
 
-	public void setLastRollOne(int roll){ lastRollOne = roll;}
+	public int getLastRollOne() {
+		return lastRollOne;
+	}
 
-	public int getLastRollOne(){ return lastRollOne;}
+	public void setLastRollOne(int lastRollOne) {
+		this.lastRollOne = lastRollOne;
+	}
 
-	public void setLastRollTwo(int roll){ lastRollTwo = roll;}
+	public int getLastRollTwo() {
+		return lastRollTwo;
+	}
 
-	public int getLastRollTwo(){ return lastRollTwo;}
+	public void setLastRollTwo(int lastRollTwo) {
+		this.lastRollTwo = lastRollTwo;
+	}
 
 }

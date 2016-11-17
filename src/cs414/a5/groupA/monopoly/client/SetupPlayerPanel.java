@@ -56,6 +56,8 @@ public class SetupPlayerPanel extends BasePanel {
 		getToken().setMoney(1500);
 		getToken().setPosition(0);
 		getToken().setReady(false);
+		getToken().setInJail(false);
+		getToken().setSpeedCount(0);
 		
 		getGameService().saveNewTokenToDatabase(getToken(), new AsyncCallback<Token>() {
 
@@ -145,7 +147,7 @@ public class SetupPlayerPanel extends BasePanel {
 	public void startGame() {
 		readyUpAlert.hide();
 		clear();
-		GamePanel gamePanel = new GamePanel(30);
+		GamePanel gamePanel = new GamePanel(getToken().getPlayerName(), getGameId(), 30);
 	}
 
 	public String getGameId() {

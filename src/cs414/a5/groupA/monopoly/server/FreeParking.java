@@ -8,9 +8,4 @@ public class FreeParking extends Space {
     public FreeParking(int position) {
         super(position);
     }
-
-    @Override
-    public void action(Token target) {
-        // Nothing happens, but that is intentional
-    }
 }
