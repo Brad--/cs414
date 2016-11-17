@@ -255,6 +255,34 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
+	public void initializeDeeds(String gameId){
+		for (Space deed: gameBoard.deeds){
+			if (deed instanceof Deed){
+				initializeDeed(gameId, (Deed) deed);
+			}
+		}
+	}
+
+	public void initializeDeed(String gameId, Deed d){
+		String sql = "INSERT into 'deed' ('gameId', 'position', 'playerName', 'housingCount') VALUES" +
+				"(?,?,?,?)";
+		try{
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, gameId);
+			ps.setInt(2,d.getPosition());
+			ps.setString(3, null);
+			ps.setInt(4, 0);
+
+			ps.executeUpdate(sql);
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	@Override
 	public String roll(String name, String gameId) {
 			Token player = null;
 			System.out.println(name + " " + gameId);
