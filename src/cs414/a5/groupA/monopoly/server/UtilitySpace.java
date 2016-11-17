@@ -6,7 +6,7 @@ import static cs414.a5.groupA.monopoly.server.PropertyGroup.UTILITY;
  * Created by bradley on 10/27/16.
  */
 public class UtilitySpace extends Deed{
-    public UtilitySpace(Board b, int position) {
+    public UtilitySpace(int position) {
         super(position);
     }
 

@@ -27,7 +27,7 @@ public interface GameService extends RemoteService {
 //	
 //	void initializeGame(ArrayList<String> names);
 //
-//	String roll(String name);
+	String roll(String name, String gameID);
 //
 //	HashMap<String, String> getPlayerPropertyList(String name);
 //

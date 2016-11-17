@@ -18,6 +18,10 @@ public class Token implements Serializable {
     private Integer money;
     private Integer position;
     private Boolean ready;
+	private Boolean inJail;
+	private int speedCount;
+	private int lastRollOne;
+	private int lastRollTwo;
     
     public Token() {
     	
@@ -78,5 +82,21 @@ public class Token implements Serializable {
 	public void setReady(Boolean ready) {
 		this.ready = ready;
 	}
+
+	public void setInJail(Boolean jail){ this.inJail = jail;}
+
+	public Boolean getInJail(){return inJail;}
+
+	public void setSpeedCount(int speed){ speedCount = speed;}
+
+	public int getSpeedCount(){return speedCount;}
+
+	public void setLastRollOne(int roll){ lastRollOne = roll;}
+
+	public int getLastRollOne(){ return lastRollOne;}
+
+	public void setLastRollTwo(int roll){ lastRollTwo = roll;}
+
+	public int getLastRollTwo(){ return lastRollTwo;}
 
 }
