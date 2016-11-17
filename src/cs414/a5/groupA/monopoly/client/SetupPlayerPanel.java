@@ -2,8 +2,12 @@ package cs414.a5.groupA.monopoly.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.Window.ClosingEvent;
+import com.google.gwt.user.client.Window.ClosingHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
@@ -21,6 +25,23 @@ public class SetupPlayerPanel extends BasePanel {
 	
 	public SetupPlayerPanel() {
 		setGameId(Window.Location.getParameter("gameId"));
+		Window.addWindowClosingHandler(new ClosingHandler() {
+			@Override
+			public void onWindowClosing(ClosingEvent event) {
+				getGameService().deleteToken(getToken(), new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						
+					}
+
+					@Override
+					public void onSuccess(Void result) {
+						
+					}});
+				
+			}
+		});
 		if(getGameId() == null) {
 			AlertPopup alert = new AlertPopup("Please add on '?gameId=<IdHere>' to your URL'");
 		} else {
