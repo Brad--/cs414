@@ -282,6 +282,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 				int currentSpeed = currentPlayer.getSpeedCount();
 				if (currentSpeed + 1 == 3) {
 					currentPlayer.setInJail(true);
+					currentPlayer.setPosition(10);
 					currentPlayer.setSpeedCount(0);
 				} else
 					currentPlayer.setSpeedCount(currentSpeed + 1);
@@ -292,9 +293,12 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			int moveTo = (start + r1 + r2) % 40;
 			if (moveTo == 30) {
 				currentPlayer.setInJail(true);
+				currentPlayer.setPosition(10);
+				currentPlayer.setSpeedCount(0);
 				return currentPlayer;
 			}
 			currentPlayer.setPosition(moveTo);
+			currentPlayer.setSpeedCount(0);
             if (getDeedOwner(currentPlayer.getGameId(), currentPlayer.getPosition()) == null) {
                 //TODO: display to player option to buy
                 updateDeed(currentPlayer);
