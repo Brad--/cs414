@@ -2,6 +2,7 @@ package cs414.a5.groupA.monopoly.server;
 
 import cs414.a5.groupA.monopoly.server.exception.HotelException;
 import cs414.a5.groupA.monopoly.server.exception.HouseException;
+import cs414.a5.groupA.monopoly.shared.Token;
 
 import static cs414.a5.groupA.monopoly.server.PropertyGroup.BLUE;
 import static cs414.a5.groupA.monopoly.server.PropertyGroup.BROWN;
@@ -60,13 +61,13 @@ public class DeedUtil {
     // Returns the mortgage value of the property
     public void mortgageProperty(Deed d) {
         if(d.getOwner() != null) {
-            d.getOwner().earnRent(d.getPrice() / 2);
+//            d.getOwner().earnRent(d.getPrice() / 2);
             d.setOwner(null);
         }
     }
 
     public void action(Deed d, Token target) {
-        target.payRent(d.getRent());
-        d.getOwner().earnRent(d.getRent());
+//        target.payRent(d.getRent());
+//        d.getOwner().earnRent(d.getRent());
     }
 }
