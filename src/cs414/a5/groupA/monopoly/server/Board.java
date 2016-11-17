@@ -14,7 +14,7 @@ public class Board {
     public void init(){
         int listPos;
         for (int i = 0; i <= 39; i++) {
-            listPos = i - 1;
+            listPos = i;
             if (listPos == 0) {
                 deeds.add(new GoSpace(i));
             } else if (listPos == 4) {
