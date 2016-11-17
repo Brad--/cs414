@@ -54,6 +54,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 				Token token = new Token();
 				
 				token.setPlayerName(rs.getString("playerName"));
+				token.setGameId(rs.getString("gameId"));
 				token.setGamePiece(rs.getString("gamePiece"));
 				token.setMoney(rs.getInt("money"));
 				token.setPosition(rs.getInt("position"));
