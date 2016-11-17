@@ -25,11 +25,16 @@ public class GamePanel extends BasePanel {
 	int playersTurn = 0; // Start at 0, will get incremented to 1 index first thing
 	int numOfPlayers;
 	
+	private String playerName;
+	private String gameId;
+	
 	public GamePanel() {
 		
 	}
 	
-	public GamePanel(int timeSelected) {
+	public GamePanel(String playerName, String gameId, int timeSelected) {
+		setPlayerName(playerName);
+		setGameId(gameId);
 		final int gameTime = timeSelected;
 		countdown = new Timer() {
 			int minutesLeft = gameTime;
@@ -109,6 +114,19 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void doTurn() {
+		getGameService().roll(getPlayerName(), getGameId(), new AsyncCallback<String>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				AlertPopup alert = new AlertPopup(result);
+				viewBoard.renderBoard();
+			}});
 //		getGameService().roll(getCurrentPlayerTurnName(), new AsyncCallback<String>() {
 //
 //			@Override
@@ -206,6 +224,22 @@ public class GamePanel extends BasePanel {
 			}
 		}
 		AlertPopup notify = new AlertPopup(piecesByNumber.get(winner).getName() + " wins the game!");
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+
+	public String getGameId() {
+		return gameId;
+	}
+
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
 	}
 	
 //	private void updateBoard() {
