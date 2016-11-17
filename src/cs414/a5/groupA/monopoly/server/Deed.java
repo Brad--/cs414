@@ -19,6 +19,7 @@ public class Deed extends Space{
         super(position);
         calcPriceAndPropertyGroup();
         calcRent();
+        setName();
         hasHotel  = false;
         numHouses = 0;
 

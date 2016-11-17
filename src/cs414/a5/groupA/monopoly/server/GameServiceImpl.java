@@ -34,7 +34,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	
 	private  Connection getNewConnection() throws Exception {
 	    Context ctx = new InitialContext();
-	    DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/javapolyDS");
+	    DataSource ds = (DataSource)ctx.lookup("java:/comp/env/jdbc/javapolyDS");
 	    Connection conn = ds.getConnection();
  
         return conn;
@@ -45,7 +45,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		ArrayList<Token> tokens = new ArrayList<Token>();
 		
 		try {
-			String sql = "SELECT * FROM token where gameId=?";
+			String sql = "SELECT * FROM `token` where `gameId`=?";
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, gameId);
@@ -76,7 +76,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	@Override
 	public Token saveNewTokenToDatabase(Token token) {
 		Token returnToken = null;
-		String sql = "INSERT INTO token (gameId, playerName, gamePiece, money, position, ready, inJail, speedCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO `token` (`gameId`, `playerName`, `gamePiece`, `money`, `position`, `ready`, `inJail`, `speedCount`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		token.setGamePiece(getNewAssignedGamePiece(token.getGameId()));
 		
@@ -112,7 +112,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		
 		for(String gamePiecePath : gamePiecesList) {
 			try {
-				String sql = "SELECT * FROM token WHERE gameId=? AND gamePiece=?";
+				String sql = "SELECT * FROM `token` WHERE `gameId`=? AND `gamePiece`=?";
 				Connection conn = getNewConnection();
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ps.setString(1, gameId);
@@ -137,7 +137,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	public Token getTokenByGameIdAndName(String gameId, String playerName) throws Exception {
 		Token token = new Token();
 		
-		String sql = "SELECT * FROM token WHERE gameId=? AND playerName=?";
+		String sql = "SELECT * FROM `token` WHERE `gameId`=? AND `playerName`=?";
 		Connection conn = getNewConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, gameId);
@@ -146,6 +146,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		if(rs.next()) {
 			
 			token.setTokenId(rs.getInt("tokenId"));
+			token.setGameId(rs.getString("gameId"));
 			token.setPlayerName(rs.getString("playerName"));
 			token.setGamePiece(rs.getString("gamePiece"));
 			token.setMoney(rs.getInt("money"));
@@ -188,7 +189,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	
 	@Override
 	public void updateToken(Token token) {
-		String sql = "UPDATE token SET playerName=?, gamePiece=?, money=?, position=?, ready=?, inJail=?, speedCount=? WHERE tokenId=?";
+		String sql = "UPDATE `token` SET `playerName`=?, `gamePiece`=?, `money`=?, `position`=?, `ready`=?, `inJail`=?, `speedCount`=? WHERE `tokenId`=?";
 		
 		try {
 			Connection conn = getNewConnection();
@@ -212,8 +213,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	public String getDeedOwner(String gameID, int position){
-		String sql = "SELECT playerName FROM deed WHERE gameId=? AND position=?";
-		String owner = "";
+		String sql = "SELECT `playerName` FROM `deed` WHERE `gameId`=? AND `position`=?";
+		String owner = null;
 		try{
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -233,7 +234,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	public void updateDeed(Token token){
-		String sql = "UPDATE deed SET playerName=? WHERE gameId=? AND position=?";
+		String sql = "UPDATE `deed` SET `playerName`=? WHERE `gameId`=? AND `position`=?";
 		try {
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
