@@ -370,37 +370,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 
 	}
-//
-//	@Override
-//	public Map<String, Integer> getPlayerPositions() {
-//		HashMap<String, Integer> playerPositions = new HashMap<String, Integer>();
-//		for (Entry<String, Token> entry : gameBoard.getUsers().entrySet()) {
-//			String playerName = entry.getKey();
-//			Token playerToken = entry.getValue();
-//			int position = playerToken.getCurrentPosition();
-//			playerPositions.put(playerName, position);
-//		}
-//		return playerPositions;
-//	}
-//
-//
-//	@Override
-//	public void initializeGame(ArrayList<String> names) {
-//		gameBoard = new Board();
-//		for (String name : names) {
-//			gameBoard.addUser(new Token(name));
-//		}
-//	}
-//
-//	
-//	@Override
-//	public Integer getSpeedingAmount(String name) {
-//		Integer speedingAmount;
-//		Token player = gameBoard.getUser(name);
-//		speedingAmount = player.getSpeeding();
-//		return speedingAmount;
-//	}
-//	
+	
 //	@Override
 //	public HashMap<String, String> getPlayerPropertyList(String player) {
 //		HashMap<String, String> playerPropertiesList = new HashMap<String, String>(); 
