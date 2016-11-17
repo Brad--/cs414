@@ -6,16 +6,20 @@ import com.google.gwt.core.shared.GWT;
 
 import cs414.a5.groupA.monopoly.server.exception.HotelException;
 import cs414.a5.groupA.monopoly.server.exception.HouseException;
+import cs414.a5.groupA.monopoly.shared.Token;
 
-public class Deed extends Space {
+public class Deed {
     protected int price;
     protected int houseRent;
     private int numHouses;
     private boolean hasHotel;
     protected PropertyGroup propertyGroup;
+    int position;
+    String name;
+    Token owner;
     
-    public Deed(Board board, int position) {
-        super(board, position);
+    public Deed(int position) {
+        this.position = position;
         calcPriceAndPropertyGroup();
         calcRent();
         setName();
@@ -24,82 +28,56 @@ public class Deed extends Space {
         owner = null;
     }
 
+    public boolean hasHotel() {
+        return hasHotel;
+    }
+
+    public void setHasHotel(boolean b) {
+        hasHotel = b;
+    }
+
+    public int getNumHouses() {
+        return numHouses;
+    }
+
+    public void setNumHouses(int a) {
+        numHouses = a;
+    }
+
     public Token getOwner() {
         return owner;
+    }
+
+    public void setOwner(Token t) {
+        owner = t;
     }
 
     public int getRent() {
         return houseRent;
     }
 
+    // Returns the mortgage value of the property
+    public void mortgageProperty() {
+    	// GD 11.15.16 Needs redone after token refactor
+//        if(owner != null) {
+//            owner.earnRent(price / 2);
+//            owner = null;
+//        }
+    }
+
+//    @Override
+//    public void action(Token target) {
+//    	// GD 11.15.16 Needs redone after token refactor
+////        target.payRent(houseRent);
+////        owner.earnRent(houseRent);
+//    }
     public int getPrice() {
         return price;
     }
 
     public PropertyGroup getPropertyGroup() {
         return propertyGroup;
-    }
 
-    public void addHouse() throws HouseException {
-        if(numHouses == 4)
-            throw new HouseException("You can't add another house");
-        if(numHouses < 4) {
-            numHouses++;
-            calcRent();
-        }
-    }
-
-    public void addHotel() throws HotelException {
-        if(hasHotel)
-            throw new HotelException("You can't add another hotel");
-        if(numHouses != 4)
-            throw new HotelException("You can't add a hotel until you have 4 houses");
-
-        hasHotel  = true;
-        numHouses = 0;
-        calcRent();
-    }
-
-    public void changeOwnership(Token newOwner) {
-        owner = newOwner;
-        calcRent();
-    }
-
-    protected boolean hasPropertyGroupMonopoly() {
-        // This will check against itself, so start at 0
-        if(owner == null)
-            return false;
-        int numProperties = 0;
-        for(Deed d : board.getOwnedDeeds(owner))
-            if(propertyGroup == d.getPropertyGroup())
-                numProperties++;
-
-        int totalProperties;
-        if(propertyGroup == BROWN || propertyGroup == BLUE)
-            totalProperties = 2;
-        else if(propertyGroup == RAILROAD)
-            totalProperties = 4;
-        else
-            totalProperties = 3;
-
-        if(numProperties == totalProperties)
-            return true;
-        else
-            return false;
-    }
-
-    // Returns the mortgage value of the property
-    public void mortgageProperty() {
-        if(owner != null) {
-            owner.earnRent(price / 2);
-            owner = null;
-        }
-    }
-
-    @Override
-    public void action(Token target) {
-        target.payRent(houseRent);
-        owner.earnRent(houseRent);
     }
 
     protected void setName() {
@@ -618,8 +596,9 @@ public class Deed extends Space {
                 break;
         }
 
-        if(hasPropertyGroupMonopoly())
-            houseRent *= 2;
+        //TODO: This is kind of impossible / convoluted now, we can do it later.
+//        if(hasPropertyGroupMonopoly())
+//            houseRent *= 2;
     }
 
 	public String getName() {

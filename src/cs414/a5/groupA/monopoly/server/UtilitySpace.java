@@ -7,7 +7,7 @@ import static cs414.a5.groupA.monopoly.server.PropertyGroup.UTILITY;
  */
 public class UtilitySpace extends Deed{
     public UtilitySpace(Board b, int position) {
-        super(b, position);
+        super(position);
     }
 
     @Override

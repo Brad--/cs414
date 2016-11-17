@@ -2,6 +2,8 @@ package cs414.a5.groupA.monopoly.server;
 
 import java.io.Serializable;
 
+import cs414.a5.groupA.monopoly.shared.Token;
+
 public class TokenActionWrapper implements Serializable {
 	
 	private Token token;
