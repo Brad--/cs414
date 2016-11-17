@@ -5,17 +5,15 @@ import cs414.a5.groupA.monopoly.shared.Token;
 abstract class Space {
 
     protected int position;
-    protected Board board;
     protected String name;
     protected Token owner;
 
-    Space(Board board, int position) {
+    Space(int position) {
         this.position = position;
-        this.board = board;
         owner = null;
     }
 
-    abstract void action(Token target);
+//    abstract void action(Token target);
 
     public int getPosition() {
         return position;

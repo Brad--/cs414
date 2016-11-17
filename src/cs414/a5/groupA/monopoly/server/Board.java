@@ -13,75 +13,41 @@ public class Board {
 
     public void init(){
         int listPos;
-//        for (int i = 0; i <= 39; i++) {
-//            listPos = i - 1;
-//            if (listPos == 0) {
-//                deeds.add(new GoSpace(this, i));
-//            } else if (listPos == 4) {
-//                deeds.add(new TaxSpace(this, i));
-//            } else if (listPos == 5) {
-//                deeds.add(new Railroad(this, i));
-//            }  else if (listPos == 10) {
-//                deeds.add(new Jail(this, i));
-//            } else if (listPos == 12) {
-//                deeds.add(new UtilitySpace(this, i));
-//            } else if (listPos == 15) {
-//                deeds.add(new Railroad(this, i));
-//            } else if (listPos == 20) {
-//                deeds.add(new FreeParking(this, i));
-//            } else if (listPos == 25) {
-//                deeds.add(new Railroad(this, i));
-//            } else if (listPos == 28) {
-//                deeds.add(new UtilitySpace(this, i));
-//            } else if (listPos == 35) {
-//                deeds.add(new Railroad(this, i));
-//            } else if (listPos == 38) {
-//                deeds.add(new TaxSpace(this, i));
-//            } else if (listPos == 7 || listPos == 22
-//                    || listPos == 2 || listPos == 17
-//                    || listPos == 33 || listPos ==36) {
-//                deeds.add(new Card(this, i));
-//            } else {
-//                deeds.add(new Deed(this, i));
-//            }
-//        }
+        for (int i = 0; i <= 39; i++) {
+            listPos = i;
+            if (listPos == 0) {
+                deeds.add(new GoSpace(i));
+            } else if (listPos == 4) {
+                deeds.add(new TaxSpace(i));
+            } else if (listPos == 5) {
+                deeds.add(new Railroad(i));
+            }  else if (listPos == 10) {
+                deeds.add(new Jail(i));
+            } else if (listPos == 12) {
+                deeds.add(new UtilitySpace(i));
+            } else if (listPos == 15) {
+                deeds.add(new Railroad(i));
+            } else if (listPos == 20) {
+                deeds.add(new FreeParking(i));
+            } else if (listPos == 25) {
+                deeds.add(new Railroad(i));
+            } else if (listPos == 28) {
+                deeds.add(new UtilitySpace(i));
+            } else if (listPos == 35) {
+                deeds.add(new Railroad(i));
+            } else if (listPos == 38) {
+                deeds.add(new TaxSpace(i));
+            } else if (listPos == 7 || listPos == 22
+                    || listPos == 2 || listPos == 17
+                    || listPos == 33 || listPos ==36) {
+                deeds.add(new Card(i));
+            } else {
+                deeds.add(new Deed(i));
+            }
+        }
         //@TODO: start GUI
     }
 
-    public Token handleRoll(Token currentPlayer) { // TODO return TokenActionWrapper?
-    	// GD 11.15.16 Needs redone after token refactor
-//        if (!users.containsKey(currentPlayer))
-//            addUser(currentPlayer);
-//    	Token updatedPlayer = die.roll(currentPlayer);
-//        int move = updatedPlayer.getPosition();
-//        //@TODO: check for doubles
-//        if (!currentPlayer.inJail()){
-//            if (deeds.get(currentPlayer.getPosition()).getOwner() == null) {
-//                //TODO: display to player option to buy
-//                delegateDeed(currentPlayer);
-//            }
-//            else if (currentPlayer.getPosition()==1){
-//                currentPlayer.passGo(); // TODO needs to also account for PASSING of go as well
-//            }
-//            else if (currentPlayer.getPosition()==5){
-//                //tax spot 200 or 10%
-//                //@TODO show use choice to pay 200 or 10% of total
-//            }
-//            else if (currentPlayer.getPosition()== 39){
-//                currentPlayer.payRent(75);
-//            }
-//            else{
-//                // pay rent
-//                payRent(currentPlayer);
-//            }
-//        }
-//
-//        // Pass go
-//        if(!updatedPlayer.inJail() && updatedPlayer.getPosition() < currentPlayer.getPosition()) {
-//            updatedPlayer.earnRent(200);
-//        }
-        return currentPlayer;
-    }
 
     public void addUser(Token player){
 //        if (!users.containsKey(player.getPlayerName()))

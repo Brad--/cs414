@@ -58,6 +58,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 				token.setMoney(rs.getInt("money"));
 				token.setPosition(rs.getInt("position"));
 				token.setReady(rs.getBoolean("ready"));
+				token.setInJail(rs.getBoolean("inJail"));
+				token.setSpeedCount(rs.getInt("speedCount"));
 				
 				tokens.add(token);
 			}
@@ -73,7 +75,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	@Override
 	public Token saveNewTokenToDatabase(Token token) {
 		Token returnToken = null;
-		String sql = "INSERT INTO token (gameId, playerName, gamePiece, money, position, ready) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO token (gameId, playerName, gamePiece, money, position, ready, inJail, speedCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		token.setGamePiece(getNewAssignedGamePiece(token.getGameId()));
 		
@@ -87,6 +89,9 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setInt(4, token.getMoney());
 			ps.setInt(5, token.getPosition());
 			ps.setBoolean(6, token.getReady());
+			ps.setBoolean(7, token.getInJail());
+			ps.setInt(8, token.getSpeedCount());
+			
 			
 			ps.executeUpdate();
 			
@@ -145,11 +150,13 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			token.setMoney(rs.getInt("money"));
 			token.setPosition(rs.getInt("position"));
 			token.setReady(rs.getBoolean("ready"));
+			token.setInJail(rs.getBoolean("inJail"));
+			token.setSpeedCount(rs.getInt("speedCount"));
 			
 		}
 		
 		conn.close();
-		
+
 		return token;
 	}
 	
@@ -180,7 +187,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	
 	@Override
 	public void updateToken(Token token) {
-		String sql = "UPDATE token SET playerName=?, gamePiece=?, money=?, position=?, ready=? WHERE tokenId=?";
+		String sql = "UPDATE token SET playerName=?, gamePiece=?, money=?, position=?, ready=?, inJail=?, speedCount=? WHERE tokenId=?";
 		
 		try {
 			Connection conn = getNewConnection();
@@ -191,7 +198,9 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setInt(3, token.getMoney());
 			ps.setInt(4, token.getPosition());
 			ps.setBoolean(5, token.getReady());
-			ps.setInt(6, token.getTokenId());
+			ps.setBoolean(6, token.getInJail());
+			ps.setInt(7, token.getSpeedCount());
+			ps.setInt(8, token.getTokenId());
 			
 			ps.executeUpdate();
 			
@@ -200,7 +209,139 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 	}
-	
+
+	public String getDeedOwner(String gameID, int position){
+		String sql = "SELECT playerName FROM deed WHERE gameId=? AND position=?";
+		String owner = "";
+		try{
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, gameID);
+			ps.setInt(2, position);
+			ResultSet rs = ps.executeQuery(sql);
+			if (rs.next()){
+				owner = rs.getString("playerName");
+			}
+
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return owner;
+	}
+
+	public void updateDeed(Token token){
+		String sql = "UPDATE deed SET playerName=? WHERE gameId=? AND position=?";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, token.getPlayerName());
+			ps.setString(2, token.getGameId());
+			ps.setInt(3, token.getPosition());
+
+			ps.executeUpdate();
+			conn.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public String roll(String name, String gameId) {
+			Token player = null;
+			System.out.println(name + " " + gameId);
+		try {
+			player = getTokenByGameIdAndName(gameId, name);
+			player = handleRoll(player);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		int rollOne = player.getLastRollOne();
+		int rollTwo = player.getLastRollTwo();
+		updateToken(player);
+		return rollOne + "+" + rollTwo;
+	}
+
+	public Token handleRoll(Token currentPlayer) { // TODO return TokenActionWrapper?
+		// GD 11.15.16 Needs redone after token refactor
+        Die die = new Die();
+		int start = 0;
+		int r1 = die.roll();
+		int r2 = die.roll();
+		currentPlayer.setLastRollOne(r1);
+		currentPlayer.setLastRollTwo(r2);
+		if (die.checkForDoubles(r1,r2)){
+			int currentSpeed = currentPlayer.getSpeedCount();
+			if (currentSpeed+1 == 3) {
+				currentPlayer.setInJail(true);
+				currentPlayer.setSpeedCount(0);
+			}
+			else
+				currentPlayer.setSpeedCount(currentSpeed+1);
+		}
+        if (!currentPlayer.getInJail()){
+			start = currentPlayer.getPosition();
+			int moveTo = (start + r1 + r2) % 40;
+			currentPlayer.setPosition(moveTo);
+            if (getDeedOwner(currentPlayer.getGameId(), currentPlayer.getPosition()) == null) {
+                //TODO: display to player option to buy
+                updateDeed(currentPlayer);
+            }
+            else if (currentPlayer.getPosition()==1){
+				currentPlayer.setMoney(currentPlayer.getMoney()+200);
+            }
+            else if (currentPlayer.getPosition()==5){
+                //tax spot pay 200
+				if (currentPlayer.getMoney()-200 >= 0)
+					currentPlayer.setMoney(currentPlayer.getMoney()-200);
+                //@TODO show user they've lost
+            }
+            else if (currentPlayer.getPosition()== 39){
+				if (currentPlayer.getMoney()-75 >= 0)
+                	currentPlayer.setMoney(currentPlayer.getMoney()-75);
+					//TODO add else to tell player they've lost
+            }
+            else{
+				// check if they pass go before paying rent
+				if(!currentPlayer.getInJail() && currentPlayer.getPosition() < start) {
+					currentPlayer.setMoney(currentPlayer.getMoney()+200);
+				}
+                // pay rent
+				Deed current = (Deed) gameBoard.deeds.get(currentPlayer.getPosition());
+				int rent = current.getRent();
+				if (currentPlayer.getMoney()-rent >= 0)
+                	payRent(currentPlayer, rent);
+				else
+					payRent(currentPlayer, currentPlayer.getMoney()); // give other play rest of money
+
+				return currentPlayer;
+            }
+        }
+
+        // Pass go
+        if(!currentPlayer.getInJail() && currentPlayer.getPosition() < start) {
+			currentPlayer.setMoney(currentPlayer.getMoney()+200);
+        }
+		return currentPlayer;
+	}
+
+	private Token payRent(Token player, int rent){
+		String owner = getDeedOwner(player.getGameId(), player.getPosition());
+		Token player2 = null;
+		try {
+			player2 = getTokenByGameIdAndName(player.getGameId(), owner);
+			player2.setMoney(player2.getMoney()+rent);
+			player.setMoney(player.getMoney()-rent);
+			updateToken(player2);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return player;
+	}
+
 	@Override
 	public void deleteToken(Token token) {
 		String sql = "DELETE FROM token WHERE tokenId=?";
@@ -217,6 +358,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 //
 //	@Override
@@ -239,16 +381,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 //			gameBoard.addUser(new Token(name));
 //		}
 //	}
-//	
-//	@Override
-//	public String roll(String name) {
-//		Token player = gameBoard.getUser(name);
-//		player = gameBoard.handleRoll(player);
-//		gameBoard.updateUser(player);
-//		int rollOne = player.getLastRollDieOne();
-//		int rollTwo = player.getLastRollDieTwo();
-//		return rollOne + "+" + rollTwo;
-//	}
+//
 //	
 //	@Override
 //	public Integer getSpeedingAmount(String name) {

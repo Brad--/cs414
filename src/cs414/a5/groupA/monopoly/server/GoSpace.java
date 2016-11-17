@@ -5,12 +5,10 @@ import cs414.a5.groupA.monopoly.shared.Token;
 
 public class GoSpace extends Space {
 
-    public GoSpace(Board board, int position) {
-        super(board, position);
+    public GoSpace(int position) {
+        super(position);
     }
 
-    @Override
-    public void action(Token target) {
-
-    }
+//    @Override
+//    public void action(Token target) {}
 }
