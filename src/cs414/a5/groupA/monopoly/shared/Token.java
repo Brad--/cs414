@@ -22,6 +22,7 @@ public class Token implements Serializable {
 	private int speedCount;
 	private int lastRollOne;
 	private int lastRollTwo;
+	private Boolean playerTurn;
     
     public Token() {
     	
@@ -75,7 +76,7 @@ public class Token implements Serializable {
 		this.position = position;
 	}
 
-	public Boolean getReady() {
+	public Boolean isReady() {
 		return ready;
 	}
 
@@ -83,7 +84,7 @@ public class Token implements Serializable {
 		this.ready = ready;
 	}
 
-	public Boolean getInJail() {
+	public Boolean isInJail() {
 		return inJail;
 	}
 
@@ -113,6 +114,14 @@ public class Token implements Serializable {
 
 	public void setLastRollTwo(int lastRollTwo) {
 		this.lastRollTwo = lastRollTwo;
+	}
+
+	public Boolean isPlayerTurn() {
+		return playerTurn;
+	}
+
+	public void setPlayerTurn(Boolean playerTurn) {
+		this.playerTurn = playerTurn;
 	}
 
 }
