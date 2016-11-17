@@ -6,16 +6,12 @@ import java.util.HashMap;
 import cs414.a5.groupA.monopoly.shared.Token;
 
 public class Board {
-    private Die die;
-    private HashMap<String, Token> users;
     public ArrayList<Space> deeds = new ArrayList<>();
     public Board(){
         init();
     }
 
     public void init(){
-        users = new HashMap<>();
-        die = new Die();
         int listPos;
         for (int i = 0; i <= 39; i++) {
             listPos = i - 1;

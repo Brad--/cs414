@@ -70,8 +70,7 @@ public class ViewBoard extends FlexTable {
 		put(36, new ViewSpace(6,10, "chanceEast", STYLE_WE));
 		put(37, new ViewSpace(7,10, "dunkinDonuts", STYLE_WE));
 		put(38, new ViewSpace(8,10, "luxuryTax", STYLE_WE));
-		put(39, new ViewSpace(9,10, "starbucks", STYLE_WE));
-		
+		put(39, new ViewSpace(9,10, "starbucks", STYLE_WE));	
 	}};
 	
 	public ViewBoard() {
@@ -87,7 +86,7 @@ public class ViewBoard extends FlexTable {
 		setWidget(5,1, p2StatsPanel);
 		setWidget(1,5, p3StatsPanel);
 		setWidget(5,9, p4StatsPanel);
-	}
+	
 	
 	public void renderBoard() {
 
