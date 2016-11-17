@@ -71,6 +71,21 @@ public class GamePanel extends BasePanel {
 
 	public void init() {
 		ArrayList<String> playerNames = new ArrayList<String>();
+		getGameService().initializeDeeds(gameId, new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Void arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 //		playerNames.add(p1.getName());
 //		playerNames.add(p2.getName());
 //		if (p3 != null) {
