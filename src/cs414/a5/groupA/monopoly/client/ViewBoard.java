@@ -86,6 +86,7 @@ public class ViewBoard extends FlexTable {
 		setWidget(5,1, p2StatsPanel);
 		setWidget(1,5, p3StatsPanel);
 		setWidget(5,9, p4StatsPanel);
+	}
 	
 	
 	public void renderBoard() {

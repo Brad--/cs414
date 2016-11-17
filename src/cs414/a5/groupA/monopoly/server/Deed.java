@@ -65,12 +65,12 @@ public class Deed {
 //        }
     }
 
-    @Override
-    public void action(Token target) {
-    	// GD 11.15.16 Needs redone after token refactor
-//        target.payRent(houseRent);
-//        owner.earnRent(houseRent);
-    }
+//    @Override
+//    public void action(Token target) {
+//    	// GD 11.15.16 Needs redone after token refactor
+////        target.payRent(houseRent);
+////        owner.earnRent(houseRent);
+//    }
     public int getPrice() {
         return price;
     }

@@ -17,66 +17,66 @@ public class Die {
 //        if (player.inJail()){
 //            if( rollOne == rollTwo) { // they get out of jail
 //                player.getOutofJail();
-//                player.setCurrentPosition(11);
+//                player.setPosition(11);
 //                return player; // this will leave them at the jail tile and they can go next round
 //            }
 //        }
 //        if (rollOne == rollTwo && speeding(player)) {
 //            player.goToJail();
-//            player.setCurrentPosition(11);
+//            player.setPosition(11);
 //            return player;
 //        }
 //        else if (rollOne != rollTwo) {
 //            player.resetSpeed();
 //            if (checkGoToJailSpace(player, sum)){
 //                player.goToJail();
-//                player.setCurrentPosition(11);
+//                player.setPosition(11);
 //            }
 //            else
-//                player.updatePosition(sum);
+//                player.setPosition(sum);
 //        }
 //        else{
 //            if (checkGoToJailSpace(player, sum)){
 //                player.goToJail();
-//                player.setCurrentPosition(11);
+//                player.setPosition(11);
 //            }
 //            else
-//                player.updatePosition(sum);
+//                player.setPosition(sum);
 //        }
 
         int rollOne = (int)(6.0*Math.random())+1;
         int rollTwo = (int)(6.0*Math.random())+1;
         // handle speeding and stuff in here
         int sum = rollOne + rollTwo;
-        player.updateDieRoll(rollOne, rollTwo);
-        if (player.getJailStatus()){
-            if( rollOne == rollTwo) { // they get out of jail
-                player.setOutofJail();
-                player.setCurrentPosition(11);
-                return player; // this will leave them at the jail tile and they can go next round
-            }
-        }
+//        player.updateDieRoll(rollOne, rollTwo);
+//        if (player.getJailStatus()){
+//            if( rollOne == rollTwo) { // they get out of jail
+//                player.setOutofJail();
+//                player.setPosition(11);
+//                return player; // this will leave them at the jail tile and they can go next round
+//            }
+//        }
         if (rollOne == rollTwo && speeding(player)) {
-            player.setGoToJail();
-            player.setCurrentPosition(11);
+            player.setPosition(10);
+            player.setPosition(11);
             return player;
         }
         else if (rollOne != rollTwo) {
-            player.resetSpeed();
+//            player.resetSpeed();
             if (checkGoToJailSpace(player, sum)){
-                player.setGoToJail();
-                player.setCurrentPosition(11);
+                player.setPosition(10);
+                player.setPosition(11);
             }
             else
-                player.updatePosition(sum);
+                player.setPosition(sum);
         }
         else{
             if (checkGoToJailSpace(player, sum)){
-                player.setGoToJail();
-                player.setCurrentPosition(11);
+                player.setPosition(10);
+                player.setPosition(11);
             }
             else
-                player.updatePosition(sum);
+                player.setPosition(sum);
         }
         return player;
     }
@@ -89,12 +89,12 @@ public class Die {
 //        }
 //        player.incrementSpeed(1);
 
-        int numDoubles = player.getSpeeding();
-        if (numDoubles+1 > 2) {
-            player.resetSpeed();
-            return true;
-        }
-        player.setSpeed();
+//        int numDoubles = player.getSpeeding();
+//        if (numDoubles+1 > 2) {
+//            player.resetSpeed();
+//            return true;
+//        }
+//        player.setSpeed();
 
         return false;
     }

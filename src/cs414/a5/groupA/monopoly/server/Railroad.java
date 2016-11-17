@@ -9,25 +9,25 @@ import cs414.a5.groupA.monopoly.shared.Token;
  */
 public class Railroad extends Deed {
     public Railroad(Board board, int position) {
-        super(board, position);
+        super(position);
         this.price = 200;
     }
 
-    @Override
-    public void addHouse() throws HouseException {
-        throw new HouseException("You can't add houses to a railroad");
-    }
-
-    @Override
-    public void addHotel() throws HotelException {
-        throw new HotelException("You can't add a hotel to a railroad");
-    }
-
-    @Override
-    public void changeOwnership(Token newOwner) {
-        super.changeOwnership(newOwner);
-        calcRent();
-    }
+//    @Override
+//    public void addHouse() throws HouseException {
+//        throw new HouseException("You can't add houses to a railroad");
+//    }
+//
+//    @Override
+//    public void addHotel() throws HotelException {
+//        throw new HotelException("You can't add a hotel to a railroad");
+//    }
+//
+//    @Override
+//    public void changeOwnership(Token newOwner) {
+//        super.changeOwnership(newOwner);
+//        calcRent();
+//    }
 
     @Override
     protected void calcRent() {
