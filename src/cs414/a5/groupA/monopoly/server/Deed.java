@@ -6,6 +6,7 @@ import com.google.gwt.core.shared.GWT;
 
 import cs414.a5.groupA.monopoly.server.exception.HotelException;
 import cs414.a5.groupA.monopoly.server.exception.HouseException;
+import cs414.a5.groupA.monopoly.shared.Token;
 
 public class Deed {
     protected int price;
@@ -55,12 +56,28 @@ public class Deed {
         return houseRent;
     }
 
+    // Returns the mortgage value of the property
+    public void mortgageProperty() {
+    	// GD 11.15.16 Needs redone after token refactor
+//        if(owner != null) {
+//            owner.earnRent(price / 2);
+//            owner = null;
+//        }
+    }
+
+    @Override
+    public void action(Token target) {
+    	// GD 11.15.16 Needs redone after token refactor
+//        target.payRent(houseRent);
+//        owner.earnRent(houseRent);
+    }
     public int getPrice() {
         return price;
     }
 
     public PropertyGroup getPropertyGroup() {
         return propertyGroup;
+
     }
 
     protected void setName() {

@@ -1,5 +1,7 @@
 package cs414.a5.groupA.monopoly.server;
 
+import cs414.a5.groupA.monopoly.shared.Token;
+
 public class TaxSpace extends Space {
 
     public TaxSpace(Board board, int position) {
@@ -8,6 +10,7 @@ public class TaxSpace extends Space {
 
     @Override
     public void action(Token target) {
-        target.payRent(100);
+    	// GD 11.15.16 Needs redone after token refactor
+//        target.payRent(100);
     }
 }

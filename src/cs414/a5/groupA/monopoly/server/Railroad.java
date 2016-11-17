@@ -2,6 +2,7 @@ package cs414.a5.groupA.monopoly.server;
 
 import cs414.a5.groupA.monopoly.server.exception.HotelException;
 import cs414.a5.groupA.monopoly.server.exception.HouseException;
+import cs414.a5.groupA.monopoly.shared.Token;
 
 /**
  * Created by bradley on 10/18/16.

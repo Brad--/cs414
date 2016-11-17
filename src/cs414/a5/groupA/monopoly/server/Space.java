@@ -1,8 +1,9 @@
 package cs414.a5.groupA.monopoly.server;
 
+import cs414.a5.groupA.monopoly.shared.Token;
+
 abstract class Space {
 
-    // Not 0 based, Go is 1
     protected int position;
     protected Board board;
     protected String name;

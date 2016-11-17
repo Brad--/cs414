@@ -29,9 +29,8 @@ public class GamePanel extends BasePanel {
 		
 	}
 	
-	public GamePanel(int numOfPlayers, PlayerPiece p1, PlayerPiece p2, PlayerPiece p3, PlayerPiece p4, int timeSelected) {
+	public GamePanel(int timeSelected) {
 		final int gameTime = timeSelected;
-		this.numOfPlayers = numOfPlayers;
 		countdown = new Timer() {
 			int minutesLeft = gameTime;
 			int secondsLeft = 0;
@@ -50,33 +49,24 @@ public class GamePanel extends BasePanel {
 				}
 			}
 		};
-		piecesByNumber.put(1,p1);
-		piecesByNumber.put(2,p2);
-		piecesByNumber.put(3,p3);
-		piecesByNumber.put(4,p4);
-		init(p1, p2, p3, p4);
+//		piecesByNumber.put(1,p1);
+//		piecesByNumber.put(2,p2);
+//		piecesByNumber.put(3,p3);
+//		piecesByNumber.put(4,p4);
+		init();
 	}
 
-	public void init(PlayerPiece p1, PlayerPiece p2, PlayerPiece p3, PlayerPiece p4) {
+	public void init() {
 		ArrayList<String> playerNames = new ArrayList<String>();
-		playerNames.add(p1.getName());
-		playerNames.add(p2.getName());
-		if (p3 != null) {
-			playerNames.add(p3.getName());
-		}
-		if (p4 != null) {
-			playerNames.add(p4.getName());
-		}
-		getGameService().initializeGame(playerNames, new AsyncCallback<Void>() {
+//		playerNames.add(p1.getName());
+//		playerNames.add(p2.getName());
+//		if (p3 != null) {
+//			playerNames.add(p3.getName());
+//		}
+//		if (p4 != null) {
+//			playerNames.add(p4.getName());
+//		}
 
-			@Override
-			public void onFailure(Throwable arg0) {
-				GWT.log("Failed to start game, abandon all hope.");
-				
-			}
-
-			@Override
-			public void onSuccess(Void result) {
 				GWT.log("Game successfully started!");
 				
 				initializeTimer();
@@ -102,16 +92,15 @@ public class GamePanel extends BasePanel {
 				boardTurnDeedsPanel.add(turnPanel);
 				boardTurnDeedsPanel.add(deedsPanel);
 				
-				setNextTurnToken();
-				setTurnPanelLabelByPlayerTurnNumber();
+//				setNextTurnToken();
+//				setTurnPanelLabelByPlayerTurnNumber();
 				//deedDisplayPanel.displayDeeds(board.getOwnedDeeds(p1));
 				
-				updateBoard();
+//				updateBoard();
+				viewBoard.renderBoard();
 				getMainVerticalPanel().add(countdownLabel);
 				getMainVerticalPanel().add(boardTurnDeedsPanel);
-			}
 			
-		});
 	}
 	
 	private void initializeTimer() {
@@ -120,50 +109,50 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void doTurn() {
-		getGameService().roll(getCurrentPlayerTurnName(), new AsyncCallback<String>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// no good
-			}
-
-			@Override
-			public void onSuccess(String result) {
-				updateBoard();
-				// TODO implement speeding as well
-				final String rollString = result;
-				//turnPanel.setRollLabel(result);
-				getGameService().getSpeedingAmount(getCurrentPlayerTurnName(), new AsyncCallback<Integer>() {
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						GWT.log("Failed to get speeding amount");
-					}
-
-					@Override
-					public void onSuccess(Integer speedingAmount) {
-						if (speedingAmount > 0 && speedingAmount < 3) {
-							turnPanel.setRollLabel(rollString + " - You rolled doubles " + speedingAmount + " times");
-						}
-						else {
-							turnPanel.setRollLabel(rollString);
-							allowEndTurn();
-						}
-						
-					}
-				});
-//				if (resultToken.getSpeeding() > 0 && resultToken.getSpeeding() < 3) {
-//					turnPanel.setRollLabel(resultToken.getLastRollDieOne() + "+" + resultToken.getLastRollDieTwo() + 
-//				" - You rolled doubles " + resultToken.getSpeeding() + " times");
-//					turnPanel.setRollButtonActive(true);
-//					turnPanel.setEndTurnButtonActive(false);
-//				}
-//				else {
-//					turnPanel.setRollLabel(resultToken.getLastRollDieOne() + "+" + resultToken.getLastRollDieTwo());
-//					turnPanel.setRollButtonActive(false);
-//					turnPanel.setEndTurnButtonActive(true);
-//				}
-			}});
+//		getGameService().roll(getCurrentPlayerTurnName(), new AsyncCallback<String>() {
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				// no good
+//			}
+//
+//			@Override
+//			public void onSuccess(String result) {
+//				updateBoard();
+//				// TODO implement speeding as well
+//				final String rollString = result;
+//				//turnPanel.setRollLabel(result);
+//				getGameService().getSpeedingAmount(getCurrentPlayerTurnName(), new AsyncCallback<Integer>() {
+//
+//					@Override
+//					public void onFailure(Throwable arg0) {
+//						GWT.log("Failed to get speeding amount");
+//					}
+//
+//					@Override
+//					public void onSuccess(Integer speedingAmount) {
+//						if (speedingAmount > 0 && speedingAmount < 3) {
+//							turnPanel.setRollLabel(rollString + " - You rolled doubles " + speedingAmount + " times");
+//						}
+//						else {
+//							turnPanel.setRollLabel(rollString);
+//							allowEndTurn();
+//						}
+//						
+//					}
+//				});
+////				if (resultToken.getSpeeding() > 0 && resultToken.getSpeeding() < 3) {
+////					turnPanel.setRollLabel(resultToken.getLastRollDieOne() + "+" + resultToken.getLastRollDieTwo() + 
+////				" - You rolled doubles " + resultToken.getSpeeding() + " times");
+////					turnPanel.setRollButtonActive(true);
+////					turnPanel.setEndTurnButtonActive(false);
+////				}
+////				else {
+////					turnPanel.setRollLabel(resultToken.getLastRollDieOne() + "+" + resultToken.getLastRollDieTwo());
+////					turnPanel.setRollButtonActive(false);
+////					turnPanel.setEndTurnButtonActive(true);
+////				}
+//			}});
 	}
 	
 	private void endTurn() {
@@ -219,39 +208,34 @@ public class GamePanel extends BasePanel {
 		AlertPopup notify = new AlertPopup(piecesByNumber.get(winner).getName() + " wins the game!");
 	}
 	
-	private void updateBoard() {
-		final HashMap<PlayerPiece, Integer> playerPositions = new HashMap<PlayerPiece, Integer>();
-		getGameService().getPlayerPositions(new AsyncCallback<Map<String,Integer>>() {
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				GWT.log("Failed to get player positions");
-				
-			}
-
-			@Override
-			public void onSuccess(Map<String, Integer> value) {
-				for (Entry<String, Integer> entry : value.entrySet()) {
-					String playerName = entry.getKey();
-					Integer playerPosition = entry.getValue();
-					for (Entry<Integer, PlayerPiece> player : piecesByNumber.entrySet()) {
-						PlayerPiece storedPiece = player.getValue();
-						if (storedPiece != null) {
-							if (storedPiece.getName().equals(playerName)) { // if names are the same, put piece and new position to be redrawn
-								playerPositions.put(player.getValue(), playerPosition);
-								GWT.log(playerName + " is at position " + playerPosition);
-							}
-						}
-					}
-				}
-				viewBoard.drawBoard(playerPositions);
-				PlayerPiece p1 = piecesByNumber.get(1);
-				PlayerPiece p2 = piecesByNumber.get(2);
-				PlayerPiece p3 = piecesByNumber.get(3);
-				PlayerPiece p4 = piecesByNumber.get(4);
-				viewBoard.drawStatsPanel(p1, p2, p3, p4);
-			}
-		});
-	}
+//	private void updateBoard() {
+//		final HashMap<PlayerPiece, Integer> playerPositions = new HashMap<PlayerPiece, Integer>();
+//		getGameService().getPlayerPositions(new AsyncCallback<Map<String,Integer>>() {
+//
+//			@Override
+//			public void onFailure(Throwable arg0) {
+//				GWT.log("Failed to get player positions");
+//				
+//			}
+//
+//			@Override
+//			public void onSuccess(Map<String, Integer> value) {
+//				for (Entry<String, Integer> entry : value.entrySet()) {
+//					String playerName = entry.getKey();
+//					Integer playerPosition = entry.getValue();
+//					for (Entry<Integer, PlayerPiece> player : piecesByNumber.entrySet()) {
+//						PlayerPiece storedPiece = player.getValue();
+//						if (storedPiece != null) {
+//							if (storedPiece.getName().equals(playerName)) { // if names are the same, put piece and new position to be redrawn
+//								playerPositions.put(player.getValue(), playerPosition);
+//								GWT.log(playerName + " is at position " + playerPosition);
+//							}
+//						}
+//					}
+//				}
+//				viewBoard.renderBoard();
+//			}
+//		});
+//	}
 	
 }
