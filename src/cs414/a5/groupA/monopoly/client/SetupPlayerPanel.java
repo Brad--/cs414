@@ -123,7 +123,7 @@ public class SetupPlayerPanel extends BasePanel {
 		    	}
 		    } 
 		}; 
-		timer.scheduleRepeating(10000);
+		timer.scheduleRepeating(100);
 	}
 	
 	public void checkReadyAndProgress() {
