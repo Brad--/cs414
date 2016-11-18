@@ -16,7 +16,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import cs414.a5.groupA.monopoly.client.GameService;
 import cs414.a5.groupA.monopoly.shared.Token;
 
-import static cs414.a5.groupA.monopoly.server.PropertyGroup.BROWN;
+import static cs414.a5.groupA.monopoly.server.PropertyGroup.*;
 
 public class GameServiceImpl extends RemoteServiceServlet implements GameService {
 
@@ -127,19 +127,20 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
         if (checkForMonopoly(playerName, deedName, gameId)) {
             try {
                 Token player = getTokenByGameIdAndName(gameId, playerName);
-                HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
-                String color = nameColorMap.get(deedName);
-                int cost = 0;
-                if (color.equals("BROWN") || color.equals("LIGHTBLUE")) {
+                Deed deed = getDeedByName(gameId, playerName, deedName);
+
+                PropertyGroup color = deed.getPropertyGroup();
+                int cost;
+                if (color == BROWN || color == LIGHTBLUE) {
                     cost = 50;
                 }
-                else if (color.equals("PURPLE") || color.equals("ORANGE")) {
+                else if (color == PURPLE || color == ORANGE) {
                     cost = 100;
                 }
-                else if (color.equals("RED") || color.equals("YELLOW")) {
+                else if (color == RED || color == YELLOW) {
                     cost = 150;
                 }
-                else if (color.equals("GREEN") || color.equals("BLUE")) {
+                else if (color == GREEN || color == BLUE) {
                     cost = 200;
                 }
                 else {
@@ -151,12 +152,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
                 if(resultFunds > 0) {
                     player.setMoney(player.getMoney() - cost);
                     updateToken(player);
-                    // Gotta update dat deed but
-//                    updateDeed(player);
+
+                    if (deed.getHousingCount() < 4 && !deed.hasHotel()) {
+                        deed.setHousingCount(deed.getHousingCount() + 1);
+                        updateDeedHousingCount(deed.getHousingCount(), gameId, deedName);
+                    }
                 }
 
             } catch(Exception e) {
-                System.out.println("Error fetching Token from server");
+                System.out.println("Error fetching Token or Deed from db.");
             }
         }
     }
