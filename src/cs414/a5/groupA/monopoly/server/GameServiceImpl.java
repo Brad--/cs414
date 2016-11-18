@@ -408,6 +408,31 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 
 	}
+
+	public Card getCard(){
+		String sql = "SELECT * FROM card Where position=?";
+		int position = (int) (21.0*Math.random()+1);
+		Card c = new Card(position);
+		try{
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setInt(1, position);
+
+			ResultSet rs = ps.executeQuery(sql);
+
+			if (rs.next()){
+				c.setType(rs.getInt("type"));
+				c.setDiscription(rs.getString("cardText"));
+				c.setAmount(rs.getInt("cardReward"));
+			}
+			conn.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		return c;
+	}
 	
 //	@Override
 //	public HashMap<String, String> getPlayerPropertyList(String player) {
