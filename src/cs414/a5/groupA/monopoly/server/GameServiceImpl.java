@@ -215,8 +215,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return owner;
 	}
 
-	private Deed getDeedByName(String gameID, String name) {
-		String sql = "SELECT `playerName` FROM `deed` WHERE `gameId`=? AND `deedName`=?";
+	private Deed getDeedByName(String gameID, String playerName, String deedName) {
+		String sql = "SELECT * FROM `deed` WHERE `gameId`=? AND `deedName`=? AND `playerName`=?";
 		String owner = null;
 		Deed deed = null;
 		try {
@@ -224,7 +224,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setString(1, gameID);
-			ps.setString(2, name);
+			ps.setString(2, playerName);
+			ps.setString(3, deedName);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				deed = new Deed(rs.getInt("position"));
@@ -640,7 +641,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		Token player = new Token();
 		try{
 			player = getTokenByGameIdAndName(gameId, playerName);
-			Deed d = getDeedByName(gameId, deedName);
+			Deed d = getDeedByName(gameId, playerName, deedName);
 			d = (Deed) gameBoard.deeds.get(d.getPosition());
 			player.setMoney(d.getPrice()/2);
 		}catch(Exception e){
