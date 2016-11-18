@@ -137,7 +137,7 @@ public class GamePanel extends BasePanel {
 
 			@Override
 			public void onSuccess(String result) {
-				AlertPopup alert = new AlertPopup(result);
+				turnPanel.setRollLabel("Dice Roll: " + result);
 				viewBoard.renderBoard();
 				// if not speeding, allowEndTurn()
 				allowEndTurn();
