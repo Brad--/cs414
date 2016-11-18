@@ -23,8 +23,6 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 	private static final long serialVersionUID = 1L;
 	
-	private Board gameBoard;
-	
 	ArrayList<String> gamePiecesList = new ArrayList<String>() {{
 	    add("img/token/coffee-cup.png");
 	    add("img/token/coffee-mug.png");
@@ -256,6 +254,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 	@Override
 	public void initializeDeeds(String gameId){
+		Board gameBoard = new Board();
 		for (Space deed: gameBoard.deeds){
 			if (deed instanceof Deed){
 				initializeDeed(gameId, (Deed) deed);
@@ -264,8 +263,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	public void initializeDeed(String gameId, Deed d){
-		String sql = "INSERT into 'deed' ('gameId', 'position', 'playerName', 'housingCount') VALUES" +
-				"(?,?,?,?)";
+		String sql = "INSERT into `deed` (`gameId`, `position`, `playerName`, `housingCount`) VALUES" +
+				" (?,?,?,?)";
 		try{
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
