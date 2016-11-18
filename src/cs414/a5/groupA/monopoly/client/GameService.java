@@ -38,6 +38,8 @@ public interface GameService extends RemoteService {
 
 	Boolean checkForOwnedDeed(String gameId, String name) throws Exception;
 
+	void sellProperty(String gameId, String playerName, String deedName) throws Exception;
+
 //	Map<String, Integer> getPlayerPositions();
 //	
 //	void initializeGame(ArrayList<String> names);
