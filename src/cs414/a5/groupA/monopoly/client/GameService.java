@@ -1,6 +1,7 @@
 package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -23,21 +24,19 @@ public interface GameService extends RemoteService {
 
 	void deleteToken(Token token);
 
-	void initializeDeeds(String gameID);
+	Boolean checkForCardSpot(String gameId, String name) throws Exception;
 
-	boolean checkForCardSpot(int position);
+	void dealWithCard(String gameId, String name) throws Exception;
 
-	void dealWithCard(Token currentPlayer);
+	void chargeTax(String gameId, String name) throws Exception;
 
-	void chargeTax(Token currentPlayer);
+	Boolean checkForTaxSpot(String gameId, String namer) throws Exception;
 
-	boolean checkForTaxSpot(Token currentPlayer);
+	void payRentToToken(String gameId, String name) throws Exception;
 
-	void payRentToToken(Token currentPlayer);
+	void wantsToBuyProperty(String gameId, String name) throws Exception;
 
-	void wantsToBuyProperty(Token currentPlayer);
-
-	boolean checkForOwnedDeed(String gameId, int position);
+	Boolean checkForOwnedDeed(String gameId, String name) throws Exception;
 
 //	Map<String, Integer> getPlayerPositions();
 //	
@@ -76,4 +75,6 @@ public interface GameService extends RemoteService {
 	Token getCurrentTurnToken(String gameId);
 
 	void nextPlayersTurn(String gameId);
+
+	HashMap<String, String> getDeedsOwnedByPlayer(String gameId, String playerName);
 }

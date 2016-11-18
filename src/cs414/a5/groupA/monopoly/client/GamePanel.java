@@ -64,6 +64,7 @@ public class GamePanel extends BasePanel {
 			public void run() {
 				viewBoard.renderBoard();
 				checkTurnStatus();
+				updateDeedsDisplay();
 			}
 		};
 //		piecesByNumber.put(1,p1);
@@ -141,6 +142,97 @@ public class GamePanel extends BasePanel {
 				// if not speeding, allowEndTurn()
 				allowEndTurn();
 			}});
+		checkLandedSpace();
+	}
+	
+	private void checkLandedSpace() {
+		checkTaxSpot();
+		checkCardSpot();
+		checkDeedSpot();
+	}
+	
+	private void checkTaxSpot() {
+		getGameService().checkForTaxSpot(gameId, playerName, new AsyncCallback<Boolean>() {
+			@Override
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+			}
+			@Override
+			public void onSuccess(Boolean isTaxSpot) {
+				if (isTaxSpot) {
+					getGameService().chargeTax(gameId, playerName, new AsyncCallback<Void>() {
+						@Override
+						public void onFailure(Throwable arg0) {
+							// TODO Auto-generated method stub
+						}
+						@Override
+						public void onSuccess(Void arg0) {
+							// TODO Auto-generated method stub
+						}
+					});
+				}
+			}
+		});
+	}
+	
+	private void checkCardSpot() {
+		getGameService().checkForCardSpot(gameId, playerName, new AsyncCallback<Boolean>() {
+			@Override
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+			}
+			@Override
+			public void onSuccess(Boolean isCardSpot) {
+				if (isCardSpot) {
+					getGameService().dealWithCard(gameId, playerName, new AsyncCallback<Void>() {
+						@Override
+						public void onFailure(Throwable arg0) {
+							// TODO Auto-generated method stub
+						}
+						@Override
+						public void onSuccess(Void arg0) {
+							// TODO Auto-generated method stub
+						}
+					});
+				}
+			}
+		});
+	}
+	
+	private void checkDeedSpot() {
+		getGameService().checkForOwnedDeed(gameId, playerName, new AsyncCallback<Boolean>() {
+			@Override
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+			}
+			@Override
+			public void onSuccess(Boolean isOwned) {
+				if (!isOwned) {
+					getGameService().wantsToBuyProperty(gameId, playerName, new AsyncCallback<Void>() {
+						@Override
+						public void onFailure(Throwable arg0) {
+							// TODO Auto-generated method stub
+						}
+						@Override
+						public void onSuccess(Void arg0) {
+							// TODO Auto-generated method stub
+						}
+					});
+				}
+				else {
+					getGameService().chargeTax(gameId, playerName, new AsyncCallback<Void>() {
+						@Override
+						public void onFailure(Throwable arg0) {
+							// TODO Auto-generated method stub
+						}
+						@Override
+						public void onSuccess(Void arg0) {
+							// TODO Auto-generated method stub
+						}
+					});
+				}
+			}
+		});
 	}
 	
 	private void endTurn() {
@@ -224,6 +316,22 @@ public class GamePanel extends BasePanel {
 			}
 		}
 		AlertPopup notify = new AlertPopup(piecesByNumber.get(winner).getName() + " wins the game!");
+	}
+	
+	private void updateDeedsDisplay() {
+		getGameService().getDeedsOwnedByPlayer(gameId, playerName, new AsyncCallback<HashMap<String, String>>() {
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onSuccess(HashMap<String, String> deedsAndColors) {
+				deedDisplayPanel.displayDeeds(deedsAndColors);
+			}
+			
+		});
 	}
 
 	public String getPlayerName() {
