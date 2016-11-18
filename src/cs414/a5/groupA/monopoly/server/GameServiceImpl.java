@@ -495,6 +495,17 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
+	public boolean checkRolledDoubles(String gameId, String playerName) throws SQLException{
+		Token player = new Token();
+		try{
+			player = getTokenByGameIdAndName(gameId, playerName);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return player.getLastRollOne() == player.getLastRollTwo();
+	}
+
+	@Override
 	public DeedSpotOptions checkForDeedSpot(String gameId, String name) throws Exception {
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		int position = currentPlayer.getPosition();
