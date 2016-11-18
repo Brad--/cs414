@@ -223,7 +223,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 			ps.setString(1, gameID);
 			ps.setInt(2, position);
-			ResultSet rs = ps.executeQuery(sql);
+			ResultSet rs = ps.executeQuery();
 			if (rs.next()){
 				owner = rs.getString("playerName");
 			}
@@ -274,7 +274,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setString(3, null);
 			ps.setInt(4, 0);
 
-			ps.executeUpdate(sql);
+			ps.execute();
 			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
