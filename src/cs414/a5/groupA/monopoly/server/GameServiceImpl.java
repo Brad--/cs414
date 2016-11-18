@@ -215,6 +215,35 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return owner;
 	}
 
+	private Deed getDeedByName(String gameID, String playerName, String deedName) {
+		String sql = "SELECT * FROM `deed` WHERE `gameId`=? AND `deedName`=? AND `playerName`=?";
+		String owner = null;
+		Deed deed = null;
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, gameID);
+			ps.setString(2, deedName);
+			ps.setString(3, playerName);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				deed = new Deed(rs.getInt("position"));
+				deed.setName(rs.getString("deedName"));
+				Token t = new Token();
+				t.setPlayerName(rs.getString("playerName"));
+				deed.setOwner(t);
+				deed.setHousingCount(rs.getInt("housingCount"));
+
+			}
+
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return deed;
+	}
+
 	public void updateDeed(Token token) {
 		String sql = "UPDATE `deed` SET `playerName`=? WHERE `gameId`=? AND `position`=?";
 		try {
@@ -605,6 +634,21 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 		
 		return deedAndColor;
+	}
+
+	@Override
+	public void sellProperty(String gameId, String playerName, String deedName) throws SQLException{
+		Board gameBoard = new Board();
+		Token player = new Token();
+		try{
+			player = getTokenByGameIdAndName(gameId, playerName);
+			Deed d = getDeedByName(gameId, playerName, deedName);
+			d = (Deed) gameBoard.deeds.get(d.getPosition());
+			player.setMoney(d.getPrice()/2);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		updateToken(player);
 	}
 //	@Override
 //	public HashMap<String, String> getPlayerPropertyList(String player) {
