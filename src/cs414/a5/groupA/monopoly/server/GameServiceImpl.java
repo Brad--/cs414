@@ -253,9 +253,9 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setBoolean(6, token.isInJail());
 			ps.setInt(7, token.getSpeedCount());
 			ps.setBoolean(8, token.isPlayerTurn());
-			ps.setInt(9, token.getTokenId());
-			ps.setInt(10, token.getLastRollOne());
-			ps.setInt(11, token.getLastRollTwo());
+			ps.setInt(9, token.getLastRollOne());
+			ps.setInt(10, token.getLastRollTwo());
+			ps.setInt(11, token.getTokenId());
 
 			ps.executeUpdate();
 
@@ -751,6 +751,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		token.setInJail(rs.getBoolean("inJail"));
 		token.setSpeedCount(rs.getInt("speedCount"));
 		token.setPlayerTurn(rs.getBoolean("playerTurn"));
+		token.setLastRollOne(rs.getInt("lastRollOne"));
+		token.setLastRollTwo(rs.getInt("lastRollTwo"));
 		return token;
 	}
 	
