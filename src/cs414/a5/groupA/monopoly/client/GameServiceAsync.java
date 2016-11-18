@@ -2,6 +2,7 @@ package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -79,7 +80,7 @@ public interface GameServiceAsync {
 	
 	void checkForTaxSpot(String gameId, String name, AsyncCallback<Boolean> callback);
 	
-	void payRentToToken(String gameId, String name, AsyncCallback<Void> callback);
+	void payRentToToken(String gameId, String name, AsyncCallback<Integer> callback);
 	
 	void checkForDeedSpot(String gameId, String name, AsyncCallback<DeedSpotOptions> callback);
 	
@@ -88,4 +89,6 @@ public interface GameServiceAsync {
 	void getAllOwnedDeedsForGameId(String gameId, AsyncCallback<ArrayList<DatabaseDeed>> callback);
 
 	void buyHouse(String playerName, String deedName, String gameId, AsyncCallback<Boolean> asyncCallback);
+
+	void getRentOwedOnCurrentSpace(String gameId, String playerName, AsyncCallback<Integer> asyncCallback);
 }

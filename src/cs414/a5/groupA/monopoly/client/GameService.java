@@ -2,6 +2,7 @@ package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -34,7 +35,7 @@ public interface GameService extends RemoteService {
 
 	Boolean checkForTaxSpot(String gameId, String namer) throws Exception;
 
-	void payRentToToken(String gameId, String name) throws Exception;
+	Integer payRentToToken(String gameId, String name) throws Exception;
 
 	DeedSpotOptions checkForDeedSpot(String gameId, String name) throws Exception;
 
@@ -89,4 +90,6 @@ public interface GameService extends RemoteService {
 	ArrayList<DatabaseDeed> getAllOwnedDeedsForGameId(String gameId);
 
 	Boolean buyHouse(String playerName, String deedName, String gameId);
+
+	Integer getRentOwedOnCurrentSpace(String gameId, String playerName) throws Exception;
 }

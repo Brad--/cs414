@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -98,8 +97,6 @@ public class GamePanel extends BasePanel {
 			public void onSuccess(Void arg0) {}
 			
 		});
-
-		GWT.log("Game successfully started!");
 				
 		HorizontalPanel boardTurnDeedsPanel = new HorizontalPanel();
 		turnPanel = new TurnPanel(){
@@ -165,7 +162,6 @@ public class GamePanel extends BasePanel {
 					public void onFailure(Throwable arg0) {}
 					@Override
 					public void onSuccess(Boolean rolledDoubles) {
-						GWT.log("Rolled doubles: " + rolledDoubles);
 						if (!rolledDoubles) {
 							allowEndTurn();
 						}
@@ -230,20 +226,33 @@ public class GamePanel extends BasePanel {
 			@Override
 			public void onSuccess(DeedSpotOptions deedSpotOptions) {
 				if(deedSpotOptions != null) {
-					OptionsPanel optionsPanel = new OptionsPanel(deedSpotOptions.getOptions()) {
-						@Override
-						public void handleButtonClick() {
-							getGameService().handleDeedSpotOption(getGameId(), getPlayerName(), getSelectedOption(), new AsyncCallback<String>() {
+					final String deedOwner = deedSpotOptions.getOwner();
+					if (deedOwner == null) {
+						OptionsPanel optionsPanel = new OptionsPanel(deedSpotOptions.getOptions()) {
+							@Override
+							public void handleButtonClick() {
+								getGameService().handleDeedSpotOption(getGameId(), getPlayerName(), getSelectedOption(), new AsyncCallback<String>() {
 
-								@Override
-								public void onFailure(Throwable caught) {}
+									@Override
+									public void onFailure(Throwable caught) {}
 
-								@Override
-								public void onSuccess(String result) {
-									AlertPopup alert = new AlertPopup(result);
-								}});
-						}
-					};
+									@Override
+									public void onSuccess(String result) {
+										AlertPopup alert = new AlertPopup(result);
+									}});
+							}
+						};
+					}
+					else if (!deedOwner.equals(getPlayerName())) {
+						getGameService().payRentToToken(gameId, playerName, new AsyncCallback<Integer>() {
+							@Override
+							public void onFailure(Throwable arg0) {}
+							@Override
+							public void onSuccess(Integer rent) {
+									AlertPopup alert = new AlertPopup("Paid $" + rent + " to " + deedOwner + " by landing on their property.");
+								}
+						});
+					}
 				} else {
 					// Not a deed
 				}

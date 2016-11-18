@@ -562,14 +562,20 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public void payRentToToken(String gameId, String name) throws Exception {
+	public Integer payRentToToken(String gameId, String name) throws Exception {
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		Deed current = new Deed(currentPlayer.getPosition());
 		int rent = current.getRent();
-		if (currentPlayer.getMoney() - rent >= 0)
-			payRent(currentPlayer, rent);
-		else
-			payRent(currentPlayer, currentPlayer.getMoney()); // give other play rest of money
+		int amountPaid;
+		if (currentPlayer.getMoney() - rent >= 0) {
+			amountPaid = rent;
+			payRent(currentPlayer, amountPaid);
+		}
+		else {
+			amountPaid = currentPlayer.getMoney();
+			payRent(currentPlayer, amountPaid); // give other play rest of money
+		}
+		return amountPaid;
 	}
 
 	@Override
@@ -642,6 +648,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			player2.setMoney(player2.getMoney()+rent);
 			player.setMoney(player.getMoney()-rent);
 			updateToken(player2);
+			updateToken(player);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -883,6 +890,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 		
 		return ownedDeedsList;
+	}
+	
+	@Override
+	public Integer getRentOwedOnCurrentSpace(String gameId, String playerName) throws Exception {
+		Token player = getTokenByGameIdAndName(gameId, playerName);
+		int position = player.getPosition();
+		Deed deed = new Deed(position);
+		Integer rent = deed.getRent();
+		return rent;
 	}
 //	@Override
 //	public HashMap<String, String> getPlayerPropertyList(String player) {
