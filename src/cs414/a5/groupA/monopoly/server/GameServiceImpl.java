@@ -4,21 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import java.util.Set;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
 import cs414.a5.groupA.monopoly.shared.Token;
+
+import static cs414.a5.groupA.monopoly.server.PropertyGroup.*;
 
 public class GameServiceImpl extends RemoteServiceServlet implements GameService {
 
@@ -124,6 +122,71 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 		return returnGamePiece;
 	}
+
+	public void buyHouse(String playerName, String deedName, String gameId) {
+        if (checkForMonopoly(playerName, deedName, gameId)) {
+            try {
+                Token player = getTokenByGameIdAndName(gameId, playerName);
+                Deed deed = getDeedByName(gameId, playerName, deedName);
+
+                PropertyGroup color = deed.getPropertyGroup();
+                int cost;
+                if (color == BROWN || color == LIGHTBLUE) {
+                    cost = 50;
+                }
+                else if (color == PURPLE || color == ORANGE) {
+                    cost = 100;
+                }
+                else if (color == RED || color == YELLOW) {
+                    cost = 150;
+                }
+                else if (color == GREEN || color == BLUE) {
+                    cost = 200;
+                }
+                else {
+                    // silently fail
+                    return;
+                }
+
+                int resultFunds = player.getMoney() - cost;
+                if(resultFunds > 0) {
+                    player.setMoney(player.getMoney() - cost);
+                    updateToken(player);
+
+                    if (deed.getHousingCount() < 4 && !deed.hasHotel()) {
+                        deed.setHousingCount(deed.getHousingCount() + 1);
+                        updateDeedHousingCount(deed.getHousingCount(), gameId, deedName);
+                    }
+                }
+
+            } catch(Exception e) {
+                System.out.println("Error fetching Token or Deed from db.");
+            }
+        }
+    }
+
+    private boolean checkForMonopoly(String playerName, String deedName, String gameId) {
+        HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
+        if (nameColorMap.containsKey(deedName)) {
+            String color = nameColorMap.get(deedName);
+            int ownedCount = 0;
+
+            for (Map.Entry<String, String> pair : nameColorMap.entrySet()) {
+                if(pair.getValue().equals(color)) {
+                    ownedCount++;
+                }
+            }
+
+            boolean isTwoSpace = color.equals("BROWN") || color.equals("BLUE") || color.equals("UTILITY");
+            if(ownedCount == 2 && isTwoSpace ) {
+                return true;
+            }
+            else if(ownedCount == 3 && !isTwoSpace) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 	public Token getTokenByGameIdAndName(String gameId, String playerName) throws Exception {
 		Token token = new Token();
