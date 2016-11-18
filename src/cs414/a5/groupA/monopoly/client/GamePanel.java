@@ -25,7 +25,7 @@ public class GamePanel extends BasePanel {
 	Timer countdown;
 	Timer refreshBoard;
 	
-	String currentTurnPlayerName;
+	String currentTurnPlayerName = "";
 	int numOfPlayers;
 	
 	private String playerName;
@@ -206,10 +206,8 @@ public class GamePanel extends BasePanel {
 					else { // if it is someone elses turn...
 						isMyTurn = false;
 						disableButtons();
-						if (currentTurnPlayerName.equals(currentTurn.getPlayerName())) { // if it is not the same person's turn
-							currentTurnPlayerName = currentTurn.getPlayerName();
-							 // update the label and variable to reflect whose turn it is
-						}
+						currentTurnPlayerName = currentTurn.getPlayerName();
+						// update the label and variable to reflect whose turn it is
 					}
 					setTurnPanelLabel();
 				}
