@@ -469,7 +469,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 			ps.setInt(1, position);
 
-			ResultSet rs = ps.executeQuery(sql);
+			ResultSet rs = ps.executeQuery();
 			conn.close();
 			if (rs.next()){
 				c.setType(rs.getInt("type"));
