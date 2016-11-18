@@ -214,8 +214,25 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 		return owner;
 	}
+	
+	public void updateDeedHousingCount(int housingCount, String gameId, String deedName) {
+		String sql = "UPDATE `deed` SET `housingCount`=? where `gameId`=? AND `deedName`=?";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
 
-	public void updateDeed(Token token) {
+			ps.setInt(1,housingCount);
+			ps.setString(2, gameId);
+			ps.setString(3, deedName);
+
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateDeedByToken(Token token) {
 		String sql = "UPDATE `deed` SET `playerName`=? WHERE `gameId`=? AND `position`=?";
 		try {
 			Connection conn = getNewConnection();
@@ -245,16 +262,18 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	public void initializeDeed(String gameId, Deed d) {
-		String sql = "INSERT into `deed` (`gameId`, `position`, `playerName`, `housingCount`) VALUES" +
-				" (?,?,?,?)";
+		String sql = "INSERT into `deed` (`gameId`, `deedName`, `position`, `playerName`, `housingCount`, `propertyGroup`) VALUES" +
+				" (?,?,?,?,?,?)";
 		try {
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setString(1, gameId);
-			ps.setInt(2, d.getPosition());
-			ps.setString(3, null);
-			ps.setInt(4, 0);
+			ps.setString(2, d.getName());
+			ps.setInt(3, d.getPosition());
+			ps.setString(4, null);
+			ps.setInt(5, 0);
+			ps.setString(6, d.getPropertyGroup().toString());
 
 			ps.execute();
 			conn.close();
@@ -352,7 +371,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		Deed tempDeed = new Deed(currentPlayer.getPosition());
 		if (currentPlayer.getMoney() > tempDeed.getPrice()) {
-			updateDeed(currentPlayer);
+			updateDeedByToken(currentPlayer);
 			currentPlayer.setMoney(currentPlayer.getMoney() - tempDeed.getPrice());
 		}
 		updateToken(currentPlayer);
@@ -458,8 +477,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	private Card getCard(){
-		String sql = "SELECT * FROM card Where position=?";
-		int position = (int) (21.0*Math.random()+1);
+		String sql = "SELECT * FROM card Where cardId=?";
+		int position = (int) (20.0*Math.random());
 		Card c = new Card(position);
 		try{
 			Connection conn = getNewConnection();
@@ -467,13 +486,14 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 			ps.setInt(1, position);
 
-			ResultSet rs = ps.executeQuery(sql);
-			conn.close();
+			ResultSet rs = ps.executeQuery();
+			
 			if (rs.next()){
 				c.setType(rs.getInt("type"));
 				c.setDiscription(rs.getString("cardText"));
 				c.setAmount(rs.getInt("cardReward"));
 			}
+			conn.close();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
