@@ -310,7 +310,30 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			}
 			currentPlayer.setPosition(moveTo);
 			currentPlayer.setSpeedCount(0);
-			if (getDeedOwner(currentPlayer.getGameId(), currentPlayer.getPosition()) == null) {
+			if (checkForCardSpot(currentPlayer.getPosition())){
+				Card c = getCard();
+				int type = c.getType();
+				switch (type) {
+					case 1: // get paid
+						currentPlayer.setMoney(currentPlayer.getMoney() + c.getAmount());
+						break;
+					case 2: // have to pay
+						if (currentPlayer.getMoney() - c.getAmount() >= 0)
+							currentPlayer.setMoney(currentPlayer.getMoney() - c.getAmount());
+						break;
+					case 3: // move to
+						if (c.getAmount() == 10){
+							currentPlayer.setPosition(c.getAmount());
+							currentPlayer.setInJail(true);
+							return currentPlayer;
+						}else
+							currentPlayer.setPosition(c.getAmount());
+						break;
+					default:
+						System.err.println("UnKnow card type something is wrong");
+				}
+			}
+			else if (getDeedOwner(currentPlayer.getGameId(), currentPlayer.getPosition()) == null) {
 				//TODO: display to player option to buy
 				boolean wantsToBuy = true;
 				Deed tempDeed = new Deed(currentPlayer.getPosition());
@@ -385,6 +408,10 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 
+	}
+
+	public boolean checkForCardSpot(int position){
+		return position == 2 || position == 7 || position == 17 || position == 22 || position == 33 || position ==36;
 	}
 
 	public Card getCard(){
