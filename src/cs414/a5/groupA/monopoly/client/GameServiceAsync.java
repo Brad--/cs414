@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import com.sun.beans.decoder.ValueObject;
+import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
 
 /**
@@ -76,7 +76,7 @@ public interface GameServiceAsync {
 	
 	void payRentToToken(String gameId, String name, AsyncCallback<Void> callback);
 	
-	void wantsToBuyProperty(String gameId, String name, AsyncCallback<Void> callback);
+	void checkForDeedSpot(String gameId, String name, AsyncCallback<DeedSpotOptions> callback);
 	
-	void checkForOwnedDeed(String gameId, String name, AsyncCallback<Boolean> callback);
+	void handleDeedSpotOption(String gameId, String name, String selectedOption, AsyncCallback<String> callback);
 }

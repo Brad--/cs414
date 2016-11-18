@@ -11,9 +11,13 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.apache.tools.ant.types.CommandlineJava.SysProperties;
+
+import java.util.Set;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
+import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
 
 import static cs414.a5.groupA.monopoly.server.PropertyGroup.*;
@@ -189,7 +193,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
     }
 
 	public Token getTokenByGameIdAndName(String gameId, String playerName) throws Exception {
-		Token token = new Token();
+		Token token = null;
 
 		String sql = "SELECT * FROM `token` WHERE `gameId`=? AND `playerName`=?";
 		Connection conn = getNewConnection();
@@ -198,6 +202,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		ps.setString(2, playerName);
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
+			token = new Token();
 			token = getTokenFromResultSet(rs);
 		}
 		conn.close();
@@ -257,24 +262,35 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 	}
 
-	public String getDeedOwner(String gameID, int position) {
-		String sql = "SELECT `playerName` FROM `deed` WHERE `gameId`=? AND `position`=?";
-		String owner = null;
+	public DeedSpotOptions getDeedSpotOptionsByGameIdAndPosition(String gameId, int position) {
+		String sql = "SELECT * FROM `deed` WHERE `gameId`=? AND `position`=?";
+		DeedSpotOptions deedSpotOptions = null;
 		try {
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 
-			ps.setString(1, gameID);
+			ps.setString(1, gameId);
 			ps.setInt(2, position);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				owner = rs.getString("playerName");
+				deedSpotOptions = new DeedSpotOptions();
+				deedSpotOptions.setOwner(rs.getString("playerName"));
 			}
 
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return deedSpotOptions;
+	}
+	
+	public String getDeedOwner(String gameId, int position) {
+		String owner = null;
+		DeedSpotOptions deedSpotOptions = getDeedSpotOptionsByGameIdAndPosition(gameId, position);
+		if(deedSpotOptions != null) {
+			owner = deedSpotOptions.getOwner();
+		}
+		
 		return owner;
 	}
 	
@@ -346,7 +362,9 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		if(!deedsInitialized) {
 			Board gameBoard = new Board();
 			for (Space deed: gameBoard.deeds){
-				if (deed instanceof Deed){
+				if (deed instanceof Railroad){
+					initializeRailroad(gameId, (Railroad) deed);
+				} else if (deed instanceof Deed){
 					initializeDeed(gameId, (Deed) deed);
 				}
 			}
@@ -356,6 +374,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	public void initializeDeed(String gameId, Deed d) {
 		String sql = "INSERT into `deed` (`gameId`, `deedName`, `position`, `playerName`, `housingCount`, `propertyGroup`) VALUES" +
 				" (?,?,?,?,?,?)";
+		
 		try {
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -366,6 +385,27 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setString(4, null);
 			ps.setInt(5, 0);
 			ps.setString(6, d.getPropertyGroup().toString());
+
+			ps.execute();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void initializeRailroad(String gameId, Railroad railroad) {
+		String sql = "INSERT into `deed` (`gameId`, `deedName`, `position`, `playerName`, `housingCount`, `propertyGroup`) VALUES" +
+				" (?,?,?,?,?,?)";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, gameId);
+			ps.setString(2, railroad.getName());
+			ps.setInt(3, railroad.getPosition());
+			ps.setString(4, null);
+			ps.setInt(5, 0);
+			ps.setString(6, railroad.getPropertyGroup().toString());
 
 			ps.execute();
 			conn.close();
@@ -452,21 +492,26 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public Boolean checkForOwnedDeed(String gameId, String name) throws Exception {
+	public DeedSpotOptions checkForDeedSpot(String gameId, String name) throws Exception {
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		int position = currentPlayer.getPosition();
-		return !(getDeedOwner(gameId, position) == null);
+		DeedSpotOptions deedSpotOptions = getDeedSpotOptionsByGameIdAndPosition(gameId, position);
+
+		return deedSpotOptions;
 	}
 
-	@Override
-	public void wantsToBuyProperty(String gameId, String name) throws Exception {
+	public String wantsToBuyProperty(String gameId, String name) throws Exception {
+		String response = "Not enough money to buy property";
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		Deed tempDeed = new Deed(currentPlayer.getPosition());
 		if (currentPlayer.getMoney() > tempDeed.getPrice()) {
 			updateDeedByToken(currentPlayer);
 			currentPlayer.setMoney(currentPlayer.getMoney() - tempDeed.getPrice());
+			response = "Property purchased";
 		}
 		updateToken(currentPlayer);
+		
+		return response;
 	}
 
 	@Override
@@ -714,6 +759,25 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 		
 		return deedAndColor;
+	}
+	
+	@Override
+	public String handleDeedSpotOption(String gameId, String name, String selectedOption) {
+		String response = null;
+		
+		switch(selectedOption) {
+			case(DeedSpotOptions.BUY):
+			try {
+				response = wantsToBuyProperty(gameId, name);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				break;
+			case(DeedSpotOptions.DO_NOT_BUY):
+				response = "Did not buy property";
+				break;
+		}
+		return response;
 	}
 
 	@Override
