@@ -86,4 +86,6 @@ public interface GameServiceAsync {
 	void handleDeedSpotOption(String gameId, String name, String selectedOption, AsyncCallback<String> callback);
 	
 	void getAllOwnedDeedsForGameId(String gameId, AsyncCallback<ArrayList<DatabaseDeed>> callback);
+
+	void buyHouse(String playerName, String deedName, String gameId, AsyncCallback<Boolean> asyncCallback);
 }

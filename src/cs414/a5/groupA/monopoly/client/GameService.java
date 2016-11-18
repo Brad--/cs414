@@ -87,4 +87,6 @@ public interface GameService extends RemoteService {
 	String handleDeedSpotOption(String gameId, String name, String selectedOption);
 
 	ArrayList<DatabaseDeed> getAllOwnedDeedsForGameId(String gameId);
+
+	Boolean buyHouse(String playerName, String deedName, String gameId);
 }

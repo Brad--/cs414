@@ -1,7 +1,6 @@
 package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
@@ -19,7 +18,24 @@ import cs414.a5.groupA.monopoly.shared.Token;
 public class GamePanel extends BasePanel {
 	ViewBoard viewBoard = new ViewBoard();
 	Label countdownLabel = new Label();
-	DeedsDisplayPanel deedDisplayPanel = new DeedsDisplayPanel();
+	DeedsDisplayPanel deedDisplayPanel = new DeedsDisplayPanel() {
+		@Override
+		public void attemptToBuyProperty(String deedName) {
+			getGameService().buyHouse(getPlayerName(), deedName, gameId, new AsyncCallback<Boolean>() {
+				@Override
+				public void onFailure(Throwable arg0) {}
+				@Override
+				public void onSuccess(Boolean boughtProperty) {
+					if (boughtProperty) {
+						AlertPopup alert = new AlertPopup("You bought the property!");
+					}
+					else {
+						AlertPopup alert = new AlertPopup("Failed to buy property. You need a monopoly on the color and sufficient funds.");
+					}
+				}
+			});
+		}
+	};
 	TurnPanel turnPanel;
 	LinkedHashMap<Integer, PlayerPiece> piecesByNumber = new LinkedHashMap<Integer, PlayerPiece>();
 	
@@ -72,9 +88,7 @@ public class GamePanel extends BasePanel {
 		init();
 	}
 
-	public void init() {
-		ArrayList<String> playerNames = new ArrayList<String>();
-		
+	public void init() {		
 		getGameService().initializeFirstTurn(gameId, new AsyncCallback<Void>() {
 
 			@Override
@@ -318,7 +332,7 @@ public class GamePanel extends BasePanel {
 			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(ArrayList<DatabaseDeed> result) {
-				deedDisplayPanel.displayDeeds(result);
+				deedDisplayPanel.displayDeeds(result, getPlayerName());
 			}
 		});
 	}

@@ -128,14 +128,16 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return returnGamePiece;
 	}
 
-	public void buyHouse(String playerName, String deedName, String gameId) {
+	@Override
+	public Boolean buyHouse(String playerName, String deedName, String gameId) {
+		Boolean buyingSuccessful = false;
         if (checkForMonopoly(playerName, deedName, gameId)) {
             try {
                 Token player = getTokenByGameIdAndName(gameId, playerName);
                 Deed deed = getDeedByName(gameId, playerName, deedName);
 
                 PropertyGroup color = deed.getPropertyGroup();
-                int cost;
+                int cost = 0;
                 if (color == BROWN || color == LIGHTBLUE) {
                     cost = 50;
                 }
@@ -149,8 +151,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
                     cost = 200;
                 }
                 else {
-                    // silently fail
-                    return;
+                	return false; // case when trying to buy railroad/utility houses. will need to fail
                 }
 
                 int resultFunds = player.getMoney() - cost;
@@ -162,12 +163,13 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
                         deed.setHousingCount(deed.getHousingCount() + 1);
                         updateDeedHousingCount(deed.getHousingCount(), gameId, deedName);
                     }
+                    buyingSuccessful = true;
                 }
-
             } catch(Exception e) {
                 System.out.println("Error fetching Token or Deed from db.");
             }
         }
+        return buyingSuccessful;
     }
 
     private boolean checkForMonopoly(String playerName, String deedName, String gameId) {
