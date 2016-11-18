@@ -635,7 +635,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public void sellProperty(String gameId, String playerName, String deedName){
+	public void sellProperty(String gameId, String playerName, String deedName) throws SQLException{
 		Board gameBoard = new Board();
 		Token player = new Token();
 		try{
