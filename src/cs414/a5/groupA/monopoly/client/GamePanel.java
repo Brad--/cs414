@@ -133,7 +133,7 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void initializeTimers() {
-		refreshBoard.scheduleRepeating(5000);
+		refreshBoard.scheduleRepeating(1000);
 		countdown.scheduleRepeating(1000);
 	}
 	
