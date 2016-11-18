@@ -479,13 +479,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			}
 		}
 		if (moveTo == 30) {
-			currentPlayer.setPosition(11);
+			currentPlayer.setPosition(10);
 			currentPlayer.setInJail(true);
 			currentPlayer.setSpeedCount(0);
 		} else {
-			currentPlayer.setPosition(moveTo);
-			if (!currentPlayer.isInJail() && currentPlayer.getPosition() < start)
-				currentPlayer.setMoney(currentPlayer.getMoney() + 200);
+			if (!currentPlayer.isInJail()) {
+				currentPlayer.setPosition(moveTo);
+				if (!currentPlayer.isInJail() && currentPlayer.getPosition() < start)
+					currentPlayer.setMoney(currentPlayer.getMoney() + 200);
+			}
 		}
 
 		return currentPlayer;
