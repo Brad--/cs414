@@ -11,8 +11,7 @@ import cs414.a5.groupA.monopoly.shared.Token;
 public class Deed extends Space{
     protected int price;
     protected int houseRent;
-    private int numHouses;
-    private boolean hasHotel;
+    private int housingCount;
     protected PropertyGroup propertyGroup;
     
     public Deed(int position) {
@@ -20,26 +19,11 @@ public class Deed extends Space{
         calcPriceAndPropertyGroup();
         calcRent();
         setName();
-        hasHotel  = false;
-        numHouses = 0;
+        setHousingCount(0);
 
     }
 
-    public boolean hasHotel() {
-        return hasHotel;
-    }
 
-    public void setHasHotel(boolean b) {
-        hasHotel = b;
-    }
-
-    public int getNumHouses() {
-        return numHouses;
-    }
-
-    public void setNumHouses(int a) {
-        numHouses = a;
-    }
 
     public Token getOwner() {
         return owner;
@@ -274,318 +258,318 @@ public class Deed extends Space{
         switch(position) {
             // start brown
             case 1:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 250;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 2;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 10;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 30;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 90;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 160;
                 break;
             case 3:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 450;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 4;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 20;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 60;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 180;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 320;
                 break;
             // start lightblue
             case 6:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 550;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 6;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 30;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 90;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 270;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 400;
                 break;
             case 8:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 550;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 6;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 30;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 90;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 270;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 400;
                 break;
             case 9:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 600;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 8;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 40;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 100;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 300;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 450;
                 break;
             // start purple
             case 11:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 750;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 10;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 50;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 150;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 450;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 625;
                 break;
             case 13:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 750;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 10;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 50;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 150;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 450;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 625;
                 break;
             case 14:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 900;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 12;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 60;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 180;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 500;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 700;
                 break;
             // start orange
             case 16:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 950;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 14;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 70;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 200;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 550;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 750;
                 break;
             case 18:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 950;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 14;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 70;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 200;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 550;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 750;
                 break;
             case 19:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 1000;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 16;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 80;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 220;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 600;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 800;
                 break;
             // start red
             case 21:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 1050;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 18;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 90;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 250;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 700;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 875;
                 break;
             case 23:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 1050;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 18;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 90;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 250;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 700;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 875;
                 break;
             case 24:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 1100;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 20;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 100;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 300;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 750;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 925;
                 break;
             // start yellow
             case 26:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 1150;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 22;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 110;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 330;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 800;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 975;
                 break;
             case 27:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 1150;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 22;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 110;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 330;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 800;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 975;
                 break;
             case 29:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 1200;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 24;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 120;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 360;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 850;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 1025;
                 break;
             // start green
             case 31:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 1275;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 26;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 130;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 390;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 900;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 1100;
                 break;
             case 32:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 1275;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 26;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 130;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 390;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 900;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 1100;
                 break;
             case 34:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 1400;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 28;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 150;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 450;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 1000;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 1200;
                 break;
             // start blue
             case 37:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 1500;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 35;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 175;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 500;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 1100;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 1300;
                 break;
             case 39:
-                if(hasHotel)
+                if(hasHotel())
                     houseRent = 2000;
-                else if(numHouses == 0)
+                else if(getHousingCount() == 0)
                     houseRent = 50;
-                else if(numHouses == 1)
+                else if(getHousingCount() == 1)
                     houseRent = 200;
-                else if(numHouses == 2)
+                else if(getHousingCount() == 2)
                     houseRent = 600;
-                else if(numHouses == 3)
+                else if(getHousingCount() == 3)
                     houseRent = 1400;
-                else if(numHouses == 4)
+                else if(getHousingCount() == 4)
                     houseRent = 1700;
                 break;
             default:
@@ -640,6 +624,20 @@ public class Deed extends Space{
 			break;
 		}
 		return hexColor;
+	}
+
+
+
+	public int getHousingCount() {
+		return housingCount;
+	}
+
+	public void setHousingCount(int housingCount) {
+		this.housingCount = housingCount;
+	}
+	
+	public boolean hasHotel() {
+		return getHousingCount() == 5;
 	}
 
 }
