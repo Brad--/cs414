@@ -311,10 +311,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			}
 			currentPlayer.setPosition(moveTo);
 			currentPlayer.setSpeedCount(0);
-            if (getDeedOwner(currentPlayer.getGameId(), currentPlayer.getPosition()) == null) {
-                //TODO: display to player option to buy
-                updateDeed(currentPlayer);
-            }
+			if (getDeedOwner(currentPlayer.getGameId(), currentPlayer.getPosition()) == null) {
+				//TODO: display to player option to buy
+				boolean wantsToBuy = true;
+				Deed tempDeed = new Deed(currentPlayer.getPosition());
+				if(wantsToBuy && currentPlayer.getMoney() > tempDeed.getPrice()) {
+					updateDeed(currentPlayer);
+					currentPlayer.setMoney(currentPlayer.getMoney() - tempDeed.getPrice());
+				}
+			}
             else if (currentPlayer.getPosition()==4){
                 //tax spot pay 200
 				if (currentPlayer.getMoney()-200 >= 0)
@@ -381,6 +386,31 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 
+	}
+
+	public Card getCard(){
+		String sql = "SELECT * FROM card Where position=?";
+		int position = (int) (21.0*Math.random()+1);
+		Card c = new Card(position);
+		try{
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setInt(1, position);
+
+			ResultSet rs = ps.executeQuery(sql);
+
+			if (rs.next()){
+				c.setType(rs.getInt("type"));
+				c.setDiscription(rs.getString("cardText"));
+				c.setAmount(rs.getInt("cardReward"));
+			}
+			conn.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		return c;
 	}
 	
 	
