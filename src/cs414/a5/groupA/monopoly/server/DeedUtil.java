@@ -1,6 +1,5 @@
 package cs414.a5.groupA.monopoly.server;
 
-import cs414.a5.groupA.monopoly.server.exception.HotelException;
 import cs414.a5.groupA.monopoly.server.exception.HouseException;
 import cs414.a5.groupA.monopoly.shared.Token;
 
@@ -10,24 +9,13 @@ import static cs414.a5.groupA.monopoly.server.PropertyGroup.RAILROAD;
 
 public class DeedUtil {
 
-    public void addHouse(Deed d) throws HouseException {
-        if(d.getNumHouses() == 4)
-            throw new HouseException("You can't add another house");
-        if(d.getNumHouses() < 4) {
-            d.setNumHouses(d.getNumHouses() + 1);
+    public void increaseHousingCount(Deed d) throws HouseException {
+        if(d.getHousingCount() < 5) {
+            d.setHousingCount(d.getHousingCount() + 1);
             d.calcRent();
+        } else {
+        	throw new HouseException("You are at max housing");
         }
-    }
-
-    public void addHotel(Deed d) throws HotelException {
-        if(d.hasHotel())
-            throw new HotelException("You can't add another hotel");
-        if(d.getNumHouses() != 4)
-            throw new HotelException("You can't add a hotel until you have 4 houses");
-
-        d.setHasHotel(true);
-        d.setNumHouses(0);
-        d.calcRent();
     }
 
     public void changeOwnership(Deed d, Token newOwner) {

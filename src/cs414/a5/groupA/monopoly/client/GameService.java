@@ -38,7 +38,7 @@ public interface GameService extends RemoteService {
 	void wantsToBuyProperty(Token currentPlayer);
 
 	boolean checkForOwnedDeed(String gameId, int position);
-	
+
 //	Map<String, Integer> getPlayerPositions();
 //	
 //	void initializeGame(ArrayList<String> names);

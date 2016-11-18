@@ -27,7 +27,6 @@ public interface GameServiceAsync {
 //	
 	void roll(String name, String gameId, AsyncCallback<String> callback);
 	
-	void initializeDeeds(String gameID, AsyncCallback<Void> callback);
 //	
 //	void getPlayerPropertyList(String name, AsyncCallback<HashMap<String, String>> callback);
 //	
