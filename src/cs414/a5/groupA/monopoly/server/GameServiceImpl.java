@@ -460,8 +460,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	private Card getCard(){
-		String sql = "SELECT * FROM card Where position=?";
-		int position = (int) (21.0*Math.random()+1);
+		String sql = "SELECT * FROM card Where cardId=?";
+		int position = (int) (20.0*Math.random());
 		Card c = new Card(position);
 		try{
 			Connection conn = getNewConnection();
@@ -470,12 +470,13 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setInt(1, position);
 
 			ResultSet rs = ps.executeQuery();
-			conn.close();
+			
 			if (rs.next()){
 				c.setType(rs.getInt("type"));
 				c.setDiscription(rs.getString("cardText"));
 				c.setAmount(rs.getInt("cardReward"));
 			}
+			conn.close();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
