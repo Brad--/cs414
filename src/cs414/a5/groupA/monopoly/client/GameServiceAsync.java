@@ -54,4 +54,10 @@ public interface GameServiceAsync {
 //	void tradeCloseWithDescription(AsyncCallback<String> callback);
 //	
 //	void getOpposingTraderItems(String playerRequesting, AsyncCallback<ArrayList<Object>> callback);
+
+	void initializeFirstTurn(String gameId, AsyncCallback<Void> asyncCallback);
+
+	void getCurrentTurnToken(String gameId, AsyncCallback<Token> asyncCallback);
+
+	void nextPlayersTurn(String gameId, AsyncCallback<Void> asyncCallback);
 }
