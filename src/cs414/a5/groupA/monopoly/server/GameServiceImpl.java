@@ -4,21 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import java.util.Set;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
 import cs414.a5.groupA.monopoly.shared.Token;
+
+import static cs414.a5.groupA.monopoly.server.PropertyGroup.BROWN;
 
 public class GameServiceImpl extends RemoteServiceServlet implements GameService {
 
@@ -124,6 +122,30 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 		return returnGamePiece;
 	}
+
+	@Override
+    public boolean checkForMonopoly(String playerName, String deedName, String gameId) {
+        HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
+        if (nameColorMap.containsKey(deedName)) {
+            String color = nameColorMap.get(deedName);
+            int ownedCount = 0;
+
+            for (Map.Entry<String, String> pair : nameColorMap.entrySet()) {
+                if(pair.getValue().equals(color)) {
+                    ownedCount++;
+                }
+            }
+
+            boolean isTwoSpace = color.equals("BROWN") || color.equals("BLUE") || color.equals("UTILITY");
+            if(ownedCount == 2 && isTwoSpace ) {
+                return true;
+            }
+            else if(ownedCount == 3 && !isTwoSpace) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 	public Token getTokenByGameIdAndName(String gameId, String playerName) throws Exception {
 		Token token = new Token();
