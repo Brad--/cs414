@@ -224,8 +224,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setString(1, gameID);
-			ps.setString(3, playerName);
 			ps.setString(2, deedName);
+			ps.setString(3, playerName);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				deed = new Deed(rs.getInt("position"));
