@@ -130,20 +130,32 @@ public class GamePanel extends BasePanel {
 	
 	private void doTurn() {
 		getGameService().roll(getPlayerName(), getGameId(), new AsyncCallback<String>() {
-
 			@Override
 			public void onFailure(Throwable caught) {
 				// cry
 			}
-
 			@Override
 			public void onSuccess(String result) {
 				turnPanel.setRollLabel("Dice Roll: " + result);
 				viewBoard.renderBoard();
-				// if not speeding, allowEndTurn()
-				allowEndTurn();
+				checkLandedSpace();
+				getGameService().checkRolledDoubles(getGameId(), getPlayerName(), new AsyncCallback<Boolean>() {
+					@Override
+					public void onFailure(Throwable arg0) {
+						// TODO Auto-generated method stub
+					}
+					@Override
+					public void onSuccess(Boolean rolledDoubles) {
+						GWT.log("Rolled doubles: " + rolledDoubles);
+						if (!rolledDoubles) {
+							allowEndTurn();
+						}
+						else {
+							startTurn();
+						}
+					}
+				});
 			}});
-		checkLandedSpace();
 	}
 	
 	private void checkLandedSpace() {
