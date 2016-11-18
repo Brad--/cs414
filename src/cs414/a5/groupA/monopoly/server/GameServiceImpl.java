@@ -315,10 +315,12 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return currentPlayer;
 	}
 
+	@Override
 	public boolean checkForOwnedDeed(String gameId, int position) {
 		return getDeedOwner(gameId, position) == null;
 	}
 
+	@Override
 	public void wantsToBuyProperty(Token currentPlayer) {
 		Deed tempDeed = new Deed(currentPlayer.getPosition());
 		if (currentPlayer.getMoney() > tempDeed.getPrice()) {
@@ -328,6 +330,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		updateToken(currentPlayer);
 	}
 
+	@Override
 	public void payRentToToken(Token currentPlayer) {
 		Deed current = new Deed(currentPlayer.getPosition());
 		int rent = current.getRent();
@@ -337,10 +340,12 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			payRent(currentPlayer, currentPlayer.getMoney()); // give other play rest of money
 	}
 
+	@Override
 	public boolean checkForTaxSpot(Token currentPlayer) {
 		return currentPlayer.getPosition() == 4 || currentPlayer.getPosition() == 38;
 	}
 
+	@Override
 	public void chargeTax(Token currentPlayer) {
 		if (currentPlayer.getPosition() == 4) {
 			//tax spot pay 200
@@ -355,6 +360,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		updateToken(currentPlayer);
 	}
 
+	@Override
 	public void dealWithCard(Token currentPlayer){
 		Card c = getCard();
 		int type = c.getType();
@@ -379,6 +385,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		updateToken(currentPlayer);
 	}
 
+	@Override
 	public boolean checkForCardSpot(int position){
 		return position == 2 || position == 7 || position == 17 || position == 22 || position == 33 || position ==36;
 	}
@@ -416,7 +423,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 	}
 
-	public Card getCard(){
+	private Card getCard(){
 		String sql = "SELECT * FROM card Where position=?";
 		int position = (int) (21.0*Math.random()+1);
 		Card c = new Card(position);

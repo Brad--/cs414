@@ -24,6 +24,20 @@ public interface GameService extends RemoteService {
 	void deleteToken(Token token);
 
 	void initializeDeeds(String gameID);
+
+	boolean checkForCardSpot(int position);
+
+	void dealWithCard(Token currentPlayer);
+
+	void chargeTax(Token currentPlayer);
+
+	boolean checkForTaxSpot(Token currentPlayer);
+
+	void payRentToToken(Token currentPlayer);
+
+	void wantsToBuyProperty(Token currentPlayer);
+
+	boolean checkForOwnedDeed(String gameId, int position);
 	
 //	Map<String, Integer> getPlayerPositions();
 //	
