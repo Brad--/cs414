@@ -250,16 +250,18 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	public void initializeDeed(String gameId, Deed d) {
-		String sql = "INSERT into `deed` (`gameId`, `position`, `playerName`, `housingCount`) VALUES" +
-				" (?,?,?,?)";
+		String sql = "INSERT into `deed` (`gameId`, `deedName`, `position`, `playerName`, `housingCount`, `propertyGroup`) VALUES" +
+				" (?,?,?,?,?,?)";
 		try {
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setString(1, gameId);
-			ps.setInt(2, d.getPosition());
-			ps.setString(3, null);
-			ps.setInt(4, 0);
+			ps.setString(2, d.getName());
+			ps.setInt(3, d.getPosition());
+			ps.setString(4, null);
+			ps.setInt(5, 0);
+			ps.setString(6, d.getPropertyGroup().toString());
 
 			ps.execute();
 			conn.close();
@@ -493,7 +495,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 			ps.setInt(1, position);
 
-			ResultSet rs = ps.executeQuery(sql);
+			ResultSet rs = ps.executeQuery();
 			conn.close();
 			if (rs.next()){
 				c.setType(rs.getInt("type"));
