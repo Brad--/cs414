@@ -495,7 +495,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public boolean checkRolledDoubles(String gameId, String playerName) throws SQLException{
+	public Boolean checkRolledDoubles(String gameId, String playerName) throws SQLException{
 		Token player = new Token();
 		try{
 			player = getTokenByGameIdAndName(gameId, playerName);

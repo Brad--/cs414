@@ -26,7 +26,7 @@ public interface GameServiceAsync {
 
 	void sellProperty(String gameId, String playerName, String deedName, AsyncCallback<Void> callback);
 
-	boolean checkRolledDoubles(String gameId, String playerName, AsyncCallback<Void> callback);
+	void checkRolledDoubles(String gameId, String playerName, AsyncCallback<Boolean> callback);
 
 //	void getPlayerPositions(AsyncCallback<Map<String, Integer>> callback);
 //	
