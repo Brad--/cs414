@@ -68,7 +68,7 @@ public interface GameServiceAsync {
 	
 	void checkForCardSpot(String gameId, String name, AsyncCallback<Boolean> callback);
 	
-	void dealWithCard(String gameId, String name, AsyncCallback<Void> callback);
+	void dealWithCard(String gameId, String name, AsyncCallback<String> callback);
 	
 	void chargeTax(String gameId, String name, AsyncCallback<String> callback);
 	

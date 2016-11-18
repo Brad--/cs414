@@ -551,9 +551,11 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public void dealWithCard(String gameId, String name) throws Exception{
+	public String dealWithCard(String gameId, String name) throws Exception{
+		String message = "";
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		Card c = getCard();
+		message = c.getDescription();
 		int type = c.getType();
 		switch (type) {
 			case 1: // get paid
@@ -571,9 +573,10 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 					currentPlayer.setPosition(c.getAmount());
 				break;
 			default:
-				System.err.println("UnKnow card type something is wrong");
+				System.err.println("Unknown card type something is wrong");
 		}
 		updateToken(currentPlayer);
+		return message;
 	}
 
 	@Override
@@ -630,7 +633,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			
 			if (rs.next()){
 				c.setType(rs.getInt("type"));
-				c.setDiscription(rs.getString("cardText"));
+				c.setDescription(rs.getString("cardText"));
 				c.setAmount(rs.getInt("cardReward"));
 			}
 			conn.close();

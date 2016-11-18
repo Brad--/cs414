@@ -27,7 +27,7 @@ public interface GameService extends RemoteService {
 
 	Boolean checkForCardSpot(String gameId, String name) throws Exception;
 
-	void dealWithCard(String gameId, String name) throws Exception;
+	String dealWithCard(String gameId, String name) throws Exception;
 
 	String chargeTax(String gameId, String name) throws Exception;
 
