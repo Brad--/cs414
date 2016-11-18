@@ -35,8 +35,6 @@ public interface GameService extends RemoteService {
 
 	void payRentToToken(String gameId, String name) throws Exception;
 
-	void wantsToBuyProperty(String gameId, String name) throws Exception;
-
 	DeedSpotOptions checkForDeedSpot(String gameId, String name) throws Exception;
 
 //	Map<String, Integer> getPlayerPositions();
@@ -78,4 +76,6 @@ public interface GameService extends RemoteService {
 	void nextPlayersTurn(String gameId);
 
 	HashMap<String, String> getDeedsOwnedByPlayer(String gameId, String playerName);
+
+	String handleDeedSpotOption(String gameId, String name, String selectedOption);
 }

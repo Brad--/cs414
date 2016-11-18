@@ -206,30 +206,27 @@ public class GamePanel extends BasePanel {
 				// TODO Auto-generated method stub
 			}
 			@Override
-			public void onSuccess(DeedSpotOptions isOwned) {
-				if (isOwned != null) {
-					getGameService().wantsToBuyProperty(gameId, playerName, new AsyncCallback<Void>() {
+			public void onSuccess(DeedSpotOptions deedSpotOptions) {
+				if(deedSpotOptions != null) {
+					OptionsPanel optionsPanel = new OptionsPanel(deedSpotOptions.getOptions()) {
 						@Override
-						public void onFailure(Throwable arg0) {
-							// TODO Auto-generated method stub
+						public void handleButtonClick() {
+							getGameService().handleDeedSpotOption(getGameId(), getPlayerName(), getSelectedOption(), new AsyncCallback<String>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public void onSuccess(String result) {
+									AlertPopup alert = new AlertPopup(result);
+								}});
 						}
-						@Override
-						public void onSuccess(Void arg0) {
-							// TODO Auto-generated method stub
-						}
-					});
-				}
-				else {
-					getGameService().chargeTax(gameId, playerName, new AsyncCallback<Void>() {
-						@Override
-						public void onFailure(Throwable arg0) {
-							// TODO Auto-generated method stub
-						}
-						@Override
-						public void onSuccess(Void arg0) {
-							// TODO Auto-generated method stub
-						}
-					});
+					};
+				} else {
+					// Not a deed
 				}
 			}
 		});

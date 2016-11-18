@@ -20,7 +20,6 @@ public class Deed extends Space{
         calcRent();
         setName();
         setHousingCount(0);
-
     }
 
 
@@ -250,6 +249,9 @@ public class Deed extends Space{
         else if(position == 39){
             price = 400;
             propertyGroup = BLUE;
+        } else if(position == 5 || position == 15 || position == 25 || position == 35) {
+        	price = 200;
+        	propertyGroup = RAILROAD;
         }
     }
 

@@ -74,7 +74,7 @@ public interface GameServiceAsync {
 	
 	void payRentToToken(String gameId, String name, AsyncCallback<Void> callback);
 	
-	void wantsToBuyProperty(String gameId, String name, AsyncCallback<Void> callback);
-	
 	void checkForDeedSpot(String gameId, String name, AsyncCallback<DeedSpotOptions> callback);
+	
+	void handleDeedSpotOption(String gameId, String name, String selectedOption, AsyncCallback<String> callback);
 }
