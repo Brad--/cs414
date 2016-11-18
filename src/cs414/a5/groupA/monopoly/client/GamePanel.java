@@ -3,7 +3,6 @@ package cs414.a5.groupA.monopoly.client;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.gwt.core.client.GWT;
@@ -13,6 +12,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
 
 public class GamePanel extends BasePanel {
@@ -200,14 +200,14 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void checkDeedSpot() {
-		getGameService().checkForOwnedDeed(gameId, playerName, new AsyncCallback<Boolean>() {
+		getGameService().checkForDeedSpot(gameId, playerName, new AsyncCallback<DeedSpotOptions>() {
 			@Override
 			public void onFailure(Throwable arg0) {
 				// TODO Auto-generated method stub
 			}
 			@Override
-			public void onSuccess(Boolean isOwned) {
-				if (!isOwned) {
+			public void onSuccess(DeedSpotOptions isOwned) {
+				if (isOwned != null) {
 					getGameService().wantsToBuyProperty(gameId, playerName, new AsyncCallback<Void>() {
 						@Override
 						public void onFailure(Throwable arg0) {

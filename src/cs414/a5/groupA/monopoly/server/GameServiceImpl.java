@@ -18,6 +18,7 @@ import java.util.Set;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
+import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
 
 public class GameServiceImpl extends RemoteServiceServlet implements GameService {
@@ -194,9 +195,10 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 	}
 
-	public String getDeedOwner(String gameID, int position) {
-		String sql = "SELECT `playerName` FROM `deed` WHERE `gameId`=? AND `position`=?";
+	public String getDeedByGameIdAndPosition(String gameID, int position) {
+		String sql = "SELECT * FROM `deed` WHERE `gameId`=? AND `position`=?";
 		String owner = null;
+		Deed deed = null;
 		try {
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -205,6 +207,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setInt(2, position);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
+				deed = new Deed(position);
 				owner = rs.getString("playerName");
 			}
 
@@ -239,6 +242,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			for (Space deed: gameBoard.deeds){
 				if (deed instanceof Deed){
 					initializeDeed(gameId, (Deed) deed);
+				} else if (deed instanceof Railroad) {
+					initializeRailroad(gameId, (Railroad) deed);
 				}
 			}
 		}
@@ -253,6 +258,25 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 			ps.setString(1, gameId);
 			ps.setInt(2, d.getPosition());
+			ps.setString(3, null);
+			ps.setInt(4, 0);
+
+			ps.execute();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void initializeRailroad(String gameId, Railroad railroad) {
+		String sql = "INSERT into `deed` (`gameId`, `position`, `playerName`, `housingCount`) VALUES" +
+				" (?,?,?,?)";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, gameId);
+			ps.setInt(2, railroad.getPosition());
 			ps.setString(3, null);
 			ps.setInt(4, 0);
 
@@ -341,10 +365,12 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public Boolean checkForOwnedDeed(String gameId, String name) throws Exception {
+	public DeedSpotOptions checkForDeedSpot(String gameId, String name) throws Exception {
+		DeedSpotOptions deedSpotOptions = null;
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		int position = currentPlayer.getPosition();
-		return !(getDeedOwner(gameId, position) == null);
+//		return !(getDeedByGameIdAndPosition(gameId, position) == null);
+		return deedSpotOptions;
 	}
 
 	@Override
@@ -425,7 +451,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	private Token payRent(Token player, int rent){
-		String owner = getDeedOwner(player.getGameId(), player.getPosition());
+		String owner = getDeedByGameIdAndPosition(player.getGameId(), player.getPosition());
 		Token player2 = null;
 		try {
 			player2 = getTokenByGameIdAndName(player.getGameId(), owner);
