@@ -29,7 +29,7 @@ public interface GameService extends RemoteService {
 
 	void dealWithCard(String gameId, String name) throws Exception;
 
-	void chargeTax(String gameId, String name) throws Exception;
+	String chargeTax(String gameId, String name) throws Exception;
 
 	Boolean checkForTaxSpot(String gameId, String namer) throws Exception;
 
