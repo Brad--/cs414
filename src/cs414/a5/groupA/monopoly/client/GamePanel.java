@@ -23,6 +23,7 @@ public class GamePanel extends BasePanel {
 	TurnPanel turnPanel;
 	LinkedHashMap<Integer, PlayerPiece> piecesByNumber = new LinkedHashMap<Integer, PlayerPiece>();
 	
+	boolean inJail = false;
 	Timer countdown;
 	Timer refreshBoard;
 	
@@ -129,6 +130,19 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void doTurn() {
+		getGameService().checkInJail(getGameId(), getPlayerName(), new AsyncCallback<Boolean>() {
+			@Override
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+			}
+			@Override
+			public void onSuccess(Boolean inJail) {
+				com.google.gwt.core.shared.GWT.log("In Jail: " + inJail);
+				if (inJail) {
+					setInJail(true);
+				}
+			}
+		});
 		getGameService().roll(getPlayerName(), getGameId(), new AsyncCallback<String>() {
 			@Override
 			public void onFailure(Throwable caught) {
@@ -150,8 +164,8 @@ public class GamePanel extends BasePanel {
 						if (!rolledDoubles) {
 							allowEndTurn();
 						}
-						else {
-							startTurn();
+						else if (rolledDoubles && getInJail()) {
+							allowEndTurn();
 						}
 					}
 				});
@@ -344,7 +358,15 @@ public class GamePanel extends BasePanel {
 			
 		});
 	}
+	
+	public boolean getInJail() {
+		return inJail;
+	}
 
+	public void setInJail(boolean inJail) {
+		this.inJail = inJail;
+	}
+	
 	public String getPlayerName() {
 		return playerName;
 	}
