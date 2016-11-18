@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
 
 /**
@@ -34,9 +35,9 @@ public interface GameService extends RemoteService {
 
 	void payRentToToken(String gameId, String name) throws Exception;
 
-	void wantsToBuyProperty(String gameId, String name) throws Exception;
+	DeedSpotOptions checkForDeedSpot(String gameId, String name) throws Exception;
 
-	Boolean checkForOwnedDeed(String gameId, String name) throws Exception;
+	void sellProperty(String gameId, String playerName, String deedName) throws Exception;
 
 //	Map<String, Integer> getPlayerPositions();
 //	
@@ -77,4 +78,6 @@ public interface GameService extends RemoteService {
 	void nextPlayersTurn(String gameId);
 
 	HashMap<String, String> getDeedsOwnedByPlayer(String gameId, String playerName);
+
+	String handleDeedSpotOption(String gameId, String name, String selectedOption);
 }

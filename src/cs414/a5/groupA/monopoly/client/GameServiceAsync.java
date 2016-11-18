@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
 
 /**
@@ -21,7 +22,9 @@ public interface GameServiceAsync {
 	void updateToken(Token token, AsyncCallback<Void> callback);
 	
 	void deleteToken(Token token, AsyncCallback<Void> callback);
-	
+
+	void sellProperty(String gameId, String playerName, String deedName, AsyncCallback<Void> callback);
+
 //	void getPlayerPositions(AsyncCallback<Map<String, Integer>> callback);
 //	
 //	void initializeGame(ArrayList<String> names, AsyncCallback<Void> callback);
@@ -73,7 +76,7 @@ public interface GameServiceAsync {
 	
 	void payRentToToken(String gameId, String name, AsyncCallback<Void> callback);
 	
-	void wantsToBuyProperty(String gameId, String name, AsyncCallback<Void> callback);
+	void checkForDeedSpot(String gameId, String name, AsyncCallback<DeedSpotOptions> callback);
 	
-	void checkForOwnedDeed(String gameId, String name, AsyncCallback<Boolean> callback);
+	void handleDeedSpotOption(String gameId, String name, String selectedOption, AsyncCallback<String> callback);
 }

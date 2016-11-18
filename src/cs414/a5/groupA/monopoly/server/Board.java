@@ -41,6 +41,8 @@ public class Board {
                     || listPos == 2 || listPos == 17
                     || listPos == 33 || listPos ==36) {
                 deeds.add(new Card(i));
+            } else if (listPos == 30) {
+            	deeds.add(new GotoJail(i));
             } else {
                 deeds.add(new Deed(i));
             }
