@@ -239,7 +239,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 	@Override
 	public void updateToken(Token token) {
-		String sql = "UPDATE `token` SET `playerName`=?, `gamePiece`=?, `money`=?, `position`=?, `ready`=?, `inJail`=?, `speedCount`=?, `playerTurn`=? WHERE `tokenId`=?";
+		String sql = "UPDATE `token` SET `playerName`=?, `gamePiece`=?, `money`=?, `position`=?, `ready`=?, `inJail`=?, `speedCount`=?, `playerTurn`=?, `lastRollOne`=?, `lastRollTwo`=? WHERE `tokenId`=?";
 
 		try {
 			Connection conn = getNewConnection();
@@ -254,6 +254,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setInt(7, token.getSpeedCount());
 			ps.setBoolean(8, token.isPlayerTurn());
 			ps.setInt(9, token.getTokenId());
+			ps.setInt(10, token.getLastRollOne());
+			ps.setInt(11, token.getLastRollTwo());
 
 			ps.executeUpdate();
 
