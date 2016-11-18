@@ -24,21 +24,19 @@ public interface GameService extends RemoteService {
 
 	void deleteToken(Token token);
 
-	void initializeDeeds(String gameID);
+	Boolean checkForCardSpot(String gameId, String name) throws Exception;
 
-	boolean checkForCardSpot(int position);
+	void dealWithCard(String gameId, String name) throws Exception;
 
-	void dealWithCard(Token currentPlayer);
+	void chargeTax(String gameId, String name) throws Exception;
 
-	void chargeTax(Token currentPlayer);
+	Boolean checkForTaxSpot(String gameId, String namer) throws Exception;
 
-	boolean checkForTaxSpot(Token currentPlayer);
+	void payRentToToken(String gameId, String name) throws Exception;
 
-	void payRentToToken(Token currentPlayer);
+	void wantsToBuyProperty(String gameId, String name) throws Exception;
 
-	void wantsToBuyProperty(Token currentPlayer);
-
-	boolean checkForOwnedDeed(String gameId, int position);
+	Boolean checkForOwnedDeed(String gameId, String name) throws Exception;
 
 //	Map<String, Integer> getPlayerPositions();
 //	

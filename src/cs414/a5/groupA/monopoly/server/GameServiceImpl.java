@@ -289,7 +289,6 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	@Override
 	public String roll(String name, String gameId) {
 		Token player = null;
-		System.out.println(name + " " + gameId);
 		try {
 			player = getTokenByGameIdAndName(gameId, name);
 			player = handleRoll(player);
@@ -342,12 +341,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public boolean checkForOwnedDeed(String gameId, int position) {
-		return getDeedOwner(gameId, position) == null;
+	public Boolean checkForOwnedDeed(String gameId, String name) throws Exception {
+		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
+		int position = currentPlayer.getPosition();
+		return !(getDeedOwner(gameId, position) == null);
 	}
 
 	@Override
-	public void wantsToBuyProperty(Token currentPlayer) {
+	public void wantsToBuyProperty(String gameId, String name) throws Exception {
+		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		Deed tempDeed = new Deed(currentPlayer.getPosition());
 		if (currentPlayer.getMoney() > tempDeed.getPrice()) {
 			updateDeed(currentPlayer);
@@ -357,7 +359,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public void payRentToToken(Token currentPlayer) {
+	public void payRentToToken(String gameId, String name) throws Exception {
+		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		Deed current = new Deed(currentPlayer.getPosition());
 		int rent = current.getRent();
 		if (currentPlayer.getMoney() - rent >= 0)
@@ -367,12 +370,14 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public boolean checkForTaxSpot(Token currentPlayer) {
+	public Boolean checkForTaxSpot(String gameId, String name) throws Exception {
+		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		return currentPlayer.getPosition() == 4 || currentPlayer.getPosition() == 38;
 	}
 
 	@Override
-	public void chargeTax(Token currentPlayer) {
+	public void chargeTax(String gameId, String name) throws Exception {
+		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		if (currentPlayer.getPosition() == 4) {
 			//tax spot pay 200
 			if (currentPlayer.getMoney() - 200 >= 0)
@@ -387,7 +392,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public void dealWithCard(Token currentPlayer){
+	public void dealWithCard(String gameId, String name) throws Exception{
+		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		Card c = getCard();
 		int type = c.getType();
 		switch (type) {
@@ -412,7 +418,9 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public boolean checkForCardSpot(int position){
+	public Boolean checkForCardSpot(String gameId, String name) throws Exception{
+		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
+		int position = currentPlayer.getPosition();
 		return position == 2 || position == 7 || position == 17 || position == 22 || position == 33 || position ==36;
 	}
 

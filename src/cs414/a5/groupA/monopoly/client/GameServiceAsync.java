@@ -62,4 +62,18 @@ public interface GameServiceAsync {
 	void nextPlayersTurn(String gameId, AsyncCallback<Void> asyncCallback);
 
 	void getDeedsOwnedByPlayer(String gameId, String playerName, AsyncCallback<HashMap<String, String>> asyncCallback);
+	
+	void checkForCardSpot(String gameId, String name, AsyncCallback<Boolean> callback);
+	
+	void dealWithCard(String gameId, String name, AsyncCallback<Void> callback);
+	
+	void chargeTax(String gameId, String name, AsyncCallback<Void> callback);
+	
+	void checkForTaxSpot(String gameId, String name, AsyncCallback<Boolean> callback);
+	
+	void payRentToToken(String gameId, String name, AsyncCallback<Void> callback);
+	
+	void wantsToBuyProperty(String gameId, String name, AsyncCallback<Void> callback);
+	
+	void checkForOwnedDeed(String gameId, String name, AsyncCallback<Boolean> callback);
 }
