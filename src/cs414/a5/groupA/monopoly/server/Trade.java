@@ -1,30 +1,29 @@
 package cs414.a5.groupA.monopoly.server;
 
-import cs414.a5.groupA.monopoly.shared.Token;
 
 import java.util.ArrayList;
 
 public class Trade {
     private int oneMoney, twoMoney; // How much money each player is offering to trade
-    private Token oneToken, twoToken;
+    private String oneName, twoName;
     private boolean oneAccepted, twoAccepted;
-    ArrayList<Deed> oneDeeds, twoDeeds;
+    ArrayList<String> oneDeeds, twoDeeds;
 
-    public Trade(Token p1, Token p2) {
+    public Trade(String p1, String p2) {
         oneMoney = twoMoney = 0;
         oneAccepted = twoAccepted = false;
-        oneToken = p1;
-        twoToken = p2;
+        oneName = p1;
+        twoName = p2;
         oneDeeds = new ArrayList<>();
         twoDeeds = new ArrayList<>();
     }
 
     // Token's don't get setter methods because the players should never within a trade
-    public Token getPlayerOneToken() {
-        return oneToken;
+    public String getPlayerOneName() {
+        return oneName;
     }
-    public Token getPlayerTwoToken() {
-        return twoToken;
+    public String getPlayerTwoName() {
+        return twoName;
     }
 
     public int getPlayerOneMoney() {
@@ -58,17 +57,17 @@ public class Trade {
         twoAccepted = value;
     }
 
-    public ArrayList<Deed> getPlayerOneDeeds() {
+    public ArrayList<String> getPlayerOneDeeds() {
         return oneDeeds;
     }
-    public ArrayList<Deed> getPlayerTwoDeeds() {
+    public ArrayList<String> getPlayerTwoDeeds() {
         return twoDeeds;
     }
 
-    public void addPlayerOneDeed(Deed d) {
-        oneDeeds.add(d);
+    public void addPlayerOneDeed(String s) {
+        oneDeeds.add(s);
     }
-    public void addPlayerTwoDeed(Deed d) {
-        twoDeeds.add(d);
+    public void addPlayerTwoDeed(String s) {
+        twoDeeds.add(s);
     }
 }
