@@ -508,6 +508,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 		return player.isInJail();
 	}
+
 	@Override
 	public Boolean checkRolledDoubles(String gameId, String playerName) throws SQLException{
 		Token player = new Token();
@@ -595,8 +596,11 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 				if (c.getAmount() == 10) {
 					currentPlayer.setPosition(c.getAmount());
 					currentPlayer.setInJail(true);
-				} else
+				} else {
+					if (c.getAmount() < currentPlayer.getPosition())
+						currentPlayer.setMoney(currentPlayer.getMoney() + 200);
 					currentPlayer.setPosition(c.getAmount());
+				}
 				break;
 			default:
 				System.err.println("Unknown card type something is wrong");
