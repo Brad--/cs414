@@ -332,10 +332,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			}
 			currentPlayer.setPosition(moveTo);
 			currentPlayer.setSpeedCount(0);
-            if (getDeedOwner(currentPlayer.getGameId(), currentPlayer.getPosition()) == null) {
-                //TODO: display to player option to buy
-                updateDeed(currentPlayer);
-            }
+			if (getDeedOwner(currentPlayer.getGameId(), currentPlayer.getPosition()) == null) {
+				//TODO: display to player option to buy
+				boolean wantsToBuy = true;
+				Deed tempDeed = new Deed(currentPlayer.getPosition());
+				if(wantsToBuy && currentPlayer.getMoney() > tempDeed.getPrice()) {
+					updateDeed(currentPlayer);
+					currentPlayer.setMoney(currentPlayer.getMoney() - tempDeed.getPrice());
+				}
+			}
             else if (currentPlayer.getPosition()==4){
                 //tax spot pay 200
 				if (currentPlayer.getMoney()-200 >= 0)
