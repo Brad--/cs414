@@ -427,13 +427,12 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setInt(1, position);
 
 			ResultSet rs = ps.executeQuery(sql);
-
+			conn.close();
 			if (rs.next()){
 				c.setType(rs.getInt("type"));
 				c.setDiscription(rs.getString("cardText"));
 				c.setAmount(rs.getInt("cardReward"));
 			}
-			conn.close();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -451,7 +450,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			
 			ps.setString(1, gameId);
 			ps.executeUpdate();
-			
+			conn.close();
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
@@ -472,6 +471,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			if (rs.next()) {
 				token = getTokenFromResultSet(rs);
 			}
+			conn.close();
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
@@ -493,6 +493,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setString(1, gameId);
 			ps.setInt(2, currentTurnTokenId);
 			rs = ps.executeQuery();
+			
 			if (rs.next()) { // if there is someone next by tokenId, update them
 				Token token = getTokenFromResultSet(rs);
 				token.setPlayerTurn(true);
@@ -505,12 +506,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 				p.setString(1, gameId);
 				p.setInt(2, 0);
 				r = p.executeQuery();
+				
 				if (r.next()) {
 					Token token = getTokenFromResultSet(r);
 					token.setPlayerTurn(true);
 					updateToken(token);
 				}
+				c.close();
 			}
+			conn.close();
 		}
 		catch (Exception e) {
 			e.printStackTrace();

@@ -124,4 +124,7 @@ public class Token implements Serializable {
 		this.playerTurn = playerTurn;
 	}
 
+	public String toString() {
+		return this.tokenId + ", " + this.gameId + ", " + this.playerName + ", " + this.position + ", " + this.playerTurn;
+	}
 }
