@@ -32,7 +32,7 @@ public interface GameServiceAsync {
 //	
 //	void initializeGame(ArrayList<String> names, AsyncCallback<Void> callback);
 //	
-	void roll(String name, String gameId, AsyncCallback<String> callback);
+	void roll(String name, String gameId, int debug, AsyncCallback<String> callback);
 
 	void checkInJail(String gameId, String playerName, AsyncCallback<Boolean> callback);
 	

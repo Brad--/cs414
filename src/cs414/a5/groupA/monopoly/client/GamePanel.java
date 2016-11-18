@@ -69,10 +69,6 @@ public class GamePanel extends BasePanel {
 				updateDeedsDisplay();
 			}
 		};
-//		piecesByNumber.put(1,p1);
-//		piecesByNumber.put(2,p2);
-//		piecesByNumber.put(3,p3);
-//		piecesByNumber.put(4,p4);
 		init();
 	}
 
@@ -82,16 +78,10 @@ public class GamePanel extends BasePanel {
 		getGameService().initializeFirstTurn(gameId, new AsyncCallback<Void>() {
 
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void onFailure(Throwable arg0) {}
 
 			@Override
-			public void onSuccess(Void arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void onSuccess(Void arg0) {}
 			
 		});
 
@@ -101,11 +91,19 @@ public class GamePanel extends BasePanel {
 		turnPanel = new TurnPanel(){
 			@Override
 			public void handleRollClick() {
-				doTurn();
+				doTurn(0);
 			}
 			@Override
 			public void handleEndTurnClick() {
 				endTurn();
+			}
+			@Override
+			public void handleRollOneClick() {
+				doTurn(1);
+			}
+			@Override
+			public void handleRollDoublesClick() {
+				doTurn(2);
 			}
 		};
 		initializeTimers();
@@ -129,25 +127,20 @@ public class GamePanel extends BasePanel {
 		countdown.scheduleRepeating(1000);
 	}
 	
-	private void doTurn() {
+	private void doTurn(int debug) {
 		getGameService().checkInJail(getGameId(), getPlayerName(), new AsyncCallback<Boolean>() {
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-			}
+			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(Boolean inJail) {
-				com.google.gwt.core.shared.GWT.log("In Jail: " + inJail);
 				if (inJail) {
 					setInJail(true);
 				}
 			}
 		});
-		getGameService().roll(getPlayerName(), getGameId(), new AsyncCallback<String>() {
+		getGameService().roll(getPlayerName(), getGameId(), debug, new AsyncCallback<String>() {
 			@Override
-			public void onFailure(Throwable caught) {
-				// cry
-			}
+			public void onFailure(Throwable caught) {}
 			@Override
 			public void onSuccess(String result) {
 				turnPanel.setRollLabel("Dice Roll: " + result);
@@ -155,9 +148,7 @@ public class GamePanel extends BasePanel {
 				checkLandedSpace();
 				getGameService().checkRolledDoubles(getGameId(), getPlayerName(), new AsyncCallback<Boolean>() {
 					@Override
-					public void onFailure(Throwable arg0) {
-						// TODO Auto-generated method stub
-					}
+					public void onFailure(Throwable arg0) {}
 					@Override
 					public void onSuccess(Boolean rolledDoubles) {
 						GWT.log("Rolled doubles: " + rolledDoubles);
@@ -181,17 +172,13 @@ public class GamePanel extends BasePanel {
 	private void checkTaxSpot() {
 		getGameService().checkForTaxSpot(gameId, playerName, new AsyncCallback<Boolean>() {
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-			}
+			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(Boolean isTaxSpot) {
 				if (isTaxSpot) {
 					getGameService().chargeTax(gameId, playerName, new AsyncCallback<String>() {
 						@Override
-						public void onFailure(Throwable arg0) {
-							// TODO Auto-generated method stub
-						}
+						public void onFailure(Throwable arg0) {}
 						@Override
 						public void onSuccess(String message) {
 							AlertPopup alert = new AlertPopup(message);
@@ -205,17 +192,13 @@ public class GamePanel extends BasePanel {
 	private void checkCardSpot() {
 		getGameService().checkForCardSpot(gameId, playerName, new AsyncCallback<Boolean>() {
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-			}
+			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(Boolean isCardSpot) {
 				if (isCardSpot) {
 					getGameService().dealWithCard(gameId, playerName, new AsyncCallback<String>() {
 						@Override
-						public void onFailure(Throwable arg0) {
-							// TODO Auto-generated method stub
-						}
+						public void onFailure(Throwable arg0) {}
 						@Override
 						public void onSuccess(String message) {
 							AlertPopup alert = new AlertPopup("Drew Card: " + message);
@@ -229,9 +212,7 @@ public class GamePanel extends BasePanel {
 	private void checkDeedSpot() {
 		getGameService().checkForDeedSpot(gameId, playerName, new AsyncCallback<DeedSpotOptions>() {
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-			}
+			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(DeedSpotOptions deedSpotOptions) {
 				if(deedSpotOptions != null) {
@@ -241,10 +222,7 @@ public class GamePanel extends BasePanel {
 							getGameService().handleDeedSpotOption(getGameId(), getPlayerName(), getSelectedOption(), new AsyncCallback<String>() {
 
 								@Override
-								public void onFailure(Throwable caught) {
-									// TODO Auto-generated method stub
-									
-								}
+								public void onFailure(Throwable caught) {}
 
 								@Override
 								public void onSuccess(String result) {
@@ -264,13 +242,9 @@ public class GamePanel extends BasePanel {
 		turnPanel.setEndTurnButtonActive(false);
 		getGameService().nextPlayersTurn(gameId, new AsyncCallback<Void>() {
 			@Override
-			public void onFailure(Throwable arg0) {
-				// uh oh
-			}
+			public void onFailure(Throwable arg0) {}
 			@Override
-			public void onSuccess(Void arg0) {
-				// yee haw
-			}
+			public void onSuccess(Void arg0) {}
 		});
 	}
 	
@@ -292,12 +266,8 @@ public class GamePanel extends BasePanel {
 	
 	private void checkTurnStatus() {
 		getGameService().getCurrentTurnToken(gameId, new AsyncCallback<Token>() {
-
 			@Override
-			public void onFailure(Throwable arg0) {
-				// weep
-			}
-
+			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(Token currentTurn) {
 				if (currentTurn != null) {
@@ -344,18 +314,12 @@ public class GamePanel extends BasePanel {
 	
 	private void updateDeedsDisplay() {
 		getGameService().getAllOwnedDeedsForGameId(getGameId(), new AsyncCallback<ArrayList<DatabaseDeed>>() {
-
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-			}
-
+			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(ArrayList<DatabaseDeed> result) {
 				deedDisplayPanel.displayDeeds(result);
 			}
-
-			
 		});
 	}
 	
