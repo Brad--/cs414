@@ -117,7 +117,7 @@ public class Deed extends Space{
                 setName("Community Chest");
                 break;
             case 18:
-                setName("Wild Board");
+                setName("Wild Boar");
                 break;
             case 19:
                 setName("Alley Cat");

@@ -58,4 +58,38 @@ public class DeedUtil {
 //        target.payRent(d.getRent());
 //        d.getOwner().earnRent(d.getRent());
     }
+    
+    public static String getDeedHexColorByStringPropertyGroup(String propertyGroup) {
+    	String hexColor = "#000000";
+    	if(propertyGroup != null) {
+	    	switch(propertyGroup) {
+			case "BROWN":
+				hexColor = "#955436";
+				break;
+			case "LIGHTBLUE":
+				hexColor = "#a9e1fc";
+				break;
+			case "PURPLE":
+				hexColor = "#d93c97";
+				break;
+			case "ORANGE":
+				hexColor = "#f7921c";
+				break;
+			case "RED":
+				hexColor = "#ed1b24";
+				break;
+			case "YELLOW":
+				hexColor = "#fff000";
+				break;
+			case "GREEN":
+				hexColor = "#00a650";
+				break;
+			case "BLUE":
+				hexColor = "#0071bd";
+				break;
+			}
+    	}
+    	
+    	return hexColor;
+    }
 }

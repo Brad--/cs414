@@ -17,6 +17,7 @@ import java.util.Set;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
+import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
 
@@ -799,6 +800,40 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 		updateToken(player);
+	}
+	
+	@Override
+	public ArrayList<DatabaseDeed> getAllOwnedDeedsForGameId(String gameId) {
+		ArrayList<DatabaseDeed> ownedDeedsList = new ArrayList<DatabaseDeed>();
+		
+		String sql = "SELECT * FROM `deed` WHERE gameId=? AND playerName IS NOT NULL order by playerName, propertyGroup, deedName";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			ps.setString(1, gameId);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				DatabaseDeed deed = new DatabaseDeed();
+				deed.setDeedId(rs.getInt("deedId"));
+				deed.setGameId(rs.getString("gameId"));
+				deed.setDeedName(rs.getString("deedName"));
+				deed.setPosition(rs.getInt("position"));
+				deed.setPlayerName(rs.getString("playerName"));
+				deed.setHousingCount(rs.getInt("housingCount"));
+				deed.setPropertyGroup(rs.getString("propertyGroup"));
+				deed.setHexColor(DeedUtil.getDeedHexColorByStringPropertyGroup(deed.getPropertyGroup()));
+				
+				ownedDeedsList.add(deed);
+			}
+			conn.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ownedDeedsList;
 	}
 //	@Override
 //	public HashMap<String, String> getPlayerPropertyList(String player) {

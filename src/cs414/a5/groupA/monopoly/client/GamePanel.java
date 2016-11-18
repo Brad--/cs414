@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
 
@@ -316,7 +317,7 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void updateDeedsDisplay() {
-		getGameService().getDeedsOwnedByPlayer(gameId, playerName, new AsyncCallback<HashMap<String, String>>() {
+		getGameService().getAllOwnedDeedsForGameId(getGameId(), new AsyncCallback<ArrayList<DatabaseDeed>>() {
 
 			@Override
 			public void onFailure(Throwable arg0) {
@@ -324,9 +325,10 @@ public class GamePanel extends BasePanel {
 			}
 
 			@Override
-			public void onSuccess(HashMap<String, String> deedsAndColors) {
-				deedDisplayPanel.displayDeeds(deedsAndColors);
+			public void onSuccess(ArrayList<DatabaseDeed> result) {
+				deedDisplayPanel.displayDeeds(result);
 			}
+
 			
 		});
 	}

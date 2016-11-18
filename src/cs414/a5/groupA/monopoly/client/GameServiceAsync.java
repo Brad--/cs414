@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
 
@@ -79,4 +80,6 @@ public interface GameServiceAsync {
 	void checkForDeedSpot(String gameId, String name, AsyncCallback<DeedSpotOptions> callback);
 	
 	void handleDeedSpotOption(String gameId, String name, String selectedOption, AsyncCallback<String> callback);
+	
+	void getAllOwnedDeedsForGameId(String gameId, AsyncCallback<ArrayList<DatabaseDeed>> callback);
 }

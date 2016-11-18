@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
 
@@ -80,4 +81,6 @@ public interface GameService extends RemoteService {
 	HashMap<String, String> getDeedsOwnedByPlayer(String gameId, String playerName);
 
 	String handleDeedSpotOption(String gameId, String name, String selectedOption);
+
+	ArrayList<DatabaseDeed> getAllOwnedDeedsForGameId(String gameId);
 }
