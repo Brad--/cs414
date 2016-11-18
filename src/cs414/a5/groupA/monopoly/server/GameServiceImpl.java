@@ -526,6 +526,18 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 		return player.isInJail();
 	}
+	
+	@Override
+	public void getOutOfJail(String gameId, String playerName) {
+		Token player = new Token();
+		try{
+			player = getTokenByGameIdAndName(gameId, playerName);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		player.setInJail(false);
+		updateToken(player);
+	}
 
 	@Override
 	public Boolean checkRolledDoubles(String gameId, String playerName) throws SQLException{

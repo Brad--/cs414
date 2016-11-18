@@ -91,4 +91,6 @@ public interface GameServiceAsync {
 	void buyHouse(String playerName, String deedName, String gameId, AsyncCallback<Boolean> asyncCallback);
 
 	void getRentOwedOnCurrentSpace(String gameId, String playerName, AsyncCallback<Integer> asyncCallback);
+
+	void getOutOfJail(String gameId, String playerName, AsyncCallback<Void> asyncCallback);
 }

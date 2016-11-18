@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -39,6 +40,7 @@ public class GamePanel extends BasePanel {
 	LinkedHashMap<Integer, PlayerPiece> piecesByNumber = new LinkedHashMap<Integer, PlayerPiece>();
 	
 	boolean inJail = false;
+	int turnsInJail = 0;
 	Timer countdown;
 	Timer refreshBoard;
 	
@@ -139,16 +141,6 @@ public class GamePanel extends BasePanel {
 	}
 	
 	private void doTurn(int debug) {
-		getGameService().checkInJail(getGameId(), getPlayerName(), new AsyncCallback<Boolean>() {
-			@Override
-			public void onFailure(Throwable arg0) {}
-			@Override
-			public void onSuccess(Boolean inJail) {
-				if (inJail) {
-					setInJail(true);
-				}
-			}
-		});
 		getGameService().roll(getPlayerName(), getGameId(), debug, new AsyncCallback<String>() {
 			@Override
 			public void onFailure(Throwable caught) {}
@@ -171,6 +163,37 @@ public class GamePanel extends BasePanel {
 					}
 				});
 			}});
+		getGameService().checkInJail(getGameId(), getPlayerName(), new AsyncCallback<Boolean>() {
+			@Override
+			public void onFailure(Throwable arg0) {}
+			@Override
+			public void onSuccess(Boolean inJail) {
+				if (inJail) {
+					if (getInJail()) {
+						turnsInJail++;
+					}
+					else {
+						setInJail(true);
+					}
+				}
+				else {
+					setInJail(false);
+					turnsInJail=0;
+				}
+			}
+		});
+		if (turnsInJail == 2) {
+			setInJail(false);
+			turnsInJail=0;
+			getGameService().getOutOfJail(getGameId(), getPlayerName(), new AsyncCallback<Void>() {
+				@Override
+				public void onFailure(Throwable arg0) {}
+				@Override
+				public void onSuccess(Void arg0) {
+					AlertPopup alert = new AlertPopup("You did your time in the slammer, you are set free next turn.");
+				}
+			});
+		}
 	}
 	
 	private void checkLandedSpace() {
