@@ -440,12 +440,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return alreadyInitialized;
 	}
 
+	// Debug is 0: Roll as normal
+	//          1: Roll a one
+	//          2: Roll doubles
 	@Override
-	public String roll(String name, String gameId) {
+	public String roll(String name, String gameId, int debug) {
 		Token player = null;
 		try {
 			player = getTokenByGameIdAndName(gameId, name);
-			player = handleRoll(player);
+			player = handleRoll(player, debug);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -456,12 +459,25 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return rollOne + "+" + rollTwo;
 	}
 
-	public Token handleRoll(Token currentPlayer) { // TODO return TokenActionWrapper?
+	public Token handleRoll(Token currentPlayer, int debug) { // TODO return TokenActionWrapper?
 		// GD 11.15.16 Needs redone after token refactor
 		Die die = new Die();
 		int start = 0;
-		int r1 = die.roll();
-		int r2 = die.roll();
+		int r1, r2;
+		if(debug == 1) {
+			r1 = 1;
+			r2 = 0;
+		}
+		else if(debug == 2) {
+			r1 = die.roll();
+			r2 = r1;
+		}
+		// Else catches the normal case. If debug is 0 or some random number it'll use the normal roll
+		else {
+			r1 = die.roll();
+			r2 = die.roll();
+		}
+
 		currentPlayer.setLastRollOne(r1);
 		currentPlayer.setLastRollTwo(r2);
 		start = currentPlayer.getPosition();
