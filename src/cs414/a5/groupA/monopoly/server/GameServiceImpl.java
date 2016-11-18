@@ -123,8 +123,45 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return returnGamePiece;
 	}
 
-	@Override
-    public boolean checkForMonopoly(String playerName, String deedName, String gameId) {
+	public void buyHouse(String playerName, String deedName, String gameId) {
+        if (checkForMonopoly(playerName, deedName, gameId)) {
+            try {
+                Token player = getTokenByGameIdAndName(gameId, playerName);
+                HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
+                String color = nameColorMap.get(deedName);
+                int cost = 0;
+                if (color.equals("BROWN") || color.equals("LIGHTBLUE")) {
+                    cost = 50;
+                }
+                else if (color.equals("PURPLE") || color.equals("ORANGE")) {
+                    cost = 100;
+                }
+                else if (color.equals("RED") || color.equals("YELLOW")) {
+                    cost = 150;
+                }
+                else if (color.equals("GREEN") || color.equals("BLUE")) {
+                    cost = 200;
+                }
+                else {
+                    // silently fail
+                    return;
+                }
+
+                int resultFunds = player.getMoney() - cost;
+                if(resultFunds > 0) {
+                    player.setMoney(player.getMoney() - cost);
+                    updateToken(player);
+                    // Gotta update dat deed but
+//                    updateDeed(player);
+                }
+
+            } catch(Exception e) {
+                System.out.println("Error fetching Token from server");
+            }
+        }
+    }
+
+    private boolean checkForMonopoly(String playerName, String deedName, String gameId) {
         HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
         if (nameColorMap.containsKey(deedName)) {
             String color = nameColorMap.get(deedName);
