@@ -497,6 +497,16 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
+	public Boolean checkInJail(String gameId, String playerName) throws SQLException{
+		Token player = new Token();
+		try{
+			player = getTokenByGameIdAndName(gameId, playerName);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return player.isInJail();
+	}
+	@Override
 	public Boolean checkRolledDoubles(String gameId, String playerName) throws SQLException{
 		Token player = new Token();
 		try{
