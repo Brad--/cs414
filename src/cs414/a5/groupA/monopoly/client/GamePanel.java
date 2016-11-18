@@ -13,6 +13,8 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import cs414.a5.groupA.monopoly.shared.Token;
+
 public class GamePanel extends BasePanel {
 	ViewBoard viewBoard = new ViewBoard();
 	Label countdownLabel = new Label();
@@ -23,11 +25,12 @@ public class GamePanel extends BasePanel {
 	Timer countdown;
 	Timer refreshBoard;
 	
-	int playersTurn = 0; // Start at 0, will get incremented to 1 index first thing
+	String currentTurnPlayerName;
 	int numOfPlayers;
 	
 	private String playerName;
 	private String gameId;
+	private boolean isMyTurn;
 	
 	public GamePanel() {
 		
@@ -60,6 +63,7 @@ public class GamePanel extends BasePanel {
 			@Override
 			public void run() {
 				viewBoard.renderBoard();
+				checkTurnStatus();
 			}
 		};
 //		piecesByNumber.put(1,p1);
@@ -75,6 +79,18 @@ public class GamePanel extends BasePanel {
 
 			@Override
 			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub	
+			}
+			@Override
+			public void onSuccess(Void arg0) {
+				// TODO Auto-generated method stub	
+			}
+		});
+		
+		getGameService().initializeFirstTurn(gameId, new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable arg0) {
 				// TODO Auto-generated method stub
 				
 			}
@@ -86,48 +102,38 @@ public class GamePanel extends BasePanel {
 			}
 			
 		});
-//		playerNames.add(p1.getName());
-//		playerNames.add(p2.getName());
-//		if (p3 != null) {
-//			playerNames.add(p3.getName());
-//		}
-//		if (p4 != null) {
-//			playerNames.add(p4.getName());
-//		}
 
-				GWT.log("Game successfully started!");
+		GWT.log("Game successfully started!");
 				
-				initializeTimers();
-				HorizontalPanel boardTurnDeedsPanel = new HorizontalPanel();
-				turnPanel = new TurnPanel(){
-					@Override
-					public void handleRollClick() {
-						doTurn();
-					}
-					@Override
-					public void handleEndTurnClick() {
-						endTurn();
-					}
-				};
-				
-				VerticalPanel deedsPanel = new VerticalPanel();
-				Label ownedDeedsLabel = new Label("Owned Deeds");
-				ownedDeedsLabel.addStyleName("turnLabel");
-				deedsPanel.add(ownedDeedsLabel);
-				deedsPanel.add(deedDisplayPanel);
-				
-				boardTurnDeedsPanel.add(viewBoard);
-				boardTurnDeedsPanel.add(turnPanel);
-				boardTurnDeedsPanel.add(deedsPanel);
-				
-				viewBoard.renderBoard();
-				getMainVerticalPanel().add(countdownLabel);
-				getMainVerticalPanel().add(boardTurnDeedsPanel);
-			
+		HorizontalPanel boardTurnDeedsPanel = new HorizontalPanel();
+		turnPanel = new TurnPanel(){
+			@Override
+			public void handleRollClick() {
+				doTurn();
+			}
+			@Override
+			public void handleEndTurnClick() {
+				endTurn();
+			}
+		};
+		initializeTimers();
+		VerticalPanel deedsPanel = new VerticalPanel();
+		Label ownedDeedsLabel = new Label("Owned Deeds");
+		ownedDeedsLabel.addStyleName("turnLabel");
+		deedsPanel.add(ownedDeedsLabel);
+		deedsPanel.add(deedDisplayPanel);
+		
+		boardTurnDeedsPanel.add(viewBoard);
+		boardTurnDeedsPanel.add(turnPanel);
+		boardTurnDeedsPanel.add(deedsPanel);
+		
+		viewBoard.renderBoard();
+		getMainVerticalPanel().add(countdownLabel);
+		getMainVerticalPanel().add(boardTurnDeedsPanel);	
 	}
 	
 	private void initializeTimers() {
-		refreshBoard.scheduleRepeating(100);
+		refreshBoard.scheduleRepeating(5000);
 		countdown.scheduleRepeating(1000);
 	}
 	
@@ -136,30 +142,42 @@ public class GamePanel extends BasePanel {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
+				// cry
 			}
 
 			@Override
 			public void onSuccess(String result) {
 				AlertPopup alert = new AlertPopup(result);
 				viewBoard.renderBoard();
+				// if not speeding, allowEndTurn()
+				allowEndTurn();
 			}});
 	}
 	
 	private void endTurn() {
-		setNextTurnToken();
-		setTurnPanelLabelByPlayerTurnNumber();
+		turnPanel.setRollButtonActive(false);
+		turnPanel.setEndTurnButtonActive(false);
+		getGameService().nextPlayersTurn(gameId, new AsyncCallback<Void>() {
+			@Override
+			public void onFailure(Throwable arg0) {
+				// uh oh
+			}
+			@Override
+			public void onSuccess(Void arg0) {
+				// yee haw
+			}
+		});
 	}
 	
-	private void setNextTurnToken() {
+	private void startTurn() {
 		turnPanel.setRollButtonActive(true);
 		turnPanel.setEndTurnButtonActive(false);
-		if(playersTurn + 1 > numOfPlayers) {
-			playersTurn = 1;
-		} else {
-			playersTurn++;
-		}
+		setTurnPanelLabel();
+	}
+	
+	private void disableButtons() {
+		turnPanel.setRollButtonActive(false);
+		turnPanel.setEndTurnButtonActive(false);
 	}
 	
 	private void allowEndTurn() {
@@ -167,13 +185,41 @@ public class GamePanel extends BasePanel {
 		turnPanel.setEndTurnButtonActive(true);
 	}
 	
-	
-	private void setTurnPanelLabelByPlayerTurnNumber() {
-		turnPanel.setTurnLabelText(getCurrentPlayerTurnName() + "'s turn!");
+	private void checkTurnStatus() {
+		getGameService().getCurrentTurnToken(gameId, new AsyncCallback<Token>() {
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				// weep
+			}
+
+			@Override
+			public void onSuccess(Token currentTurn) {
+				if (currentTurn != null) {
+					if (currentTurn.getPlayerName().equals(playerName)) {
+						currentTurnPlayerName = currentTurn.getPlayerName();
+						if (!isMyTurn) { // if the database updated it to be your turn, and it wasn't known client side, update to be ready to move
+							isMyTurn = true;
+							startTurn();
+						} // if client already knew it was their turn, do nothing
+					}
+					else { // if it is someone elses turn...
+						isMyTurn = false;
+						disableButtons();
+						if (currentTurnPlayerName.equals(currentTurn.getPlayerName())) { // if it is not the same person's turn
+							currentTurnPlayerName = currentTurn.getPlayerName();
+							 // update the label and variable to reflect whose turn it is
+						}
+					}
+					setTurnPanelLabel();
+				}
+			}
+		});
 	}
 	
-	private String getCurrentPlayerTurnName() {
-		return piecesByNumber.get(playersTurn).getName();
+	
+	private void setTurnPanelLabel() {
+		turnPanel.setTurnLabelText(currentTurnPlayerName + "'s turn!");
 	}
 	
 	private void gameOver() {
@@ -208,35 +254,5 @@ public class GamePanel extends BasePanel {
 	public void setGameId(String gameId) {
 		this.gameId = gameId;
 	}
-	
-//	private void updateBoard() {
-//		final HashMap<PlayerPiece, Integer> playerPositions = new HashMap<PlayerPiece, Integer>();
-//		getGameService().getPlayerPositions(new AsyncCallback<Map<String,Integer>>() {
-//
-//			@Override
-//			public void onFailure(Throwable arg0) {
-//				GWT.log("Failed to get player positions");
-//				
-//			}
-//
-//			@Override
-//			public void onSuccess(Map<String, Integer> value) {
-//				for (Entry<String, Integer> entry : value.entrySet()) {
-//					String playerName = entry.getKey();
-//					Integer playerPosition = entry.getValue();
-//					for (Entry<Integer, PlayerPiece> player : piecesByNumber.entrySet()) {
-//						PlayerPiece storedPiece = player.getValue();
-//						if (storedPiece != null) {
-//							if (storedPiece.getName().equals(playerName)) { // if names are the same, put piece and new position to be redrawn
-//								playerPositions.put(player.getValue(), playerPosition);
-//								GWT.log(playerName + " is at position " + playerPosition);
-//							}
-//						}
-//					}
-//				}
-//				viewBoard.renderBoard();
-//			}
-//		});
-//	}
 	
 }

@@ -3,6 +3,7 @@ package cs414.a5.groupA.monopoly.server;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,17 +50,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setString(1, gameId);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				Token token = new Token();
-				
-				token.setPlayerName(rs.getString("playerName"));
-				token.setGameId(rs.getString("gameId"));
-				token.setGamePiece(rs.getString("gamePiece"));
-				token.setMoney(rs.getInt("money"));
-				token.setPosition(rs.getInt("position"));
-				token.setReady(rs.getBoolean("ready"));
-				token.setInJail(rs.getBoolean("inJail"));
-				token.setSpeedCount(rs.getInt("speedCount"));
-				token.setPlayerTurn(rs.getBoolean("playerTurn"));
+				Token token = getTokenFromResultSet(rs);
 				
 				tokens.add(token);
 			}
@@ -144,20 +135,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		ps.setString(2, playerName);
 		ResultSet rs = ps.executeQuery();
 		if(rs.next()) {
-			
-			token.setTokenId(rs.getInt("tokenId"));
-			token.setGameId(rs.getString("gameId"));
-			token.setPlayerName(rs.getString("playerName"));
-			token.setGamePiece(rs.getString("gamePiece"));
-			token.setMoney(rs.getInt("money"));
-			token.setPosition(rs.getInt("position"));
-			token.setReady(rs.getBoolean("ready"));
-			token.setInJail(rs.getBoolean("inJail"));
-			token.setSpeedCount(rs.getInt("speedCount"));
-			token.setPlayerTurn(rs.getBoolean("playerTurn"));
-			
+			token = getTokenFromResultSet(rs);
 		}
-		
 		conn.close();
 
 		return token;
@@ -404,6 +383,96 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 	}
 	
+	
+	@Override
+	public void initializeFirstTurn(String gameId) {
+		String sql = "UPDATE `token` SET `playerTurn`=1 WHERE `gameId`=? LIMIT 1";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, gameId);
+			ps.executeUpdate();
+			
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public Token getCurrentTurnToken(String gameId) {
+		String sql = "SELECT * FROM `token` WHERE gameId=? AND playerTurn=1";
+		Token token = new Token();
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			ps.setString(1, gameId);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				token = getTokenFromResultSet(rs);
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	
+	@Override
+	public void nextPlayersTurn(String gameId) {
+		Token currentToken = getCurrentTurnToken(gameId);
+		currentToken.setPlayerTurn(false);
+		int currentTurnTokenId = currentToken.getTokenId();
+		updateToken(currentToken);
+		String sql = "SELECT * FROM `token` WHERE gameId=? AND tokenId>? LIMIT 1";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			ps.setString(1, gameId);
+			ps.setInt(2, currentTurnTokenId);
+			rs = ps.executeQuery();
+			if (rs.next()) { // if there is someone next by tokenId, update them
+				Token token = getTokenFromResultSet(rs);
+				token.setPlayerTurn(true);
+				updateToken(token);
+			}
+			else { // otherwise, grab the very first token that has the gameId
+				Connection c = getNewConnection();
+				PreparedStatement p = c.prepareStatement(sql);
+				ResultSet r;
+				p.setString(1, gameId);
+				p.setInt(2, 0);
+				r = p.executeQuery();
+				if (r.next()) {
+					Token token = getTokenFromResultSet(r);
+					token.setPlayerTurn(true);
+					updateToken(token);
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private Token getTokenFromResultSet(ResultSet rs) throws SQLException {
+		Token token = new Token();
+		token.setTokenId(rs.getInt("tokenId"));
+		token.setGameId(rs.getString("gameId"));
+		token.setPlayerName(rs.getString("playerName"));
+		token.setGamePiece(rs.getString("gamePiece"));
+		token.setMoney(rs.getInt("money"));
+		token.setPosition(rs.getInt("position"));
+		token.setReady(rs.getBoolean("ready"));
+		token.setInJail(rs.getBoolean("inJail"));
+		token.setSpeedCount(rs.getInt("speedCount"));
+		token.setPlayerTurn(rs.getBoolean("playerTurn"));
+		return token;
+	}
 //	@Override
 //	public HashMap<String, String> getPlayerPropertyList(String player) {
 //		HashMap<String, String> playerPropertiesList = new HashMap<String, String>(); 

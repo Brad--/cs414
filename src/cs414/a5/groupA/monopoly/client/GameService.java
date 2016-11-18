@@ -56,4 +56,10 @@ public interface GameService extends RemoteService {
 //	String tradeCloseWithDescription();
 //
 //	ArrayList<Object> getOpposingTraderItems(String playerRequesting);
+
+	void initializeFirstTurn(String gameId);
+
+	Token getCurrentTurnToken(String gameId);
+
+	void nextPlayersTurn(String gameId);
 }
