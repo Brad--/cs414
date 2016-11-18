@@ -160,14 +160,14 @@ public class GamePanel extends BasePanel {
 			@Override
 			public void onSuccess(Boolean isTaxSpot) {
 				if (isTaxSpot) {
-					getGameService().chargeTax(gameId, playerName, new AsyncCallback<Void>() {
+					getGameService().chargeTax(gameId, playerName, new AsyncCallback<String>() {
 						@Override
 						public void onFailure(Throwable arg0) {
 							// TODO Auto-generated method stub
 						}
 						@Override
-						public void onSuccess(Void arg0) {
-							// TODO Auto-generated method stub
+						public void onSuccess(String message) {
+							AlertPopup alert = new AlertPopup(message);
 						}
 					});
 				}
@@ -184,14 +184,14 @@ public class GamePanel extends BasePanel {
 			@Override
 			public void onSuccess(Boolean isCardSpot) {
 				if (isCardSpot) {
-					getGameService().dealWithCard(gameId, playerName, new AsyncCallback<Void>() {
+					getGameService().dealWithCard(gameId, playerName, new AsyncCallback<String>() {
 						@Override
 						public void onFailure(Throwable arg0) {
 							// TODO Auto-generated method stub
 						}
 						@Override
-						public void onSuccess(Void arg0) {
-							// TODO Auto-generated method stub
+						public void onSuccess(String message) {
+							AlertPopup alert = new AlertPopup("Drew Card: " + message);
 						}
 					});
 				}
