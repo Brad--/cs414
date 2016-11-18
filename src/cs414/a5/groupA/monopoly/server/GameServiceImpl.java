@@ -159,6 +159,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			
 			if(readyCount == tokens.size() && readyCount >= 2) {
 				playersReady = true;
+				initializeDeeds(gameId);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -231,12 +232,14 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 	}
 
-	@Override
 	public void initializeDeeds(String gameId){
-		Board gameBoard = new Board();
-		for (Space deed: gameBoard.deeds){
-			if (deed instanceof Deed){
-				initializeDeed(gameId, (Deed) deed);
+		boolean deedsInitialized = getDeedsAlreadyInitialized(gameId);
+		if(!deedsInitialized) {
+			Board gameBoard = new Board();
+			for (Space deed: gameBoard.deeds){
+				if (deed instanceof Deed){
+					initializeDeed(gameId, (Deed) deed);
+				}
 			}
 		}
 	}
@@ -258,6 +261,29 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	private boolean getDeedsAlreadyInitialized(String gameId) {
+		boolean alreadyInitialized = false;
+		
+		String sql = "SELECT * FROM `deed` WHERE `gameId`=?";
+		
+		try{
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, gameId);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()){
+				alreadyInitialized = true;
+			}
+
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return alreadyInitialized;
 	}
 
 	@Override
