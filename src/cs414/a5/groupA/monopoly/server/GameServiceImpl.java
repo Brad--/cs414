@@ -506,6 +506,33 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		token.setPlayerTurn(rs.getBoolean("playerTurn"));
 		return token;
 	}
+	
+	@Override
+	public HashMap<String, String> getDeedsOwnedByPlayer(String gameId, String playerName) {
+		HashMap<String, String> deedAndColor = new HashMap<String, String>();
+		
+		String sql = "SELECT * FROM `deed` WHERE gameId=? AND playerName=?";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			ps.setString(1, gameId);
+			ps.setString(2, playerName);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) { // if there is someone next by tokenId, update them
+				int deedPosition = rs.getInt("position");
+				Deed deed = new Deed(deedPosition);
+				deedAndColor.put(deed.getName(), deed.getPropertyGroup().name());
+			}
+			conn.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return deedAndColor;
+	}
 //	@Override
 //	public HashMap<String, String> getPlayerPropertyList(String player) {
 //		HashMap<String, String> playerPropertiesList = new HashMap<String, String>(); 

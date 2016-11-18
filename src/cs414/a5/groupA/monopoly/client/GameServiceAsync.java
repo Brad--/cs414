@@ -1,6 +1,7 @@
 package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -60,4 +61,6 @@ public interface GameServiceAsync {
 	void getCurrentTurnToken(String gameId, AsyncCallback<Token> asyncCallback);
 
 	void nextPlayersTurn(String gameId, AsyncCallback<Void> asyncCallback);
+
+	void getDeedsOwnedByPlayer(String gameId, String playerName, AsyncCallback<HashMap<String, String>> asyncCallback);
 }

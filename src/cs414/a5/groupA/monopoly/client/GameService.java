@@ -1,6 +1,7 @@
 package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -62,4 +63,6 @@ public interface GameService extends RemoteService {
 	Token getCurrentTurnToken(String gameId);
 
 	void nextPlayersTurn(String gameId);
+
+	HashMap<String, String> getDeedsOwnedByPlayer(String gameId, String playerName);
 }

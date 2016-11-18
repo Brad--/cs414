@@ -64,6 +64,7 @@ public class GamePanel extends BasePanel {
 			public void run() {
 				viewBoard.renderBoard();
 				checkTurnStatus();
+				updateDeedsDisplay();
 			}
 		};
 //		piecesByNumber.put(1,p1);
@@ -235,6 +236,22 @@ public class GamePanel extends BasePanel {
 			}
 		}
 		AlertPopup notify = new AlertPopup(piecesByNumber.get(winner).getName() + " wins the game!");
+	}
+	
+	private void updateDeedsDisplay() {
+		getGameService().getDeedsOwnedByPlayer(gameId, playerName, new AsyncCallback<HashMap<String, String>>() {
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onSuccess(HashMap<String, String> deedsAndColors) {
+				deedDisplayPanel.displayDeeds(deedsAndColors);
+			}
+			
+		});
 	}
 
 	public String getPlayerName() {
