@@ -481,6 +481,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 					currentPlayer.setSpeedCount(currentSpeed + 1);
 			}
 		}
+		else
+			currentPlayer.setSpeedCount(0);
 		if (moveTo == 30) {
 			currentPlayer.setPosition(10);
 			currentPlayer.setInJail(true);
