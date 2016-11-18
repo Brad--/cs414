@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import javax.naming.Context;
@@ -16,12 +14,13 @@ import javax.sql.DataSource;
 import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 
 import java.util.Set;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
+
+import static cs414.a5.groupA.monopoly.server.PropertyGroup.*;
 
 public class GameServiceImpl extends RemoteServiceServlet implements GameService {
 
@@ -128,6 +127,71 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return returnGamePiece;
 	}
 
+	public void buyHouse(String playerName, String deedName, String gameId) {
+        if (checkForMonopoly(playerName, deedName, gameId)) {
+            try {
+                Token player = getTokenByGameIdAndName(gameId, playerName);
+                Deed deed = getDeedByName(gameId, playerName, deedName);
+
+                PropertyGroup color = deed.getPropertyGroup();
+                int cost;
+                if (color == BROWN || color == LIGHTBLUE) {
+                    cost = 50;
+                }
+                else if (color == PURPLE || color == ORANGE) {
+                    cost = 100;
+                }
+                else if (color == RED || color == YELLOW) {
+                    cost = 150;
+                }
+                else if (color == GREEN || color == BLUE) {
+                    cost = 200;
+                }
+                else {
+                    // silently fail
+                    return;
+                }
+
+                int resultFunds = player.getMoney() - cost;
+                if(resultFunds > 0) {
+                    player.setMoney(player.getMoney() - cost);
+                    updateToken(player);
+
+                    if (deed.getHousingCount() < 4 && !deed.hasHotel()) {
+                        deed.setHousingCount(deed.getHousingCount() + 1);
+                        updateDeedHousingCount(deed.getHousingCount(), gameId, deedName);
+                    }
+                }
+
+            } catch(Exception e) {
+                System.out.println("Error fetching Token or Deed from db.");
+            }
+        }
+    }
+
+    private boolean checkForMonopoly(String playerName, String deedName, String gameId) {
+        HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
+        if (nameColorMap.containsKey(deedName)) {
+            String color = nameColorMap.get(deedName);
+            int ownedCount = 0;
+
+            for (Map.Entry<String, String> pair : nameColorMap.entrySet()) {
+                if(pair.getValue().equals(color)) {
+                    ownedCount++;
+                }
+            }
+
+            boolean isTwoSpace = color.equals("BROWN") || color.equals("BLUE") || color.equals("UTILITY");
+            if(ownedCount == 2 && isTwoSpace ) {
+                return true;
+            }
+            else if(ownedCount == 3 && !isTwoSpace) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 	public Token getTokenByGameIdAndName(String gameId, String playerName) throws Exception {
 		Token token = null;
 
@@ -229,8 +293,54 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		
 		return owner;
 	}
+	
+	public void updateDeedHousingCount(int housingCount, String gameId, String deedName) {
+		String sql = "UPDATE `deed` SET `housingCount`=? where `gameId`=? AND `deedName`=?";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
 
-	public void updateDeed(Token token) {
+			ps.setInt(1,housingCount);
+			ps.setString(2, gameId);
+			ps.setString(3, deedName);
+
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private Deed getDeedByName(String gameID, String playerName, String deedName) {
+		String sql = "SELECT * FROM `deed` WHERE `gameId`=? AND `deedName`=? AND `playerName`=?";
+		String owner = null;
+		Deed deed = null;
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, gameID);
+			ps.setString(2, deedName);
+			ps.setString(3, playerName);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				deed = new Deed(rs.getInt("position"));
+				deed.setName(rs.getString("deedName"));
+				Token t = new Token();
+				t.setPlayerName(rs.getString("playerName"));
+				deed.setOwner(t);
+				deed.setHousingCount(rs.getInt("housingCount"));
+
+			}
+
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return deed;
+	}
+
+	public void updateDeedByToken(Token token) {
 		String sql = "UPDATE `deed` SET `playerName`=? WHERE `gameId`=? AND `position`=?";
 		try {
 			Connection conn = getNewConnection();
@@ -373,9 +483,9 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			currentPlayer.setInJail(true);
 			currentPlayer.setSpeedCount(0);
 		} else {
+			currentPlayer.setPosition(moveTo);
 			if (!currentPlayer.isInJail() && currentPlayer.getPosition() < start)
 				currentPlayer.setMoney(currentPlayer.getMoney() + 200);
-			currentPlayer.setPosition(moveTo);
 		}
 
 		return currentPlayer;
@@ -395,7 +505,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		Deed tempDeed = new Deed(currentPlayer.getPosition());
 		if (currentPlayer.getMoney() > tempDeed.getPrice()) {
-			updateDeed(currentPlayer);
+			updateDeedByToken(currentPlayer);
 			currentPlayer.setMoney(currentPlayer.getMoney() - tempDeed.getPrice());
 			response = "Property purchased";
 		}
@@ -504,8 +614,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	private Card getCard(){
-		String sql = "SELECT * FROM card Where position=?";
-		int position = (int) (21.0*Math.random()+1);
+		String sql = "SELECT * FROM card Where cardId=?";
+		int position = (int) (20.0*Math.random());
 		Card c = new Card(position);
 		try{
 			Connection conn = getNewConnection();
@@ -514,12 +624,13 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setInt(1, position);
 
 			ResultSet rs = ps.executeQuery();
-			conn.close();
+			
 			if (rs.next()){
 				c.setType(rs.getInt("type"));
 				c.setDiscription(rs.getString("cardText"));
 				c.setAmount(rs.getInt("cardReward"));
 			}
+			conn.close();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -667,6 +778,21 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 				break;
 		}
 		return response;
+	}
+
+	@Override
+	public void sellProperty(String gameId, String playerName, String deedName) throws SQLException{
+		Board gameBoard = new Board();
+		Token player = new Token();
+		try{
+			player = getTokenByGameIdAndName(gameId, playerName);
+			Deed d = getDeedByName(gameId, playerName, deedName);
+			d = (Deed) gameBoard.deeds.get(d.getPosition());
+			player.setMoney(d.getPrice()/2);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		updateToken(player);
 	}
 //	@Override
 //	public HashMap<String, String> getPlayerPropertyList(String player) {
