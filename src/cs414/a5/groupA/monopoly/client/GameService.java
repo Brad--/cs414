@@ -47,6 +47,10 @@ public interface GameService extends RemoteService {
 
 	Integer sellHouse(String playerName, String deedName, String gameId) throws Exception;
 
+	void AddBidOnDeed(String gameId, int position, String playerName, int playerBid) throws Exception;
+
+	String getWinningBidOnDeed(String gameId, int position) throws Exception;
+
 //	Map<String, Integer> getPlayerPositions();
 //	
 //	void initializeGame(ArrayList<String> names);
