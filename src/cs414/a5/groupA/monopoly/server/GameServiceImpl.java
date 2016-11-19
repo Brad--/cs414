@@ -830,7 +830,43 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return deed;
 	}
 
-	@Override
+    public void finalizeTrade(String gameId, int tradeId) {
+//        Trade trade = getTrade(gameId, tradeId);
+        Trade trade = new Trade("temp", "tempy");
+        if (!trade.isFinalized() && trade.bothAccepted()) {
+            try {
+                Token p1 = getTokenByGameIdAndName(gameId, trade.getPlayerOneName());
+                Token p2 = getTokenByGameIdAndName(gameId, trade.getPlayerTwoName());
+
+                // Give the determined deeds to p1
+                for (String deedName : trade.getPlayerTwoDeeds()) {
+                    Deed deed = getDeedByName(gameId, p1.getPlayerName(), deedName);
+                    DatabaseDeed dbd = getDatabaseDeedFromPosition(gameId, deed.getPosition());
+                    dbd.setPlayerName(p1.getPlayerName());
+                    updateDeed(dbd);
+                }
+
+                // Give the determined deeds to p2
+                for (String deedName : trade.getPlayerOneDeeds()) {
+                    Deed deed = getDeedByName(gameId, p2.getPlayerName(), deedName);
+                    DatabaseDeed dbd = getDatabaseDeedFromPosition(gameId, deed.getPosition());
+                    dbd.setPlayerName(p2.getPlayerName());
+                    updateDeed(dbd);
+                }
+
+                p1.setMoney(p1.getMoney() - trade.getPlayerOneMoney());
+                p2.setMoney(p2.getMoney() + trade.getPlayerOneMoney());
+
+                p2.setMoney(p2.getMoney() - trade.getPlayerTwoMoney());
+                p1.setMoney(p1.getMoney() + trade.getPlayerTwoMoney());
+            } catch(Exception e) {
+                System.out.println("Error getting token from db");
+            }
+        }
+    }
+
+
+    @Override
 	public Boolean checkForTaxSpot(String gameId, String name) throws Exception {
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		return currentPlayer.getPosition() == 4 || currentPlayer.getPosition() == 38;
