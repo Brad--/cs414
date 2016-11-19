@@ -170,6 +170,43 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
         }
     }
 
+    @Override
+    public void sellHouse(String playerName, String deedName, String gameId, int numHouseToSell){
+		Deed deed = null;
+		try{
+			Token player = getTokenByGameIdAndName(gameId, playerName);
+			deed = getDeedByName(gameId, playerName, deedName);
+			int currentHouseCount = deed.getHousingCount();
+			int newCount = currentHouseCount-numHouseToSell;
+			if (newCount >=0){
+				PropertyGroup color = deed.getPropertyGroup();
+				int cost;
+				if (color == BROWN || color == LIGHTBLUE) {
+					cost = 50;
+				}
+				else if (color == PURPLE || color == ORANGE) {
+					cost = 100;
+				}
+				else if (color == RED || color == YELLOW) {
+					cost = 150;
+				}
+				else if (color == GREEN || color == BLUE) {
+					cost = 200;
+				}
+				else {
+					// silently fail
+					return;
+				}
+				player.setMoney(player.getMoney() + (cost/2));
+				updateDeedHousingCount(newCount,gameId,deedName);
+				updateToken(player);
+
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
     private boolean checkForMonopoly(String playerName, String deedName, String gameId) {
         HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
         if (nameColorMap.containsKey(deedName)) {
