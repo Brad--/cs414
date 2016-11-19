@@ -13,6 +13,8 @@ public class TurnPanel extends VerticalPanel {
 	Button rollButton = new Button("Roll");
 	Button endTurnButton = new Button("End Turn");
 	Button tradeButton = new Button("Trade");
+	Button rollOneButton = new Button("Advance 1 (DEBUG)");
+	Button rollDoublesButton = new Button("Roll Doubles (DEBUG)");
 	
 	public TurnPanel() {
 		turnLabel.addStyleName("turnLabel");
@@ -38,12 +40,28 @@ public class TurnPanel extends VerticalPanel {
 			}
 		});
 		tradeButton.setStyleName("turnButton");
+		rollOneButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				handleRollOneClick();
+			}
+		});
+		rollOneButton.setStyleName("turnButton");
+		rollDoublesButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				handleRollDoublesClick();
+			}
+		});
+		rollDoublesButton.setStyleName("turnButton");
 		
 		add(turnLabel);
 		add(rollLabel);
 		add(rollButton);
 		add(tradeButton);
 		add(endTurnButton);
+		add(rollOneButton);
+		add(rollDoublesButton);
 	}
 	
 	public void setTurnLabelText(String text) {
@@ -63,6 +81,14 @@ public class TurnPanel extends VerticalPanel {
 	}
 	
 	public void handleTradeClick() {
+		
+	}
+	
+	public void handleRollOneClick() {
+		
+	}
+	
+	public void handleRollDoublesClick() {
 		
 	}
 	

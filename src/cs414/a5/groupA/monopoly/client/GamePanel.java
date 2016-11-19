@@ -1,11 +1,10 @@
 package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -19,11 +18,29 @@ import cs414.a5.groupA.monopoly.shared.Token;
 public class GamePanel extends BasePanel {
 	ViewBoard viewBoard = new ViewBoard();
 	Label countdownLabel = new Label();
-	DeedsDisplayPanel deedDisplayPanel = new DeedsDisplayPanel();
+	DeedsDisplayPanel deedDisplayPanel = new DeedsDisplayPanel() {
+		@Override
+		public void attemptToBuyProperty(String deedName) {
+			getGameService().buyHouse(getPlayerName(), deedName, gameId, new AsyncCallback<Boolean>() {
+				@Override
+				public void onFailure(Throwable arg0) {}
+				@Override
+				public void onSuccess(Boolean boughtProperty) {
+					if (boughtProperty) {
+						AlertPopup alert = new AlertPopup("You bought the property!");
+					}
+					else {
+						AlertPopup alert = new AlertPopup("Failed to buy property. You need a monopoly on the color and sufficient funds.");
+					}
+				}
+			});
+		}
+	};
 	TurnPanel turnPanel;
 	LinkedHashMap<Integer, PlayerPiece> piecesByNumber = new LinkedHashMap<Integer, PlayerPiece>();
 	
 	boolean inJail = false;
+	int turnsInJail = 0;
 	Timer countdown;
 	Timer refreshBoard;
 	
@@ -69,43 +86,37 @@ public class GamePanel extends BasePanel {
 				updateDeedsDisplay();
 			}
 		};
-//		piecesByNumber.put(1,p1);
-//		piecesByNumber.put(2,p2);
-//		piecesByNumber.put(3,p3);
-//		piecesByNumber.put(4,p4);
 		init();
 	}
 
-	public void init() {
-		ArrayList<String> playerNames = new ArrayList<String>();
-		
+	public void init() {		
 		getGameService().initializeFirstTurn(gameId, new AsyncCallback<Void>() {
 
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void onFailure(Throwable arg0) {}
 
 			@Override
-			public void onSuccess(Void arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void onSuccess(Void arg0) {}
 			
 		});
-
-		GWT.log("Game successfully started!");
 				
 		HorizontalPanel boardTurnDeedsPanel = new HorizontalPanel();
 		turnPanel = new TurnPanel(){
 			@Override
 			public void handleRollClick() {
-				doTurn();
+				doTurn(0);
 			}
 			@Override
 			public void handleEndTurnClick() {
 				endTurn();
+			}
+			@Override
+			public void handleRollOneClick() {
+				doTurn(1);
+			}
+			@Override
+			public void handleRollDoublesClick() {
+				doTurn(2);
 			}
 		};
 		initializeTimers();
@@ -129,25 +140,10 @@ public class GamePanel extends BasePanel {
 		countdown.scheduleRepeating(1000);
 	}
 	
-	private void doTurn() {
-		getGameService().checkInJail(getGameId(), getPlayerName(), new AsyncCallback<Boolean>() {
+	private void doTurn(int debug) {
+		getGameService().roll(getPlayerName(), getGameId(), debug, new AsyncCallback<String>() {
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-			}
-			@Override
-			public void onSuccess(Boolean inJail) {
-				com.google.gwt.core.shared.GWT.log("In Jail: " + inJail);
-				if (inJail) {
-					setInJail(true);
-				}
-			}
-		});
-		getGameService().roll(getPlayerName(), getGameId(), new AsyncCallback<String>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				// cry
-			}
+			public void onFailure(Throwable caught) {}
 			@Override
 			public void onSuccess(String result) {
 				turnPanel.setRollLabel("Dice Roll: " + result);
@@ -155,12 +151,9 @@ public class GamePanel extends BasePanel {
 				checkLandedSpace();
 				getGameService().checkRolledDoubles(getGameId(), getPlayerName(), new AsyncCallback<Boolean>() {
 					@Override
-					public void onFailure(Throwable arg0) {
-						// TODO Auto-generated method stub
-					}
+					public void onFailure(Throwable arg0) {}
 					@Override
 					public void onSuccess(Boolean rolledDoubles) {
-						GWT.log("Rolled doubles: " + rolledDoubles);
 						if (!rolledDoubles) {
 							allowEndTurn();
 						}
@@ -170,6 +163,37 @@ public class GamePanel extends BasePanel {
 					}
 				});
 			}});
+		getGameService().checkInJail(getGameId(), getPlayerName(), new AsyncCallback<Boolean>() {
+			@Override
+			public void onFailure(Throwable arg0) {}
+			@Override
+			public void onSuccess(Boolean inJail) {
+				if (inJail) {
+					if (getInJail()) {
+						turnsInJail++;
+					}
+					else {
+						setInJail(true);
+					}
+				}
+				else {
+					setInJail(false);
+					turnsInJail=0;
+				}
+			}
+		});
+		if (turnsInJail == 2) {
+			setInJail(false);
+			turnsInJail=0;
+			getGameService().getOutOfJail(getGameId(), getPlayerName(), new AsyncCallback<Void>() {
+				@Override
+				public void onFailure(Throwable arg0) {}
+				@Override
+				public void onSuccess(Void arg0) {
+					AlertPopup alert = new AlertPopup("You did your time in the slammer, you are set free next turn.");
+				}
+			});
+		}
 	}
 	
 	private void checkLandedSpace() {
@@ -181,17 +205,13 @@ public class GamePanel extends BasePanel {
 	private void checkTaxSpot() {
 		getGameService().checkForTaxSpot(gameId, playerName, new AsyncCallback<Boolean>() {
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-			}
+			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(Boolean isTaxSpot) {
 				if (isTaxSpot) {
 					getGameService().chargeTax(gameId, playerName, new AsyncCallback<String>() {
 						@Override
-						public void onFailure(Throwable arg0) {
-							// TODO Auto-generated method stub
-						}
+						public void onFailure(Throwable arg0) {}
 						@Override
 						public void onSuccess(String message) {
 							AlertPopup alert = new AlertPopup(message);
@@ -205,17 +225,13 @@ public class GamePanel extends BasePanel {
 	private void checkCardSpot() {
 		getGameService().checkForCardSpot(gameId, playerName, new AsyncCallback<Boolean>() {
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-			}
+			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(Boolean isCardSpot) {
 				if (isCardSpot) {
 					getGameService().dealWithCard(gameId, playerName, new AsyncCallback<String>() {
 						@Override
-						public void onFailure(Throwable arg0) {
-							// TODO Auto-generated method stub
-						}
+						public void onFailure(Throwable arg0) {}
 						@Override
 						public void onSuccess(String message) {
 							AlertPopup alert = new AlertPopup("Drew Card: " + message);
@@ -229,29 +245,37 @@ public class GamePanel extends BasePanel {
 	private void checkDeedSpot() {
 		getGameService().checkForDeedSpot(gameId, playerName, new AsyncCallback<DeedSpotOptions>() {
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-			}
+			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(DeedSpotOptions deedSpotOptions) {
 				if(deedSpotOptions != null) {
-					OptionsPanel optionsPanel = new OptionsPanel(deedSpotOptions.getOptions()) {
-						@Override
-						public void handleButtonClick() {
-							getGameService().handleDeedSpotOption(getGameId(), getPlayerName(), getSelectedOption(), new AsyncCallback<String>() {
+					final String deedOwner = deedSpotOptions.getOwner();
+					if (deedOwner == null) {
+						OptionsPanel optionsPanel = new OptionsPanel(deedSpotOptions.getOptions()) {
+							@Override
+							public void handleButtonClick() {
+								getGameService().handleDeedSpotOption(getGameId(), getPlayerName(), getSelectedOption(), new AsyncCallback<String>() {
 
-								@Override
-								public void onFailure(Throwable caught) {
-									// TODO Auto-generated method stub
-									
+									@Override
+									public void onFailure(Throwable caught) {}
+
+									@Override
+									public void onSuccess(String result) {
+										AlertPopup alert = new AlertPopup(result);
+									}});
+							}
+						};
+					}
+					else if (!deedOwner.equals(getPlayerName())) {
+						getGameService().payRentToToken(gameId, playerName, new AsyncCallback<Integer>() {
+							@Override
+							public void onFailure(Throwable arg0) {}
+							@Override
+							public void onSuccess(Integer rent) {
+									AlertPopup alert = new AlertPopup("Paid $" + rent + " to " + deedOwner + " by landing on their property.");
 								}
-
-								@Override
-								public void onSuccess(String result) {
-									AlertPopup alert = new AlertPopup(result);
-								}});
-						}
-					};
+						});
+					}
 				} else {
 					// Not a deed
 				}
@@ -264,13 +288,9 @@ public class GamePanel extends BasePanel {
 		turnPanel.setEndTurnButtonActive(false);
 		getGameService().nextPlayersTurn(gameId, new AsyncCallback<Void>() {
 			@Override
-			public void onFailure(Throwable arg0) {
-				// uh oh
-			}
+			public void onFailure(Throwable arg0) {}
 			@Override
-			public void onSuccess(Void arg0) {
-				// yee haw
-			}
+			public void onSuccess(Void arg0) {}
 		});
 	}
 	
@@ -292,12 +312,8 @@ public class GamePanel extends BasePanel {
 	
 	private void checkTurnStatus() {
 		getGameService().getCurrentTurnToken(gameId, new AsyncCallback<Token>() {
-
 			@Override
-			public void onFailure(Throwable arg0) {
-				// weep
-			}
-
+			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(Token currentTurn) {
 				if (currentTurn != null) {
@@ -344,18 +360,12 @@ public class GamePanel extends BasePanel {
 	
 	private void updateDeedsDisplay() {
 		getGameService().getAllOwnedDeedsForGameId(getGameId(), new AsyncCallback<ArrayList<DatabaseDeed>>() {
-
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-			}
-
+			public void onFailure(Throwable arg0) {}
 			@Override
 			public void onSuccess(ArrayList<DatabaseDeed> result) {
-				deedDisplayPanel.displayDeeds(result);
+				deedDisplayPanel.displayDeeds(result, getPlayerName());
 			}
-
-			
 		});
 	}
 	
