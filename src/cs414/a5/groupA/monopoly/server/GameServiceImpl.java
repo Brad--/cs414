@@ -76,6 +76,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
                 player.setMoney(player.getMoney() + (deed.getPrice() / 2) );
                 updateToken(player);
 
+                deed.setMortgaged(true);
                 updateDeedByToken(player);
                 updateDeedHousingCount(0, gameId, deedName);
                 return true;
