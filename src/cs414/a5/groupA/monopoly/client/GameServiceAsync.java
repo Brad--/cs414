@@ -29,6 +29,10 @@ public interface GameServiceAsync {
 
 	void checkRolledDoubles(String gameId, String playerName, AsyncCallback<Boolean> callback);
 
+	void AddBidOnDeed(String gameId, int position, String playerName, int playerBid, AsyncCallback<Void> callback);
+
+	void getWinningBidOnDeed(String gameId, int position, AsyncCallback<String> callback);
+
 //	void getPlayerPositions(AsyncCallback<Map<String, Integer>> callback);
 //	
 //	void initializeGame(ArrayList<String> names, AsyncCallback<Void> callback);
