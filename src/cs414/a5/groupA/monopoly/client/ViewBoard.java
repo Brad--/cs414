@@ -11,6 +11,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Image;
 
+import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.Token;
 
 
@@ -100,18 +101,46 @@ public class ViewBoard extends FlexTable {
 
 			@Override
 			public void onSuccess(ArrayList<Token> result) {
-				drawBoardAndStatsPanel(result);
+				getOwnedDeeds(result);
 			}});
 
 		
 	}
 	
-	public void drawBoardAndStatsPanel(ArrayList<Token> tokens) {
+	public void getOwnedDeeds(final ArrayList<Token> tokens) {
+		getGameService().getAllOwnedDeedsForGameId(getGameId(), new AsyncCallback<ArrayList<DatabaseDeed>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				
+			}
+
+			@Override
+			public void onSuccess(ArrayList<DatabaseDeed> result) {
+				HashMap<Integer, DatabaseDeed> deedMap = new HashMap<Integer, DatabaseDeed>();
+				for(DatabaseDeed deed : result) {
+					deedMap.put(deed.getPosition(), deed);
+				}
+				drawBoardAndStatsPanel(tokens, deedMap);
+			}});
+	}
+	
+	public void drawBoardAndStatsPanel(ArrayList<Token> tokens, HashMap<Integer, DatabaseDeed> deedMap) {
 		
 		for (Entry<Integer, ViewSpace> entry : mappings.entrySet()) {
 			Integer key = entry.getKey();
 		    ViewSpace space = entry.getValue();
 		    space.clear();
+		    DatabaseDeed deed = deedMap.get(key);
+		    if(deed != null) {
+		    	if(deed.getHousingCount() == 5) {
+		    		space.add(new Image("img/housing/hotel.png"));
+		    	} else {
+		    		for(int houseIndex = 0; houseIndex < deed.getHousingCount(); houseIndex++) {
+		    			space.add(new Image("img/housing/house.png"));
+		    		}
+		    	}
+		    }
 			for (Token token : tokens) {
 			    if(token.getPosition() == key) {
 			    	space.add(new Image(token.getGamePiece()));
