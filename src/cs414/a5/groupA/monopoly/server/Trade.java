@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Trade {
     private int oneMoney, twoMoney; // How much money each player is offering to trade
-    private String oneName, twoName;
+    private String oneName, twoName, gameId, tradeId;
     private boolean oneAccepted, twoAccepted, finalized;
     ArrayList<String> oneDeeds, twoDeeds;
 
@@ -16,6 +16,20 @@ public class Trade {
         twoName = p2;
         oneDeeds = new ArrayList<>();
         twoDeeds = new ArrayList<>();
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+    public String getTradeId() {
+        return tradeId;
+    }
+
+    public void setGameId(String id) {
+        gameId = id;
+    }
+    public void setTradeId(String id) {
+        tradeId = id;
     }
 
     // Token's don't get setter methods because the players should never within a trade
