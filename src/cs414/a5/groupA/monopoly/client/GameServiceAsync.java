@@ -29,6 +29,10 @@ public interface GameServiceAsync {
 
 	void checkRolledDoubles(String gameId, String playerName, AsyncCallback<Boolean> callback);
 
+	void AddBidOnDeed(String gameId, int position, String playerName, int playerBid, AsyncCallback<Void> callback);
+
+	void getWinningBidOnDeed(String gameId, int position, AsyncCallback<String> callback);
+
 //	void getPlayerPositions(AsyncCallback<Map<String, Integer>> callback);
 //	
 //	void initializeGame(ArrayList<String> names, AsyncCallback<Void> callback);
@@ -93,4 +97,10 @@ public interface GameServiceAsync {
 	void getRentOwedOnCurrentSpace(String gameId, String playerName, AsyncCallback<Integer> asyncCallback);
 
 	void getOutOfJail(String gameId, String playerName, AsyncCallback<Void> asyncCallback);
+
+	void sellHouse(String playerName, String deedName, String gameId, AsyncCallback<Integer> callback);
+
+	void checkForMonopoly(String playerName, String deedName, String gameId, AsyncCallback<Boolean> asyncCallback);
+
+	void checkIfAbleToBuildHouse(String playerName, String deed, String gameId, AsyncCallback<Boolean> asyncCallback);
 }

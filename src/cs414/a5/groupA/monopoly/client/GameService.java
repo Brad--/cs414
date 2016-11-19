@@ -47,6 +47,12 @@ public interface GameService extends RemoteService {
 
 	Boolean mortgageProperty(String gameId, String playerName, String deedName);
 
+	Integer sellHouse(String playerName, String deedName, String gameId) throws Exception;
+
+	void AddBidOnDeed(String gameId, int position, String playerName, int playerBid) throws Exception;
+
+	String getWinningBidOnDeed(String gameId, int position) throws Exception;
+
 //	Map<String, Integer> getPlayerPositions();
 //	
 //	void initializeGame(ArrayList<String> names);
@@ -96,4 +102,8 @@ public interface GameService extends RemoteService {
 	Integer getRentOwedOnCurrentSpace(String gameId, String playerName) throws Exception;
 
 	void getOutOfJail(String gameId, String playerName);
+
+	Boolean checkIfAbleToBuildHouse(String playerName, String deedName, String gameId) throws Exception;
+
+	Boolean checkForMonopoly(String playerName, String deedName, String gameId);
 }

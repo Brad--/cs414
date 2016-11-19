@@ -48,7 +48,7 @@ public class DeedsDisplayPanel extends FlexTable {
 				} else if (numHouses==1) {
 					deedNameLabel = new Label(deedName + " (1 house)");
 				}
-				else if (numHouses==4) {
+				else if (numHouses==5) {
 					deedNameLabel = new Label(deedName + " (1 hotel)");
 				}
 				else {
@@ -60,15 +60,33 @@ public class DeedsDisplayPanel extends FlexTable {
 				}
 				setWidget(row, 0, deedNameLabel);
 				if (playerName.equals(playerDisplaying)) {
-					Button deedButton = new Button("Buy property");
-					deedButton.addClickHandler(new ClickHandler() {
+					Button buyHousingButton = new Button("Buy housing");
+					buyHousingButton.addClickHandler(new ClickHandler() {
 						@Override
 						public void onClick(ClickEvent arg0) {
-							attemptToBuyProperty(deedName);
+							attemptToBuyHousing(deedName);
 						}
 					});
-					if (numHouses!=4) {
-						setWidget(row, 1, deedButton);
+					setWidget(row, 1, buyHousingButton);
+					if (numHouses!=5) {
+						buyHousingButton.setEnabled(true);
+					}
+					else {
+						buyHousingButton.setEnabled(false);
+					}
+					Button sellHousingButton = new Button("Sell housing");
+					sellHousingButton.addClickHandler(new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							attemptToSellHousing(deedName);
+						}
+					});
+					setWidget(row, 2, sellHousingButton);
+					if (numHouses!=0) {
+						sellHousingButton.setEnabled(true);
+					}
+					else {
+						sellHousingButton.setEnabled(false);
 					}
 				}
 				row++;
@@ -76,7 +94,11 @@ public class DeedsDisplayPanel extends FlexTable {
 		}
 	}
 	
-	public void attemptToBuyProperty(String deedName) {
+	public void attemptToBuyHousing(String deedName) {
+		
+	}
+	
+	public void attemptToSellHousing(String deedName) {
 		
 	}
 }
