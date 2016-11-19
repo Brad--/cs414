@@ -32,8 +32,10 @@ public interface GameServiceAsync {
 
 	void AddBidOnDeed(String gameId, int position, String playerName, int playerBid, AsyncCallback<Void> callback);
 
-	void getWinningBidOnDeed(String gameId, int position, AsyncCallback<String> callback);
-
+//	void getPlayerPositions(AsyncCallback<Map<String, Integer>> callback);
+//	
+//	void initializeGame(ArrayList<String> names, AsyncCallback<Void> callback);
+//	
 	void roll(String name, String gameId, int debug, AsyncCallback<String> callback);
 
 	void checkInJail(String gameId, String playerName, AsyncCallback<Boolean> callback);
@@ -74,6 +76,12 @@ public interface GameServiceAsync {
 
 	void checkIfAbleToBuildHouse(String playerName, String deed, String gameId, AsyncCallback<Boolean> asyncCallback);
 	
+	void checkIfPlayerNeedsToBid(String gameId, String playerName, AsyncCallback<Integer> asyncCallback);
+	
+	void checkAndWaitForBiddingToEndAndRespond(String gameId, int position, AsyncCallback<String> callback);
+	
+	void updateBidOnDeed(String gameId, int position, String playerName, int playerBid, AsyncCallback<Void> callback);
+
 	void updateDeed(DatabaseDeed deed, AsyncCallback<Void> callback);
 	
 	void saveNewTradeToDatabase(Trade trade, AsyncCallback<Void> callback);

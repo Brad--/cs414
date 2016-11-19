@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -18,6 +19,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
 import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
+import cs414.a5.groupA.monopoly.shared.DeedBid;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
 import cs414.a5.groupA.monopoly.shared.Trade;
@@ -501,6 +503,23 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 	}
+	
+	private void updateDeedByTokenAndAlternatePosition(Token token, int position) {
+		String sql = "UPDATE `deed` SET `playerName`=? WHERE `gameId`=? AND `position`=?";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, token.getPlayerName());
+			ps.setString(2, token.getGameId());
+			ps.setInt(3, position);
+
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	private void initializeDeeds(String gameId){
 		boolean deedsInitialized = getDeedsAlreadyInitialized(gameId);
@@ -707,10 +726,24 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			updateDeedByToken(currentPlayer);
 			currentPlayer.setMoney(currentPlayer.getMoney() - tempDeed.getPrice());
 			response = "Property purchased";
+			updateToken(currentPlayer);
 		}
-		updateToken(currentPlayer);
 		
 		return response;
+	}
+	
+	private boolean buyPropertyFromBid(String gameId, String name, int position) throws Exception {
+		boolean purchased = false;
+		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
+		Deed tempDeed = new Deed(position);
+		if (currentPlayer.getMoney() > tempDeed.getPrice()) {
+			updateDeedByTokenAndAlternatePosition(currentPlayer, position);
+			currentPlayer.setMoney(currentPlayer.getMoney() - tempDeed.getPrice());
+			purchased = true;
+			updateToken(currentPlayer);
+		}
+		
+		return purchased;
 	}
 
 	@Override
@@ -730,33 +763,49 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
-	public String getWinningBidOnDeed(String gameId, int position) throws Exception{
-		String sql = "SELECT `playerName`, MAX(`playerBid`) FROM `deedBid` WHERE `gameId`=? AND `position`=?";
-		String winner = "";
-		String deedName = "";
+	public void updateBidOnDeed(String gameId, int position, String playerName, int playerBid) throws Exception{
+		String sql = "UPDATE `deedBid` SET `playerBid`=? WHERE `gameId`=? AND `position`=? AND `playerName`=?";
+		try{
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, playerBid);
+			ps.setString(2, gameId);
+			ps.setInt(3, position);
+			ps.setString(4, playerName);
+
+			ps.execute();
+			conn.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public ArrayList<DeedBid> getBids(String gameId, int position) throws Exception{
+		ArrayList<DeedBid> deedBids = new ArrayList<DeedBid>();
+		String sql = "SELECT * FROM `deedBid` WHERE `gameId`=? AND `position`=?";
+		
 		try{
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1,gameId);
 			ps.setInt(2, position);
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()){
-				winner = rs.getString("playerName");
-				Token player = getTokenByGameIdAndName(gameId, winner);
-				Deed deed = getDeedByPosition(gameId, position);
-				deedName = deed.getName();
-				player.setMoney(player.getMoney()-deed.getPrice());
-				deed.setOwner(player);
-				updateDeedOwner(player, position);
-				updateToken(player);
+			while (rs.next()){
+				DeedBid deedBid = new DeedBid();
+				deedBid.setGameId(gameId);
+				deedBid.setPosition(rs.getInt("position"));
+				deedBid.setPlayerName(rs.getString("playerName"));
+				deedBid.setPlayerBid(rs.getInt("playerBid"));
+				
+				deedBids.add(deedBid);
 			}
 			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return winner + " won " + deedName;
+		return deedBids;
 	}
 
 	@Override
@@ -1110,10 +1159,25 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			}
 				break;
 			case(DeedSpotOptions.DO_NOT_BUY):
-				response = "Did not buy property";
+				response = "Did not buy property. Bidding between other players In-progress.";
+				insertOtherPlayersIntoDeedBid(gameId, name);
 				break;
 		}
 		return response;
+	}
+	
+	public void insertOtherPlayersIntoDeedBid(String gameId, String name) {
+		try {
+			int position = getTokenByGameIdAndName(gameId, name).getPosition();
+			ArrayList<Token> tokens = getAllGameTokens(gameId);
+			for(Token token : tokens) {
+				if(!token.getPlayerName().equals(name)) {
+						AddBidOnDeed(gameId, position, token.getPlayerName(), -1);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -1175,6 +1239,197 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return rent;
 	}
 	
+	@Override
+	public Integer checkIfPlayerNeedsToBid(String gameId, String playerName) {
+		Integer positionToBid = null;
+		
+		try {
+			String sql = "SELECT * FROM `deedBid` WHERE `gameId`=? AND `playerName`=? AND `playerBid`=?";
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, gameId);
+			ps.setString(2, playerName);
+			ps.setInt(3, -1);
+
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				positionToBid = rs.getInt("position");
+			}
+
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return positionToBid;
+	}
+	
+	@Override
+	public String checkAndWaitForBiddingToEndAndRespond(String gameId, int position) throws Exception{
+		String response = null;
+		try {
+			ArrayList<DeedBid> deedBids = getBids(gameId, position);
+			if(allBidsIn(deedBids)) {
+				if(hasValidBid(deedBids)) {
+					String bidWinner = getBidWinner(deedBids);
+					if(bidWinner == null) {
+						response = "There was a tie, so no one won the bid.";
+					} else {
+						boolean successfullyBought = buyPropertyFromBid(gameId, bidWinner, position);
+						if(successfullyBought) {
+							response = bidWinner + " won the bid.";
+						} else {
+							response = bidWinner + " did not have enough money, so it was not sold.";
+						}
+					}
+				} else {
+					response = "No one bid for this property, so it was not sold.";
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	public boolean allBidsIn(ArrayList<DeedBid> deedBids) {
+		for(DeedBid deedBid : deedBids) {
+			if(deedBid.getPlayerBid() == -1) {
+				return false;
+			}
+		}
+			
+		return true;
+	}
+	
+	public boolean hasValidBid(ArrayList<DeedBid> deedBids) {
+		for(DeedBid deedBid : deedBids) {
+			if(deedBid.getPlayerBid() > 0) {
+				return true;
+			}
+		}
+			
+		return false;
+	}
+	
+	public String getBidWinner(ArrayList<DeedBid> deedBids) {
+		int highestBid = 0;
+		String bidWinner = null;
+		for(DeedBid deedBid : deedBids) {
+			if(deedBid.getPlayerBid() > highestBid) {
+				highestBid = deedBid.getPlayerBid();
+				bidWinner = deedBid.getPlayerName();
+			} else if (deedBid.getPlayerBid() == highestBid) {
+				return null;
+			}
+		}
+			
+		return bidWinner;
+	}
+	
+//	@Override
+//	public HashMap<String, String> getPlayerPropertyList(String player) {
+//		HashMap<String, String> playerPropertiesList = new HashMap<String, String>(); 
+//		Token playerToken = gameBoard.getUser(player);
+//		ArrayList<Deed> ownedDeeds = gameBoard.getOwnedDeeds(playerToken);
+//		for (Deed deed : ownedDeeds) {
+//			String name = deed.getName();
+//			String color = deed.getColorHex();
+//			playerPropertiesList.put(name, color);
+//		}
+//		return playerPropertiesList;
+//	}
+//	
+//	@Override
+//	public HashMap<Integer, String> getAllSpacesAndOwners() {
+//		HashMap<Integer , String> spacesAndOwners = new HashMap<Integer, String>();
+//		ArrayList<Space> spaces = gameBoard.deeds;
+//		
+//		for (int idx=0;idx<spaces.size();idx++) {
+//			Space space = spaces.get(idx);
+//			Token owner = space.getOwner();
+//			String ownerName = owner.getName();
+//			Integer uiSpace = idx+1; // GF might need to change this if we change it to 0 based system (currently 1 based? client side?)
+//			spacesAndOwners.put(uiSpace, ownerName);
+//		}
+//		
+//		return spacesAndOwners;
+//	}
+//	
+//	@Override
+//	public HashMap<String, Integer> getPlayerMoneyAmounts() {
+//		HashMap<String, Integer> playerMoneyAmounts = new HashMap<String, Integer>();
+//		HashMap<String, Token> players = gameBoard.getUsers();
+//		
+//		for (Entry<String, Token> entry : players.entrySet()) {
+//			String playerName = entry.getKey();
+//			Token playerToken = entry.getValue();
+//			Integer playerMoney = playerToken.getCashMoney();
+//			playerMoneyAmounts.put(playerName, playerMoney);
+//		}
+//		
+//		return playerMoneyAmounts;
+//	}
+//	
+//	@Override
+//	public ArrayList<String> getPlayerOptionsFromSpace(String playerName, int spaceNumber) {
+//		ArrayList<String> playerOptions = new ArrayList<String>();
+//		
+//		// TODO how do we retrieve these? Do we pass back a string listing what options they have?
+//		// does client side have a list of options, and what we get returned determines what is available?
+//		// give more ideas, this one is up in the air -GF
+//		
+//		return playerOptions;
+//	}
+//	
+//	// TRADING BLOCK FROM HELL
+//	// BEWARE ALL YE WHO ENTER HERE (HELP FINISH THESE)
+//	
+//	@Override
+//	public void requestTrade(String playerRequesting, String playerRequested) {
+//		// TODO playerRequesting wants to make a trade with playerRequested. 
+//		// how do we handle this? have pop-up that both players interact with at same time if accepted?
+//		// is this method going to be a simple accept/deny? -GF
+//	}
+//	
+//	@Override
+//	public Boolean respondToTradeRequest(boolean wantsToTrade) {
+//		// TODO the player who was requested to be traded responds with either 'accept' or 'deny'
+//		return false;
+//	}
+//	
+//	@Override
+//	public void addItemToTrade(Object item, String playerAdding) {
+//		// TODO add the item to the trade object associated with these two players.
+//	}
+//	
+//	@Override
+//	public void removeItemFromTrade(Object item, String playerRemoving) {
+//		// TODO remove the item from the trade object associated with this player.
+//	}
+//	
+//	@Override
+//	public void acceptTrade(String playerAccepting) {
+//		// TODO set the acceptance of player to true
+//	}
+//	
+//	@Override
+//	public void denyTrade(String playerDenying) {
+//		// TODO set the acceptance of player to false
+//	}
+//	
+//	@Override
+//	public ArrayList<Object> getOpposingTraderItems(String playerRequesting) {
+//		// TODO return the list of items that the other trader has put up from the 
+//		return null;
+//	}
+//	
+//	@Override
+//	public String tradeCloseWithDescription() {
+//		// TODO close the trade, stating whether it was denied, accepted, cancelled, etc.
+//		return null;
+//	}
+
 	private int checkNumberOfRailRoads(String playerName, String deedName, String gameId) {
 		HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
 		int ownedCount = -1;
@@ -1373,4 +1628,5 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			}
 		}
 	}
+
 }
