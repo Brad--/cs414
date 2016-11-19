@@ -159,7 +159,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
                     player.setMoney(player.getMoney() - cost);
                     updateToken(player);
 
-                    if (deed.getHousingCount() < 4 && !deed.hasHotel()) {
+                    if (deed.getHousingCount() < 5 && !deed.hasHotel()) {
                         deed.setHousingCount(deed.getHousingCount() + 1);
                         updateDeedHousingCount(deed.getHousingCount(), gameId, deedName);
                     }
