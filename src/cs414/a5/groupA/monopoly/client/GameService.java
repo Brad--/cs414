@@ -49,8 +49,6 @@ public interface GameService extends RemoteService {
 
 	void AddBidOnDeed(String gameId, int position, String playerName, int playerBid) throws Exception;
 
-	String getWinningBidOnDeed(String gameId, int position) throws Exception;
-
 //	Map<String, Integer> getPlayerPositions();
 //	
 //	void initializeGame(ArrayList<String> names);
@@ -104,4 +102,10 @@ public interface GameService extends RemoteService {
 	Boolean checkIfAbleToBuildHouse(String playerName, String deedName, String gameId) throws Exception;
 
 	Boolean checkForMonopoly(String playerName, String deedName, String gameId);
+
+	Integer checkIfPlayerNeedsToBid(String gameId, String playerName);
+
+	String checkAndWaitForBiddingToEndAndRespond(String gameId, int position) throws Exception;
+
+	void updateBidOnDeed(String gameId, int position, String playerName, int playerBid) throws Exception;
 }
