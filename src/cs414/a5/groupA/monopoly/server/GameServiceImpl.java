@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -18,8 +19,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
 import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
+import cs414.a5.groupA.monopoly.shared.DeedBid;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
+import cs414.a5.groupA.monopoly.shared.Trade;
 
 import static cs414.a5.groupA.monopoly.server.PropertyGroup.*;
 
@@ -44,48 +47,27 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 	@Override
 	public ArrayList<Token> getAllGameTokens(String gameId) {
-        ArrayList<Token> tokens = new ArrayList<Token>();
+		ArrayList<Token> tokens = new ArrayList<Token>();
 
-        try {
-            String sql = "SELECT * FROM `token` where `gameId`=?";
-            Connection conn = getNewConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, gameId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Token token = getTokenFromResultSet(rs);
+		try {
+			String sql = "SELECT * FROM `token` where `gameId`=?";
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, gameId);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Token token = getTokenFromResultSet(rs);
 
-                tokens.add(token);
-            }
+				tokens.add(token);
+			}
 
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        return tokens;
-    }
-
-    @Override
-    public Boolean mortgageProperty(String gameId, String playerName, String deedName) {
-        try {
-            Token player = getTokenByGameIdAndName(gameId, playerName);
-            DatabaseDeed dbdeed = getDatabaseDeedFromPosition(gameId, player.getPosition());
-            Deed deed = getDeedByPosition(gameId, player.getPosition());
-
-            if(dbdeed.getPlayerName().equals(playerName) && deed.getHousingCount() == 0) {
-                player.setMoney(player.getMoney() + (deed.getPrice() / 2) );
-                updateToken(player);
-                dbdeed.setMortgaged(false);
-                updateDeed(dbdeed);
-                return true;
-            }
-        } catch(Exception e) {
-            System.out.println("Error getting token / deed from server.");
-        }
-
-        return false;
-    }
+		return tokens;
+	}
 
 	@Override
 	public Token saveNewTokenToDatabase(Token token) {
@@ -521,6 +503,23 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 	}
+	
+	private void updateDeedByTokenAndAlternatePosition(Token token, int position) {
+		String sql = "UPDATE `deed` SET `playerName`=? WHERE `gameId`=? AND `position`=?";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, token.getPlayerName());
+			ps.setString(2, token.getGameId());
+			ps.setInt(3, position);
+
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	private void initializeDeeds(String gameId){
 		boolean deedsInitialized = getDeedsAlreadyInitialized(gameId);
@@ -728,21 +727,28 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		String response = "Not enough money to buy property";
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		Deed tempDeed = new Deed(currentPlayer.getPosition());
-
-        int realPrice = tempDeed.getPrice();
-        DatabaseDeed dbd = getDatabaseDeedFromPosition(gameId, currentPlayer.getPosition());
-        if(dbd.isMortgaged()) {
-            realPrice = (int)(realPrice * .1);
-        }
-
-		if (currentPlayer.getMoney() > realPrice) {
+		if (currentPlayer.getMoney() > tempDeed.getPrice()) {
 			updateDeedByToken(currentPlayer);
-			currentPlayer.setMoney(currentPlayer.getMoney() - realPrice);
+			currentPlayer.setMoney(currentPlayer.getMoney() - tempDeed.getPrice());
 			response = "Property purchased";
+			updateToken(currentPlayer);
 		}
-		updateToken(currentPlayer);
 		
 		return response;
+	}
+	
+	private boolean buyPropertyFromBid(String gameId, String name, int position) throws Exception {
+		boolean purchased = false;
+		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
+		Deed tempDeed = new Deed(position);
+		if (currentPlayer.getMoney() > tempDeed.getPrice()) {
+			updateDeedByTokenAndAlternatePosition(currentPlayer, position);
+			currentPlayer.setMoney(currentPlayer.getMoney() - tempDeed.getPrice());
+			purchased = true;
+			updateToken(currentPlayer);
+		}
+		
+		return purchased;
 	}
 
 	@Override
@@ -762,33 +768,49 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
-	public String getWinningBidOnDeed(String gameId, int position) throws Exception{
-		String sql = "SELECT `playerName`, MAX(`playerBid`) FROM `deedBid` WHERE `gameId`=? AND `position`=?";
-		String winner = "";
-		String deedName = "";
+	public void updateBidOnDeed(String gameId, int position, String playerName, int playerBid) throws Exception{
+		String sql = "UPDATE `deedBid` SET `playerBid`=? WHERE `gameId`=? AND `position`=? AND `playerName`=?";
+		try{
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, playerBid);
+			ps.setString(2, gameId);
+			ps.setInt(3, position);
+			ps.setString(4, playerName);
+
+			ps.execute();
+			conn.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public ArrayList<DeedBid> getBids(String gameId, int position) throws Exception{
+		ArrayList<DeedBid> deedBids = new ArrayList<DeedBid>();
+		String sql = "SELECT * FROM `deedBid` WHERE `gameId`=? AND `position`=?";
+		
 		try{
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1,gameId);
 			ps.setInt(2, position);
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()){
-				winner = rs.getString("playerName");
-				Token player = getTokenByGameIdAndName(gameId, winner);
-				Deed deed = getDeedByPosition(gameId, position);
-				deedName = deed.getName();
-				player.setMoney(player.getMoney()-deed.getPrice());
-				deed.setOwner(player);
-				updateDeedOwner(player, position);
-				updateToken(player);
+			while (rs.next()){
+				DeedBid deedBid = new DeedBid();
+				deedBid.setGameId(gameId);
+				deedBid.setPosition(rs.getInt("position"));
+				deedBid.setPlayerName(rs.getString("playerName"));
+				deedBid.setPlayerBid(rs.getInt("playerBid"));
+				
+				deedBids.add(deedBid);
 			}
 			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return winner + " won " + deedName;
+		return deedBids;
 	}
 
 	@Override
@@ -835,7 +857,42 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return deed;
 	}
 
-	@Override
+    public void finalizeTrade(String gameId, int tradeId) {
+        Trade trade = getTrade(tradeId);
+        if (!trade.isFinalized() && trade.bothAccepted()) {
+            try {
+                Token p1 = getTokenByGameIdAndName(gameId, trade.getPlayerOneName());
+                Token p2 = getTokenByGameIdAndName(gameId, trade.getPlayerTwoName());
+
+                // Give the determined deeds to p1
+                for (String deedName : trade.getPlayerTwoDeeds()) {
+                    Deed deed = getDeedByName(gameId, p1.getPlayerName(), deedName);
+                    DatabaseDeed dbd = getDatabaseDeedFromPosition(gameId, deed.getPosition());
+                    dbd.setPlayerName(p1.getPlayerName());
+                    updateDeed(dbd);
+                }
+
+                // Give the determined deeds to p2
+                for (String deedName : trade.getPlayerOneDeeds()) {
+                    Deed deed = getDeedByName(gameId, p2.getPlayerName(), deedName);
+                    DatabaseDeed dbd = getDatabaseDeedFromPosition(gameId, deed.getPosition());
+                    dbd.setPlayerName(p2.getPlayerName());
+                    updateDeed(dbd);
+                }
+
+                p1.setMoney(p1.getMoney() - trade.getPlayerOneMoney());
+                p2.setMoney(p2.getMoney() + trade.getPlayerOneMoney());
+
+                p2.setMoney(p2.getMoney() - trade.getPlayerTwoMoney());
+                p1.setMoney(p1.getMoney() + trade.getPlayerTwoMoney());
+            } catch(Exception e) {
+                System.out.println("Error getting token from db");
+            }
+        }
+    }
+
+
+    @Override
 	public Boolean checkForTaxSpot(String gameId, String name) throws Exception {
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		return currentPlayer.getPosition() == 4 || currentPlayer.getPosition() == 38;
@@ -1107,10 +1164,23 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			}
 				break;
 			case(DeedSpotOptions.DO_NOT_BUY):
-				response = "Did not buy property";
+				response = DeedSpotOptions.DO_NOT_BUY;
+				insertOtherPlayersIntoDeedBid(gameId, name);
 				break;
 		}
 		return response;
+	}
+	
+	public void insertOtherPlayersIntoDeedBid(String gameId, String name) {
+		try {
+			int position = getTokenByGameIdAndName(gameId, name).getPosition();
+			ArrayList<Token> tokens = getAllGameTokens(gameId);
+			for(Token token : tokens) {
+				AddBidOnDeed(gameId, position, token.getPlayerName(), -1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -1171,22 +1241,95 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		Integer rent = deed.getRent();
 		return rent;
 	}
+	
+	@Override
+	public Integer checkIfPlayerNeedsToBid(String gameId, String playerName) {
+		Integer positionToBid = null;
+		
+		try {
+			String sql = "SELECT * FROM `deedBid` WHERE `gameId`=? AND `playerName`=? AND `playerBid`=?";
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, gameId);
+			ps.setString(2, playerName);
+			ps.setInt(3, -1);
 
-	private int checkNumberOfRailRoads(String playerName, String deedName, String gameId) {
-		HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
-		int ownedCount = -1;
-		if (nameColorMap.containsKey(deedName)) {
-			String color = nameColorMap.get(deedName);
-			ownedCount = 0;
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				positionToBid = rs.getInt("position");
+			}
 
-			for (Map.Entry<String, String> pair : nameColorMap.entrySet()) {
-				if (pair.getValue().equals(color)) {
-					ownedCount++;
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return positionToBid;
+	}
+	
+	@Override
+	public String checkAndWaitForBiddingToEndAndRespond(String gameId, int position) throws Exception{
+		String response = null;
+		try {
+			ArrayList<DeedBid> deedBids = getBids(gameId, position);
+			if(allBidsIn(deedBids)) {
+				if(hasValidBid(deedBids)) {
+					String bidWinner = getBidWinner(deedBids);
+					if(bidWinner == null) {
+						response = "There was a tie, so no one won the bid.";
+					} else {
+						boolean successfullyBought = buyPropertyFromBid(gameId, bidWinner, position);
+						if(successfullyBought) {
+							response = bidWinner + " won the bid.";
+						} else {
+							response = bidWinner + " did not have enough money, so it was not sold.";
+						}
+					}
+				} else {
+					response = "No one bid for this property, so it was not sold.";
 				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return ownedCount;
+		return response;
 	}
+	
+	public boolean allBidsIn(ArrayList<DeedBid> deedBids) {
+		for(DeedBid deedBid : deedBids) {
+			if(deedBid.getPlayerBid() == -1) {
+				return false;
+			}
+		}
+			
+		return true;
+	}
+	
+	public boolean hasValidBid(ArrayList<DeedBid> deedBids) {
+		for(DeedBid deedBid : deedBids) {
+			if(deedBid.getPlayerBid() > 0) {
+				return true;
+			}
+		}
+			
+		return false;
+	}
+	
+	public String getBidWinner(ArrayList<DeedBid> deedBids) {
+		int highestBid = 0;
+		String bidWinner = null;
+		for(DeedBid deedBid : deedBids) {
+			if(deedBid.getPlayerBid() > highestBid) {
+				highestBid = deedBid.getPlayerBid();
+				bidWinner = deedBid.getPlayerName();
+			} else if (deedBid.getPlayerBid() == highestBid) {
+				return null;
+			}
+		}
+			
+		return bidWinner;
+	}
+	
 //	@Override
 //	public HashMap<String, String> getPlayerPropertyList(String player) {
 //		HashMap<String, String> playerPropertiesList = new HashMap<String, String>(); 
@@ -1289,5 +1432,204 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 //		// TODO close the trade, stating whether it was denied, accepted, cancelled, etc.
 //		return null;
 //	}
+
+	private int checkNumberOfRailRoads(String playerName, String deedName, String gameId) {
+		HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
+		int ownedCount = -1;
+		if (nameColorMap.containsKey(deedName)) {
+			String color = nameColorMap.get(deedName);
+			ownedCount = 0;
+
+			for (Map.Entry<String, String> pair : nameColorMap.entrySet()) {
+				if (pair.getValue().equals(color)) {
+					ownedCount++;
+				}
+			}
+		}
+		return ownedCount;
+	}
+	
+	@Override
+	public void saveNewTradeToDatabase(Trade trade) {
+		String sql = "INSERT INTO `trade` (`gameId`, `playerOneName`, `playerOneMoneyOffered`, `playerOneAccepted`, "
+				+ "`playerTwoName`, `playerTwoMoneyOffered`, `playerTwoAccepted`, `isFinalized`"
+				+ " VALUES (?,?,?,?,?,?,?,?)";
+		
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, trade.getGameId());
+			ps.setString(2, trade.getPlayerOneName());
+			ps.setInt(3, trade.getPlayerOneMoney());
+			ps.setBoolean(4, trade.getPlayerOneAccepted());
+			ps.setString(5, trade.getPlayerTwoName());
+			ps.setInt(6, trade.getPlayerTwoMoney());
+			ps.setBoolean(7, trade.getPlayerTwoAccepted());
+			ps.setBoolean(8, trade.isFinalized());
+			
+			ps.executeUpdate();
+			conn.close();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public Trade getTrade(int tradeId) {
+		Trade trade = new Trade();
+		String sql = "SELECT * FROM `trade` WHERE `tradeId`=?";
+		
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			ps.setInt(1, trade.getTradeId());
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				trade.setTradeId(rs.getInt("tradeId"));
+				trade.setGameId(rs.getString("gameId"));
+				trade.setPlayerOneName(rs.getString("playerOneName"));
+				trade.setPlayerOneMoney(rs.getInt("playerOneMoneyOffered"));
+				trade.setPlayerOneAccepted(rs.getBoolean("playerOneAccepted"));
+				trade.setPlayerTwoName(rs.getString("playerTwoName"));
+				trade.setPlayerTwoMoney(rs.getInt("playerTwoMoneyOffered"));
+				trade.setPlayerTwoAccepted(rs.getBoolean("playerTwoAccepted"));
+				trade.setFinalized(rs.getBoolean("isFinalized"));
+			}
+			
+			conn.close();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		trade = getTradeDeeds(trade);
+		return trade;
+	}
+	
+	private Trade getTradeDeeds(Trade trade) {
+		Trade returnTrade = trade;
+		String sql = "SELECT * FROM `tradeDeed` WHERE `tradeId`=? AND `playerName`=?";
+		
+		ArrayList<String> playerOneDeeds = new ArrayList<String>();
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			ps.setInt(1, trade.getTradeId());
+			ps.setString(2, trade.getPlayerOneName());
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				String deedName = rs.getString("deedName");
+				playerOneDeeds.add(deedName);
+			}
+			returnTrade.setPlayerOneDeeds(playerOneDeeds);
+			conn.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<String> playerTwoDeeds = new ArrayList<String>();
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			ps.setInt(1, trade.getTradeId());
+			ps.setString(2, trade.getPlayerTwoName());
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				String deedName = rs.getString("deedName");
+				playerTwoDeeds.add(deedName);
+			}
+			returnTrade.setPlayerTwoDeeds(playerTwoDeeds);
+			conn.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return trade;
+	}
+	
+	@Override
+	public void updateTrade(Trade trade) {
+		String sqlTrade = "UPDATE `trade` SET `gameId`=?, `playerOneName`=?, `playerOneMoneyOffered`=?, `playerOneAccepted`=?, "
+				+ "`playerTwoName`=?, `playerTwoMoneyOffered`=?, `playerTwoAccepted`=?, `isFinalized`=? "
+				+ "WHERE `tradeId`=?";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlTrade);
+			ps.setString(1, trade.getGameId());
+			ps.setString(2, trade.getPlayerOneName());
+			ps.setInt(3, trade.getPlayerOneMoney());
+			ps.setBoolean(4, trade.getPlayerOneAccepted());
+			ps.setString(5, trade.getPlayerTwoName());
+			ps.setInt(6, trade.getPlayerTwoMoney());
+			ps.setBoolean(7, trade.getPlayerTwoAccepted());
+			ps.setBoolean(8, trade.isFinalized());
+			ps.setInt(9, trade.getTradeId());
+			
+			ps.executeUpdate();
+			conn.close();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		clearTradeDeeds(trade);
+		insertTradeDeeds(trade);
+	}
+	
+	private void clearTradeDeeds(Trade trade) {
+		String sql = "DELETE FROM `tradeDeeds` WHERE `tradeId=?`";
+		
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, trade.getTradeId());
+			
+			ps.executeUpdate();
+			conn.close();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void insertTradeDeeds(Trade trade) {
+		String sql = "INSERT INTO `tradeDeeds` (`tradeId`, `playerName`, `deedName`) VALUES (?, ?, ?)";
+		for (String deedName : trade.getPlayerOneDeeds()) {
+			try {
+				Connection conn = getNewConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, trade.getTradeId());
+				ps.setString(2, trade.getPlayerOneName());
+				ps.setString(3, deedName);
+				
+				ps.executeUpdate();
+				conn.close();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		for (String deedName : trade.getPlayerTwoDeeds()) {
+			try {
+				Connection conn = getNewConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, trade.getTradeId());
+				ps.setString(2, trade.getPlayerTwoName());
+				ps.setString(3, deedName);
+				
+				ps.executeUpdate();
+				conn.close();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }

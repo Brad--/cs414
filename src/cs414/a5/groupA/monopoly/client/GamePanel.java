@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -26,6 +27,7 @@ public class GamePanel extends BasePanel {
 	int turnsInJail = 0;
 	Timer countdown;
 	Timer refreshBoard;
+	Timer checkNeedToBid;
 	
 	String currentTurnPlayerName = "";
 	int numOfPlayers;
@@ -33,6 +35,8 @@ public class GamePanel extends BasePanel {
 	private String playerName;
 	private String gameId;
 	private boolean isMyTurn;
+	
+	private boolean isCurrentlyBidding = false;
 	
 	public GamePanel() {
 		
@@ -70,6 +74,14 @@ public class GamePanel extends BasePanel {
 				updateDeedsDisplay();
 			}
 		};
+		
+		checkNeedToBid = new Timer() {
+			@Override
+			public void run() {
+				checkAndHandleBid();
+			}
+		};
+		
 		init();
 	}
 	
@@ -182,6 +194,7 @@ public class GamePanel extends BasePanel {
 	private void initializeTimers() {
 		refreshBoard.scheduleRepeating(1000);
 		countdown.scheduleRepeating(1000);
+		checkNeedToBid.scheduleRepeating(1000);
 	}
 	
 	private void doTurn(int debug) {
@@ -305,7 +318,9 @@ public class GamePanel extends BasePanel {
 
 									@Override
 									public void onSuccess(String result) {
-										AlertPopup alert = new AlertPopup(result);
+										if(!result.equals(DeedSpotOptions.DO_NOT_BUY)) {
+											AlertPopup alert = new AlertPopup(result);
+										}
 									}});
 							}
 						};
@@ -413,6 +428,64 @@ public class GamePanel extends BasePanel {
 		});
 	}
 	
+	private void checkAndHandleBid() {
+		if(!isCurrentlyBidding()) {
+			getGameService().checkIfPlayerNeedsToBid(getGameId(), getPlayerName(), new AsyncCallback<Integer>() {
+	
+				@Override
+				public void onFailure(Throwable caught) {
+					AlertPopup alert = new AlertPopup(caught.getMessage());
+				}
+	
+				@Override
+				public void onSuccess(final Integer positionResult) {
+					if(positionResult != null) {
+						setCurrentlyBidding(true);
+						BiddingPanel biddingPanel = new BiddingPanel(positionResult){
+							@Override
+							public void handleClick() {
+								hide();
+								final AlertPopup waitingAlert = new AlertPopup("Bid sent, waiting on other players' bids", true, false);
+								getGameService().updateBidOnDeed(getGameId(), Integer.valueOf(positionResult), getPlayerName(), getBidAmount(), new AsyncCallback<Void>(){
+
+									@Override
+									public void onFailure(Throwable caught) {
+										
+									}
+
+									@Override
+									public void onSuccess(Void voidResult) {
+										final Timer timer = new Timer() {
+											@Override
+											public void run() {
+												getGameService().checkAndWaitForBiddingToEndAndRespond(getGameId(), positionResult, new AsyncCallback<String>() {
+		
+													@Override
+													public void onFailure(Throwable caught) {
+														// TODO Auto-generated method stub
+														
+													}
+		
+													@Override
+													public void onSuccess(String bidResult) {
+														if(bidResult != null) {
+															waitingAlert.hide();
+															AlertPopup resultAlert = new AlertPopup(bidResult);
+															setCurrentlyBidding(false);
+															cancel();
+														}
+													}});
+											}
+										};
+										timer.scheduleRepeating(1000);
+									}});
+							}
+						};
+					}
+				}});
+		}
+	}
+	
 	public boolean getInJail() {
 		return inJail;
 	}
@@ -435,6 +508,14 @@ public class GamePanel extends BasePanel {
 
 	public void setGameId(String gameId) {
 		this.gameId = gameId;
+	}
+
+	public boolean isCurrentlyBidding() {
+		return isCurrentlyBidding;
+	}
+
+	public void setCurrentlyBidding(boolean isCurrentlyBidding) {
+		this.isCurrentlyBidding = isCurrentlyBidding;
 	}
 	
 }
