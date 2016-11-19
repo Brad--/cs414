@@ -96,4 +96,8 @@ public interface GameService extends RemoteService {
 	Integer getRentOwedOnCurrentSpace(String gameId, String playerName) throws Exception;
 
 	void getOutOfJail(String gameId, String playerName);
+
+	Boolean checkIfAbleToBuildHouse(String playerName, String deedName, String gameId) throws Exception;
+
+	Boolean checkForMonopoly(String playerName, String deedName, String gameId);
 }

@@ -21,16 +21,41 @@ public class GamePanel extends BasePanel {
 	DeedsDisplayPanel deedDisplayPanel = new DeedsDisplayPanel() {
 		@Override
 		public void attemptToBuyProperty(String deedName) {
-			getGameService().buyHouse(getPlayerName(), deedName, gameId, new AsyncCallback<Boolean>() {
+			final String deed = deedName;
+			getGameService().checkForMonopoly(getPlayerName(), deed, gameId, new AsyncCallback<Boolean>() {
 				@Override
 				public void onFailure(Throwable arg0) {}
 				@Override
-				public void onSuccess(Boolean boughtProperty) {
-					if (boughtProperty) {
-						AlertPopup alert = new AlertPopup("You bought the property!");
+				public void onSuccess(Boolean hasMonopoly) {
+					if (hasMonopoly) {
+						getGameService().checkIfAbleToBuildHouse(getPlayerName(), deed, gameId, new AsyncCallback<Boolean>() {
+							@Override
+							public void onFailure(Throwable arg0) {}
+							@Override
+							public void onSuccess(Boolean ableToBuildOnSpot) {
+								if (ableToBuildOnSpot) {
+									getGameService().buyHouse(getPlayerName(), deed, gameId, new AsyncCallback<Boolean>() {
+										@Override
+										public void onFailure(Throwable arg0) {}
+										@Override
+										public void onSuccess(Boolean boughtProperty) {
+											if (boughtProperty) {
+												AlertPopup alert = new AlertPopup("You bought the housing!");
+											}
+											else {
+												AlertPopup alert = new AlertPopup("Failed to buy housing. Insufficient funds.");
+											}
+										}
+									});
+								}
+								else {
+									AlertPopup alert = new AlertPopup("Failed to buy housing. Need housing on other spaces first.");
+								}
+							}
+						});
 					}
 					else {
-						AlertPopup alert = new AlertPopup("Failed to buy property. You need a monopoly on the color and sufficient funds.");
+						AlertPopup alert = new AlertPopup("Failed to buy housing. You need a monopoly to buy housing, or cannot build housing on this space.");
 					}
 				}
 			});
