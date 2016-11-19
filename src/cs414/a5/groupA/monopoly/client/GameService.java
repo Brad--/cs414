@@ -45,6 +45,8 @@ public interface GameService extends RemoteService {
 	
 	Boolean checkInJail(String gameId, String playerName) throws Exception;
 
+	void sellHouse(String playerName, String deedName, String gameId) throws Exception;
+
 //	Map<String, Integer> getPlayerPositions();
 //	
 //	void initializeGame(ArrayList<String> names);
