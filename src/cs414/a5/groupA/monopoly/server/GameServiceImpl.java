@@ -128,14 +128,16 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return returnGamePiece;
 	}
 
-	public void buyHouse(String playerName, String deedName, String gameId) {
+	@Override
+	public Boolean buyHouse(String playerName, String deedName, String gameId) {
+		Boolean buyingSuccessful = false;
         if (checkForMonopoly(playerName, deedName, gameId)) {
             try {
                 Token player = getTokenByGameIdAndName(gameId, playerName);
                 Deed deed = getDeedByName(gameId, playerName, deedName);
 
                 PropertyGroup color = deed.getPropertyGroup();
-                int cost;
+                int cost = 0;
                 if (color == BROWN || color == LIGHTBLUE) {
                     cost = 50;
                 }
@@ -149,8 +151,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
                     cost = 200;
                 }
                 else {
-                    // silently fail
-                    return;
+                	return false; // case when trying to buy railroad/utility houses. will need to fail
                 }
 
                 int resultFunds = player.getMoney() - cost;
@@ -162,12 +163,13 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
                         deed.setHousingCount(deed.getHousingCount() + 1);
                         updateDeedHousingCount(deed.getHousingCount(), gameId, deedName);
                     }
+                    buyingSuccessful = true;
                 }
-
             } catch(Exception e) {
                 System.out.println("Error fetching Token or Deed from db.");
             }
         }
+        return buyingSuccessful;
     }
 
     @Override
@@ -477,12 +479,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return alreadyInitialized;
 	}
 
+	// Debug is 0: Roll as normal
+	//          1: Roll a one
+	//          2: Roll doubles
 	@Override
-	public String roll(String name, String gameId) {
+	public String roll(String name, String gameId, int debug) {
 		Token player = null;
 		try {
 			player = getTokenByGameIdAndName(gameId, name);
-			player = handleRoll(player);
+			player = handleRoll(player, debug);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -493,12 +498,25 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return rollOne + "+" + rollTwo;
 	}
 
-	public Token handleRoll(Token currentPlayer) { // TODO return TokenActionWrapper?
+	public Token handleRoll(Token currentPlayer, int debug) { // TODO return TokenActionWrapper?
 		// GD 11.15.16 Needs redone after token refactor
 		Die die = new Die();
 		int start = 0;
-		int r1 = die.roll();
-		int r2 = die.roll();
+		int r1, r2;
+		if(debug == 1) {
+			r1 = 1;
+			r2 = 0;
+		}
+		else if(debug == 2) {
+			r1 = die.roll();
+			r2 = r1;
+		}
+		// Else catches the normal case. If debug is 0 or some random number it'll use the normal roll
+		else {
+			r1 = die.roll();
+			r2 = die.roll();
+		}
+
 		currentPlayer.setLastRollOne(r1);
 		currentPlayer.setLastRollTwo(r2);
 		start = currentPlayer.getPosition();
@@ -545,6 +563,18 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 		return player.isInJail();
 	}
+	
+	@Override
+	public void getOutOfJail(String gameId, String playerName) {
+		Token player = new Token();
+		try{
+			player = getTokenByGameIdAndName(gameId, playerName);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		player.setInJail(false);
+		updateToken(player);
+	}
 
 	@Override
 	public Boolean checkRolledDoubles(String gameId, String playerName) throws SQLException{
@@ -581,14 +611,20 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public void payRentToToken(String gameId, String name) throws Exception {
+	public Integer payRentToToken(String gameId, String name) throws Exception {
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		Deed current = new Deed(currentPlayer.getPosition());
 		int rent = current.getRent();
-		if (currentPlayer.getMoney() - rent >= 0)
-			payRent(currentPlayer, rent);
-		else
-			payRent(currentPlayer, currentPlayer.getMoney()); // give other play rest of money
+		int amountPaid;
+		if (currentPlayer.getMoney() - rent >= 0) {
+			amountPaid = rent;
+			payRent(currentPlayer, amountPaid);
+		}
+		else {
+			amountPaid = currentPlayer.getMoney();
+			payRent(currentPlayer, amountPaid); // give other play rest of money
+		}
+		return amountPaid;
 	}
 
 	@Override
@@ -661,6 +697,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			player2.setMoney(player2.getMoney()+rent);
 			player.setMoney(player.getMoney()-rent);
 			updateToken(player2);
+			updateToken(player);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -902,6 +939,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 		
 		return ownedDeedsList;
+	}
+	
+	@Override
+	public Integer getRentOwedOnCurrentSpace(String gameId, String playerName) throws Exception {
+		Token player = getTokenByGameIdAndName(gameId, playerName);
+		int position = player.getPosition();
+		Deed deed = new Deed(position);
+		Integer rent = deed.getRent();
+		return rent;
 	}
 //	@Override
 //	public HashMap<String, String> getPlayerPropertyList(String player) {

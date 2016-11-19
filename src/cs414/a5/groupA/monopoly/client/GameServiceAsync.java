@@ -2,6 +2,7 @@ package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -32,7 +33,7 @@ public interface GameServiceAsync {
 //	
 //	void initializeGame(ArrayList<String> names, AsyncCallback<Void> callback);
 //	
-	void roll(String name, String gameId, AsyncCallback<String> callback);
+	void roll(String name, String gameId, int debug, AsyncCallback<String> callback);
 
 	void checkInJail(String gameId, String playerName, AsyncCallback<Boolean> callback);
 	
@@ -79,11 +80,17 @@ public interface GameServiceAsync {
 	
 	void checkForTaxSpot(String gameId, String name, AsyncCallback<Boolean> callback);
 	
-	void payRentToToken(String gameId, String name, AsyncCallback<Void> callback);
+	void payRentToToken(String gameId, String name, AsyncCallback<Integer> callback);
 	
 	void checkForDeedSpot(String gameId, String name, AsyncCallback<DeedSpotOptions> callback);
 	
 	void handleDeedSpotOption(String gameId, String name, String selectedOption, AsyncCallback<String> callback);
 	
 	void getAllOwnedDeedsForGameId(String gameId, AsyncCallback<ArrayList<DatabaseDeed>> callback);
+
+	void buyHouse(String playerName, String deedName, String gameId, AsyncCallback<Boolean> asyncCallback);
+
+	void getRentOwedOnCurrentSpace(String gameId, String playerName, AsyncCallback<Integer> asyncCallback);
+
+	void getOutOfJail(String gameId, String playerName, AsyncCallback<Void> asyncCallback);
 }
