@@ -94,5 +94,5 @@ public interface GameServiceAsync {
 
 	void getOutOfJail(String gameId, String playerName, AsyncCallback<Void> asyncCallback);
 
-	void sellHouse(String playerName, String deedName, String gameId, int numHouseToSell, AsyncCallback<Void> callback);
+	void sellHouse(String playerName, String deedName, String gameId, AsyncCallback<Void> callback);
 }

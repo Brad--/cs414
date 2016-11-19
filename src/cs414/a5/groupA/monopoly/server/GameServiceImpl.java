@@ -173,12 +173,12 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
     }
 
     @Override
-    public void sellHouse(String playerName, String deedName, String gameId, int numHouseToSell) throws SQLException{
+    public void sellHouse(String playerName, String deedName, String gameId) throws SQLException{
 		try{
 			Token player = getTokenByGameIdAndName(gameId, playerName);
 			Deed deed = getDeedByName(gameId, playerName, deedName);
 			int currentHouseCount = deed.getHousingCount();
-			int newCount = currentHouseCount-numHouseToSell;
+			int newCount = currentHouseCount-1;
 			if (newCount >=0){
 				PropertyGroup color = deed.getPropertyGroup();
 				int cost;
