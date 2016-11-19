@@ -793,7 +793,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		DatabaseDeed deed = getDatabaseDeedFromPosition(gameId, position);
 		int multiplier =1;
 		if (deed.getPropertyGroup().equals("RAILROAD")){
-			multiplier = 2^checkNumberOfRailRoads(gameId, deed.getDeedName(), deed.getPlayerName())-1;
+			multiplier = (int) Math.pow(2.0, (double)checkNumberOfRailRoads(gameId, deed.getDeedName(), deed.getPlayerName())-1);
 		}
 		else if (checkForMonopoly(deed.getPlayerName(), deed.getDeedName(), gameId)){
 			multiplier =2;
