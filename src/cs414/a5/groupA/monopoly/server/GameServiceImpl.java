@@ -20,6 +20,7 @@ import cs414.a5.groupA.monopoly.client.GameService;
 import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
+import cs414.a5.groupA.monopoly.shared.Trade;
 
 import static cs414.a5.groupA.monopoly.server.PropertyGroup.*;
 
@@ -1141,7 +1142,6 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		try {
 			Connection conn = getNewConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ResultSet rs;
 			ps.setString(1, trade.getGameId());
 			ps.setString(2, trade.getPlayerOneName());
 			ps.setInt(3, trade.getPlayerOneMoney());
@@ -1149,114 +1149,170 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			ps.setString(5, trade.getPlayerTwoName());
 			ps.setInt(6, trade.getPlayerTwoMoney());
 			ps.setBoolean(7, trade.getPlayerTwoAccepted());
-			ps.setBoolean(8, trade.getI)
-			;
+			ps.setBoolean(8, trade.isFinalized());
+			
+			ps.executeUpdate();
+			conn.close();
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-//	@Override
-//	public HashMap<String, String> getPlayerPropertyList(String player) {
-//		HashMap<String, String> playerPropertiesList = new HashMap<String, String>(); 
-//		Token playerToken = gameBoard.getUser(player);
-//		ArrayList<Deed> ownedDeeds = gameBoard.getOwnedDeeds(playerToken);
-//		for (Deed deed : ownedDeeds) {
-//			String name = deed.getName();
-//			String color = deed.getColorHex();
-//			playerPropertiesList.put(name, color);
-//		}
-//		return playerPropertiesList;
-//	}
-//	
-//	@Override
-//	public HashMap<Integer, String> getAllSpacesAndOwners() {
-//		HashMap<Integer , String> spacesAndOwners = new HashMap<Integer, String>();
-//		ArrayList<Space> spaces = gameBoard.deeds;
-//		
-//		for (int idx=0;idx<spaces.size();idx++) {
-//			Space space = spaces.get(idx);
-//			Token owner = space.getOwner();
-//			String ownerName = owner.getName();
-//			Integer uiSpace = idx+1; // GF might need to change this if we change it to 0 based system (currently 1 based? client side?)
-//			spacesAndOwners.put(uiSpace, ownerName);
-//		}
-//		
-//		return spacesAndOwners;
-//	}
-//	
-//	@Override
-//	public HashMap<String, Integer> getPlayerMoneyAmounts() {
-//		HashMap<String, Integer> playerMoneyAmounts = new HashMap<String, Integer>();
-//		HashMap<String, Token> players = gameBoard.getUsers();
-//		
-//		for (Entry<String, Token> entry : players.entrySet()) {
-//			String playerName = entry.getKey();
-//			Token playerToken = entry.getValue();
-//			Integer playerMoney = playerToken.getCashMoney();
-//			playerMoneyAmounts.put(playerName, playerMoney);
-//		}
-//		
-//		return playerMoneyAmounts;
-//	}
-//	
-//	@Override
-//	public ArrayList<String> getPlayerOptionsFromSpace(String playerName, int spaceNumber) {
-//		ArrayList<String> playerOptions = new ArrayList<String>();
-//		
-//		// TODO how do we retrieve these? Do we pass back a string listing what options they have?
-//		// does client side have a list of options, and what we get returned determines what is available?
-//		// give more ideas, this one is up in the air -GF
-//		
-//		return playerOptions;
-//	}
-//	
-//	// TRADING BLOCK FROM HELL
-//	// BEWARE ALL YE WHO ENTER HERE (HELP FINISH THESE)
-//	
-//	@Override
-//	public void requestTrade(String playerRequesting, String playerRequested) {
-//		// TODO playerRequesting wants to make a trade with playerRequested. 
-//		// how do we handle this? have pop-up that both players interact with at same time if accepted?
-//		// is this method going to be a simple accept/deny? -GF
-//	}
-//	
-//	@Override
-//	public Boolean respondToTradeRequest(boolean wantsToTrade) {
-//		// TODO the player who was requested to be traded responds with either 'accept' or 'deny'
-//		return false;
-//	}
-//	
-//	@Override
-//	public void addItemToTrade(Object item, String playerAdding) {
-//		// TODO add the item to the trade object associated with these two players.
-//	}
-//	
-//	@Override
-//	public void removeItemFromTrade(Object item, String playerRemoving) {
-//		// TODO remove the item from the trade object associated with this player.
-//	}
-//	
-//	@Override
-//	public void acceptTrade(String playerAccepting) {
-//		// TODO set the acceptance of player to true
-//	}
-//	
-//	@Override
-//	public void denyTrade(String playerDenying) {
-//		// TODO set the acceptance of player to false
-//	}
-//	
-//	@Override
-//	public ArrayList<Object> getOpposingTraderItems(String playerRequesting) {
-//		// TODO return the list of items that the other trader has put up from the 
-//		return null;
-//	}
-//	
-//	@Override
-//	public String tradeCloseWithDescription() {
-//		// TODO close the trade, stating whether it was denied, accepted, cancelled, etc.
-//		return null;
-//	}
-
+	
+	@Override
+	public Trade getTrade(int tradeId) {
+		Trade trade = new Trade();
+		String sql = "SELECT * FROM `trade` WHERE `tradeId`=?";
+		
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			ps.setInt(1, trade.getTradeId());
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				trade.setTradeId(rs.getInt("tradeId"));
+				trade.setGameId(rs.getString("gameId"));
+				trade.setPlayerOneName(rs.getString("playerOneName"));
+				trade.setPlayerOneMoney(rs.getInt("playerOneMoneyOffered"));
+				trade.setPlayerOneAccepted(rs.getBoolean("playerOneAccepted"));
+				trade.setPlayerTwoName(rs.getString("playerTwoName"));
+				trade.setPlayerTwoMoney(rs.getInt("playerTwoMoneyOffered"));
+				trade.setPlayerTwoAccepted(rs.getBoolean("playerTwoAccepted"));
+				trade.setFinalized(rs.getBoolean("isFinalized"));
+			}
+			
+			conn.close();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		trade = getTradeDeeds(trade);
+		return trade;
+	}
+	
+	private Trade getTradeDeeds(Trade trade) {
+		Trade returnTrade = trade;
+		String sql = "SELECT * FROM `tradeDeed` WHERE `tradeId`=? AND `playerName`=?";
+		
+		ArrayList<String> playerOneDeeds = new ArrayList<String>();
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			ps.setInt(1, trade.getTradeId());
+			ps.setString(2, trade.getPlayerOneName());
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				String deedName = rs.getString("deedName");
+				playerOneDeeds.add(deedName);
+			}
+			returnTrade.setPlayerOneDeeds(playerOneDeeds);
+			conn.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<String> playerTwoDeeds = new ArrayList<String>();
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			ps.setInt(1, trade.getTradeId());
+			ps.setString(2, trade.getPlayerTwoName());
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				String deedName = rs.getString("deedName");
+				playerTwoDeeds.add(deedName);
+			}
+			returnTrade.setPlayerTwoDeeds(playerTwoDeeds);
+			conn.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return trade;
+	}
+	
+	@Override
+	public void updateTrade(Trade trade) {
+		String sqlTrade = "UPDATE `trade` SET `gameId`=?, `playerOneName`=?, `playerOneMoneyOffered`=?, `playerOneAccepted`=?, "
+				+ "`playerTwoName`=?, `playerTwoMoneyOffered`=?, `playerTwoAccepted`=?, `isFinalized`=? "
+				+ "WHERE `tradeId`=?";
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlTrade);
+			ps.setString(1, trade.getGameId());
+			ps.setString(2, trade.getPlayerOneName());
+			ps.setInt(3, trade.getPlayerOneMoney());
+			ps.setBoolean(4, trade.getPlayerOneAccepted());
+			ps.setString(5, trade.getPlayerTwoName());
+			ps.setInt(6, trade.getPlayerTwoMoney());
+			ps.setBoolean(7, trade.getPlayerTwoAccepted());
+			ps.setBoolean(8, trade.isFinalized());
+			ps.setInt(9, trade.getTradeId());
+			
+			ps.executeUpdate();
+			conn.close();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		clearTradeDeeds(trade);
+		insertTradeDeeds(trade);
+	}
+	
+	private void clearTradeDeeds(Trade trade) {
+		String sql = "DELETE FROM `tradeDeeds` WHERE `tradeId=?`";
+		
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, trade.getTradeId());
+			
+			ps.executeUpdate();
+			conn.close();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void insertTradeDeeds(Trade trade) {
+		String sql = "INSERT INTO `tradeDeeds` (`tradeId`, `playerName`, `deedName`) VALUES (?, ?, ?)";
+		for (String deedName : trade.getPlayerOneDeeds()) {
+			try {
+				Connection conn = getNewConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, trade.getTradeId());
+				ps.setString(2, trade.getPlayerOneName());
+				ps.setString(3, deedName);
+				
+				ps.executeUpdate();
+				conn.close();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		for (String deedName : trade.getPlayerTwoDeeds()) {
+			try {
+				Connection conn = getNewConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, trade.getTradeId());
+				ps.setString(2, trade.getPlayerTwoName());
+				ps.setString(3, deedName);
+				
+				ps.executeUpdate();
+				conn.close();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

@@ -7,10 +7,10 @@ import java.util.Map;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import cs414.a5.groupA.monopoly.server.Trade;
 import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
+import cs414.a5.groupA.monopoly.shared.Trade;
 
 /**
  * The client-side stub for the RPC service.
@@ -46,45 +46,13 @@ public interface GameService extends RemoteService {
 	
 	Boolean checkInJail(String gameId, String playerName) throws Exception;
 
-	Boolean mortgageProperty(String gameId, String playerName, String deedName);
-
 	Integer sellHouse(String playerName, String deedName, String gameId) throws Exception;
 
 	void AddBidOnDeed(String gameId, int position, String playerName, int playerBid) throws Exception;
 
 	String getWinningBidOnDeed(String gameId, int position) throws Exception;
-
-//	Map<String, Integer> getPlayerPositions();
-//	
-//	void initializeGame(ArrayList<String> names);
-//
+	
 	String roll(String name, String gameID, int debug);
-//
-//	HashMap<String, String> getPlayerPropertyList(String name);
-//
-//	Integer getSpeedingAmount(String name);
-//	
-//	HashMap<Integer, String> getAllSpacesAndOwners();
-//	
-//	HashMap<String, Integer> getPlayerMoneyAmounts();
-//	
-//	ArrayList<String> getPlayerOptionsFromSpace(String playerName, int spaceNumber);
-//
-//	void requestTrade(String playerRequesting, String playerRequested);
-//
-//	Boolean respondToTradeRequest(boolean wantsToTrade);
-//
-//	void addItemToTrade(Object item, String playerAdding);
-//
-//	void removeItemFromTrade(Object item, String playerRemoving);
-//
-//	void acceptTrade(String playerAccepting);
-//
-//	void denyTrade(String playerDenying);
-//
-//	String tradeCloseWithDescription();
-//
-//	ArrayList<Object> getOpposingTraderItems(String playerRequesting);
 
 	void initializeFirstTurn(String gameId);
 
@@ -111,4 +79,8 @@ public interface GameService extends RemoteService {
 	void updateDeed(DatabaseDeed deed);
 
 	void saveNewTradeToDatabase(Trade trade);
+
+	void updateTrade(Trade trade);
+
+	Trade getTrade(int tradeId);
 }
