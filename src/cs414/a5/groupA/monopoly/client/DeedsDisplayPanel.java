@@ -48,7 +48,7 @@ public class DeedsDisplayPanel extends FlexTable {
 				} else if (numHouses==1) {
 					deedNameLabel = new Label(deedName + " (1 house)");
 				}
-				else if (numHouses==4) {
+				else if (numHouses==5) {
 					deedNameLabel = new Label(deedName + " (1 hotel)");
 				}
 				else {
@@ -68,7 +68,7 @@ public class DeedsDisplayPanel extends FlexTable {
 						}
 					});
 					setWidget(row, 1, buyPropertyButton);
-					if (numHouses!=4) {
+					if (numHouses!=5) {
 						buyPropertyButton.setEnabled(true);
 					}
 					else {
