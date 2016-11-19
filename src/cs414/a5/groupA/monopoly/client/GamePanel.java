@@ -318,7 +318,9 @@ public class GamePanel extends BasePanel {
 
 									@Override
 									public void onSuccess(String result) {
-										AlertPopup alert = new AlertPopup(result);
+										if(!result.equals(DeedSpotOptions.DO_NOT_BUY)) {
+											AlertPopup alert = new AlertPopup(result);
+										}
 									}});
 							}
 						};
