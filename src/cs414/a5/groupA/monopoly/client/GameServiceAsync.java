@@ -103,4 +103,6 @@ public interface GameServiceAsync {
 	void checkForMonopoly(String playerName, String deedName, String gameId, AsyncCallback<Boolean> asyncCallback);
 
 	void checkIfAbleToBuildHouse(String playerName, String deed, String gameId, AsyncCallback<Boolean> asyncCallback);
+	
+	void updateDeed(DatabaseDeed deed, AsyncCallback<Void> callback);
 }
