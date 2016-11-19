@@ -382,7 +382,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	private Deed getDeedByPosition(String gameID, int position) {
-		String sql = "SELECT * FROM `deed` WHERE `gameId`=? AND `position1=?";
+		String sql = "SELECT * FROM `deed` WHERE `gameId`=? AND `position`=?";
 		String owner = null;
 		Deed deed = null;
 		try {
