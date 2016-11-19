@@ -74,16 +74,9 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
             if(deed.getOwner().getPlayerName().equals(playerName)) {
                 player.setMoney(player.getMoney() + (deed.getPrice() / 2) );
-                deed.setOwner(null);
                 updateToken(player);
 
-                // This is whack, but the updateDeed is whack so it's kind of mandatory
-                Token noOwner = new Token();
-                noOwner.setGameId(gameId);
-                noOwner.setPlayerName("null");
-                noOwner.setPosition(player.getPosition());
-
-                updateDeedByToken(noOwner);
+                updateDeedByToken(player);
                 updateDeedHousingCount(0, gameId, deedName);
                 return true;
             }
