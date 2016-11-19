@@ -804,8 +804,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
     public void finalizeTrade(String gameId, int tradeId) {
-//        Trade trade = getTrade(gameId, tradeId);
-        Trade trade = new Trade("temp", "tempy");
+        Trade trade = getTrade(tradeId);
         if (!trade.isFinalized() && trade.bothAccepted()) {
             try {
                 Token p1 = getTokenByGameIdAndName(gameId, trade.getPlayerOneName());
