@@ -1131,6 +1131,31 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		Integer rent = deed.getRent();
 		return rent;
 	}
+	
+	@Override
+	public void saveNewTradeToDatabase(Trade trade) {
+		String sql = "INSERT INTO `trade` (`gameId`, `playerOneName`, `playerOneMoneyOffered`, `playerOneAccepted`, "
+				+ "`playerTwoName`, `playerTwoMoneyOffered`, `playerTwoAccepted`, `isFinalized`"
+				+ " VALUES (?,?,?,?,?,?,?,?)";
+		
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			ps.setString(1, trade.getGameId());
+			ps.setString(2, trade.getPlayerOneName());
+			ps.setInt(3, trade.getPlayerOneMoney());
+			ps.setBoolean(4, trade.getPlayerOneAccepted());
+			ps.setString(5, trade.getPlayerTwoName());
+			ps.setInt(6, trade.getPlayerTwoMoney());
+			ps.setBoolean(7, trade.getPlayerTwoAccepted());
+			ps.setBoolean(8, trade.getI)
+			;
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 //	@Override
 //	public HashMap<String, String> getPlayerPropertyList(String player) {
 //		HashMap<String, String> playerPropertiesList = new HashMap<String, String>(); 

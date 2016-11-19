@@ -7,6 +7,7 @@ import java.util.Map;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import cs414.a5.groupA.monopoly.server.Trade;
 import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
@@ -106,4 +107,6 @@ public interface GameService extends RemoteService {
 	Boolean checkForMonopoly(String playerName, String deedName, String gameId);
 
 	void updateDeed(DatabaseDeed deed);
+
+	void saveNewTradeToDatabase(Trade trade);
 }
