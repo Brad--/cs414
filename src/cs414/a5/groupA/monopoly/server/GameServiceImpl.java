@@ -44,27 +44,48 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 	@Override
 	public ArrayList<Token> getAllGameTokens(String gameId) {
-		ArrayList<Token> tokens = new ArrayList<Token>();
+        ArrayList<Token> tokens = new ArrayList<Token>();
 
-		try {
-			String sql = "SELECT * FROM `token` where `gameId`=?";
-			Connection conn = getNewConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, gameId);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Token token = getTokenFromResultSet(rs);
+        try {
+            String sql = "SELECT * FROM `token` where `gameId`=?";
+            Connection conn = getNewConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, gameId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Token token = getTokenFromResultSet(rs);
 
-				tokens.add(token);
-			}
+                tokens.add(token);
+            }
 
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return tokens;
-	}
+        return tokens;
+    }
+
+    @Override
+    public Boolean mortgageProperty(String gameId, String playerName, String deedName) {
+        try {
+            Token player = getTokenByGameIdAndName(gameId, playerName);
+            DatabaseDeed dbdeed = getDatabaseDeedFromPosition(gameId, player.getPosition());
+            Deed deed = getDeedByPosition(gameId, player.getPosition());
+
+            if(dbdeed.getPlayerName().equals(playerName) && deed.getHousingCount() == 0) {
+                player.setMoney(player.getMoney() + (deed.getPrice() / 2) );
+                updateToken(player);
+                dbdeed.setMortgaged(false);
+                updateDeed(dbdeed);
+                return true;
+            }
+        } catch(Exception e) {
+            System.out.println("Error getting token / deed from server.");
+        }
+
+        return false;
+    }
 
 	@Override
 	public Token saveNewTokenToDatabase(Token token) {
@@ -702,9 +723,16 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		String response = "Not enough money to buy property";
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		Deed tempDeed = new Deed(currentPlayer.getPosition());
-		if (currentPlayer.getMoney() > tempDeed.getPrice()) {
+
+        int realPrice = tempDeed.getPrice();
+        DatabaseDeed dbd = getDatabaseDeedFromPosition(gameId, currentPlayer.getPosition());
+        if(dbd.isMortgaged()) {
+            realPrice = (int)(realPrice * .1);
+        }
+
+		if (currentPlayer.getMoney() > realPrice) {
 			updateDeedByToken(currentPlayer);
-			currentPlayer.setMoney(currentPlayer.getMoney() - tempDeed.getPrice());
+			currentPlayer.setMoney(currentPlayer.getMoney() - realPrice);
 			response = "Property purchased";
 		}
 		updateToken(currentPlayer);
