@@ -104,4 +104,6 @@ public interface GameService extends RemoteService {
 	Boolean checkIfAbleToBuildHouse(String playerName, String deedName, String gameId) throws Exception;
 
 	Boolean checkForMonopoly(String playerName, String deedName, String gameId);
+
+	void updateDeed(DatabaseDeed deed);
 }
