@@ -604,7 +604,9 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	@Override
 	public Integer payRentToToken(String gameId, String name) throws Exception {
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
-		Deed current = new Deed(currentPlayer.getPosition());
+
+		Deed temp = new Deed(currentPlayer.getPosition());
+        Deed current = getDeedByName(gameId, name, temp.getName());
 		int rent = current.getRent();
 		int amountPaid;
 		if (currentPlayer.getMoney() - rent >= 0) {
