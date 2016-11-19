@@ -6,12 +6,12 @@ import java.util.ArrayList;
 public class Trade {
     private int oneMoney, twoMoney; // How much money each player is offering to trade
     private String oneName, twoName;
-    private boolean oneAccepted, twoAccepted;
+    private boolean oneAccepted, twoAccepted, finalized;
     ArrayList<String> oneDeeds, twoDeeds;
 
     public Trade(String p1, String p2) {
         oneMoney = twoMoney = 0;
-        oneAccepted = twoAccepted = false;
+        finalized = oneAccepted = twoAccepted = false;
         oneName = p1;
         twoName = p2;
         oneDeeds = new ArrayList<>();
@@ -70,4 +70,7 @@ public class Trade {
     public void addPlayerTwoDeed(String s) {
         twoDeeds.add(s);
     }
+
+    public boolean isFinalized() { return finalized; }
+    public void setFinalized(boolean f) { finalized = f; }
 }
