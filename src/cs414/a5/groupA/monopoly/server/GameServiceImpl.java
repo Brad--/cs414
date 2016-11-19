@@ -357,6 +357,31 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void updateDeed(DatabaseDeed deed) {
+		String sql = "UPDATE `deed` SET `gameId`=?, `deedName`=?, `position`=?, `playerName`=?, `housingCount`=?, `propertyGroup`=?, `isMortgaged`=? WHERE `deedId`=?";
+	
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, deed.getGameId());
+			ps.setString(2, deed.getDeedName());
+			ps.setInt(3, deed.getPosition());
+			ps.setString(4, deed.getPlayerName());
+			ps.setInt(5, deed.getHousingCount());
+			ps.setString(6, deed.getPropertyGroup());
+			ps.setBoolean(7, deed.isMortgaged());
+			ps.setInt(8, deed.getDeedId());
+
+			ps.executeUpdate();
+
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	private DeedSpotOptions getDeedSpotOptionsByGameIdAndPosition(String gameId, int position) {
 		String sql = "SELECT * FROM `deed` WHERE `gameId`=? AND `position`=?";
