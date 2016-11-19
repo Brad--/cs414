@@ -764,7 +764,14 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
 		int position = currentPlayer.getPosition();
 		DatabaseDeed deed = getDatabaseDeedFromPosition(gameId, position);
-		int rent = DeedUtil.calcRent(deed);
+		int multiplier =1;
+		if (deed.getPropertyGroup().equals("RAILROAD")){
+			multiplier = (int) Math.pow(2.0, (double)checkNumberOfRailRoads(gameId, deed.getDeedName(), deed.getPlayerName())-1);
+		}
+		else if (checkForMonopoly(deed.getPlayerName(), deed.getDeedName(), gameId)){
+			multiplier =2;
+		}
+		int rent = DeedUtil.calcRent(deed)*multiplier;
 		int amountPaid;
 		if (currentPlayer.getMoney() - rent >= 0) {
 			amountPaid = rent;
@@ -1131,6 +1138,22 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		Deed deed = new Deed(position);
 		Integer rent = deed.getRent();
 		return rent;
+	}
+	
+	private int checkNumberOfRailRoads(String playerName, String deedName, String gameId) {
+		HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
+		int ownedCount = -1;
+		if (nameColorMap.containsKey(deedName)) {
+			String color = nameColorMap.get(deedName);
+			ownedCount = 0;
+
+			for (Map.Entry<String, String> pair : nameColorMap.entrySet()) {
+				if (pair.getValue().equals(color)) {
+					ownedCount++;
+				}
+			}
+		}
+		return ownedCount;
 	}
 	
 	@Override
