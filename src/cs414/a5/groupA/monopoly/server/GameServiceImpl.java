@@ -736,9 +736,9 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	@Override
 	public Integer payRentToToken(String gameId, String name) throws Exception {
 		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
-		Deed temp = new Deed(currentPlayer.getPosition());
-        Deed current = getDeedByName(gameId, name, temp.getName());
-		int rent = current.getRent();
+		int position = currentPlayer.getPosition();
+		DatabaseDeed deed = getDatabaseDeedFromPosition(gameId, position);
+		int rent = DeedUtil.calcRent(deed);
 		int amountPaid;
 		if (currentPlayer.getMoney() - rent >= 0) {
 			amountPaid = rent;
@@ -749,6 +749,25 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			payRent(currentPlayer, amountPaid); // give other play rest of money
 		}
 		return amountPaid;
+	}
+	
+	private DatabaseDeed getDatabaseDeedFromPosition(String gameId, int position) {
+		DatabaseDeed deed = new DatabaseDeed();
+		String sql = "SELECT * FROM `deed` WHERE `gameId`=? AND `position`=?";
+		try{
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1,gameId);
+			ps.setInt(2, position);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()){
+				deed = getDatabaseDeedFromResultSet(rs);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return deed;
 	}
 
 	@Override
