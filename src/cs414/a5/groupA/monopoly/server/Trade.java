@@ -5,17 +5,31 @@ import java.util.ArrayList;
 
 public class Trade {
     private int oneMoney, twoMoney; // How much money each player is offering to trade
-    private String oneName, twoName;
-    private boolean oneAccepted, twoAccepted;
+    private String oneName, twoName, gameId, tradeId;
+    private boolean oneAccepted, twoAccepted, finalized;
     ArrayList<String> oneDeeds, twoDeeds;
 
     public Trade(String p1, String p2) {
         oneMoney = twoMoney = 0;
-        oneAccepted = twoAccepted = false;
+        finalized = oneAccepted = twoAccepted = false;
         oneName = p1;
         twoName = p2;
         oneDeeds = new ArrayList<>();
         twoDeeds = new ArrayList<>();
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+    public String getTradeId() {
+        return tradeId;
+    }
+
+    public void setGameId(String id) {
+        gameId = id;
+    }
+    public void setTradeId(String id) {
+        tradeId = id;
     }
 
     // Token's don't get setter methods because the players should never within a trade
@@ -70,4 +84,7 @@ public class Trade {
     public void addPlayerTwoDeed(String s) {
         twoDeeds.add(s);
     }
+
+    public boolean isFinalized() { return finalized; }
+    public void setFinalized(boolean f) { finalized = f; }
 }
