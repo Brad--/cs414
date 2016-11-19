@@ -94,7 +94,7 @@ public interface GameServiceAsync {
 
 	void getOutOfJail(String gameId, String playerName, AsyncCallback<Void> asyncCallback);
 
-	void sellHouse(String playerName, String deedName, String gameId, AsyncCallback<Void> callback);
+	void sellHouse(String playerName, String deedName, String gameId, AsyncCallback<Integer> callback);
 
 	void checkForMonopoly(String playerName, String deedName, String gameId, AsyncCallback<Boolean> asyncCallback);
 

@@ -203,7 +203,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
     @Override
-    public void sellHouse(String playerName, String deedName, String gameId) throws SQLException{
+    public Integer sellHouse(String playerName, String deedName, String gameId) throws SQLException{
+    	Integer sellAmount = null;
 		try{
 			Token player = getTokenByGameIdAndName(gameId, playerName);
 			Deed deed = getDeedByName(gameId, playerName, deedName);
@@ -226,16 +227,17 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 				}
 				else {
 					// silently fail
-					return;
+					return null;
 				}
-				player.setMoney(player.getMoney() + (cost/2));
+				sellAmount = cost/2;
+				player.setMoney(player.getMoney() + sellAmount);
 				updateDeedHousingCount(newCount,gameId,deedName);
 				updateToken(player);
-
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		return sellAmount;
 	}
 
     @Override
