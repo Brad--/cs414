@@ -1159,7 +1159,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			}
 				break;
 			case(DeedSpotOptions.DO_NOT_BUY):
-				response = "Did not buy property. Bidding between other players In-progress.";
+				response = DeedSpotOptions.DO_NOT_BUY;
 				insertOtherPlayersIntoDeedBid(gameId, name);
 				break;
 		}
@@ -1171,9 +1171,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			int position = getTokenByGameIdAndName(gameId, name).getPosition();
 			ArrayList<Token> tokens = getAllGameTokens(gameId);
 			for(Token token : tokens) {
-				if(!token.getPlayerName().equals(name)) {
-						AddBidOnDeed(gameId, position, token.getPlayerName(), -1);
-				}
+				AddBidOnDeed(gameId, position, token.getPlayerName(), -1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
