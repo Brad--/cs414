@@ -1019,6 +1019,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		deed.setPlayerName(rs.getString("playerName"));
 		deed.setHousingCount(rs.getInt("housingCount"));
 		deed.setPropertyGroup(rs.getString("propertyGroup"));
+		deed.setMortgaged(rs.getBoolean("isMortgaged"));
 		return deed;
 	}
 	
@@ -1104,6 +1105,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 				deed.setPlayerName(rs.getString("playerName"));
 				deed.setHousingCount(rs.getInt("housingCount"));
 				deed.setPropertyGroup(rs.getString("propertyGroup"));
+				deed.setMortgaged(rs.getBoolean("isMortgaged"));
 				deed.setHexColor(DeedUtil.getDeedHexColorByStringPropertyGroup(deed.getPropertyGroup()));
 				
 				ownedDeedsList.add(deed);
