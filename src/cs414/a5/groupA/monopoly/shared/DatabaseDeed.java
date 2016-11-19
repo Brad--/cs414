@@ -12,6 +12,7 @@ public class DatabaseDeed implements Serializable {
 	private int housingCount;
 	private String propertyGroup;
 	private String hexColor;
+	private boolean isMortgaged;
 	
 	public int getDeedId() {
 		return deedId;
@@ -60,6 +61,12 @@ public class DatabaseDeed implements Serializable {
 	}
 	public void setHexColor(String hexColor) {
 		this.hexColor = hexColor;
+	}
+	public boolean isMortgaged() {
+		return isMortgaged;
+	}
+	public void setMortgaged(boolean isMortgaged) {
+		this.isMortgaged = isMortgaged;
 	}
 	
 }

@@ -1,29 +1,57 @@
-package cs414.a5.groupA.monopoly.server;
+package cs414.a5.groupA.monopoly.shared;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Trade {
-    private int oneMoney, twoMoney; // How much money each player is offering to trade
-    private String oneName, twoName;
-    private boolean oneAccepted, twoAccepted;
+public class Trade implements Serializable {
+    private int tradeId, oneMoney, twoMoney; // How much money each player is offering to trade
+    private String oneName, twoName, gameId;
+    private boolean oneAccepted, twoAccepted, finalized;
     ArrayList<String> oneDeeds, twoDeeds;
 
     public Trade(String p1, String p2) {
         oneMoney = twoMoney = 0;
-        oneAccepted = twoAccepted = false;
+        finalized = oneAccepted = twoAccepted = false;
         oneName = p1;
         twoName = p2;
         oneDeeds = new ArrayList<>();
         twoDeeds = new ArrayList<>();
     }
 
+    public Trade() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getGameId() {
+        return gameId;
+    }
+    public int getTradeId() {
+        return tradeId;
+    }
+
+    public void setGameId(String id) {
+        gameId = id;
+    }
+    public void setTradeId(int id) {
+        tradeId = id;
+    }
+
     // Token's don't get setter methods because the players should never within a trade
     public String getPlayerOneName() {
         return oneName;
     }
+    
+    public void setPlayerOneName(String playerOneName) {
+    	oneName = playerOneName;
+    }
+    
     public String getPlayerTwoName() {
         return twoName;
+    }
+    
+    public void setPlayerTwoName(String playerTwoName) {
+    	twoName = playerTwoName;
     }
 
     public int getPlayerOneMoney() {
@@ -56,6 +84,14 @@ public class Trade {
     public void setPlayerTwoAccepted(boolean value) {
         twoAccepted = value;
     }
+    
+    public void setPlayerOneDeeds(ArrayList<String> oneDeeds) {
+    	this.oneDeeds = oneDeeds;
+    }
+    
+    public void setPlayerTwoDeeds(ArrayList<String> twoDeeds) {
+    	this.twoDeeds = twoDeeds;
+    }
 
     public ArrayList<String> getPlayerOneDeeds() {
         return oneDeeds;
@@ -70,4 +106,7 @@ public class Trade {
     public void addPlayerTwoDeed(String s) {
         twoDeeds.add(s);
     }
+
+    public boolean isFinalized() { return finalized; }
+    public void setFinalized(boolean f) { finalized = f; }
 }
