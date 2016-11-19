@@ -609,7 +609,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		Token player = null;
 		try {
 			player = getTokenByGameIdAndName(gameId, name);
-			player = handleRoll(player, debug);
+			player = handleRoll(player, debug, false, 0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -620,7 +620,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return rollOne + "+" + rollTwo;
 	}
 
-	private Token handleRoll(Token currentPlayer, int debug) { // TODO return TokenActionWrapper?
+	private Token handleRoll(Token currentPlayer, int debug, boolean cardSpot, int position) { // TODO return TokenActionWrapper?
 		// GD 11.15.16 Needs redone after token refactor
 		Die die = new Die();
 		int start = 0;
@@ -635,40 +635,45 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		}
 		// Else catches the normal case. If debug is 0 or some random number it'll use the normal roll
 		else {
-			r1 = die.roll();
-			r2 = die.roll();
-		}
-
-		currentPlayer.setLastRollOne(r1);
-		currentPlayer.setLastRollTwo(r2);
-		start = currentPlayer.getPosition();
-		int moveTo = (start + r1 + r2) % 40;
-
-		if (die.checkForDoubles(r1, r2)) {
-			if (currentPlayer.isInJail()) {
-				currentPlayer.setInJail(false);
-				return currentPlayer; // you get out of jail but wait a turn tell you can move
+			int moveTo = 0;
+			if (!cardSpot) {
+				r1 = die.roll();
+				r2 = die.roll();
+				currentPlayer.setLastRollOne(r1);
+				currentPlayer.setLastRollTwo(r2);
+				start = currentPlayer.getPosition();
+				moveTo = (start + r1 + r2) % 40;
 			} else {
-				int currentSpeed = currentPlayer.getSpeedCount();
-				if (currentSpeed + 1 == 3) {
-					currentPlayer.setInJail(true);
-					currentPlayer.setPosition(10);
-					currentPlayer.setSpeedCount(0);
-				} else
-					currentPlayer.setSpeedCount(currentSpeed + 1);
+				r1 = currentPlayer.getLastRollOne();
+				r2 = currentPlayer.getLastRollTwo();
+				moveTo = position;
 			}
-		}
-		else
-			currentPlayer.setSpeedCount(0);
-		if (moveTo == 30) {
-			currentPlayer.setPosition(10);
-			currentPlayer.setInJail(true);
-			currentPlayer.setSpeedCount(0);
-		} else {
-			if (!currentPlayer.isInJail()) {
-				currentPlayer.setPosition(moveTo);
-				if (currentPlayer.getPosition() < start)
-					currentPlayer.setMoney(currentPlayer.getMoney() + 200);
+
+			if (die.checkForDoubles(r1, r2)) {
+				if (currentPlayer.isInJail()) {
+					currentPlayer.setInJail(false);
+					return currentPlayer; // you get out of jail but wait a turn tell you can move
+				} else {
+					int currentSpeed = currentPlayer.getSpeedCount();
+					if (currentSpeed + 1 == 3) {
+						currentPlayer.setInJail(true);
+						currentPlayer.setPosition(10);
+						currentPlayer.setSpeedCount(0);
+					} else
+						currentPlayer.setSpeedCount(currentSpeed + 1);
+				}
+			} else
+				currentPlayer.setSpeedCount(0);
+			if (moveTo == 30) {
+				currentPlayer.setPosition(10);
+				currentPlayer.setInJail(true);
+				currentPlayer.setSpeedCount(0);
+			} else {
+				if (!currentPlayer.isInJail()) {
+					currentPlayer.setPosition(moveTo);
+					if (currentPlayer.getPosition() < start)
+						currentPlayer.setMoney(currentPlayer.getMoney() + 200);
+				}
 			}
 		}
 
@@ -932,7 +937,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 				} else {
 					if (c.getAmount() < currentPlayer.getPosition())
 						currentPlayer.setMoney(currentPlayer.getMoney() + 200);
-					currentPlayer.setPosition(c.getAmount());
+					currentPlayer = handleRoll(currentPlayer, 0, true, c.getAmount());
 				}
 				break;
 			default:
