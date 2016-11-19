@@ -7,9 +7,11 @@ abstract class Space {
     protected int position;
     protected String name;
     protected Token owner;
+    protected boolean isMortgaged;
 
     Space(int position) {
         this.position = position;
+        this.isMortgaged = false;
         owner = null;
     }
 
@@ -30,4 +32,12 @@ abstract class Space {
     public Token getOwner() {
         return owner;
     }
+
+	public boolean isMortgaged() {
+		return isMortgaged;
+	}
+
+	public void setMortgaged(boolean isMortgaged) {
+		this.isMortgaged = isMortgaged;
+	}
 }
