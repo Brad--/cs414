@@ -44,27 +44,55 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 	@Override
 	public ArrayList<Token> getAllGameTokens(String gameId) {
-		ArrayList<Token> tokens = new ArrayList<Token>();
+        ArrayList<Token> tokens = new ArrayList<Token>();
 
-		try {
-			String sql = "SELECT * FROM `token` where `gameId`=?";
-			Connection conn = getNewConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, gameId);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Token token = getTokenFromResultSet(rs);
+        try {
+            String sql = "SELECT * FROM `token` where `gameId`=?";
+            Connection conn = getNewConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, gameId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Token token = getTokenFromResultSet(rs);
 
-				tokens.add(token);
-			}
+                tokens.add(token);
+            }
 
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return tokens;
-	}
+        return tokens;
+    }
+
+    @Override
+    public Boolean mortgageProperty(String gameId, String playerName, String deedName) {
+        try {
+            Deed deed = getDeedByName(gameId, playerName, deedName);
+            Token player = getTokenByGameIdAndName(gameId, playerName);
+
+            if(deed.getOwner().getPlayerName().equals(playerName)) {
+                player.setMoney(player.getMoney() + (deed.getPrice() / 2) );
+                deed.setOwner(null);
+                updateToken(player);
+
+                // This is whack, but the updateDeed is whack so it's kind of mandatory
+                Token noOwner = new Token();
+                noOwner.setGameId(gameId);
+                noOwner.setPlayerName("null");
+                noOwner.setPosition(player.getPosition());
+
+                updateDeedByToken(noOwner);
+                updateDeedHousingCount(0, gameId, deedName);
+                return true;
+            }
+        } catch(Exception e) {
+            System.out.println("Error getting token / deed from server.");
+        }
+
+        return false;
+    }
 
 	@Override
 	public Token saveNewTokenToDatabase(Token token) {
