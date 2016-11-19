@@ -9,6 +9,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
+import cs414.a5.groupA.monopoly.shared.Trade;
 
 /**
  * The async counterpart of <code>GreetingService</code>.
@@ -33,40 +34,9 @@ public interface GameServiceAsync {
 
 	void getWinningBidOnDeed(String gameId, int position, AsyncCallback<String> callback);
 
-//	void getPlayerPositions(AsyncCallback<Map<String, Integer>> callback);
-//	
-//	void initializeGame(ArrayList<String> names, AsyncCallback<Void> callback);
-//	
 	void roll(String name, String gameId, int debug, AsyncCallback<String> callback);
 
 	void checkInJail(String gameId, String playerName, AsyncCallback<Boolean> callback);
-	
-//	
-//	void getPlayerPropertyList(String name, AsyncCallback<HashMap<String, String>> callback);
-//	
-//	void getSpeedingAmount(String name, AsyncCallback<Integer> callback);
-//	
-//	void getAllSpacesAndOwners(AsyncCallback<HashMap<Integer, String>> callback);
-//	
-//	void getPlayerMoneyAmounts(AsyncCallback<HashMap<String, Integer>> callback);
-//	
-//	void getPlayerOptionsFromSpace(String playerName, int spaceNumber, AsyncCallback<ArrayList<String>> callback);
-//	
-//	void requestTrade(String playerRequesting, String playerRequested, AsyncCallback<Void> callback);
-//	
-//	void respondToTradeRequest(boolean wantsToTrade, AsyncCallback<Boolean> callback);
-//	
-//	void addItemToTrade(Object item, String playerAdding, AsyncCallback<Void> callback);
-//	
-//	void removeItemFromTrade(Object item, String playerRemoving, AsyncCallback<Void> callback);
-//	
-//	void acceptTrade(String playerAccepting, AsyncCallback<Void> callback);
-//	
-//	void denyTrade(String playerDenying, AsyncCallback<Void> callback);
-//	
-//	void tradeCloseWithDescription(AsyncCallback<String> callback);
-//	
-//	void getOpposingTraderItems(String playerRequesting, AsyncCallback<ArrayList<Object>> callback);
 
 	void initializeFirstTurn(String gameId, AsyncCallback<Void> asyncCallback);
 
@@ -105,4 +75,10 @@ public interface GameServiceAsync {
 	void checkIfAbleToBuildHouse(String playerName, String deed, String gameId, AsyncCallback<Boolean> asyncCallback);
 	
 	void updateDeed(DatabaseDeed deed, AsyncCallback<Void> callback);
+	
+	void saveNewTradeToDatabase(Trade trade, AsyncCallback<Void> callback);
+	
+	void updateTrade(Trade trade, AsyncCallback<Void> callback);
+	
+	void getTrade(int tradeId, AsyncCallback<Trade> callback);
 }
