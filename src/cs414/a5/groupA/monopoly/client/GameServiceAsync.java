@@ -16,7 +16,7 @@ import cs414.a5.groupA.monopoly.shared.Trade;
  */
 public interface GameServiceAsync {
 
-	Boolean unmortgage(String gameId, String playerName, String deedName);
+	void unmortgage(String gameId, String playerName, String deedName, AsyncCallback<Boolean> callback);
 
 	void getAllGameTokens(String gameId, AsyncCallback<ArrayList<Token>> callback);
 	
@@ -91,4 +91,6 @@ public interface GameServiceAsync {
 	void updateTrade(Trade trade, AsyncCallback<Void> callback);
 	
 	void getTrade(int tradeId, AsyncCallback<Trade> callback);
+	
+	void mortgageProperty(String gameId, String playerName, String deedName, AsyncCallback<Boolean> callback);
 }

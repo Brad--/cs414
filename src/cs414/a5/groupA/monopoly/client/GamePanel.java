@@ -107,11 +107,16 @@ public class GamePanel extends BasePanel {
 											public void onFailure(Throwable arg0) {}
 											@Override
 											public void onSuccess(Boolean boughtProperty) {
-												if (boughtProperty) {
-													AlertPopup alert = new AlertPopup("You bought the housing!");
+												if (boughtProperty != null) {
+													if (boughtProperty) {
+														AlertPopup alert = new AlertPopup("You bought the housing!");
+													}
+													else {
+														AlertPopup alert = new AlertPopup("Failed to buy housing. Insufficient funds.");
+													}
 												}
 												else {
-													AlertPopup alert = new AlertPopup("Failed to buy housing. Insufficient funds.");
+													AlertPopup alert = new AlertPopup("Failed to buy housing. Can't build on mortgaged property.");
 												}
 											}
 										});
@@ -138,6 +143,50 @@ public class GamePanel extends BasePanel {
 					public void onSuccess(Integer amountSoldFor) {
 						if (amountSoldFor!=null) {
 							AlertPopup alert = new AlertPopup("Sold housing for $"+amountSoldFor);
+						}
+					}
+				});
+			}
+			
+			@Override
+			public void attemptToMortgage(String deedName) {
+				getGameService().mortgageProperty(getGameId(), getPlayerName(), deedName, new AsyncCallback<Boolean>() {
+
+					@Override
+					public void onFailure(Throwable arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Boolean mortgageSuccessful) {
+						if (mortgageSuccessful) {
+							AlertPopup alert = new AlertPopup("Mortgaged the property to the bank");
+						}
+						else {
+							AlertPopup alert = new AlertPopup("Unable to mortgage. Make sure all properties owned of that color do not have houses on them.");
+						}
+					}
+				});
+			}
+			
+			@Override
+			public void attemptToDeMortgage(String deedName) {
+				getGameService().unmortgage(getGameId(), getPlayerName(), deedName, new AsyncCallback<Boolean>() {
+
+					@Override
+					public void onFailure(Throwable arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Boolean mortgageSuccessful) {
+						if (mortgageSuccessful) {
+							AlertPopup alert = new AlertPopup("Bought the property back from the bank!");
+						}
+						else {
+							AlertPopup alert = new AlertPopup("Couldn't buy property back from the bank, insufficient funds.");
 						}
 					}
 				});
