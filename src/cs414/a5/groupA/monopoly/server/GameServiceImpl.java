@@ -868,8 +868,14 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			}
 			rent = (currentPlayer.getLastRollOne() + currentPlayer.getLastRollTwo())*multiplier;
 		}
-		else
-			rent = DeedUtil.calcRent(deed)*multiplier;
+		else {
+			if (deed.isMortgaged()) {
+				rent = 0;
+			}
+			else {
+				rent = DeedUtil.calcRent(deed) * multiplier;
+			}
+		}
 		int amountPaid;
 		if (currentPlayer.getMoney() - rent >= 0) {
 			amountPaid = rent;
@@ -878,8 +884,24 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		else {
 			amountPaid = currentPlayer.getMoney();
 			payRent(currentPlayer, amountPaid); // give other play rest of money
+			transferDeeds(currentPlayer, gameId, deed.getPlayerName());
+			deleteToken(gameId, currentPlayer);
+			return null;
 		}
 		return amountPaid;
+	}
+
+	private void transferDeeds(Token player, String gameId, String otherPlayer){
+		HashMap<String, String> Deeds = getDeedsOwnedByPlayer(gameId, player.getPlayerName());
+		try {
+			for (Map.Entry<String, String> pair : Deeds.entrySet()) {
+				String deedName = pair.getValue();
+				DatabaseDeed deed = getDatabaseDeedByName(gameId, deedName);
+				deed.setPlayerName(otherPlayer);
+			}
+			}catch (Exception e){
+				e.printStackTrace();
+			}
 	}
 	
 	private DatabaseDeed getDatabaseDeedFromPosition(String gameId, int position) {
