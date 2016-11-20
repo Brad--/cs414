@@ -417,8 +417,18 @@ public class GamePanel extends BasePanel {
 							public void onFailure(Throwable arg0) {}
 							@Override
 							public void onSuccess(Integer rent) {
-									AlertPopup alert = new AlertPopup("Paid $" + rent + " to " + deedOwner + " by landing on their property.");
+								if (rent != null) {
+									if (rent == 0) {
+										// do nothing
+									}
+									else {
+										AlertPopup alert = new AlertPopup("Paid $" + rent + " to " + deedOwner + " by landing on their property.");
+									}
 								}
+								else {
+									AlertPopup alert = new AlertPopup("You ran out of money and lost the game. Game over");
+								}
+							}
 						});
 					}
 				} else {
