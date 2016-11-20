@@ -18,6 +18,8 @@ import cs414.a5.groupA.monopoly.shared.Trade;
 @RemoteServiceRelativePath("game")
 public interface GameService extends RemoteService {
 
+	Boolean unmortgage(String gameId, String playerName, String deedName);
+
 	Boolean mortgageProperty(String gameId, String playerName, String deedName);
 
 	ArrayList<Token> getAllGameTokens(String gameId);

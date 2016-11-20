@@ -1126,7 +1126,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			DatabaseDeed dbdeed = getDatabaseDeedFromPosition(gameId, player.getPosition());
 			Deed deed = getDeedByPosition(gameId, player.getPosition());
 
-			if(dbdeed.getPlayerName().equals(playerName) && deed.getHousingCount() == 0) {
+			if(dbdeed.getPlayerName().equals(playerName) && dbdeed.getHousingCount() == 0) {
 				player.setMoney(player.getMoney() + (deed.getPrice() / 2) );
 				updateToken(player);
 				dbdeed.setMortgaged(false);
@@ -1140,6 +1140,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return false;
 	}
 
+	@Override
 	public Boolean unmortgage(String gameId, String playerName, String deedName) {
         try {
             Token player = getTokenByGameIdAndName(gameId, playerName);
