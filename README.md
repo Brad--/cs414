@@ -30,4 +30,5 @@ We used the Mode View Presenter patter its a sub category of the MVC patter.
 
 refactor:
 we did a huge refactor to make this more MVP based then A4. We Had to go and rewrite a lot of the logic to use the database to make
-the data persistent. We did a lot of code reviews we used git hubs pull request feature.
+the data persistent. We did a lot of code reviews we used git hubs pull request feature. Before we did the refactor we didn't have a database
+so the program was mostly client side. 
