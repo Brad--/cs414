@@ -133,12 +133,16 @@ public class ViewBoard extends FlexTable {
 		    space.clear();
 		    DatabaseDeed deed = deedMap.get(key);
 		    if(deed != null) {
-		    	if(deed.getHousingCount() == 5) {
-		    		space.add(new Image("img/housing/hotel.png"));
+		    	if(!deed.isMortgaged()) {
+			    	if(deed.getHousingCount() == 5) {
+			    		space.add(new Image("img/housing/hotel.png"));
+			    	} else {
+			    		for(int houseIndex = 0; houseIndex < deed.getHousingCount(); houseIndex++) {
+			    			space.add(new Image("img/housing/house.png"));
+			    		}
+			    	}
 		    	} else {
-		    		for(int houseIndex = 0; houseIndex < deed.getHousingCount(); houseIndex++) {
-		    			space.add(new Image("img/housing/house.png"));
-		    		}
+		    		space.add(new Image("img/housing/mortgaged.png"));
 		    	}
 		    }
 			for (Token token : tokens) {
