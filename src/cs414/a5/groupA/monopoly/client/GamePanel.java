@@ -44,11 +44,18 @@ public class GamePanel extends BasePanel {
 		
 	}
 	
-	public GamePanel(String playerName, String gameId, int timeSelected) {
+	public GamePanel(String playerName, String gameId) {
 		setPlayerName(playerName);
 		setGameId(gameId);
 		initializeDeedsDisplayPanel();
-		final int gameTime = timeSelected;
+		String urlTimeString = Window.Location.getParameter("time");
+		int urlTimeInt = 30;
+		try {
+			urlTimeInt = Integer.parseInt(urlTimeString);
+		} catch (Exception e) {
+			
+		}
+		final int gameTime = urlTimeInt;
 		countdown = new Timer() {
 			int minutesLeft = gameTime;
 			int secondsLeft = 0;
