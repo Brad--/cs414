@@ -1,3 +1,2177 @@
+commit dee79cdee905df02799d0406fd1976705be0d0fb
+Merge: 7f12e71 66e729f
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 23:35:42 2016 -0700
+
+    Merge pull request #142 from Brad--/transferDeeds
+    
+    should transfer all deeds
+
+commit 66e729f6ab1fac60892942c0cf9afb6ff55aba69
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 23:35:08 2016 -0700
+
+    delete token
+
+commit d29a44891abe33ea036f3e0474ecd02ad63b535c
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 23:34:28 2016 -0700
+
+    added brackets
+
+commit 7f12e71480410aebd4e5515e341a1a3c315fe7e7
+Merge: b80fdba 53ef341
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Sat Nov 19 23:33:15 2016 -0700
+
+    Merge pull request #141 from Brad--/mojojojo
+    
+    New rent stuff
+
+commit 53ef3413bf8c8ab15b2a6515f80e7afc2a91ea89
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 23:30:55 2016 -0700
+
+    Fixed my own dumb logic kek
+
+commit 0e9f65d92fda45b59fef4a4f323e281ef1566ecc
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 23:30:51 2016 -0700
+
+    should transfer all deeds
+
+commit 04b5af12f67ce585327ec28eb477e9c499d4b139
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 23:29:22 2016 -0700
+
+    Fix potential NPE thanks Gabe
+
+commit d48e432bfb45326901d48027089a6fb9d1f8666b
+Merge: 1b69bea b80fdba
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 23:24:54 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into mojojojo
+
+commit 1b69bea4632b589dee0bc80943d737b9411a0727
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 23:24:53 2016 -0700
+
+    Game panel now properly handles the new rent setup
+    
+    Also the trading panel that will never make it in :'(
+
+commit b80fdbac5009d32e1804c89124ef426f5ac59d5a
+Merge: b0b419f 382c822
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 23:20:39 2016 -0700
+
+    Merge pull request #140 from Brad--/gabebranch19
+    
+    Added mortgage display to board and sql create statement
+
+commit 382c8227457c2a7ed984804abec84dc614adcc61
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 23:19:22 2016 -0700
+
+    Added mortgage display to board and sql create statement
+
+commit b0b419fb36cb4e3311f1b41945224cfa24bc30e8
+Merge: 9213250 596c73c
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Sat Nov 19 23:11:18 2016 -0700
+
+    Merge pull request #137 from Brad--/mojojojo
+    
+    TRADE PANEL START
+
+commit 8da638af21d6b8ff69b4591426bac3d5e85f8505
+Merge: 596c73c 9213250
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 23:11:02 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into mojojojo
+
+commit 921325017f1c1b832d70bef0a46a9a7891f67d07
+Merge: 7bc55eb 507ef2a
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Sat Nov 19 22:58:00 2016 -0700
+
+    Merge pull request #139 from Brad--/moveFromJail
+    
+    should move from jail now
+
+commit 507ef2a96ab3b6ff71beb121e163e5f86b97c80b
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 22:54:55 2016 -0700
+
+    should move from jail now
+
+commit 596c73c49ddf99864b026d2ccd6c410c399391e2
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 22:53:34 2016 -0700
+
+    Fixed mortgaging throwing NPE
+
+commit 7bc55ebc46a66c4496490f8899b7fcd131b9c80a
+Merge: f0509a9 13e2c89
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 22:50:15 2016 -0700
+
+    Merge pull request #138 from Brad--/gabebranch18
+    
+    Gabebranch18
+
+commit 13e2c89a398b69b250a286a949da0c32b2a074dd
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 22:46:57 2016 -0700
+
+    Made players panel clear if they leave the game
+
+commit 6984184475306ce0b1e970d639313196422449c2
+Merge: 68219dd f0509a9
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 22:44:53 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into mojojojo
+
+commit 68219dde641dabb7654c0d5d10dc55a2fb662add
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 22:44:51 2016 -0700
+
+    Start of trade panel stuff
+
+commit b1928760e7550710fc133631951d64e3195a54cd
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 22:33:12 2016 -0700
+
+    endgame timer working again :santa:
+
+commit f0509a938ccad6d269c143a941da85ef81f2e078
+Merge: 9ad28ce cd0cff6
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 22:11:18 2016 -0700
+
+    Merge pull request #136 from Brad--/gabebranch17
+    
+    Added time in url parameter
+
+commit cd0cff6744be7140432555efb3e819813d12fdef
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 22:09:58 2016 -0700
+
+    Added time in url parameter
+
+commit 9ad28ce1370f2f0867e7ae2b318867363a33ebf4
+Merge: d1491c1 6fda544
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 22:02:20 2016 -0700
+
+    Merge pull request #135 from Brad--/gabebranch16
+    
+    Added debug for roll single and doubles button
+
+commit 6fda54403dd3cba543468cf94272d46cc7d7d385
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 22:00:13 2016 -0700
+
+    Added debug for roll single and doubles button
+
+commit d1491c170a011183c5637c57c5b9d7d401c1aa98
+Merge: 98979d2 0e328c3
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 21:56:52 2016 -0700
+
+    Merge pull request #134 from Brad--/gabebranch15
+    
+    Added player picking for trade
+
+commit 0e328c30b7dcf39da2a4410d528a6b4dfb75c602
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 21:55:56 2016 -0700
+
+    Added player picking for trade
+
+commit 98979d2c18f8ce4df24cde283dde5a009cad1dda
+Merge: 141d425 b354b33
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 21:33:33 2016 -0700
+
+    Merge pull request #133 from Brad--/betterDocs
+    
+    updated teh read me
+
+commit 141d42587b3efd73961d1822cca276fa416af272
+Merge: 419ac31 7be7a78
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 21:32:55 2016 -0700
+
+    Merge pull request #132 from Brad--/betterDocs
+    
+    updated teh read me
+
+commit b354b33b47d1fe140dc7cede1367254a20bbe678
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 21:32:51 2016 -0700
+
+    updated teh read me
+
+commit 419ac31290ddccc1cdeaab876a351ff6db5883e4
+Merge: e8063a5 d2da2aa
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 21:31:19 2016 -0700
+
+    Merge pull request #131 from Brad--/gabebranch14
+    
+    Gabebranch14
+
+commit 7be7a78be131c35f51b0d10201b756f554a7bda8
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 21:31:06 2016 -0700
+
+    updated teh read me
+
+commit d2da2aaf0a692e6379185e9f5c7653346fc71d15
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 21:27:53 2016 -0700
+
+    Added cleanup methods for database
+
+commit d749e4cb48d76cd98a2ac61c8d0fdb615bce421c
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 21:13:59 2016 -0700
+
+    Added cleanup delete
+
+commit e8063a5f2ae981d566b9f73bc35b201d35f58979
+Merge: 7540545 dad4b29
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 21:10:51 2016 -0700
+
+    Merge pull request #130 from Brad--/paul
+    
+    Utilities work now for rent yay
+
+commit dad4b2923b38d202ad34a2b0da45778a5f699db1
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 21:09:51 2016 -0700
+
+    Updated shitty query
+
+commit a33fa28e4fbe42fba93bd25fb323d597f883d205
+Merge: a473934 7540545
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 20:57:40 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into paul
+
+commit 75405453b56cd496957aa29900c5931d36cada0b
+Merge: 3f6fbc6 477069c
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 20:57:31 2016 -0700
+
+    Merge pull request #129 from Brad--/utilityRentIsDue
+    
+    bout time these people start paying their utility bills
+
+commit 477069c60114ab7aa4df380efc28830272990668
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 20:54:09 2016 -0700
+
+    bout time these people start paying their utility bills
+
+commit a473934e72dad4ade37cf3892ad024eb88c9cf25
+Merge: 757122e 3f6fbc6
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 20:41:25 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into paul
+
+commit 3f6fbc642333ff9019bd78556569e6a775646c5c
+Merge: 480f747 ff2321f
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 20:41:18 2016 -0700
+
+    Merge pull request #128 from Brad--/DOCS
+    
+    Docs
+
+commit 480f747b10282629f2010a43b188b3d084a4431d
+Merge: 60719ad 83210a0
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 20:40:57 2016 -0700
+
+    Merge pull request #127 from Brad--/gabebranch13
+    
+    Gabebranch13
+
+commit ff2321f6bd72a7fedfa4cdb21e0173f98f58682b
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 20:39:29 2016 -0700
+
+    docs aren't finished yet
+
+commit 83210a05882cdbc522637b68cfea0af94006fdd0
+Merge: 239077b 60719ad
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 20:39:07 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into gabebranch13
+
+commit 239077b5f6984c6edc2254b4e858dcdde0a24d1b
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 20:39:03 2016 -0700
+
+    Merge conflict fix
+
+commit 5b9f5e30c10687cf6b8a53b53a57849256991151
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 20:38:52 2016 -0700
+
+    who needs to keep the same syntax
+
+commit d55913c2be1c0bfc1e62904e8ccb7f207dd0f774
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 20:37:25 2016 -0700
+
+    Fixed bidding issues - multiple payments, wrong price, etc
+
+commit 757122ecb92bae5555633930ac0c102b9f496f4c
+Merge: 78b3c48 60719ad
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 20:18:28 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into paul
+
+commit 60719ad11455116864ddf2117733f2fd69d8517d
+Merge: 38fb28a 430f1fe
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 20:18:04 2016 -0700
+
+    Merge pull request #126 from Brad--/fixRentDouble
+    
+    i think this is fixed
+
+commit 430f1fedcd557510237f3bf33fce3aeec08ad1b9
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 20:16:11 2016 -0700
+
+    i think this is fixed
+
+commit 78b3c48327e5ebf7761d6b1e08286878c47b6acc
+Merge: ebb6723 38fb28a
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 19:50:41 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into paul
+
+commit 38fb28ae33fdc6afa03852305216377b35dd8980
+Merge: 67ee4a9 ebb6723
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 19:37:04 2016 -0700
+
+    Merge pull request #125 from Brad--/paul
+    
+    -burp- morty... we have to.. morty...
+
+commit ebb6723635ee80502f2c130af8194980040f87e9
+Merge: 33a4b17 67ee4a9
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 19:36:30 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into paul
+
+commit 67ee4a9caa3f246c58d174514357b4f9360dff55
+Merge: d4ea39a b724ab7
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Sat Nov 19 19:36:17 2016 -0700
+
+    Merge pull request #124 from Brad--/mortgageDumbRules
+    
+    Add in mortgage check for other properties having houses
+
+commit 33a4b175a86f27be631d70a7ec6accd710dba60f
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 19:34:56 2016 -0700
+
+    Morty mostly works
+
+commit b724ab7c4ea040b2de2c602848b2b23776bca284
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Sat Nov 19 19:16:37 2016 -0700
+
+    Add in mortgage check for other properties having houses
+
+commit 109eeaf9775a24c90c1f8262d11e9ab368ba094d
+Merge: 6dab8a9 d4ea39a
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 18:51:52 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into paul
+
+commit 6dab8a9d6f3bafb1fb6174933a4883419c79c14a
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 18:51:41 2016 -0700
+
+    ~Call mortgage maybe~
+
+commit d4ea39ad8941bcb7ed499a48af94b60b9b94e2fe
+Merge: a2e15cb 185dd03
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 18:49:41 2016 -0700
+
+    Merge pull request #123 from Brad--/mortgage2.0
+    
+    Mortgage af
+
+commit 185dd03eaaa54fe35509dada315ed33b5649af89
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Sat Nov 19 18:48:50 2016 -0700
+
+    Fix dumb mortgage check, add @Override stuff
+
+commit 57585283debcff08180cc8b75f83a13c5c3b3396
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Sat Nov 19 18:43:30 2016 -0700
+
+    Mortgage af
+
+commit e3e59db0c469862c2500a7371d7dae49b70c39aa
+Merge: a1eb3ba a2e15cb
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 18:24:13 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into paul
+
+commit a2e15cbdc00d050f71ac802b3f956214fdecedb6
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Sat Nov 19 18:23:47 2016 -0700
+
+    Mortgage property got merc'd so I'm adding it back in
+
+commit a1eb3bab88409c53cfd7ea0113d2411dd9c49a79
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 18:20:21 2016 -0700
+
+    Added buttons for mortgaging
+
+commit ea5491f4837957ec1cddf4c2957dd366148154ef
+Merge: 633a3b9 07f9aa2
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 01:06:41 2016 -0700
+
+    Merge pull request #121 from Brad--/gabebranch12
+    
+    Made all players able to bid
+
+commit 07f9aa228fb5ec6aaed5a38b68b09161e93256c9
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 01:05:13 2016 -0700
+
+    Made all players able to bid
+
+commit 633a3b94095eefbe4c131aab07820e592e266718
+Merge: f1a0af0 9259259
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 00:50:27 2016 -0700
+
+    Merge pull request #120 from Brad--/gabebranch11
+    
+    Gabebranch11
+
+commit 9259259d0a733f8cabff84ab4aec5836d1aac449
+Merge: 426cfbe f1a0af0
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 00:45:41 2016 -0700
+
+    fixed trading and bidding merge conflics
+
+commit 426cfbe466de9420781d9b616e005c343ea6f8f6
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Sat Nov 19 00:37:28 2016 -0700
+
+    Added all bidding functionality :feelsgood:
+
+commit f1a0af0c179618b867c3e8bb77deea7e05711ae7
+Merge: e7d3db5 6d44d61
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 00:24:43 2016 -0700
+
+    Merge pull request #119 from Brad--/tradeStuff
+    
+    Trade stuff
+
+commit 6d44d61f802ee192eabaaa0d66d49766b63315a2
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Sat Nov 19 00:23:37 2016 -0700
+
+    Finalize finalizeTrade
+
+commit 72b744b0d8e782ae29cf2b3e1da0574a44a5c8a2
+Merge: c25344e e7d3db5
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Sat Nov 19 00:22:24 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into tradeStuff
+
+commit c25344e91ca578e828ee8347172868a040b14e4d
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Sat Nov 19 00:22:20 2016 -0700
+
+    commit for merge
+
+commit e7d3db5bbc86a35319e5d765bfa455b729908ba6
+Merge: a58cfb2 c671b0d
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Sat Nov 19 00:22:00 2016 -0700
+
+    Merge pull request #118 from Brad--/testy
+    
+    AHHHHHH
+
+commit c671b0dd6019eacbe202797abb44f18a437f2d64
+Merge: d3fac26 a58cfb2
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 00:20:44 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+    
+    # Conflicts:
+    #       src/cs414/a5/groupA/monopoly/server/GameServiceImpl.java
+
+commit d3fac26d24de2b92992f5e7b49807562c02851e9
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Sat Nov 19 00:12:13 2016 -0700
+
+    TRADING DATABASE MUMBO JUMBO
+
+commit a58cfb2e319cadd6416340cd816a06f8bbd164ad
+Merge: 405c511 82440bc
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 23:39:56 2016 -0700
+
+    Merge pull request #117 from Brad--/conerCase
+    
+    have to multiply it
+
+commit 82440bcc2d55ecca06eab4c151c52b8651395500
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 23:38:25 2016 -0700
+
+    silly XOR
+
+commit 9f26cd9964febed5c73af680658ed29d0696dbe0
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 23:17:58 2016 -0700
+
+    bradbradbradbrad
+
+commit c88a9f69d6e7a36bb6e8e1f88c7e50cfcb62c50f
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 23:09:57 2016 -0700
+
+    have to multiply it
+
+commit c9295ca1d53889345ac5b944f1bfdeedbbc6d405
+Merge: 1c079d2 405c511
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 23:05:03 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into testy
+    
+    # Conflicts:
+    #       src/cs414/a5/groupA/monopoly/server/GameServiceImpl.java
+
+commit 1c079d2795c20cafab4f6a153c81d9c3ce96120f
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 23:03:50 2016 -0700
+
+    WIP new trade to database, getting brad's stuff
+
+commit 405c511a3623931927071f6d6e80e444a8a3a00b
+Merge: 460b7ba a23a602
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 23:01:58 2016 -0700
+
+    Merge pull request #116 from Brad--/tradeAddIds
+    
+    Hella trade updates
+
+commit a23a6022e3f1c76ee860ad44cdacaad29787b30a
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 23:01:08 2016 -0700
+
+    Hella trade updates
+
+commit 460b7ba42a18023c784284cfa2d1bd684194ee07
+Merge: 2e5b359 c384583
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 22:47:36 2016 -0700
+
+    Merge pull request #114 from Brad--/pricesForMRATHINGS
+    
+    i think this is what Geoff wants
+
+commit 2e5b359b94c44ba380f23a2abe88c9495a0e8de3
+Merge: b345ed1 433fd4e
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 22:40:54 2016 -0700
+
+    Merge pull request #115 from Brad--/updateTrade
+    
+    Update Trade
+
+commit 433fd4edb632956e5fedc30bbc77ed12cdfc2c98
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 22:39:27 2016 -0700
+
+    Update Trade
+
+commit c3845832183755d9fa6368f9a9ff6e6441b7e3b1
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 22:30:52 2016 -0700
+
+    i think this is what Geoff wants
+
+commit b345ed11005579bd7c34f7db414767e380557ad8
+Merge: 5a52a12 6e2399b
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 22:09:12 2016 -0700
+
+    Merge pull request #103 from Brad--/datMortgage
+    
+    This shit's whack yo
+
+commit 6e2399b93de8797c2948e6ca59e19907e715dde1
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 22:00:57 2016 -0700
+
+    Mortgage property and handle tax on mortgaged properties
+
+commit 2c9a89a50b9f5e6ae47560a3b2deca31d59ff8a5
+Merge: ca801af 5a52a12
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 21:49:53 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into datMortgage
+
+commit ca801af9fa24069a24ccf3af80f41220fd8bea4f
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 21:49:49 2016 -0700
+
+    Commit before merge
+
+commit 5a52a1237578b8d0fbaec4f5611990b693b7d02c
+Merge: dc632c1 c1e10bc
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 21:49:23 2016 -0700
+
+    Merge pull request #113 from Brad--/testy
+    
+    Added getDeed()
+
+commit c1e10bcc4a624ae35e6e399eb2e49f8c54719d27
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 21:48:18 2016 -0700
+
+    Added updateDeed() method for DatabaseDeed
+
+commit 28a59b7144d85a1d9c96297ca9d5647030cefa96
+Merge: a4baa39 dc632c1
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 21:48:00 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit b84352d8f63ca0b552b313e2076441a8f7dca7eb
+Merge: b04c3c9 dc632c1
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 21:38:43 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into datMortgage
+
+commit dc632c143e09ec6777920ac235e4987cc835b8df
+Merge: 5697b6a a4baa39
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 21:38:23 2016 -0700
+
+    Merge pull request #112 from Brad--/testy
+    
+    Updated deed column in db
+
+commit b04c3c98fab5728a389141ad266a8e1df9bf02eb
+Merge: 8c8412a 5697b6a
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 21:36:14 2016 -0700
+
+    Merge
+
+commit 8c8412a894f3738c459703edfbcfb6456beb4b33
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 21:34:55 2016 -0700
+
+    Commit before merge
+
+commit a4baa394cdaa49900b9676fe2fb6597a662ebfbf
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 21:31:35 2016 -0700
+
+    Added new column to deed table
+
+commit 8ce16d49864cd8bf90be7be550852d8f360b3d79
+Merge: 858f1e4 5697b6a
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 21:14:35 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit 5697b6af87d82c609bdbe856729ad5fe366eb0c2
+Merge: 89e9db6 858f1e4
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 21:09:52 2016 -0700
+
+    Merge pull request #111 from Brad--/testy
+    
+    AHHH
+
+commit 858f1e4eed7d0566bffb196e510e57b605c59286
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 21:05:36 2016 -0700
+
+    fucking. stupid. rent.
+
+commit 90d10c0f936ba66658527ff852dcc2fa5c646334
+Merge: 0a1ea25 89e9db6
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 20:22:44 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into testy
+
+commit 89e9db6ac403cbb5efb0b9a3a7959afc162717f8
+Merge: b983aea 07ea755
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 20:22:26 2016 -0700
+
+    Merge pull request #110 from Brad--/realRentFixin
+    
+    Rent now accounts for housing (hopefully)
+
+commit b983aeaf23c5f71750beab7594fe917258a158f1
+Merge: 2f66bce d02b3b3
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Fri Nov 18 20:20:36 2016 -0700
+
+    Merge pull request #108 from Brad--/biddingBasics
+    
+    added basic stuff for bidding
+
+commit 07ea755cdad3c3d8b42ca50ba169767dd4e1ad0a
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 20:20:35 2016 -0700
+
+    Rent now accounts for housing (hopefully)
+
+commit 0a1ea256b8cf538147adb2620c51126da3418121
+Merge: baa446c 2f66bce
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 20:20:29 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit baa446c20768addc686266c6150720a098db3b84
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 20:19:51 2016 -0700
+
+    Selling housing works
+    
+    Also moved initialization of deeds display panel to it's own method for
+    cleanliness. Changed naming of buttons to be housing.
+
+commit d02b3b349f41531ea34b1c346e4d6910c7e21489
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 20:18:31 2016 -0700
+
+    oops good catch gabe
+
+commit 2f66bceda971f3dc3ddef874f7c9e2f2a6199bae
+Merge: 43fb826 29159da
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 20:17:39 2016 -0700
+
+    Merge pull request #107 from Brad--/testy
+    
+    Buying houses now follows the lame rules
+
+commit 3ed732d93e13275351e8a33d786cbcf28a66b1df
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 20:13:36 2016 -0700
+
+    added basic stuff for bidding
+
+commit 29159da791b13c805046bd6e082a0dc7b7eaede7
+Merge: 4acf764 43fb826
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 20:00:29 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit 4acf764c4021f311d195f550449dd3f231a15fa7
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 20:00:26 2016 -0700
+
+    Buying houses now follows the lame rules
+
+commit 43fb82622b3088ea042f5f0cbf30f7f0abf123df
+Merge: 17818d1 40a70c3
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 19:47:00 2016 -0700
+
+    Merge pull request #106 from Brad--/gabebranch10
+    
+    Added visible housing to UI :GODMODE:
+
+commit 40a70c31144fb0e48879267cd2b285e32000c1b5
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Fri Nov 18 19:44:28 2016 -0700
+
+    Added visible housing to UI :GODMODE:
+
+commit 17818d1d04f96d5d0abe4c55e8d55a5f82824b19
+Merge: 619d0c1 16542b8
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 19:05:42 2016 -0700
+
+    Merge pull request #105 from Brad--/testy
+    
+    Added sell button
+
+commit 16542b8fc18ed0caa9737c7e5685ed304801a959
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 19:04:44 2016 -0700
+
+    A hotel is after 4 houses oops
+
+commit 19ffa5b35f9dafbaf6f7b7e1d9f5dc8de466373c
+Merge: 49f76bc 619d0c1
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 18:57:20 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into testy
+
+commit 619d0c18c5f18cf3e24d491e69a320cef6f505e7
+Merge: 4627507 f1518dc
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 18:56:42 2016 -0700
+
+    Merge pull request #104 from Brad--/sellHouses
+    
+    Sell houses
+
+commit f1518dc9c66fa628328e5b3d6407f6904ec0c5f6
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 18:56:03 2016 -0700
+
+    just push the button damnit
+
+commit 49f76bc9e89bc1edfd242320b74361d1551ada65
+Merge: dfb5b1b 4627507
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 18:50:41 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit 072849d0aa1b38d2a0408de7356d60c4d9e90988
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 18:45:17 2016 -0700
+
+    updated so client can call it
+
+commit dfb5b1b559001f89849d9dff666b309296fe22a7
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 18:44:04 2016 -0700
+
+    Added sell property button
+    
+    Also changed buttons to be enabled/disabled instead of morphing ui
+
+commit d9feb26a46bd4dda5cb06cf58c40c0a604f1c24d
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 18:43:39 2016 -0700
+
+    This shit's whack yo
+
+commit e4a95770ca19b137247f9eb36070af23471bf77f
+Merge: 854ba5c 4627507
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 18:43:18 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into sellHouses
+
+commit 854ba5c80e7ab42497506eccd581f62042f91161
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 18:43:13 2016 -0700
+
+    added in sell house
+
+commit 4627507b09af02aa060653cf89c5503ddd7c4184
+Merge: 3b3b627 45b80bf
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 18:23:14 2016 -0700
+
+    Merge pull request #102 from Brad--/testy
+    
+    Added debug buttons to client
+
+commit 45b80bf83580f128ef1984ededb17b8b4236b936
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 15:33:18 2016 -0700
+
+    Player is now freed from jail if in there for 3 turns
+
+commit b9a04f7616f62222a4ba4bfc1f04861ed5d633ba
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 15:08:59 2016 -0700
+
+    Landing on owned property no longer crashes game
+    
+    OH YEAH AND PAYING RENT WORKS TOO YEE HAW
+
+commit c7a6c8579b0f7ac61a86e4aeae197f3eb389a0c9
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 14:19:37 2016 -0700
+
+    Added ability to buy houses
+    
+    Needs more testing/rule review
+
+commit 1ca8c8cbab05fa2a119f78aae2c547bf01ca841b
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 13:33:15 2016 -0700
+
+    Cleaned up gamepanel, added debug buttons
+
+commit 464370f108971474ebe6bf885d8633410c8b0d27
+Merge: 18cc457 3b3b627
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 13:22:18 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into testy
+
+commit 18cc457f12a598a8093afac457674bc943221cf9
+Merge: 819d20c b107fbb
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 13:21:39 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit 3b3b627ab7e7b0902971ee84d89bd67522c97a5a
+Merge: b107fbb ff3046e
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 13:21:21 2016 -0700
+
+    Merge pull request #101 from Brad--/debugFlags
+    
+    Roll debug flag, tabs -> spaces
+
+commit ff3046e2a6044f599001fce0eafc2376d78e6e4f
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 12:33:22 2016 -0700
+
+    Roll debug flag, tabs -> spaces
+
+commit b107fbb16f505dec4e3599e12b1f01d0ec2da441
+Merge: 90d395d 819d20c
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 01:56:35 2016 -0700
+
+    Merge pull request #100 from Brad--/testy
+    
+    Fixed doubles in jail behavior
+
+commit 819d20c4b6a832543be7261dfc6df39945317518
+Merge: b4f8fba 90d395d
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 01:55:59 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit b4f8fbaf81b1aa511a6b79b79e55f9a9357a3e68
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 01:55:57 2016 -0700
+
+    Jail will now 'release you' if you roll doubles
+    
+    But will not let you roll again that same turn, intended behaviour
+
+commit 90d395d35071a5961a485541c88970775a157b5c
+Merge: a9f42df 2b5f1ce
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 01:35:26 2016 -0700
+
+    Merge pull request #99 from Brad--/fixCardPassGo
+    
+    this should let you pass go for getting a card
+
+commit a9f42dffec977fce27e98982d3a37d45f5d97093
+Merge: 05d654e e3494f4
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 01:34:31 2016 -0700
+
+    Merge pull request #98 from Brad--/testy
+    
+    Tokens now set right with new vars
+
+commit 2b5f1ce84d78496c0590bee87f6d152f7c4dfb37
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 01:34:14 2016 -0700
+
+    this should let you pass go for getting a card
+
+commit e6fd835a8c6f00930367727d0cde69c23b46ce00
+Merge: 1f75dec 05d654e
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 01:33:19 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into testy
+
+commit 1f75dec565bb043ae2b5c4fc0ae3cf50728aee15
+Merge: e3494f4 3374114
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 01:32:12 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit e3494f436f509a55d20d9426536a1079c09bfcc2
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 01:31:55 2016 -0700
+
+    Tokens now set right with new vars
+
+commit 05d654ecccde1b21bc29ea11cae3c429083e2186
+Merge: 3374114 02799b1
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 01:31:19 2016 -0700
+
+    Merge pull request #97 from Brad--/clientInJailAndNeedsBAIL
+    
+    Bail out
+
+commit 3374114e106606bd1934ef29f6cdcad0934bde5b
+Merge: 564d4ce 6755141
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 01:27:49 2016 -0700
+
+    Merge pull request #96 from Brad--/testy
+    
+    Last rolls in database
+
+commit 02799b152d8b5023768e255933b0dcdc6790b503
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 01:27:30 2016 -0700
+
+    Bail out
+
+commit 564d4cee83ee8bb46bec0bb98354853145ad5825
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 01:23:55 2016 -0700
+
+    updated to reset speeding
+
+commit 67551419fc4f0b3bc5f157a99343dba1c525e616
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 01:09:16 2016 -0700
+
+    Added last rolls for token into database
+
+commit 198a27e6c9fb781da349f8a06a02173a7370d071
+Merge: 16d9738 6ce3627
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 01:08:59 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit 6ce362756aaa7097ddef41a6635305edc812bd03
+Merge: ad7f54f 16d9738
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 00:57:07 2016 -0700
+
+    Merge pull request #95 from Brad--/testy
+    
+    Fixed up checkRolledDoubles
+
+commit 16d9738c173f19d938b9619b76a331e3d813ba11
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 00:56:10 2016 -0700
+
+    Fixed up checkRolledDoubles
+
+commit aa6dc1e3cc62ccd6af785045bc05bc924ee129ed
+Merge: 4cb2131 ad7f54f
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 00:54:53 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit ad7f54f7764494905012954a2d51da21922cf84f
+Merge: 4cb2131 6c866ea
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 00:54:28 2016 -0700
+
+    Merge pull request #94 from Brad--/checkForDoubles
+    
+    this should let you check if they just rolled doubles
+
+commit 6c866ea1a0e266468f669e854d7f30c74c4f2dfc
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 00:53:19 2016 -0700
+
+    this should let you check if they just rolled doubles
+
+commit 4cb213128e1489e72cb37496b293675a16b13ee7
+Merge: a0f4269 2058797
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 00:52:29 2016 -0700
+
+    Merge pull request #93 from Brad--/gabebranch8
+    
+    Gabebranch8
+
+commit 20587972c5df2ee9e9bddde1eed0b82fb4b8c8ed
+Merge: 46d35e6 a0f4269
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Fri Nov 18 00:50:19 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into gabebranch8
+
+commit 46d35e6c2488f1836b953bc1f2925694542e0515
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Fri Nov 18 00:50:16 2016 -0700
+
+    Changed the way deeds display
+
+commit a0f42695afd9bb0e0c84c29eab05578180260bc1
+Merge: ea20713 390ccbf
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Fri Nov 18 00:49:40 2016 -0700
+
+    Merge pull request #92 from Brad--/testy
+    
+    Added description pop-ups to taxes
+
+commit 390ccbfebf98fb771a8394c48251a5c3f5967da1
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 00:46:34 2016 -0700
+
+    Cards now display in pop-up
+    
+    Also fixed a couple typos
+
+commit cb5840ef43fa7bf4a0b8677f7db0811a805b8881
+Merge: b814fed ea20713
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 00:38:22 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into testy
+
+commit b814fedcd1d624b3e788c87b1111def49f6918a6
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 00:36:37 2016 -0700
+
+    Added descriptive messages for taxes
+
+commit ea2071350877360a65defed1f8750cba93c1d49b
+Merge: b9bccf0 9b813b1
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 00:33:32 2016 -0700
+
+    Merge pull request #91 from Brad--/jail
+    
+    should not let you move if you are in jail
+
+commit 9b813b127979eba73fa858f85203ec8c870e9757
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 00:33:17 2016 -0700
+
+    good call
+
+commit 9ffc6b5bfd99a2b9fa1c5ee65c43a6a48665baac
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 00:32:11 2016 -0700
+
+    should not let you move if you are in jail
+
+commit b8769788c15e14a00a2bdebfcfe8642eceef73bf
+Merge: ffb1969 b9bccf0
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 00:09:07 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit b9bccf08aa4010fab509b98a533707765fd87952
+Merge: 06333b2 c4f7b3e
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 00:05:50 2016 -0700
+
+    Merge pull request #90 from Brad--/gabebranch7
+    
+    Made dice roll to a label again
+
+commit 06333b2efa38d14b0a49a3f173a6b84eb0c533eb
+Merge: 6668064 62d1eb7
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Fri Nov 18 00:05:09 2016 -0700
+
+    Merge pull request #89 from Brad--/tradeclass
+    
+    Gators and Satyrs
+
+commit c4f7b3e6d42a00c2c6c6f14f2727d1bea460c69f
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Fri Nov 18 00:04:57 2016 -0700
+
+    Made dice roll to a label again
+
+commit 62d1eb7e3d5d8ecd25358f61b9176ade9dc5e81e
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Fri Nov 18 00:04:08 2016 -0700
+
+    Dings, not Streeds
+
+commit ffb19699c2632ebf0c80c508d3108e7fad4f650d
+Merge: a229782 6668064
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Fri Nov 18 00:04:00 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit 306d29cab42cd570066ce19eb4632783b950bccd
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 23:58:02 2016 -0700
+
+    Gators and Satyrs
+
+commit 6668064679af57ed3f181ef33ae273ead7528775
+Merge: 9295464 41dc44a
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 23:56:49 2016 -0700
+
+    Merge pull request #88 from Brad--/gabebranch6
+    
+    Gabebranch6
+
+commit 41dc44a906615c49bc7aa44c373e1683f1e0a6f9
+Merge: 4b70f5c 9295464
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Nov 17 23:52:11 2016 -0700
+
+    fixed merge conflicts
+
+commit 92954642fd239b714f4941548584e13683d7b9e4
+Merge: c40e840 cb0644e
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Thu Nov 17 23:49:41 2016 -0700
+
+    Merge pull request #87 from Brad--/goWillWork
+    
+    this should get you some money
+
+commit 4b70f5c13b875bb92005ce5f3b47c2aaf37c52d0
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Nov 17 23:48:35 2016 -0700
+
+    Added ability to choose to buy property or not
+
+commit cb0644e3a7216dc8626a74842f90ccf542389acb
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 23:45:30 2016 -0700
+
+    this should get you some money
+
+commit c40e8403bebe6e9b8fdcefe1032c8326082e4e15
+Merge: 12b4b80 28c5a54
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 23:33:04 2016 -0700
+
+    Merge pull request #83 from Brad--/namesakeMethod
+    
+    Check for monopoly
+
+commit 28c5a54b61060cefc6845689a05601387c680701
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 23:30:43 2016 -0700
+
+    buyHouse method
+
+commit 4928b14976e10000c22f69a4b9d4dd99f2a88fb8
+Merge: e75ffe3 12b4b80
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 23:24:47 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into namesakeMethod
+
+commit 12b4b80f0d2dec479f3dfbdacebeb1ad6154b13d
+Merge: d6ca7b6 e8dfdf8
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 23:23:12 2016 -0700
+
+    Merge stuff
+
+commit d6ca7b62277d4809a5aed81d19370c044438dd40
+Merge: 19c44f3 0bf2b9f
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 23:19:39 2016 -0700
+
+    Merge branch 'testy'
+
+commit 0bf2b9f5973862195ed1940a18eea61ea7d3391e
+Merge: a229782 19c44f3
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 23:19:16 2016 -0700
+
+    Merge branch 'master' into testy
+
+commit a229782ddeb18347c9deb75a487acd49884a776b
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 23:17:36 2016 -0700
+
+    Added new SQL query for braddy poo
+
+commit e75ffe3c4a49856167831623d5ed4900defe18a5
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 23:17:09 2016 -0700
+
+    Half baked buyHouse
+
+commit e8dfdf8c4ac3b9dd2f88c32181349950bc5db0e5
+Merge: e599dd6 26a983e
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 23:13:25 2016 -0700
+
+    Merge pull request #85 from Brad--/sellProperty
+    
+    this should sell a property
+
+commit 26a983e7c22ba6cac8e214d028fe6e3a7ec561f7
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 23:13:10 2016 -0700
+
+    good code review
+
+commit 9586adf717a9c647b185c080d9d23e9949bfa92e
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 23:06:43 2016 -0700
+
+    good code review
+
+commit 8337dedf0a83dfb1db6af7d60dba6d5351367821
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 23:04:40 2016 -0700
+
+    good catch geoff
+
+commit 79a8756484859a1b76d19e04db2ac6ef17e4a9da
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 22:58:32 2016 -0700
+
+    forgot to update this stuff too
+
+commit c1141292a821845cc6b32ac7de92c63c5cfbead9
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 22:55:49 2016 -0700
+
+    this should sell a property
+
+commit e599dd689e0a7f47ded284539d74c5494671b4ae
+Merge: c4f0edd 59eec14
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 22:45:52 2016 -0700
+
+    Merge pull request #84 from Brad--/testy
+    
+    More SQL bugfix tweaks
+
+commit 59eec1449fa279be19715b0aa926932a64d18544
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 22:45:14 2016 -0700
+
+    More SQL bugfix tweaks
+
+commit 5ea04044d62def93b6f19f8afb0c62804cf16400
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 22:34:25 2016 -0700
+
+    Check for monopoly
+
+commit 7f44465ab0729995df97a36eb6afabc43a9b1c6b
+Merge: 815b7b3 c4f0edd
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Nov 17 22:31:50 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into gabebranch5
+
+commit c4f0edd6002a7364bf81b7acc6def80a83a8c642
+Merge: c8dee31 83b855c
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 22:31:44 2016 -0700
+
+    Merge pull request #82 from Brad--/testy
+    
+    Fixed query on getCard()
+
+commit 815b7b32822486d9095e9db0c997d1ab1acdc6d9
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Nov 17 22:31:18 2016 -0700
+
+    Commiting to pull. Added DeedSpotOptions
+
+commit 83b855c9a74d5f13fe7b884c18cb296f3762ffca
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 22:31:00 2016 -0700
+
+    Fixed query on getCard()
+
+commit c8dee311e17a5e714dc7c38ba3d821ebc7a5713d
+Merge: 19c44f3 c10c66f
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Thu Nov 17 22:27:34 2016 -0700
+
+    Merge pull request #81 from Brad--/testy
+    
+    Added name and property to Deed
+
+commit c10c66fd777c5f0cb4cb329f3f61a829719504b8
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 22:27:05 2016 -0700
+
+    Added name and property to Deed
+
+commit 19c44f36ffd34f92a071b4c7699f6f2adb1c287a
+Merge: 99b5c29 113d10f
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 21:53:34 2016 -0700
+
+    Merge pull request #80 from Brad--/testy
+    
+    Owned deeds works now
+
+commit 113d10f733dc437c04013a33d1616167757b729a
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 21:49:53 2016 -0700
+
+    send help pls
+    
+    Made things work with refactored code
+
+commit 85e66ddce323128f2b82674bdd2239408249c921
+Merge: 821c27b 99b5c29
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 21:13:23 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into testy
+
+commit 99b5c2900ee17e466ed40fecccba5d3a870ce44d
+Merge: ea73ad3 64d94ef
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 21:13:10 2016 -0700
+
+    Merge pull request #79 from Brad--/makeClientHappy
+    
+    made the methods callable from client
+
+commit 64d94ef2d8df9883287edfc3c1e0a936c563365c
+Merge: 72af14a ea73ad3
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 21:10:48 2016 -0700
+
+    fixed conflict
+
+commit 821c27b2b19047960a9610912ce914d5a423e86e
+Merge: 17a4b0a ea73ad3
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 21:08:44 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into testy
+
+commit 72af14a0e20fff6684abe788bb5e54754b9d89d2
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 21:08:08 2016 -0700
+
+    made the methods callable from client
+
+commit ea73ad336c572a8d9b2a40055015bc97c3f82e2d
+Merge: e6c40ea 46f998e
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 21:07:40 2016 -0700
+
+    Merge pull request #78 from Brad--/gabebranch4
+    
+    Gabebranch4
+
+commit 46f998e8b4a877d17d036a290ae589082a2caf98
+Merge: 5531ddf e6c40ea
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Nov 17 21:04:21 2016 -0700
+
+    Fixed merge
+
+commit 17a4b0a561e663678d69453d679a0d13353b6a17
+Merge: dda4a68 e6c40ea
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 21:01:42 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit dda4a68666af9229d8fac2934ca1a1b05c4ab926
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 21:01:39 2016 -0700
+
+    Deeds are now auto-bought and displayed
+
+commit 5531ddf91a92fbc8cc5ad6403907995884c869bc
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Nov 17 20:59:57 2016 -0700
+
+    Refactored to operate on housingCount, and determine hotels from that.
+    Only initialize deeds once in database now.
+
+commit e6c40ea87480c65dcb9fa18976c6a8f40aa55681
+Merge: 6f7f106 a41b048
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 20:42:58 2016 -0700
+
+    Merge pull request #77 from Brad--/handelRollUpdate
+    
+    should be done with the refactor
+
+commit a41b048525e99428a70aed87c8fea63c06dbfdbf
+Merge: 59b067f 6f7f106
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 20:42:34 2016 -0700
+
+    Merge classical composer Handel into master
+
+commit 59b067f93953ef3b7dbfe251997743798cedd2ef
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 20:28:39 2016 -0700
+
+    should be done with the refactor
+
+commit 6f7f106a6d5740065c677c8e48409a973383f3a8
+Merge: c656928 0605f5d
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Thu Nov 17 20:15:23 2016 -0700
+
+    Merge pull request #76 from Brad--/testy
+    
+    Closed open connections
+
+commit 0605f5d046446df9d75002db7fd042183135748a
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 19:56:03 2016 -0700
+
+    Fix label not updating properly for turns
+
+commit 9828aa77c3a08d4a44e82a145272e5541e99a9ab
+Merge: ac6afe3 c656928
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 19:46:54 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit ac6afe3efa79fce4f1e26c1d4e1ac0c59d2e0832
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 19:46:52 2016 -0700
+
+    Changed refresh rate to 1s for drawing, close open connections
+
+commit c65692893e5b8625d405bf221821f3fab7924b7e
+Merge: 94a64de a8fdeff
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 19:01:02 2016 -0700
+
+    Merge pull request #74 from Brad--/testy
+    
+    Start of turns
+
+commit a8fdefff8db12c5dfccec3f856c836a95f25cdde
+Merge: 15369a0 94a64de
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 18:49:20 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into testy
+
+commit 15369a05376b2e0b566adce8a32b2f1d38d88469
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 18:49:17 2016 -0700
+
+    Beginning of turns
+    
+    Turns work (on a long cooldown now), need to get labels working properly
+    for them still. Only display undefined or their own name.
+
+commit 94a64decf46bbd8d40da446929e281f9022526c1
+Merge: 63e267b ef08b59
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 17:52:31 2016 -0700
+
+    Merge pull request #73 from Brad--/houseOfCards
+    
+    should be able to get a card from the server
+
+commit 63e267ba170c7c8384de9cec38f0312bc88a7303
+Merge: 9b46bc5 9401305
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 17:51:00 2016 -0700
+
+    Merge pull request #72 from Brad--/PurchaseDeedForMoney
+    
+    Actually charge people rent, tabs > spaces :santa:
+
+commit ef08b59212cac7e2c24da18a1bef8450580b6489
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 17:41:18 2016 -0700
+
+    should be able to get a card from the server
+
+commit 94013057c36041a76d9e250535d2efba66758be0
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Thu Nov 17 17:39:55 2016 -0700
+
+    Actually charge people rent, tabs > spaces :santa:
+
+commit 9b46bc51ddb2fe062755dda128b9f591ed92da18
+Merge: ffdea28 738f1f3
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 17:06:36 2016 -0700
+
+    Merge pull request #71 from Brad--/testy
+    
+    Fixed prepared statements?
+
+commit ffdea28062fd73387f02124ed9dfae7cc383fba4
+Merge: 984f118 a5d8670
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 17:04:33 2016 -0700
+
+    Merge pull request #70 from Brad--/testy
+    
+    Working on getting deeds to initialize
+
+commit 738f1f320d741bb7e1b94e3e9fc23a48e9572ead
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 17:04:07 2016 -0700
+
+    Fixed prepared statements to be able to run.
+
+commit a5d867093d75967ef975ca8c33dc60add321616a
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 16:45:43 2016 -0700
+
+    Working on getting deeds to initialize
+
+commit 984f11879f99a676262e9ec0cf5b73bc0f1a7168
+Merge: 742e029 28666b3
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 16:13:34 2016 -0700
+
+    Merge pull request #69 from Brad--/deedsOfGreatness
+    
+    this should intilize all the deeds for a game
+
+commit 742e0298ee5bcbb19c2b6a8ad960b7bf6a42e92a
+Merge: 57b7968 ef1afc8
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 15:59:44 2016 -0700
+
+    Merge pull request #68 from Brad--/gabebranch3
+    
+    Added playerTurn field to token
+
+commit 28666b3b6050ecdc4362d8f1f8c00dfac4b7a322
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 15:57:49 2016 -0700
+
+    this should intilize all the deeds for a game
+
+commit ef1afc84c240c635b222137d13f5ef93838021f9
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Thu Nov 17 14:41:40 2016 -0700
+
+    Added playerTurn field to token
+
+commit 57b79687289f7d76271296f24e20c81eb27f2ac3
+Merge: ce90e3d 59c2ff8
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 02:06:16 2016 -0700
+
+    Merge pull request #67 from Brad--/Deeds
+    
+    Deeds
+
+commit 59c2ff88acb1016e7e301c9efd7dd80536e143b0
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 02:05:39 2016 -0700
+
+    Reswapped the checker back to null
+
+commit 220fd8abc926f762f3b27891d606fce5b4344967
+Merge: 5e86fea 2594082
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 02:05:02 2016 -0700
+
+    Merge branch 'Deeds' of https://github.com/Brad--/cs414 into Deeds
+
+commit 5e86feade013a63cc9a9d1df0b98713740ecd5f2
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 02:04:12 2016 -0700
+
+    Deeds are now named, sql update
+    
+    SQL now is safer. Please use this notation for future sql checks
+    ('position' is a reserved word in MySQL)
+
+commit 25940829034e625cdff8660339b4f04d967718c4
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 01:42:58 2016 -0700
+
+    DB is returing empty string
+
+commit 36d32e132f817ddd72ed47d0de22a495ced69439
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 01:28:17 2016 -0700
+
+    Fixed game id not being set (THANKS GABE)
+
+commit 4bc2e18e7ca841664ccac26a06255849bc242299
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 01:18:46 2016 -0700
+
+    fml
+
+commit a091683af0ec33706e17523e4fe1c349ec0f3402
+Merge: cde005e ce90e3d
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 01:11:09 2016 -0700
+
+    Merge remote-tracking branch 'origin' into Deeds
+
+commit cde005e4cf9c1c21dfc9fa157e48b7e385567eb9
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 01:07:39 2016 -0700
+
+    1 based calcrent in deed
+
+commit ce90e3db971a08def04b4b5446c5f1b78b742411
+Merge: ccec657 7315138
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 00:54:29 2016 -0700
+
+    Merge pull request #66 from Brad--/gthang
+    
+    Gthang
+
+commit 3a567b4cd5603f2cebcf6f1695a514936b790cd2
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 00:46:50 2016 -0700
+
+    took out old code
+
+commit 731513837fcb36a1407dda234c627e1eabbd49c0
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 00:46:03 2016 -0700
+
+    Timer stuff
+    
+    Timer is now synced (reduced time it takes to 'ready up check')
+    Added timer to refresh the board to keep everything the same across all
+    user's boards.
+
+commit f72a047037b432d8a3cb231c53219fc1aacc7893
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 00:41:09 2016 -0700
+
+    try this stuff
+
+commit e6dc206b01d14e50b077c42378633f62b49ea822
+Merge: 4034802 ccec657
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 00:27:06 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into gthang
+
+commit ccec657deb7a541cc3f546317d7e911c2d20d7bc
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 00:26:16 2016 -0700
+
+    fixed getting double go
+
+commit 4034802da8e307c3b2631155fe18f42f1ff512ee
+Merge: de31591 1160a77
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 00:16:45 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into gthang
+
+commit 1160a774ec871a5d01f6ed7ae465f54c96776d12
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 00:14:56 2016 -0700
+
+    added some more jail logic
+
+commit de315913969d6dd1ae7c47bb1a825b047379d8a6
+Merge: 47f2730 2fccac7
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 00:14:45 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into gthang
+
+commit 47f2730f4a578fbd550d83d58a3f4f13871e9992
+Merge: 40d3017 44105d9
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 00:05:12 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into gthang
+
+commit 2fccac79f69685715c1facbe48b02057678c1556
+Merge: 44105d9 c2293e1
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 00:05:05 2016 -0700
+
+    Merge pull request #65 from Brad--/fixJail
+    
+    Fix jail
+
+commit c2293e1e0a1060116f5cd576bbd75c7682d19d63
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 00:02:50 2016 -0700
+
+    i think this fixes part of jail it still doesn't do turns
+
+commit ff7ad1690d350b0a036c6102c97319fd647bfb54
+Merge: 7682153 44105d9
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 00:01:42 2016 -0700
+
+    Merge remote-tracking branch 'origin' into fixJail
+
+commit 40d3017095021f57f9d901d76a0f45af6ae26e3f
+Merge: a66a7e6 db37044
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Thu Nov 17 00:01:19 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into gthang
+
+commit 44105d92563590a3df4b72d8d7c55e39fbcc3d4f
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 00:00:54 2016 -0700
+
+    Revert "re 1 based borded"
+    
+    This reverts commit db370446bf331d3bc59d13e9d224154addc1e880.
+
+commit 7682153badcf4ae7ce593b2b4e66b0525008aff4
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Nov 17 00:00:39 2016 -0700
+
+    can get out of jail with doubles now
+
+commit db370446bf331d3bc59d13e9d224154addc1e880
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Nov 16 23:55:37 2016 -0700
+
+    re 1 based borded
+
+commit a66a7e6399bd2d81380435be0fd634f88e976ca2
+Merge: 382b525 e28bf5d
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Wed Nov 16 23:47:53 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into gthang
+
+commit e28bf5d8519131993e19e02b25bf4b766ceca376
+Merge: babb3b9 ac08de9
+Author: gtfreymuth <gfrey@rams.colostate.edu>
+Date:   Wed Nov 16 23:47:40 2016 -0700
+
+    Merge pull request #64 from Brad--/gabebranch2
+    
+    Roll functionality is now present.
+
+commit ac08de9dfc24692b8b9d0875ac2db0c6c827ce48
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Nov 16 23:44:23 2016 -0700
+
+    Roll functionality is now present.
+
+commit babb3b97267f1ccadddeb028ba2b287e6d5a2f74
+Merge: fb6473f 3b8f266
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Wed Nov 16 22:57:19 2016 -0700
+
+    Merge pull request #63 from Brad--/topics/rollingAgain
+    
+    refactor to make rolling work again
+
+commit 3b8f266231d28af61af53f17bfb0983ec924537e
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Nov 16 22:57:00 2016 -0700
+
+    fixed other conflicts and took out unesed imports
+
+commit 2157c2b7c96ec6f7053ed3bad219cc38ea6f295a
+Merge: a0dbaa3 fb6473f
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Nov 16 22:52:46 2016 -0700
+
+    updated to master
+
+commit a0dbaa3aa9d88545ec3fb67d44afdbd71ea32b8b
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Nov 16 22:50:39 2016 -0700
+
+    refactor to make rolling work again
+
+commit 382b5258f5b4a7cdddf5048559b0ac92573a795a
+Merge: c69258a fb6473f
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Wed Nov 16 22:36:45 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into gthang
+
+commit fb6473f12293b4ad3c96a44c0205571c33485472
+Merge: 00693d5 147116c
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Wed Nov 16 22:07:59 2016 -0700
+
+    Merge pull request #62 from Brad--/gabebranch
+    
+    Deleting token now on window closing. That way its not waiting for ghost players to ready up.
+
+commit c69258a273de170cb71eaba7bbbcc0dfcb8c2ff8
+Merge: c480a5e 00693d5
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Wed Nov 16 21:50:07 2016 -0700
+
+    Merge remote-tracking branch 'refs/remotes/origin/master' into gthang
+
+commit 147116c681cd23399482f5030ede6350a45a0a59
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Nov 16 20:42:13 2016 -0700
+
+    Deleting token now on window closing. That way its not waiting for ghost
+    players to ready up.
+
+commit 00693d599a66e10f2c735b636a7187608f37cb94
+Merge: fd01037 6fa7e1e
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Wed Nov 16 20:31:53 2016 -0700
+
+    Merge pull request #61 from Brad--/gabebranch
+    
+    Commented out merge things to compiling state again.
+
+commit 6fa7e1e790d6715092dd85cfcf4ee4f220746814
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Nov 16 20:24:12 2016 -0700
+
+    Commented out merge things to compiling state again.
+
+commit fd010374e5bc17bb589080372d4070db647b537d
+Merge: 51f38ca 3143f59
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Wed Nov 16 20:11:04 2016 -0700
+
+    Merge branch 'gabeNMB3'
+
+commit 3143f59cdcc3d3d3ee122cc33fe3de6de8ee1cbe
+Merge: 8343fcb 51f38ca
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Wed Nov 16 20:10:41 2016 -0700
+
+    Merge resolution stuff. It's messy.
+
+commit 8343fcb7dc57af470003756d7461474af8b09e45
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Nov 16 19:50:33 2016 -0700
+
+    Made the ready up system work, and it is now drawing the board
+
+commit c912a77e4cd0f15ddbb54792cc8d487c1544058a
+Merge: 5de5e58 3045ab1
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Wed Nov 16 00:58:42 2016 -0700
+
+    Merge pull request #59 from Brad--/gabeNMB1
+    
+    Gabe nmb1
+
+commit 3045ab16d5fbaf41bfcb5f0417f0a1696661fac7
+Merge: 54772aa 5de5e58
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Nov 16 00:57:27 2016 -0700
+
+    i hate gabe
+
+commit 54772aab7530ef42962afec74ec1f940de0b8169
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Wed Nov 16 00:55:15 2016 -0700
+
+    fixed this stuff
+
+commit 5de5e5899ad9171b93f4f8ab9e3dc67083861e92
+Merge: 28570ed 3c7ceb1
+Author: Gabe <gabe4s@users.noreply.github.com>
+Date:   Wed Nov 16 00:42:39 2016 -0700
+
+    Merge pull request #58 from Brad--/topics/basicstuff
+    
+    added in the card class and modified board to set the positions to cards
+
+commit d67d207c2c53f6e51f6b151cdb9e8d786a05f7ee
+Author: Gabe4s <gabedouda@gmail.com>
+Date:   Wed Nov 16 00:33:49 2016 -0700
+
+    Added ready up ability to start a multiplayer game. Added database
+    implementation.
+
+commit 3c7ceb10e1697f5e02f9ba13475f17070e9c4a38
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Tue Nov 15 23:29:23 2016 -0700
+
+    added in the card class and modified board to set the positions to cards
+
+commit 28570ed6cd0a908751e95cf162b210c9eb8c486b
+Merge: debc6f5 c480a5e
+Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
+Date:   Tue Nov 15 22:47:59 2016 -0700
+
+    Merge pull request #57 from Brad--/gthang
+    
+    Adding skeleton methods for Trading. Changed server side for spaces t…
+
+commit c480a5e241d6a564054dd17dcb3fd15f03f16e6d
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Tue Nov 15 22:45:34 2016 -0700
+
+    Adding skeleton methods for Trading. Changed server side for spaces to be 0 based. (Gabe is doing client side 1->0 update)
+
+commit 51f38ca806abd9290f3bf9ae621cf0ffc2d8360f
+Merge: 374d69e 34aa306
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Mon Nov 14 19:31:58 2016 -0700
+
+    Merge pull request #55 from Brad--/topics/TokenUtility
+    
+    Topics/token utility
+
+commit 374d69e30a21e05f9b302497d09467efba2f090f
+Merge: debc6f5 e2325f4
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Mon Nov 14 19:30:53 2016 -0700
+
+    Merge pull request #56 from Brad--/refactorDeedUtil
+    
+    Create DeedUtil
+
+commit e2325f4f180c691762cba527f8b6e14769e0ec5c
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Mon Nov 14 19:30:21 2016 -0700
+
+    Create DeedUtil
+
+commit 34aa306d10eaa277f81fc9fca2711fc31385228b
+Merge: b8a61df debc6f5
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Mon Nov 14 19:18:43 2016 -0700
+
+    Merge branch 'master' of https://github.com/Brad--/cs414 into topics/TokenUtility
+
+commit b8a61dfcb3e840f088b93df17f9263c32fc8b161
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Mon Nov 14 19:18:31 2016 -0700
+
+    updated utility and pulled most of everything out of board
+
+commit debc6f53383ab1b82edc323eaecb915087e6a2d0
+Merge: ecd76cd 745e18a
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Mon Nov 14 19:15:48 2016 -0700
+
+    Merge pull request #53 from Brad--/gmasta
+    
+    Added a couple methods to GameService for the client to communicate with server
+
+commit ecd76cd2eddbe826085b2e4a76fa1b182dbed538
+Merge: 7fcd212 21a8e13
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Mon Nov 14 19:14:44 2016 -0700
+
+    Merge pull request #54 from Brad--/refactorTheHorribleDeedNameSetThing
+    
+    Move deed naming into the Deed class instead of Board.
+
+commit 21a8e13064e50cbc21d29024dad7443541ee1dc2
+Author: Brad-- <brad.smith.1324@gmail.com>
+Date:   Mon Nov 14 19:13:58 2016 -0700
+
+    Move deed naming into the Deed class instead of Board.
+
+commit 745e18a085ade4919616a52256a904742932d136
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Mon Nov 14 15:41:42 2016 -0700
+
+    Added method for client to get money from server for displaying
+    
+    Needs implementing/testing client side
+
+commit 371d71e2d4d970a90d11f5cf559b69f0c69db593
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Mon Nov 14 15:30:52 2016 -0700
+
+    Added method for getting all owned properties to populate UI
+    
+    Needs testing and implementation still.
+
+commit 7fcd2125d812b508591a85d9e4cdb6f06f95bf29
+Merge: 558af6f 4489f06
+Author: Bradley Smith <brad.smith.1324@gmail.com>
+Date:   Fri Nov 11 15:44:49 2016 -0700
+
+    Merge pull request #52 from Brad--/gmasta
+    
+    Gmasta
+
+commit 4489f069104163fece1c2fa27d348cc5a257cc6b
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Wed Nov 9 15:10:24 2016 -0700
+
+    Moved Exceptions to Server Side
+    
+    Read the title
+
+commit 4e075f0d2e5e6b49e9ff0775fbd4f5f61e96fa8c
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Mon Nov 7 06:35:53 2016 -0700
+
+    Legendary Heroic Refactor
+    
+    I went through so much effort for this you better be thankful you mongs.
+    Don't fret at me because we aren't using GWT to it's fullest Gabe. No
+    more shared folder. Client objects on client, server objects on server.
+    We will discuss where exceptions go later.
+
+commit 4993b1a954698b1a355d0615cea81f236640fc8a
+Author: Geoff <gfrey@rams.colostate.edu>
+Date:   Mon Nov 7 03:06:50 2016 -0700
+
+    Changed package structure to fit A5's requirements
+
+commit 558af6f5b0ead7c1c8fab5533299ea248f702735
+Author: gphoon <garrett.phoonswadi@gmail.com>
+Date:   Thu Oct 27 23:56:55 2016 -0600
+
+    added git log
+
 commit e1b5b9c83bd67e760d2300b5e1358b844fdcab52
 Merge: 55cafa3 9784407
 Author: Garrett Phoonswadi <garrett.phoonswadi@gmail.com>
