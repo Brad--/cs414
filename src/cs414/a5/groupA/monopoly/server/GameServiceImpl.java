@@ -1118,6 +1118,27 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		deed.setMortgaged(rs.getBoolean("isMortgaged"));
 		return deed;
 	}
+
+	@Override
+	public Boolean mortgageProperty(String gameId, String playerName, String deedName) {
+		try {
+			Token player = getTokenByGameIdAndName(gameId, playerName);
+			DatabaseDeed dbdeed = getDatabaseDeedFromPosition(gameId, player.getPosition());
+			Deed deed = getDeedByPosition(gameId, player.getPosition());
+
+			if(dbdeed.getPlayerName().equals(playerName) && deed.getHousingCount() == 0) {
+				player.setMoney(player.getMoney() + (deed.getPrice() / 2) );
+				updateToken(player);
+				dbdeed.setMortgaged(false);
+				updateDeed(dbdeed);
+				return true;
+			}
+		} catch(Exception e) {
+			System.out.println("Error getting token / deed from server.");
+		}
+
+		return false;
+	}
 	
 	@Override
 	public HashMap<String, String> getDeedsOwnedByPlayer(String gameId, String playerName) {
