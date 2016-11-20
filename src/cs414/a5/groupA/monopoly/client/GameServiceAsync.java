@@ -2,10 +2,10 @@ package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import cs414.a5.groupA.monopoly.shared.BidResult;
 import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
@@ -80,7 +80,7 @@ public interface GameServiceAsync {
 	
 	void checkIfPlayerNeedsToBid(String gameId, String playerName, AsyncCallback<Integer> asyncCallback);
 	
-	void checkAndWaitForBiddingToEndAndRespond(String gameId, int position, AsyncCallback<String> callback);
+	void checkAndWaitForBiddingToEndAndRespond(String gameId, int position, AsyncCallback<BidResult> callback);
 	
 	void updateBidOnDeed(String gameId, int position, String playerName, int playerBid, AsyncCallback<Void> callback);
 
@@ -93,4 +93,6 @@ public interface GameServiceAsync {
 	void getTrade(int tradeId, AsyncCallback<Trade> callback);
 	
 	void mortgageProperty(String gameId, String playerName, String deedName, AsyncCallback<Boolean> callback);
+	
+	void buyPropertyFromBid(String gameId, BidResult bidResult, AsyncCallback<Void> callback);
 }
