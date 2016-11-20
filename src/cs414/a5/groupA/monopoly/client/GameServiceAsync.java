@@ -26,7 +26,7 @@ public interface GameServiceAsync {
 	
 	void updateToken(Token token, AsyncCallback<Void> callback);
 	
-	void deleteToken(Token token, AsyncCallback<Void> callback);
+	void deleteToken(String gameId, Token token, AsyncCallback<Void> callback);
 
 	void sellProperty(String gameId, String playerName, String deedName, AsyncCallback<Void> callback);
 

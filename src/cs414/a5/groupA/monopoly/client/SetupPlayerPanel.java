@@ -28,7 +28,7 @@ public class SetupPlayerPanel extends BasePanel {
 		Window.addWindowClosingHandler(new ClosingHandler() {
 			@Override
 			public void onWindowClosing(ClosingEvent event) {
-				getGameService().deleteToken(getToken(), new AsyncCallback<Void>() {
+				getGameService().deleteToken(getGameId(), getToken(), new AsyncCallback<Void>() {
 
 					@Override
 					public void onFailure(Throwable caught) {

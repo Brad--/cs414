@@ -755,6 +755,30 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		updateDeedByTokenAndAlternatePosition(currentPlayer, bidResult.getPosition());
 		currentPlayer.setMoney(currentPlayer.getMoney() - bidResult.getBidAmount());
 		updateToken(currentPlayer);
+		deleteOldBids(gameId);
+	}
+	
+	private void deleteOldBids(String gameId) {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		String sql = "DELETE FROM deedBid WHERE gameId=?";
+		
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, gameId);
+			
+			ps.executeUpdate();
+			
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
@@ -988,7 +1012,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 
 	@Override
-	public void deleteToken(Token token) {
+	public void deleteToken(String gameId, Token token) {
 		String sql = "DELETE FROM token WHERE tokenId=?";
 		
 		try {
@@ -1003,7 +1027,29 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		cleanupGameIdIfAllPlayersGone(gameId);
 
+	}
+	
+	private void cleanupGameIdIfAllPlayersGone(String gameId) {
+		ArrayList<Token> tokens = getAllGameTokens(gameId);
+		if(tokens.size() == 0) {
+			String sql = "DELETE FROM deed WHERE gameId=?";
+			
+			try {
+				Connection conn = getNewConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				
+				ps.setString(1, gameId);
+				
+				ps.executeUpdate();
+				
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private Card getCard(){
