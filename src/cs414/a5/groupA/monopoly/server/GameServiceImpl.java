@@ -1215,8 +1215,10 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
         ArrayList<Integer> positionsToCheck = getDeedPositionsList(deed.getPosition());
         for (Integer position : positionsToCheck) {
             DatabaseDeed tempDeed = getDatabaseDeedFromPosition(gameId, position);
-            if(tempDeed.getPlayerName().equals(playerName) && tempDeed.getHousingCount() > 0) {
-                return false;
+            if (tempDeed.getPlayerName()!=null) {
+            	 if((tempDeed.getPlayerName().equals(playerName)) && tempDeed.getHousingCount() > 0) {
+                     return false;
+                 }
             }
         }
         return true;
