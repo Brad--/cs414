@@ -142,6 +142,16 @@ public class GamePanel extends BasePanel {
 					}
 				});
 			}
+			
+			@Override
+			public void attemptToMortgage(String deedName) {
+				
+			}
+			
+			@Override
+			public void attemptToDeMortgage(String deedName) {
+				
+			}
 		};
 	}
 

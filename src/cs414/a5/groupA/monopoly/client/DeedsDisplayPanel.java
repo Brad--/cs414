@@ -2,6 +2,7 @@ package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -60,6 +61,29 @@ public class DeedsDisplayPanel extends FlexTable {
 				}
 				setWidget(row, 0, deedNameLabel);
 				if (playerName.equals(playerDisplaying)) {
+					String mortgageButtonString;
+					final Boolean mortgaged = deed.isMortgaged();
+					if (mortgaged) {
+						mortgageButtonString = "Un-mortgage property";
+					}
+					else {
+						mortgageButtonString = "Mortgage property";
+					}
+					Button mortgageButton = new Button(mortgageButtonString);
+					mortgageButton.addClickHandler(new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent arg0) {
+							if (mortgaged) {
+								attemptToDeMortgage(deedName);
+							}
+							else {
+								attemptToMortgage(deedName);
+							}
+						}						
+					});
+					setWidget(row, 1, mortgageButton);
+					
 					Button buyHousingButton = new Button("Buy housing");
 					buyHousingButton.addClickHandler(new ClickHandler() {
 						@Override
@@ -67,13 +91,14 @@ public class DeedsDisplayPanel extends FlexTable {
 							attemptToBuyHousing(deedName);
 						}
 					});
-					setWidget(row, 1, buyHousingButton);
+					setWidget(row, 2, buyHousingButton);
 					if (numHouses!=5) {
 						buyHousingButton.setEnabled(true);
 					}
 					else {
 						buyHousingButton.setEnabled(false);
 					}
+					
 					Button sellHousingButton = new Button("Sell housing");
 					sellHousingButton.addClickHandler(new ClickHandler() {
 						@Override
@@ -81,7 +106,7 @@ public class DeedsDisplayPanel extends FlexTable {
 							attemptToSellHousing(deedName);
 						}
 					});
-					setWidget(row, 2, sellHousingButton);
+					setWidget(row, 3, sellHousingButton);
 					if (numHouses!=0) {
 						sellHousingButton.setEnabled(true);
 					}
@@ -99,6 +124,14 @@ public class DeedsDisplayPanel extends FlexTable {
 	}
 	
 	public void attemptToSellHousing(String deedName) {
+		
+	}
+	
+	public void attemptToMortgage(String deedName) {
+		
+	}
+	
+	public void attemptToDeMortgage(String deedName) {
 		
 	}
 }
