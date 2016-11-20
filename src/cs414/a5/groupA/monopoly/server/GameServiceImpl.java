@@ -284,7 +284,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
         return false;
     }
 
-	private Token getTokenByGameIdAndName(String gameId, String playerName) throws Exception {
+    @Override
+	public Token getTokenByGameIdAndName(String gameId, String playerName) throws Exception {
 		Token token = null;
 
 		String sql = "SELECT * FROM `token` WHERE `gameId`=? AND `playerName`=?";
@@ -1215,8 +1216,10 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
         ArrayList<Integer> positionsToCheck = getDeedPositionsList(deed.getPosition());
         for (Integer position : positionsToCheck) {
             DatabaseDeed tempDeed = getDatabaseDeedFromPosition(gameId, position);
-            if(tempDeed.getPlayerName().equals(playerName) && tempDeed.getHousingCount() > 0) {
-                return false;
+            if (tempDeed.getPlayerName()!=null) {
+            	 if((tempDeed.getPlayerName().equals(playerName)) && tempDeed.getHousingCount() > 0) {
+                     return false;
+                 }
             }
         }
         return true;
@@ -1650,7 +1653,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	@Override
 	public void saveNewTradeToDatabase(Trade trade) {
 		String sql = "INSERT INTO `trade` (`gameId`, `playerOneName`, `playerOneMoneyOffered`, `playerOneAccepted`, "
-				+ "`playerTwoName`, `playerTwoMoneyOffered`, `playerTwoAccepted`, `isFinalized`"
+				+ "`playerTwoName`, `playerTwoMoneyOffered`, `playerTwoAccepted`, `isFinalized`)"
 				+ " VALUES (?,?,?,?,?,?,?,?)";
 		
 		try {

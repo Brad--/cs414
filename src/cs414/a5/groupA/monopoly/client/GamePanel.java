@@ -15,6 +15,7 @@ import cs414.a5.groupA.monopoly.shared.BidResult;
 import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
+import cs414.a5.groupA.monopoly.shared.Trade;
 
 public class GamePanel extends BasePanel {
 	ViewBoard viewBoard = new ViewBoard();
@@ -23,6 +24,7 @@ public class GamePanel extends BasePanel {
 	TurnPanel turnPanel;
 	LinkedHashMap<Integer, PlayerPiece> piecesByNumber = new LinkedHashMap<Integer, PlayerPiece>();
 	
+	Trade tradeInstance;
 	boolean inJail = false;
 	int turnsInJail = 0;
 	Timer countdown;
@@ -235,7 +237,26 @@ public class GamePanel extends BasePanel {
 				TradePlayerPickPanel tradePlayerPickPanel = new TradePlayerPickPanel(getGameId(), getPlayerName()){
 					@Override
 					protected void handleTradeClick() {
-						AlertPopup alert = new AlertPopup(getSelectedPlayer());
+						Trade trade = new Trade();
+						trade.setGameId(gameId);
+						trade.setPlayerOneName(getPlayerName());
+						trade.setPlayerOneDeeds(new ArrayList<String>());
+						trade.setPlayerOneMoney(0);
+						trade.setPlayerOneAccepted(false);
+						trade.setFinalized(false);
+						trade.setPlayerTwoName(getSelectedPlayer());
+						trade.setPlayerOneDeeds(new ArrayList<String>());
+						trade.setPlayerOneMoney(0);
+						trade.setPlayerOneAccepted(false);
+						
+						getGameService().saveNewTradeToDatabase(trade, new AsyncCallback<Void>() {
+							@Override
+							public void onFailure(Throwable arg0) {}
+							@Override
+							public void onSuccess(Void arg0) {
+								hide();
+							}
+						});
 					}
 				};
 			}

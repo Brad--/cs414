@@ -95,4 +95,6 @@ public interface GameServiceAsync {
 	void mortgageProperty(String gameId, String playerName, String deedName, AsyncCallback<Boolean> callback);
 	
 	void buyPropertyFromBid(String gameId, BidResult bidResult, AsyncCallback<Void> callback);
+
+	void getTokenByGameIdAndName(String gameId, String playerName, AsyncCallback<Token> asyncCallback);
 }
