@@ -867,11 +867,14 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			}
 			rent = (currentPlayer.getLastRollOne() + currentPlayer.getLastRollTwo())*multiplier;
 		}
-		else
-			if (deed.isMortgaged())
+		else {
+			if (deed.isMortgaged()) {
 				rent = 0;
-			else
-				rent = DeedUtil.calcRent(deed)*multiplier;
+			}
+			else {
+				rent = DeedUtil.calcRent(deed) * multiplier;
+			}
+		}
 		int amountPaid;
 		if (currentPlayer.getMoney() - rent >= 0) {
 			amountPaid = rent;
