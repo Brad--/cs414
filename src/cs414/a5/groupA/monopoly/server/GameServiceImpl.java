@@ -1272,9 +1272,9 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			rs = ps.executeQuery();
 			
 			while (rs.next()) { // if there is someone next by tokenId, update them
-				int deedPosition = rs.getInt("position");
-				Deed deed = new Deed(deedPosition);
-				deedAndColor.put(deed.getName(), deed.getPropertyGroup().name());
+				String deedName = rs.getString("deedName");
+				String propertyGroup = rs.getString("propertyGroup");
+				deedAndColor.put(deedName, propertyGroup);
 			}
 			conn.close();
 		}
