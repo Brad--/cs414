@@ -137,6 +137,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
         try {
             Token player = getTokenByGameIdAndName(gameId, playerName);
             Deed deed = getDeedByName(gameId, playerName, deedName);
+            DatabaseDeed databaseDeed = getDatabaseDeedFromPosition(gameId, deed.getPosition());
 
             PropertyGroup color = deed.getPropertyGroup();
             int cost = 0;
@@ -154,6 +155,10 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
             }
             else {
               	return false; // case when trying to buy railroad/utility houses. will need to fail
+            }
+            
+            if (databaseDeed.isMortgaged()) {
+            	return null; // handle case where the property is mortgaged
             }
 
             int resultFunds = player.getMoney() - cost;
@@ -203,6 +208,22 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		conn.close();
 		
 		return deeds;
+	}
+	
+	
+	private DatabaseDeed getDatabaseDeedByName(String gameId, String deedName) throws Exception {
+		DatabaseDeed deed = null;
+		String sql = "SELECT * FROM `deed` WHERE `gameId`=? AND `deedName`=?";
+		Connection conn = getNewConnection();
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, gameId);
+		ps.setString(2, deedName);
+		ResultSet rs = ps.executeQuery();
+		if (rs.next()) {
+			deed = getDatabaseDeedFromResultSet(rs);
+		}
+		conn.close();
+		return deed;
 	}
 
     @Override
@@ -1123,8 +1144,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	public Boolean mortgageProperty(String gameId, String playerName, String deedName) {
 		try {
 			Token player = getTokenByGameIdAndName(gameId, playerName);
-			DatabaseDeed dbdeed = getDatabaseDeedFromPosition(gameId, player.getPosition());
-			Deed deed = getDeedByPosition(gameId, player.getPosition());
+			DatabaseDeed dbdeed = getDatabaseDeedByName(gameId, deedName);
+			Deed deed = getDeedByPosition(gameId, dbdeed.getPosition());
 
 			if(dbdeed.getPlayerName().equals(playerName) && dbdeed.getHousingCount() == 0) {
 				player.setMoney(player.getMoney() + (deed.getPrice() / 2) );
@@ -1144,8 +1165,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	public Boolean unmortgage(String gameId, String playerName, String deedName) {
         try {
             Token player = getTokenByGameIdAndName(gameId, playerName);
-            DatabaseDeed dbdeed = getDatabaseDeedFromPosition(gameId, player.getPosition());
-            Deed deed = getDeedByPosition(gameId, player.getPosition());
+            DatabaseDeed dbdeed = getDatabaseDeedByName(gameId, deedName);
+            Deed deed = getDeedByPosition(gameId, dbdeed.getPosition());
 
             int cost = (deed.getPrice() / 2);
             cost += cost * .1;
@@ -1154,7 +1175,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
                 player.setMoney(player.getMoney() - cost);
                 updateToken(player);
 
-                deed.setMortgaged(false);
+                dbdeed.setMortgaged(false);
                 updateDeed(dbdeed);
                 return true;
             }
