@@ -216,10 +216,6 @@ public class GamePanel extends BasePanel {
 				endTurn();
 			}
 			@Override
-			public void handleTradeClick() {
-				
-			}
-			@Override
 			public void handleRollOneClick() {
 				doTurn(1);
 			}
