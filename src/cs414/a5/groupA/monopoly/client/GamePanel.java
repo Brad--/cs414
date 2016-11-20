@@ -417,11 +417,11 @@ public class GamePanel extends BasePanel {
 							public void onFailure(Throwable arg0) {}
 							@Override
 							public void onSuccess(Integer rent) {
-								if (rent==0) {
-									// do nothing
-								}
-								else if (rent != null) {
+								if (rent != null) {
 									AlertPopup alert = new AlertPopup("Paid $" + rent + " to " + deedOwner + " by landing on their property.");
+								}
+								else if (rent == 0) {
+									// do nothing
 								}
 								else {
 									AlertPopup alert = new AlertPopup("You ran out of money and lost the game. Game over");
