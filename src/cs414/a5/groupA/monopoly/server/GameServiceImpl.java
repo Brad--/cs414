@@ -4,17 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.*;
-import java.util.Map.Entry;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import org.apache.tools.ant.types.CommandlineJava.SysProperties;
-
-import java.util.Set;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
@@ -830,13 +825,25 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		int position = currentPlayer.getPosition();
 		DatabaseDeed deed = getDatabaseDeedFromPosition(gameId, position);
 		int multiplier =1;
+		int rent =0;
 		if (deed.getPropertyGroup().equals("RAILROAD")){
-			multiplier = (int) Math.pow(2.0, (double)checkNumberOfRailRoads(deed.getPlayerName(), deed.getDeedName(), gameId)-1);
+			multiplier = (int) Math.pow(2.0, (double) checkNumberOfOwnedPropertyGroups(deed.getPlayerName(), deed.getDeedName(), gameId)-1);
 		}
 		else if (checkForMonopoly(deed.getPlayerName(), deed.getDeedName(), gameId) && deed.getHousingCount() == 0){
 			multiplier =2;
 		}
-		int rent = DeedUtil.calcRent(deed)*multiplier;
+		if (deed.getPropertyGroup().equals("UTILITY")){
+			int numUtilities = checkNumberOfOwnedPropertyGroups(deed.getPlayerName(), deed.getDeedName(), gameId);
+			if (numUtilities ==1){
+				multiplier = 4;
+			}
+			else if (numUtilities ==2){
+				multiplier = 10;
+			}
+			rent = (currentPlayer.getLastRollOne() + currentPlayer.getLastRollTwo())*multiplier;
+		}
+		else
+			rent = DeedUtil.calcRent(deed)*multiplier;
 		int amountPaid;
 		if (currentPlayer.getMoney() - rent >= 0) {
 			amountPaid = rent;
@@ -1577,7 +1584,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 //		return null;
 //	}
 
-	private int checkNumberOfRailRoads(String playerName, String deedName, String gameId) {
+	private int checkNumberOfOwnedPropertyGroups(String playerName, String deedName, String gameId) {
 		HashMap<String, String> nameColorMap = getDeedsOwnedByPlayer(gameId, playerName);
 		int ownedCount = -1;
 		if (nameColorMap.containsKey(deedName)) {
