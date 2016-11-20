@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -221,6 +222,15 @@ public class GamePanel extends BasePanel {
 			@Override
 			public void handleRollDoublesClick() {
 				doTurn(2);
+			}
+			@Override
+			public void handleTradeClick() {
+				TradePlayerPickPanel tradePlayerPickPanel = new TradePlayerPickPanel(getGameId(), getPlayerName()){
+					@Override
+					protected void handleTradeClick() {
+						AlertPopup alert = new AlertPopup(getSelectedPlayer());
+					}
+				};
 			}
 		};
 		initializeTimers();
