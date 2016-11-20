@@ -12,7 +12,9 @@ TomCat 7.0 server
 Using the system:
 connect to javapoloy.site if you want to play it.
 compiling through the command line is much more challenging we will try to walk you though it.
-<ADD HERE>
+javac srcdir="/src"
+cp /src/*.class /war/WEB-INF/classes/
+java com.google.gwt.dev.Compiler (GWT SDK REQUIRED)
 
 
 Pro:
