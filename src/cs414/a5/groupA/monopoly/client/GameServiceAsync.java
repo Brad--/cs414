@@ -15,7 +15,9 @@ import cs414.a5.groupA.monopoly.shared.Trade;
  * The async counterpart of <code>GreetingService</code>.
  */
 public interface GameServiceAsync {
-	
+
+	Boolean unmortgage(String gameId, String playerName, String deedName);
+
 	void getAllGameTokens(String gameId, AsyncCallback<ArrayList<Token>> callback);
 	
 	void checkPlayersReady(String gameId, AsyncCallback<Boolean> callback);

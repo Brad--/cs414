@@ -1126,7 +1126,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			DatabaseDeed dbdeed = getDatabaseDeedFromPosition(gameId, player.getPosition());
 			Deed deed = getDeedByPosition(gameId, player.getPosition());
 
-			if(dbdeed.getPlayerName().equals(playerName) && deed.getHousingCount() == 0) {
+			if(dbdeed.getPlayerName().equals(playerName) && dbdeed.getHousingCount() == 0) {
 				player.setMoney(player.getMoney() + (deed.getPrice() / 2) );
 				updateToken(player);
 				dbdeed.setMortgaged(true);
@@ -1139,6 +1139,30 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 		return false;
 	}
+
+	@Override
+	public Boolean unmortgage(String gameId, String playerName, String deedName) {
+        try {
+            Token player = getTokenByGameIdAndName(gameId, playerName);
+            DatabaseDeed dbdeed = getDatabaseDeedFromPosition(gameId, player.getPosition());
+            Deed deed = getDeedByPosition(gameId, player.getPosition());
+
+            int cost = (deed.getPrice() / 2);
+            cost += cost * .1;
+
+            if(dbdeed.getPlayerName().equals(playerName) && dbdeed.isMortgaged() && player.getMoney() >= cost) {
+                player.setMoney(player.getMoney() - cost);
+                updateToken(player);
+
+                deed.setMortgaged(false);
+                updateDeed(dbdeed);
+                return true;
+            }
+        } catch(Exception e) {
+            System.out.println("Error getting token / deed from server.");
+        }
+        return false;
+    }
 	
 	@Override
 	public HashMap<String, String> getDeedsOwnedByPlayer(String gameId, String playerName) {
