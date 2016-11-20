@@ -31,6 +31,10 @@ public class PlayerStatsPanel extends VerticalPanel {
 			gamePiece.setUrl(token.getGamePiece());
 			nameLabel.setText(token.getPlayerName());
 			moneyLabel.setText("$" + token.getMoney());
+		} else {
+			gamePiece.setUrl("");
+			nameLabel.setText("");
+			moneyLabel.setText("");
 		}
 	}
 
