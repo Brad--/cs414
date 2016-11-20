@@ -97,4 +97,6 @@ public interface GameService extends RemoteService {
 	Trade getTrade(int tradeId);
 	
 	void buyPropertyFromBid(String gameId, BidResult bidResult) throws Exception;
+
+	Token getTokenByGameIdAndName(String gameId, String playerName) throws Exception;
 }

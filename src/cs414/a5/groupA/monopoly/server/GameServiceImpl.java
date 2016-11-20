@@ -284,7 +284,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
         return false;
     }
 
-	private Token getTokenByGameIdAndName(String gameId, String playerName) throws Exception {
+    @Override
+	public Token getTokenByGameIdAndName(String gameId, String playerName) throws Exception {
 		Token token = null;
 
 		String sql = "SELECT * FROM `token` WHERE `gameId`=? AND `playerName`=?";
@@ -1649,7 +1650,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	@Override
 	public void saveNewTradeToDatabase(Trade trade) {
 		String sql = "INSERT INTO `trade` (`gameId`, `playerOneName`, `playerOneMoneyOffered`, `playerOneAccepted`, "
-				+ "`playerTwoName`, `playerTwoMoneyOffered`, `playerTwoAccepted`, `isFinalized`"
+				+ "`playerTwoName`, `playerTwoMoneyOffered`, `playerTwoAccepted`, `isFinalized`)"
 				+ " VALUES (?,?,?,?,?,?,?,?)";
 		
 		try {
