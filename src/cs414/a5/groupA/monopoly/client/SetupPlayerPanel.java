@@ -148,7 +148,7 @@ public class SetupPlayerPanel extends BasePanel {
 	public void startGame() {
 		readyUpAlert.hide();
 		clear();
-		GamePanel gamePanel = new GamePanel(getToken().getPlayerName(), getGameId(), 30);
+		GamePanel gamePanel = new GamePanel(getToken().getPlayerName(), getGameId());
 	}
 
 	public String getGameId() {
