@@ -884,6 +884,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			amountPaid = currentPlayer.getMoney();
 			payRent(currentPlayer, amountPaid); // give other play rest of money
 			transferDeeds(currentPlayer, gameId, deed.getPlayerName());
+			deleteToken(gameId, currentPlayer);
 			return null;
 		}
 		return amountPaid;
