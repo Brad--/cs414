@@ -2,6 +2,7 @@ package cs414.a5.groupA.monopoly.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -60,8 +61,11 @@ public class TurnPanel extends VerticalPanel {
 		add(rollButton);
 		add(tradeButton);
 		add(endTurnButton);
-		add(rollOneButton);
-		add(rollDoublesButton);
+		String debug = Window.Location.getParameter("debug");
+		if(debug != null && debug.equalsIgnoreCase("true")) {
+			add(rollOneButton);
+			add(rollDoublesButton);
+		}
 	}
 	
 	public void setTurnLabelText(String text) {
