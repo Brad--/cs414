@@ -664,6 +664,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 		if (die.checkForDoubles(r1, r2)) {
 			if (currentPlayer.isInJail()) {
+				currentPlayer.setPosition(moveTo);
 				currentPlayer.setInJail(false);
 				return currentPlayer; // you get out of jail but wait a turn tell you can move
 			} else {

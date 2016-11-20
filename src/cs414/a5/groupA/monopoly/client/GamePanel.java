@@ -488,19 +488,33 @@ public class GamePanel extends BasePanel {
 	
 	private void gameOver() {
 		countdown.cancel();
-		int winner = -1;
-		int highestMoney = 0;
-		for (Entry<Integer, PlayerPiece> entry : piecesByNumber.entrySet()) {
-			Integer playerNumber = entry.getKey();
-			PlayerPiece player = entry.getValue();
-			if (player != null) {
-				if (player.getMoney() > highestMoney) {
-					highestMoney = player.getMoney();
-					winner = playerNumber;
-				}
+		getGameService().getAllGameTokens(getGameId(), new AsyncCallback<ArrayList<Token>>(){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				
 			}
-		}
-		AlertPopup notify = new AlertPopup(piecesByNumber.get(winner).getName() + " wins the game!");
+
+			@Override
+			public void onSuccess(ArrayList<Token> result) {
+				int highestMoney = -1;
+				String winningPlayer = null;
+				boolean tie = false;
+				for(Token token : result) {
+					if(token.getMoney() > highestMoney) {
+						highestMoney = token.getMoney();
+						winningPlayer = token.getPlayerName();
+						tie = false;
+					} else if (token.getMoney() == highestMoney) {
+						tie = true;
+					}
+				}
+				if(tie) {
+					AlertPopup alert = new AlertPopup("Times up! A tie occured, so there is no true winner.", true, false);
+				} else {
+					AlertPopup alert = new AlertPopup("Times up! " + winningPlayer + " has won the game!", true, false);
+				}
+			}});
 	}
 	
 	private void updateDeedsDisplay() {
