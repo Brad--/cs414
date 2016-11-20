@@ -24,8 +24,7 @@ Pro:
  All the data is stored dynamically and very easy to check to find errors
 
 Con:
- Add Cons once we are done coding and Testing
- <ADD HERE>
+ We unfortunately didn't get trading to work.
 
 Pattern:
 We used the Mode View Presenter patter its a sub category of the MVC patter.
