@@ -838,7 +838,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		if (deed.getPropertyGroup().equals("RAILROAD")){
 			multiplier = (int) Math.pow(2.0, (double)checkNumberOfRailRoads(gameId, deed.getDeedName(), deed.getPlayerName())-1);
 		}
-		else if (checkForMonopoly(deed.getPlayerName(), deed.getDeedName(), gameId)){
+		else if (checkForMonopoly(deed.getPlayerName(), deed.getDeedName(), gameId) && deed.getHousingCount() == 0){
 			multiplier =2;
 		}
 		int rent = DeedUtil.calcRent(deed)*multiplier;
