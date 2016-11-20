@@ -1147,7 +1147,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			DatabaseDeed dbdeed = getDatabaseDeedByName(gameId, deedName);
 			Deed deed = getDeedByPosition(gameId, dbdeed.getPosition());
 
-			if(dbdeed.getPlayerName().equals(playerName) && dbdeed.getHousingCount() == 0) {
+            boolean canMortgage = checkSimilarPropertyHousing(gameId, playerName, deed);
+			if(dbdeed.getPlayerName().equals(playerName) && dbdeed.getHousingCount() == 0 && canMortgage) {
 				player.setMoney(player.getMoney() + (deed.getPrice() / 2) );
 				updateToken(player);
 				dbdeed.setMortgaged(true);
@@ -1160,6 +1161,76 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 
 		return false;
 	}
+
+	private boolean checkSimilarPropertyHousing(String gameId, String playerName, Deed deed) {
+        ArrayList<Integer> positionsToCheck = getDeedPositionsList(deed.getPosition());
+        for (Integer position : positionsToCheck) {
+            DatabaseDeed tempDeed = getDatabaseDeedFromPosition(gameId, position);
+            if(tempDeed.getPlayerName().equals(playerName) && tempDeed.getHousingCount() > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private ArrayList<Integer> getDeedPositionsList(int position) {
+        ArrayList<Integer> brown = new ArrayList<>();
+        brown.add(1);
+        brown.add(3);
+
+        ArrayList<Integer> lblue = new ArrayList<>();
+        lblue.add(6);
+        lblue.add(8);
+        lblue.add(9);
+
+        ArrayList<Integer> purple = new ArrayList<>();
+        purple.add(11);
+        purple.add(13);
+        purple.add(14);
+
+        ArrayList<Integer> orange = new ArrayList<>();
+        orange.add(16);
+        orange.add(18);
+        orange.add(19);
+
+        ArrayList<Integer> red = new ArrayList<>();
+        red.add(21);
+        red.add(23);
+        red.add(24);
+
+        ArrayList<Integer> yellow = new ArrayList<>();
+        yellow.add(26);
+        yellow.add(27);
+        yellow.add(29);
+
+        ArrayList<Integer> green = new ArrayList<>();
+        green.add(31);
+        green.add(32);
+        green.add(34);
+
+        ArrayList<Integer> blue = new ArrayList<>();
+        blue.add(37);
+        blue.add(39);
+
+        if (brown.contains(position))
+            return brown;
+        if (lblue.contains(position))
+            return lblue;
+        if (purple.contains(position))
+            return purple;
+        if (orange.contains(position))
+            return orange;
+        if (red.contains(position))
+            return red;
+        if (yellow.contains(position))
+            return yellow;
+        if (green.contains(position))
+            return green;
+        if (blue.contains(position))
+            return blue;
+
+        return new ArrayList<>();
+    }
 
 	@Override
 	public Boolean unmortgage(String gameId, String playerName, String deedName) {
