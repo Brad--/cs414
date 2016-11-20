@@ -760,6 +760,25 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		updateDeedByTokenAndAlternatePosition(currentPlayer, bidResult.getPosition());
 		currentPlayer.setMoney(currentPlayer.getMoney() - bidResult.getBidAmount());
 		updateToken(currentPlayer);
+		deleteOldBids(gameId);
+	}
+	
+	private void deleteOldBids(String gameId) {
+		String sql = "DELETE FROM deedBid WHERE gameId=?";
+		
+		try {
+			Connection conn = getNewConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, gameId);
+			
+			ps.executeUpdate();
+			
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
