@@ -30,7 +30,7 @@ public interface GameService extends RemoteService {
 
 	void updateToken(Token token);
 
-	void deleteToken(Token token);
+	void deleteToken(String gameId, Token token);
 
 	Boolean checkForCardSpot(String gameId, String name) throws Exception;
 
