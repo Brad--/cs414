@@ -69,6 +69,7 @@ public class DeedsDisplayPanel extends FlexTable {
 					else {
 						mortgageButtonString = "Mortgage property";
 					}
+
 					Button mortgageButton = new Button(mortgageButtonString);
 					mortgageButton.addClickHandler(new ClickHandler() {
 

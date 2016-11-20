@@ -89,4 +89,6 @@ public interface GameServiceAsync {
 	void updateTrade(Trade trade, AsyncCallback<Void> callback);
 	
 	void getTrade(int tradeId, AsyncCallback<Trade> callback);
+	
+	void mortgageProperty(String gameId, String playerName, String deedName, AsyncCallback<Boolean> callback);
 }
