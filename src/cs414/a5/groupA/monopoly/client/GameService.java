@@ -2,11 +2,11 @@ package cs414.a5.groupA.monopoly.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import cs414.a5.groupA.monopoly.shared.BidResult;
 import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
@@ -84,7 +84,7 @@ public interface GameService extends RemoteService {
 
 	Integer checkIfPlayerNeedsToBid(String gameId, String playerName);
 
-	String checkAndWaitForBiddingToEndAndRespond(String gameId, int position) throws Exception;
+	BidResult checkAndWaitForBiddingToEndAndRespond(String gameId, int position) throws Exception;
 
 	void updateBidOnDeed(String gameId, int position, String playerName, int playerBid) throws Exception;
 
@@ -95,4 +95,6 @@ public interface GameService extends RemoteService {
 	void updateTrade(Trade trade);
 
 	Trade getTrade(int tradeId);
+	
+	void buyPropertyFromBid(String gameId, BidResult bidResult) throws Exception;
 }

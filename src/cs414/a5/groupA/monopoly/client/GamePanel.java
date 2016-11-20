@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import cs414.a5.groupA.monopoly.shared.BidResult;
 import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
 import cs414.a5.groupA.monopoly.shared.Token;
@@ -507,7 +506,7 @@ public class GamePanel extends BasePanel {
 										final Timer timer = new Timer() {
 											@Override
 											public void run() {
-												getGameService().checkAndWaitForBiddingToEndAndRespond(getGameId(), positionResult, new AsyncCallback<String>() {
+												getGameService().checkAndWaitForBiddingToEndAndRespond(getGameId(), positionResult, new AsyncCallback<BidResult>() {
 		
 													@Override
 													public void onFailure(Throwable caught) {
@@ -516,10 +515,25 @@ public class GamePanel extends BasePanel {
 													}
 		
 													@Override
-													public void onSuccess(String bidResult) {
+													public void onSuccess(BidResult bidResult) {
 														if(bidResult != null) {
+															if(bidResult.getBidWinnerName() != null && getPlayerName().equals(bidResult.getBidWinnerName())) {
+															getGameService().buyPropertyFromBid(gameId, bidResult, new AsyncCallback<Void>(){
+
+																@Override
+																public void onFailure(Throwable caught) {
+																	// TODO Auto-generated method stub
+																	
+																}
+
+																@Override
+																public void onSuccess(Void result) {
+																	// TODO Auto-generated method stub
+																	
+																}});
+															}
 															waitingAlert.hide();
-															AlertPopup resultAlert = new AlertPopup(bidResult);
+															AlertPopup resultAlert = new AlertPopup(bidResult.getMessage());
 															setCurrentlyBidding(false);
 															cancel();
 														}

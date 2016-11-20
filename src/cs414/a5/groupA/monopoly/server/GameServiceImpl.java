@@ -18,6 +18,7 @@ import java.util.Set;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import cs414.a5.groupA.monopoly.client.GameService;
+import cs414.a5.groupA.monopoly.shared.BidResult;
 import cs414.a5.groupA.monopoly.shared.DatabaseDeed;
 import cs414.a5.groupA.monopoly.shared.DeedBid;
 import cs414.a5.groupA.monopoly.shared.DeedSpotOptions;
@@ -753,18 +754,12 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return response;
 	}
 	
-	private boolean buyPropertyFromBid(String gameId, String name, int position) throws Exception {
-		boolean purchased = false;
-		Token currentPlayer = getTokenByGameIdAndName(gameId, name);
-		Deed tempDeed = new Deed(position);
-		if (currentPlayer.getMoney() > tempDeed.getPrice()) {
-			updateDeedByTokenAndAlternatePosition(currentPlayer, position);
-			currentPlayer.setMoney(currentPlayer.getMoney() - tempDeed.getPrice());
-			purchased = true;
-			updateToken(currentPlayer);
-		}
-		
-		return purchased;
+	@Override
+	public void buyPropertyFromBid(String gameId, BidResult bidResult) throws Exception {
+		Token currentPlayer = getTokenByGameIdAndName(gameId, bidResult.getBidWinnerName());
+		updateDeedByTokenAndAlternatePosition(currentPlayer, bidResult.getPosition());
+		currentPlayer.setMoney(currentPlayer.getMoney() - bidResult.getBidAmount());
+		updateToken(currentPlayer);
 	}
 
 	@Override
@@ -836,7 +831,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		DatabaseDeed deed = getDatabaseDeedFromPosition(gameId, position);
 		int multiplier =1;
 		if (deed.getPropertyGroup().equals("RAILROAD")){
-			multiplier = (int) Math.pow(2.0, (double)checkNumberOfRailRoads(gameId, deed.getDeedName(), deed.getPlayerName())-1);
+			multiplier = (int) Math.pow(2.0, (double)checkNumberOfRailRoads(deed.getPlayerName(), deed.getDeedName(), gameId)-1);
 		}
 		else if (checkForMonopoly(deed.getPlayerName(), deed.getDeedName(), gameId) && deed.getHousingCount() == 0){
 			multiplier =2;
@@ -1400,31 +1395,36 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 	
 	@Override
-	public String checkAndWaitForBiddingToEndAndRespond(String gameId, int position) throws Exception{
-		String response = null;
+	public BidResult checkAndWaitForBiddingToEndAndRespond(String gameId, int position) throws Exception{
+		BidResult result = null;
 		try {
 			ArrayList<DeedBid> deedBids = getBids(gameId, position);
 			if(allBidsIn(deedBids)) {
+				result = new BidResult();
 				if(hasValidBid(deedBids)) {
-					String bidWinner = getBidWinner(deedBids);
-					if(bidWinner == null) {
-						response = "There was a tie, so no one won the bid.";
+					BidResult winnerData = getBidWinner(deedBids);
+					if(winnerData == null) {
+						result.setMessage("There was a tie, so no one won the bid.");
 					} else {
-						boolean successfullyBought = buyPropertyFromBid(gameId, bidWinner, position);
-						if(successfullyBought) {
-							response = bidWinner + " won the bid.";
+						String winnerName = winnerData.getBidWinnerName();
+						if(winnerName == null) {
+							result.setMessage("Everyone bid more than the money they have, so no one won the bid");
 						} else {
-							response = bidWinner + " did not have enough money, so it was not sold.";
+							result.setBidWinnerName(winnerName);
+							result.setPosition(position);
+							result.setBidAmount(winnerData.getBidAmount());
+							result.setMessage(winnerName + " won the bid.");
 						}
 					}
 				} else {
-					response = "No one bid for this property, so it was not sold.";
+					result.setMessage("No one bid for this property, so it was not sold.");
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return response;
+		
+		return result;
 	}
 	
 	public boolean allBidsIn(ArrayList<DeedBid> deedBids) {
@@ -1447,19 +1447,31 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 		return false;
 	}
 	
-	public String getBidWinner(ArrayList<DeedBid> deedBids) {
+	public BidResult getBidWinner(ArrayList<DeedBid> deedBids) {
 		int highestBid = 0;
 		String bidWinner = null;
+		BidResult bidResult = null;
 		for(DeedBid deedBid : deedBids) {
 			if(deedBid.getPlayerBid() > highestBid) {
-				highestBid = deedBid.getPlayerBid();
-				bidWinner = deedBid.getPlayerName();
+				Token token = null;
+				try {
+					token = getTokenByGameIdAndName(deedBid.getGameId(), deedBid.getPlayerName());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if(token != null && token.getMoney() - deedBid.getPlayerBid() >= 0) {
+					highestBid = deedBid.getPlayerBid();
+					bidWinner = deedBid.getPlayerName();
+				}
 			} else if (deedBid.getPlayerBid() == highestBid) {
 				return null;
 			}
 		}
+		bidResult = new BidResult();
+		bidResult.setBidAmount(highestBid);
+		bidResult.setBidWinnerName(bidWinner);
 			
-		return bidWinner;
+		return bidResult;
 	}
 	
 //	@Override
