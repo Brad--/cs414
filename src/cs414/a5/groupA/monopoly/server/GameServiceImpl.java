@@ -898,6 +898,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 				String deedName = pair.getValue();
 				DatabaseDeed deed = getDatabaseDeedByName(gameId, deedName);
 				deed.setPlayerName(otherPlayer);
+				updateDeed(deed);
 			}
 			}catch (Exception e){
 				e.printStackTrace();
